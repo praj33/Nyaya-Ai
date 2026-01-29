@@ -1,0 +1,28 @@
+{
+  "compliance_rules": [
+    {
+      "rule_id": "SC_LEGAL_001",
+      "rule_description": "Legal advice must be jurisdiction-specific",
+      "compliance_check": "jurisdiction_validation",
+      "penalty_for_violation": "case_dismissal",
+      "audit_frequency": "real_time",
+      "exception_conditions": []
+    },
+    {
+      "rule_id": "SC_EVIDENCE_001",
+      "rule_description": "Evidence must meet admissibility standards",
+      "compliance_check": "evidence_admissibility_check",
+      "penalty_for_violation": "evidence_exclusion",
+      "audit_frequency": "pre_trial",
+      "exception_conditions": ["emergency_situations"]
+    },
+    {
+      "rule_id": "SC_PROCEDURAL_001",
+      "rule_description": "Legal procedures must follow proper court protocols",
+      "compliance_check": "procedural_compliance_check",
+      "penalty_for_violation": "procedural_void",
+      "audit_frequency": "continuous",
+      "exception_conditions": ["summary_proceedings"]
+    }
+  ]
+}

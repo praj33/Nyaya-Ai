@@ -1,0 +1,28 @@
+{
+  "failure_paths": [
+    {
+      "path_id": "FP_CRIM_001",
+      "description": "Criminal case dismissed due to insufficient evidence",
+      "trigger_conditions": ["evidence_score < 0.6", "eyewitness_unavailable"],
+      "remediation_steps": ["gather_additional_evidence", "seek_expert_testimony"],
+      "escalation_required": true,
+      "evidence_requirements": ["physical_evidence", "witness_statement"]
+    },
+    {
+      "path_id": "FP_CIVIL_001",
+      "description": "Civil case requires additional documentation",
+      "trigger_conditions": ["document_authenticity_questioned"],
+      "remediation_steps": ["verify_document_authenticity", "obtain_notarized_copies"],
+      "escalation_required": false,
+      "evidence_requirements": ["verified_documents", "affidavit"]
+    },
+    {
+      "path_id": "FP_CONST_001",
+      "description": "Constitutional matter requires Supreme Court precedence",
+      "trigger_conditions": ["constitutional_issue_detected", "supreme_court_precedence_needed"],
+      "remediation_steps": ["review_supreme_court_precedents", "consult_constitutional_experts"],
+      "escalation_required": true,
+      "evidence_requirements": ["precedent_cases", "constitutional_interpretation"]
+    }
+  ]
+}

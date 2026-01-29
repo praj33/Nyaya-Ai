@@ -1,0 +1,25 @@
+{
+  "evidence_readiness": [
+    {
+      "case_type": "criminal_assault",
+      "required_documents": ["police_report", "medical_records", "witness_statements"],
+      "validation_criteria": ["authenticity_verified", "chain_of_custody_maintained"],
+      "readiness_score_threshold": 0.7,
+      "blocking_issues": ["missing_key_evidence", "contaminated_evidence"]
+    },
+    {
+      "case_type": "civil_contract_dispute",
+      "required_documents": ["contract_agreement", "correspondence", "payment_records"],
+      "validation_criteria": ["signatures_verified", "dates_authenticated"],
+      "readiness_score_threshold": 0.6,
+      "blocking_issues": ["unsigned_contract", "altered_documents"]
+    },
+    {
+      "case_type": "constitutional_matter",
+      "required_documents": ["constitutional_provision", "relevant_precedents", "legal_analysis"],
+      "validation_criteria": ["supreme_court_precedent", "constitutional_expert_review"],
+      "readiness_score_threshold": 0.9,
+      "blocking_issues": ["unconstitutional_claim", "lack_of_jurisdiction"]
+    }
+  ]
+}

@@ -12,13 +12,14 @@ Nyaya AI is a sovereign-compliant multi-agent legal intelligence platform design
 
 ## 🏗️ System Architecture
 
-The Nyaya AI backend is composed of 6 core modules that work together to provide a comprehensive legal intelligence platform:
+The Nyaya AI backend is composed of 7 core modules that work together to provide a comprehensive legal intelligence platform:
 
 ### 1. API Gateway (FastAPI)
 - Entry point for all client requests
 - Handles authentication, rate limiting, and request routing
 - Provides standardized response formats
 - Implements CORS and security middleware
+- **NEW**: Integrated with sovereign enforcement engine for governance checks
 
 ### 2. Sovereign Agents
 - **BaseAgent**: Core functionality with ID, jurisdiction, and capabilities
@@ -31,18 +32,30 @@ The Nyaya AI backend is composed of 6 core modules that work together to provide
 - **Confidence Aggregator**: Combines confidence scores from multiple agents
 - **Fallback Manager**: Handles low-confidence scenarios with alternative jurisdictions
 
-### 4. RL Engine (Reinforcement Learning)
+### 4. Sovereign Enforcement Engine
+- **Enforcement Engine**: Makes deterministic governance decisions (ALLOW/SOFT_REDIRECT/BLOCK/ESCALATE)
+- **Rules Engine**: Applies constitutional, jurisdictional, safety, and compliance rules
+- **Decision Model**: Standardized decision objects with rule_id, policy_source, and reasoning
+- **Signer**: Cryptographic signing of all enforcement decisions
+
+### 5. Governed Execution Pipeline
+- **Execution Control**: Ensures all agent execution passes through enforcement
+- **Fallback Handler**: Governs fallback procedures
+- **RL Controller**: Regulates reinforcement learning updates
+
+### 6. RL Engine (Reinforcement Learning)
 - **Feedback Processor**: Receives and processes user feedback
 - **Performance Memory**: Stores agent performance metrics
 - **Reward Engine**: Computes +reward/-penalty based on feedback scores (1-5)
 
-### 5. Provenance Chain
+### 7. Provenance Chain
 - **Event Signer**: Signs all events using HMAC-SHA256
 - **Hash Chain Ledger**: Immutable chain of signed events
 - **Lineage Tracer**: Tracks request lineage and provides audit trails
 - **Nonce Manager**: Prevents replay attacks
+- **Enforcement Ledger**: Logs all enforcement decisions, agent executions, and system events
 
-### 6. Data Bridge
+### 8. Data Bridge
 - **JSON Loader**: Safely loads legal datasets without modification
 - **Validator**: Ensures data integrity and schema compliance
 - **Standard Schemas**: Section, Act, and Case objects with jurisdiction tags
@@ -55,7 +68,7 @@ The Nyaya AI backend is composed of 6 core modules that work together to provide
 ### Endpoints
 
 #### POST `/nyaya/query`
-Execute a single-jurisdiction legal query.
+Execute a single-jurisdiction legal query with sovereign enforcement.
 
 **Request Body:**
 ```json
@@ -70,7 +83,7 @@ Execute a single-jurisdiction legal query.
 }
 ```
 
-**Response:**
+**Success Response:**
 ```json
 {
   "domain": "criminal",
@@ -80,12 +93,29 @@ Execute a single-jurisdiction legal query.
   "constitutional_articles": ["Article 14", "Article 21"],
   "provenance_chain": [],
   "reasoning_trace": {},
-  "trace_id": "uuid-string"
+  "trace_id": "uuid-string",
+  "enforcement_metadata": {
+    "decision": "ALLOW",
+    "rule_id": "CONF-001",
+    "policy_source": "System Safety",
+    "governance_approved": true
+  }
+}
+```
+
+**Blocked Response:**
+```json
+{
+  "status": "blocked",
+  "reason": "governance enforced",
+  "decision": "BLOCK",
+  "trace_proof": { /* cryptographic proof */ },
+  "enforcement_metadata": { /* enforcement decision details */ }
 }
 ```
 
 #### POST `/nyaya/multi_jurisdiction`
-Execute parallel legal analysis across multiple jurisdictions.
+Execute parallel legal analysis across multiple jurisdictions with sovereign enforcement.
 
 **Request Body:**
 ```json
@@ -95,7 +125,7 @@ Execute parallel legal analysis across multiple jurisdictions.
 }
 ```
 
-**Response:**
+**Success Response:**
 ```json
 {
   "comparative_analysis": {
@@ -104,7 +134,24 @@ Execute parallel legal analysis across multiple jurisdictions.
     "UAE": { /* NyayaResponse */ }
   },
   "confidence": 0.78,
-  "trace_id": "uuid-string"
+  "trace_id": "uuid-string",
+  "enforcement_metadata": {
+    "decision": "ALLOW",
+    "rule_id": "GOVERNANCE-001",
+    "policy_source": "Governance",
+    "governance_approved": true
+  }
+}
+```
+
+**Blocked Response:**
+```json
+{
+  "status": "blocked",
+  "reason": "governance enforced",
+  "decision": "BLOCK",
+  "trace_proof": { /* cryptographic proof */ },
+  "enforcement_metadata": { /* enforcement decision details */ }
 }
 ```
 
@@ -120,7 +167,7 @@ Explain reasoning without re-executing agents.
 ```
 
 #### POST `/nyaya/feedback`
-Submit system-level RL feedback.
+Submit system-level RL feedback with sovereign enforcement.
 
 **Request Body:**
 ```json
@@ -132,6 +179,31 @@ Submit system-level RL feedback.
 }
 ```
 
+**Success Response:**
+```json
+{
+  "status": "recorded",
+  "trace_id": "uuid-string",
+  "message": "Feedback recorded successfully",
+  "enforcement_metadata": {
+    "decision": "ALLOW",
+    "rule_id": "GOVERNANCE-001",
+    "policy_source": "Governance",
+    "governance_approved": true
+  }
+}
+```
+
+**Blocked Response:**
+```json
+{
+  "status": "blocked",
+  "reason": "governance enforced",
+  "decision": "BLOCK",
+  "trace_proof": { /* cryptographic proof */ },
+  "enforcement_metadata": { /* enforcement decision details */ }
+}
+```
 #### GET `/nyaya/trace/{trace_id}`
 Get full sovereign audit trail.
 
@@ -178,6 +250,12 @@ All events in the system are signed using HMAC-SHA256 with a configurable secret
 - Integrity verification
 - Audit trail authenticity
 
+### Enforcement Decision Signing
+All enforcement decisions are cryptographically signed to ensure:
+- Authenticity of governance decisions
+- Tamper-proof approval/rejection records
+- Verifiable compliance with sovereignty rules
+
 ### Hash Chain
 The provenance chain uses a linked-list structure where each event contains:
 - Index in the chain
@@ -185,6 +263,14 @@ The provenance chain uses a linked-list structure where each event contains:
 - Event hash (SHA256 of the signed event)
 - Previous event hash (creating the chain)
 - Signed event data
+
+### Enforcement Ledger
+The sovereign enforcement ledger logs:
+- All enforcement decisions (ALLOW, SOFT_REDIRECT, BLOCK, ESCALATE)
+- Agent executions with governance approval
+- Routing decisions with compliance verification
+- RL updates with safety checks
+- Refusals and escalations with justification
 
 ### Nonce Protection
 A nonce system prevents replay attacks by ensuring each request has a unique, one-time use token.
@@ -195,6 +281,8 @@ Full audit trails can be retrieved using trace IDs, providing complete visibilit
 - Jurisdiction transitions
 - Event signatures
 - Chain integrity verification
+- Enforcement approvals and rejections
+- Governance compliance verification
 
 ## 🎯 RL Engine Explanation
 
@@ -266,9 +354,10 @@ The Postman collection includes all endpoints with sample payloads and headers.
 ### What Future Engineers Must NOT Break
 - **Sovereign Compliance**: Never remove event signing or hash chaining
 - **Provenance Chain**: Maintain immutable audit trail
+- **Enforcement Engine**: Preserve all governance controls and deterministic decisions
 - **API Contracts**: Keep backward compatibility for all endpoints
 - **Data Bridge**: Preserve original JSON files, only normalize
-- **Security**: Never bypass nonce validation or signature verification
+- **Security**: Never bypass nonce validation, signature verification, or enforcement checks
 
 ## 📊 System Validation
 
@@ -278,6 +367,8 @@ The system has been validated to ensure:
 - ✅ Provenance chain validates correctly
 - ✅ Trace retrieval works as expected
 - ✅ RL feedback emits events properly
+- ✅ Enforcement engine blocks/governs requests as designed
+- ✅ All governance decisions are logged with cryptographic proof
 - ✅ Clean folder structure maintained
 - ✅ No code duplication
 - ✅ No unnecessary changes made

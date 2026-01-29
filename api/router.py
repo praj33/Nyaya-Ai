@@ -16,6 +16,19 @@ from rl_engine.feedback_api import FeedbackAPI
 from provenance_chain.lineage_tracer import tracer
 from provenance_chain.hash_chain_ledger import ledger
 from provenance_chain.event_signer import signer
+from enforcement_engine.engine import (
+    EnforcementSignal,
+    get_enforcement_response,
+    is_execution_permitted
+)
+from enforcement_provenance.ledger import (
+    log_enforcement_decision,
+    log_routing_decision,
+    log_agent_execution,
+    log_rl_update,
+    log_refusal_or_escalation
+)
+from governed_execution.pipeline import execute_governed_agent
 
 router = APIRouter(prefix="/nyaya", tags=["nyaya"])
 
@@ -38,7 +51,7 @@ async def query_legal(
     nonce: str = Depends(validate_nonce),
     background_tasks: BackgroundTasks = None
 ):
-    """Execute a single-jurisdiction legal query."""
+    """Execute a single-jurisdiction legal query with sovereign enforcement."""
     try:
         # Emit query received event
         background_tasks.add_task(
@@ -56,6 +69,41 @@ async def query_legal(
 
         target_jurisdiction = routing_result["target_jurisdiction"]
         target_agent_id = routing_result["target_agent"]
+        
+        # Log routing decision to provenance
+        routing_details = {
+            "query": request.query,
+            "jurisdiction_hint": request.jurisdiction_hint,
+            "domain_hint": request.domain_hint,
+            "target_jurisdiction": target_jurisdiction,
+            "target_agent": target_agent_id
+        }
+        log_routing_decision(trace_id, routing_details)
+
+        # Create enforcement signal based on routing result
+        enforcement_signal = EnforcementSignal(
+            case_id=trace_id,
+            country=target_jurisdiction,
+            domain=request.domain_hint or "general",
+            procedure_id="query_procedure",
+            original_confidence=routing_result.get("confidence", 0.5),
+            user_request=request.query,
+            jurisdiction_routed_to=target_jurisdiction,
+            trace_id=trace_id
+        )
+        
+        # Check if execution is permitted by enforcement engine
+        if not is_execution_permitted(enforcement_signal):
+            # Log refusal to provenance
+            refusal_details = {
+                "reason": "enforcement_blocked",
+                "query": request.query,
+                "target_jurisdiction": target_jurisdiction
+            }
+            log_refusal_or_escalation(trace_id, refusal_details)
+            
+            # Return governed response with enforcement proof
+            return get_enforcement_response(enforcement_signal)
 
         # Step 2: Route to appropriate LegalAgent
         if target_jurisdiction not in agents:
@@ -68,14 +116,46 @@ async def query_legal(
                 ).dict()
             )
 
+        # Execute agent through governed pipeline
         agent = agents[target_jurisdiction]
-        agent_result = await agent.process({
+        def execute_agent(context):
+            return agent.process({
+                "query": context["query"],
+                "trace_id": context["trace_id"]
+            })
+            
+        agent_context = {
             "query": request.query,
-            "trace_id": trace_id
-        })
+            "trace_id": trace_id,
+            "case_id": trace_id,
+            "country": target_jurisdiction,
+            "domain": request.domain_hint or "general",
+            "procedure_id": "legal_agent_processing",
+            "original_confidence": routing_result.get("confidence", 0.5),
+            "user_request": request.query,
+            "jurisdiction_routed_to": target_jurisdiction
+        }
+        
+        agent_result = execute_governed_agent(execute_agent, agent_context, trace_id)
+        
+        # Log agent execution to provenance
+        execution_details = {
+            "agent_id": agent.agent_id,
+            "jurisdiction": target_jurisdiction,
+            "query_processed": request.query[:100] + "..." if len(request.query) > 100 else request.query
+        }
+        log_agent_execution(trace_id, execution_details)
 
-        # Step 3: Collect confidence and build response
-        confidence = agent_result.get("confidence", 0.5)
+        # Extract confidence from result (could be from governed result or direct agent result)
+        if isinstance(agent_result, dict) and "result" in agent_result:
+            # Result came from governed execution
+            actual_result = agent_result["result"]
+            confidence = actual_result.get("confidence", 0.5)
+        else:
+            # Direct agent result
+            actual_result = agent_result
+            confidence = agent_result.get("confidence", 0.5)
+            
         domain = request.domain_hint or "general"
         legal_route = [jurisdiction_router_agent.agent_id, agent.agent_id]
 
@@ -83,7 +163,7 @@ async def query_legal(
         provenance_chain = []
         reasoning_trace = {
             "routing_decision": routing_result,
-            "agent_processing": agent_result
+            "agent_processing": actual_result
         }
 
         # Emit decision explained event
@@ -94,7 +174,8 @@ async def query_legal(
             legal_route
         )
 
-        return ResponseBuilder.build_nyaya_response(
+        # Build final response
+        response = ResponseBuilder.build_nyaya_response(
             domain=domain,
             jurisdiction=target_jurisdiction,
             confidence=confidence,
@@ -103,6 +184,15 @@ async def query_legal(
             provenance_chain=provenance_chain,
             reasoning_trace=reasoning_trace
         )
+        
+        # If agent result had enforcement metadata, merge it
+        if isinstance(agent_result, dict):
+            if "enforcement_metadata" in agent_result:
+                response.enforcement_metadata = agent_result["enforcement_metadata"]
+            if "trace_proof" in agent_result:
+                response.provenance_chain = [agent_result["trace_proof"]]
+
+        return response
 
     except Exception as e:
         raise HTTPException(
@@ -121,7 +211,7 @@ async def multi_jurisdiction_query(
     nonce: str = Depends(validate_nonce),
     background_tasks: BackgroundTasks = None
 ):
-    """Execute parallel legal analysis across multiple jurisdictions."""
+    """Execute parallel legal analysis across multiple jurisdictions with sovereign enforcement."""
     try:
         # Emit query received event
         background_tasks.add_task(
@@ -133,34 +223,77 @@ async def multi_jurisdiction_query(
         comparative_analysis = {}
         confidences = []
 
-        # Execute agents in parallel
-        tasks = []
+        # Execute agents in parallel with enforcement checks
         for jurisdiction in request.jurisdictions:
-            if jurisdiction.value not in agents:
+            jur_value = jurisdiction.value
+            if jur_value not in agents:
                 continue
-            agent = agents[jurisdiction.value]
-            task = agent.process({
+            
+            # Create enforcement signal for this jurisdiction
+            enforcement_signal = EnforcementSignal(
+                case_id=f"{trace_id}_{jur_value}",
+                country=jur_value,
+                domain="multi",
+                procedure_id="multi_jurisdiction_query",
+                original_confidence=0.5,
+                user_request=request.query,
+                jurisdiction_routed_to=jur_value,
+                trace_id=f"{trace_id}_{jur_value}"
+            )
+            
+            # Check if execution is permitted by enforcement engine
+            if not is_execution_permitted(enforcement_signal):
+                # Log refusal to provenance
+                refusal_details = {
+                    "reason": "enforcement_blocked",
+                    "query": request.query,
+                    "target_jurisdiction": jur_value
+                }
+                log_refusal_or_escalation(f"{trace_id}_{jur_value}", refusal_details)
+                
+                # Skip this jurisdiction if enforcement blocks it
+                continue
+
+            agent = agents[jur_value]
+            
+            # Execute agent through governed pipeline
+            def execute_agent(context):
+                return agent.process({
+                    "query": context["query"],
+                    "trace_id": context["trace_id"]
+                })
+                
+            agent_context = {
                 "query": request.query,
-                "trace_id": f"{trace_id}_{jurisdiction.value.lower()}"
-            })
-            tasks.append((jurisdiction.value, task))
+                "trace_id": f"{trace_id}_{jur_value}",
+                "case_id": f"{trace_id}_{jur_value}",
+                "country": jur_value,
+                "domain": "multi",
+                "procedure_id": "legal_agent_processing",
+                "original_confidence": 0.5,
+                "user_request": request.query,
+                "jurisdiction_routed_to": jur_value
+            }
+            
+            agent_result = execute_governed_agent(execute_agent, agent_context, f"{trace_id}_{jur_value}")
+            
+            # Log agent execution to provenance
+            execution_details = {
+                "agent_id": agent.agent_id,
+                "jurisdiction": jur_value,
+                "query_processed": request.query[:100] + "..." if len(request.query) > 100 else request.query
+            }
+            log_agent_execution(f"{trace_id}_{jur_value}", execution_details)
 
-        # Wait for all results
-        results = await asyncio.gather(*[task for _, task in tasks], return_exceptions=True)
-
-        for i, (jurisdiction, _) in enumerate(tasks):
-            result = results[i]
-            if isinstance(result, Exception):
-                # Handle agent failure gracefully
-                confidence = 0.1
-                legal_route = ["failed"]
-                provenance_chain = []
-                reasoning_trace = {"error": str(result)}
+            # Extract result and confidence
+            if isinstance(agent_result, dict) and "result" in agent_result:
+                # Result came from governed execution
+                actual_result = agent_result["result"]
+                confidence = actual_result.get("confidence", 0.5)
             else:
-                confidence = result.get("confidence", 0.5)
-                legal_route = [agents[jurisdiction].agent_id]
-                provenance_chain = []
-                reasoning_trace = result
+                # Direct agent result
+                actual_result = agent_result
+                confidence = agent_result.get("confidence", 0.5)
 
             confidences.append(confidence)
 
@@ -168,10 +301,10 @@ async def multi_jurisdiction_query(
                 domain="multi",
                 jurisdiction=jurisdiction,
                 confidence=confidence,
-                legal_route=legal_route,
+                legal_route=[agents[jur_value].agent_id],
                 trace_id=f"{trace_id}_{jurisdiction.lower()}",
-                provenance_chain=provenance_chain,
-                reasoning_trace=reasoning_trace
+                provenance_chain=[],
+                reasoning_trace=actual_result
             )
 
         # Calculate aggregate confidence (mean)
@@ -222,15 +355,53 @@ async def submit_feedback(
     nonce: str = Depends(validate_nonce),
     background_tasks: BackgroundTasks = None
 ):
-    """Submit system-level RL feedback."""
+    """Submit system-level RL feedback with sovereign enforcement."""
     try:
-        # Forward to RL engine
-        feedback_result = feedback_api.receive_feedback({
-            "trace_id": request.trace_id,
-            "score": request.rating,
-            "nonce": nonce,
-            "comment": request.comment
-        })
+        # Create enforcement signal for feedback
+        enforcement_signal = EnforcementSignal(
+            case_id=request.trace_id,
+            country="global",
+            domain="feedback",
+            procedure_id="feedback_submission",
+            original_confidence=0.5,
+            user_request=f"Rating: {request.rating}, Type: {request.feedback_type}",
+            jurisdiction_routed_to="global",
+            trace_id=request.trace_id,
+            user_feedback="positive" if request.rating >= 4 else "negative" if request.rating <= 2 else "neutral",
+            outcome_tag="feedback_submitted"
+        )
+        
+        # Check if RL update is permitted by enforcement engine
+        rl_permitted = is_execution_permitted(enforcement_signal)
+        
+        if rl_permitted:
+            # Forward to RL engine
+            feedback_result = feedback_api.receive_feedback({
+                "trace_id": request.trace_id,
+                "score": request.rating,
+                "nonce": nonce,
+                "comment": request.comment
+            })
+            
+            # Log RL update to provenance
+            rl_details = {
+                "trace_id": request.trace_id,
+                "rating": request.rating,
+                "feedback_type": request.feedback_type.value,
+                "comment": request.comment
+            }
+            log_rl_update(request.trace_id, rl_details)
+        else:
+            # Log refusal to provenance
+            refusal_details = {
+                "reason": "enforcement_blocked_rl",
+                "trace_id": request.trace_id,
+                "rating": request.rating
+            }
+            log_refusal_or_escalation(request.trace_id, refusal_details)
+            
+            # Return governed response with enforcement proof
+            return get_enforcement_response(enforcement_signal)
 
         # Emit feedback received event
         background_tasks.add_task(
