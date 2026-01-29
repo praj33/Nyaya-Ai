@@ -10,7 +10,7 @@ from provenance_chain.event_signer import signer
 class ResponseBuilder:
     """Builds standardized responses for the Nyaya API Gateway."""
 
-    @staticmethod  
+    @staticmethod   
     def build_nyaya_response(
         domain: str,
         jurisdiction: str,

@@ -28,5 +28,34 @@
       },
       "timestamp": "2025-12-06T11:50:57.141382"
     }
-  ]
+  ],
+  "learning_records": {
+    "IN:criminal:ipc_378": {
+      "country": "IN",
+      "domain": "criminal",
+      "procedure_id": "ipc_378",
+      "aggregate_confidence_delta": -0.013943839725,
+      "success_count": 1,
+      "failure_count": 1,
+      "stability_factor": 0.55,
+      "last_updated": "2026-01-29T06:47:19.571301",
+      "history": [
+        {
+          "case_id": "case_123",
+          "confidence_before": 0.6,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": 1234567890
+        },
+        {
+          "case_id": "case_124",
+          "confidence_before": 0.6043649999999999,
+          "user_feedback": "negative",
+          "outcome_tag": "wrong",
+          "timestamp": 1234567891
+        }
+      ]
+    }
+  },
+  "aggregates": {}
 }
