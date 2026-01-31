@@ -34,11 +34,11 @@
       "country": "IN",
       "domain": "criminal",
       "procedure_id": "ipc_378",
-      "aggregate_confidence_delta": -0.013943839725,
-      "success_count": 1,
+      "aggregate_confidence_delta": -0.011746647738750001,
+      "success_count": 2,
       "failure_count": 1,
-      "stability_factor": 0.55,
-      "last_updated": "2026-01-29T06:47:19.571301",
+      "stability_factor": 0.7,
+      "last_updated": "2026-01-31T07:31:20.745426",
       "history": [
         {
           "case_id": "case_123",
@@ -53,6 +53,174 @@
           "user_feedback": "negative",
           "outcome_tag": "wrong",
           "timestamp": 1234567891
+        },
+        {
+          "case_id": "test_case",
+          "confidence_before": 0.7,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T07:31:20.745426",
+          "confidence_delta": 0.03
+        }
+      ]
+    },
+    "IN:criminal:test_proc": {
+      "country": "IN",
+      "domain": "criminal",
+      "procedure_id": "test_proc",
+      "aggregate_confidence_delta": 0.0015,
+      "success_count": 1,
+      "failure_count": 0,
+      "stability_factor": 1.0,
+      "last_updated": "2026-01-31T07:57:25.313258",
+      "history": [
+        {
+          "case_id": "test_pos",
+          "confidence_before": 0.9,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": "2024-01-01T00:00:00",
+          "confidence_delta": 0.03
+        }
+      ]
+    },
+    "UK:civil:contract_test": {
+      "country": "UK",
+      "domain": "civil",
+      "procedure_id": "contract_test",
+      "aggregate_confidence_delta": 0.0015,
+      "success_count": 1,
+      "failure_count": 0,
+      "stability_factor": 1.0,
+      "last_updated": "2026-01-31T07:59:10.470659",
+      "history": [
+        {
+          "case_id": "noise_test_0",
+          "confidence_before": 0.5,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T07:59:10.470659",
+          "confidence_delta": 0.03
+        }
+      ]
+    },
+    "IN:criminal:poisoning_test": {
+      "country": "IN",
+      "domain": "criminal",
+      "procedure_id": "poisoning_test",
+      "aggregate_confidence_delta": -0.00030000000000000003,
+      "success_count": 0,
+      "failure_count": 1,
+      "stability_factor": 0.1,
+      "last_updated": "2026-01-31T07:59:10.478726",
+      "history": [
+        {
+          "case_id": "poison_0",
+          "confidence_before": 0.7,
+          "user_feedback": "negative",
+          "outcome_tag": "wrong",
+          "timestamp": "2026-01-31T07:59:10.478726",
+          "confidence_delta": -0.03
+        }
+      ]
+    },
+    "UAE:commercial:company_law": {
+      "country": "UAE",
+      "domain": "commercial",
+      "procedure_id": "company_law",
+      "aggregate_confidence_delta": -0.00030000000000000003,
+      "success_count": 0,
+      "failure_count": 1,
+      "stability_factor": 0.1,
+      "last_updated": "2026-01-31T07:59:10.485796",
+      "history": [
+        {
+          "case_id": "truth_test_1",
+          "confidence_before": 0.6,
+          "user_feedback": "negative",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T07:59:10.485796",
+          "confidence_delta": -0.03
+        }
+      ]
+    },
+    "IN:constitutional:fundamental_rights": {
+      "country": "IN",
+      "domain": "constitutional",
+      "procedure_id": "fundamental_rights",
+      "aggregate_confidence_delta": 0.0015,
+      "success_count": 1,
+      "failure_count": 0,
+      "stability_factor": 1.0,
+      "last_updated": "2026-01-31T07:59:10.492410",
+      "history": [
+        {
+          "case_id": "drift_test_initial",
+          "confidence_before": 0.8,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T07:59:10.491412",
+          "confidence_delta": 0.03
+        }
+      ]
+    },
+    "IN:criminal:bypass_test": {
+      "country": "IN",
+      "domain": "criminal",
+      "procedure_id": "bypass_test",
+      "aggregate_confidence_delta": 0.0015,
+      "success_count": 1,
+      "failure_count": 0,
+      "stability_factor": 1.0,
+      "last_updated": "2026-01-31T07:59:10.497930",
+      "history": [
+        {
+          "case_id": "bypass_test",
+          "confidence_before": 0.5,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T07:59:10.497930",
+          "confidence_delta": 0.03
+        }
+      ]
+    },
+    "IN:criminal:ipc_section_302": {
+      "country": "IN",
+      "domain": "criminal",
+      "procedure_id": "ipc_section_302",
+      "aggregate_confidence_delta": 0.0015,
+      "success_count": 1,
+      "failure_count": 0,
+      "stability_factor": 1.0,
+      "last_updated": "2026-01-31T08:00:16.396504",
+      "history": [
+        {
+          "case_id": "test_case",
+          "confidence_before": 0.75,
+          "user_feedback": "positive",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T13:30:16.379927",
+          "confidence_delta": 0.03
+        }
+      ]
+    },
+    "UK:civil:contract_law": {
+      "country": "UK",
+      "domain": "civil",
+      "procedure_id": "contract_law",
+      "aggregate_confidence_delta": -0.00014550000000000004,
+      "success_count": 0,
+      "failure_count": 1,
+      "stability_factor": 0.1,
+      "last_updated": "2026-01-31T08:00:16.400502",
+      "history": [
+        {
+          "case_id": "test_case",
+          "confidence_before": 0.6,
+          "user_feedback": "negative",
+          "outcome_tag": "resolved",
+          "timestamp": "2026-01-31T13:30:16.400502",
+          "confidence_delta": -0.014550000000000002
         }
       ]
     }
