@@ -48,6 +48,13 @@ async def add_trace_id_middleware(request: Request, call_next):
 # Include routers
 app.include_router(router)
 
+# Include debug router (for development only)
+try:
+    from api.debug_router import debug_router
+    app.include_router(debug_router)
+except ImportError:
+    pass  # Debug router not available
+
 # Health check endpoint
 @app.get("/health")
 async def health_check():

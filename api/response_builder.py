@@ -6,6 +6,7 @@ from api.schemas import (
 from provenance_chain.lineage_tracer import tracer
 from provenance_chain.hash_chain_ledger import ledger
 from provenance_chain.event_signer import signer
+from enforcement_provenance.ledger import get_trace_history as get_enforcement_trace_history
 
 class ResponseBuilder:
     """Builds standardized responses for the Nyaya API Gateway."""
@@ -72,7 +73,8 @@ class ResponseBuilder:
     def build_feedback_response(
         status: str,
         trace_id: str,
-        message: str
+        message: str,
+        enforcement_data: Dict[str, Any] = None
     ) -> FeedbackResponse:
         """Build a feedback response."""
         return FeedbackResponse(
@@ -84,31 +86,28 @@ class ResponseBuilder:
     @staticmethod
     def build_trace_response(trace_id: str) -> TraceResponse:
         """Build a full trace audit response."""
-        # Get event chain from ledger
-        event_chain = ledger.get_all_entries()
-
-        # Filter events for this trace_id
-        trace_events = [
-            event for event in event_chain
-            if event.get("signed_event", {}).get("trace_id") == trace_id
-        ]
-
+        # Get event chain from enforcement ledger (this contains the actual trace data)
+        trace_events = get_enforcement_trace_history(trace_id)
+            
+        if not trace_events:
+            raise ValueError(f"No trace events found for trace_id: {trace_id}")
+            
         # Build agent routing tree
-        agent_routing_tree = ResponseBuilder._build_agent_routing_tree(trace_events)
-
+        agent_routing_tree = ResponseBuilder._build_agent_routing_tree_from_enforcement(trace_events)
+            
         # Get jurisdiction hops
-        jurisdiction_hops = ResponseBuilder._extract_jurisdiction_hops(trace_events)
-
+        jurisdiction_hops = ResponseBuilder._extract_jurisdiction_hops_from_enforcement(trace_events)
+            
         # Placeholder for RL reward snapshot
         rl_reward_snapshot = {"placeholder": "RL data would be fetched here"}
-
+            
         # Generate context fingerprint (placeholder)
         context_fingerprint = "placeholder_fingerprint"
-
+            
         # Check nonce and signature verification
-        nonce_verification = ResponseBuilder._verify_nonces(trace_events)
-        signature_verification = ResponseBuilder._verify_signatures(trace_events)
-
+        nonce_verification = ResponseBuilder._verify_nonces_enforcement(trace_events)
+        signature_verification = ResponseBuilder._verify_signatures_enforcement(trace_events)
+            
         return TraceResponse(
             trace_id=trace_id,
             event_chain=trace_events,
@@ -172,39 +171,76 @@ class ResponseBuilder:
         return ["Article 14", "Article 19", "Article 21"]  # Example articles
 
     @staticmethod
-    def _build_agent_routing_tree(events: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """Build hierarchical tree of agent routing decisions."""
+    def _build_agent_routing_tree_from_enforcement(events: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Build hierarchical tree of agent routing decisions from enforcement ledger."""
         tree = {"root": "api_gateway", "children": {}}
-
+            
         for event in events:
-            agent_id = event.get("agent_id", "unknown")
-            if agent_id not in tree["children"]:
-                tree["children"][agent_id] = {
-                    "jurisdiction": event.get("jurisdiction"),
-                    "events": []
-                }
-            tree["children"][agent_id]["events"].append(event.get("event_name"))
-
+            event_type = event.get("type", "unknown")
+            trace_id = event.get("trace_id", "unknown")
+                
+            if event_type == "routing_decision":
+                details = event.get("routing_details", {})
+                target_jurisdiction = details.get("target_jurisdiction", "unknown")
+                target_agent = details.get("target_agent", "unknown")
+                    
+                if target_agent not in tree["children"]:
+                    tree["children"][target_agent] = {
+                        "jurisdiction": target_jurisdiction,
+                        "events": []
+                    }
+                tree["children"][target_agent]["events"].append("routing_decision")
+                    
+            elif event_type == "agent_execution":
+                details = event.get("execution_details", {})
+                agent_id = details.get("agent_id", "unknown")
+                jurisdiction = details.get("jurisdiction", "unknown")
+                    
+                if agent_id not in tree["children"]:
+                    tree["children"][agent_id] = {
+                        "jurisdiction": jurisdiction,
+                        "events": []
+                    }
+                tree["children"][agent_id]["events"].append("agent_execution")
+                    
+            elif event_type == "refusal_or_escalation":
+                if "refusal_handler" not in tree["children"]:
+                    tree["children"]["refusal_handler"] = {
+                        "jurisdiction": "global",
+                        "events": []
+                    }
+                tree["children"]["refusal_handler"]["events"].append("refusal_or_escalation")
+            
         return tree
-
+    
     @staticmethod
-    def _extract_jurisdiction_hops(events: List[Dict[str, Any]]) -> List[str]:
-        """Extract sequence of jurisdiction transitions."""
+    def _extract_jurisdiction_hops_from_enforcement(events: List[Dict[str, Any]]) -> List[str]:
+        """Extract sequence of jurisdiction transitions from enforcement ledger."""
         hops = []
         for event in events:
-            jurisdiction = event.get("jurisdiction")
-            if jurisdiction and jurisdiction not in hops:
-                hops.append(jurisdiction)
+            event_type = event.get("type")
+                
+            if event_type == "routing_decision":
+                details = event.get("routing_details", {})
+                jurisdiction = details.get("target_jurisdiction")
+                if jurisdiction and jurisdiction not in hops:
+                    hops.append(jurisdiction)
+            elif event_type == "agent_execution":
+                details = event.get("execution_details", {})
+                jurisdiction = details.get("jurisdiction")
+                if jurisdiction and jurisdiction not in hops:
+                    hops.append(jurisdiction)
+                        
         return hops
-
+    
     @staticmethod
-    def _verify_nonces(events: List[Dict[str, Any]]) -> bool:
-        """Verify nonce integrity across events."""
-        # Placeholder - would check nonce chain validity
+    def _verify_nonces_enforcement(events: List[Dict[str, Any]]) -> bool:
+        """Verify nonce integrity across enforcement events."""
+        # Placeholder - would check nonce chain validity in enforcement ledger
         return True
-
+    
     @staticmethod
-    def _verify_signatures(events: List[Dict[str, Any]]) -> bool:
-        """Verify signature integrity across events."""
-        # Placeholder - would verify HMAC signatures
+    def _verify_signatures_enforcement(events: List[Dict[str, Any]]) -> bool:
+        """Verify signature integrity across enforcement events."""
+        # Placeholder - would verify HMAC signatures in enforcement ledger
         return True

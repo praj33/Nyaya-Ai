@@ -8,7 +8,7 @@ import os
 import threading
 from datetime import datetime
 from typing import Dict, Any, List, Optional
-from ..enforcement_engine.decision_model import EnforcementResult
+from enforcement_engine.decision_model import EnforcementResult
 
 
 class EnforcementLedger:

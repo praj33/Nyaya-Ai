@@ -103,7 +103,19 @@ async def query_legal(
             log_refusal_or_escalation(trace_id, refusal_details)
             
             # Return governed response with enforcement proof
-            return get_enforcement_response(enforcement_signal)
+            # But format it to match NyayaResponse schema
+            enforcement_response = get_enforcement_response(enforcement_signal)
+            
+            # Build a proper NyayaResponse with enforcement data
+            return ResponseBuilder.build_nyaya_response(
+                domain=request.domain_hint or "general",
+                jurisdiction=target_jurisdiction,
+                confidence=0.0,  # Zero confidence for blocked requests
+                legal_route=[],
+                trace_id=trace_id,
+                provenance_chain=[],
+                reasoning_trace={"enforcement": enforcement_response}
+            )
 
         # Step 2: Route to appropriate LegalAgent
         if target_jurisdiction not in agents:
@@ -401,7 +413,15 @@ async def submit_feedback(
             log_refusal_or_escalation(request.trace_id, refusal_details)
             
             # Return governed response with enforcement proof
-            return get_enforcement_response(enforcement_signal)
+            # But format it to match FeedbackResponse schema
+            enforcement_response = get_enforcement_response(enforcement_signal)
+            
+            return ResponseBuilder.build_feedback_response(
+                status="blocked",
+                trace_id=request.trace_id,
+                message="Feedback blocked by enforcement policy",
+                enforcement_data=enforcement_response
+            )
 
         # Emit feedback received event
         background_tasks.add_task(

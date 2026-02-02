@@ -1,0 +1,1146 @@
+[
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:03:40.275251",
+    "trace_id": "9a925e51-99d5-4cba-b35f-4395b65d2b77",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "GENESIS",
+    "hash": "a2784571dbf85342a1360b1d5f8cc40308cd757e08f771ce30044c5e9f50ee4e"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:03:40.278193",
+    "trace_id": "9a925e51-99d5-4cba-b35f-4395b65d2b77",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "a2784571dbf85342a1360b1d5f8cc40308cd757e08f771ce30044c5e9f50ee4e",
+    "hash": "4184b2f6d0802593b5719982549f4f10a1acf177dbbfcb66a9be5d461d92c782"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:29:58.239724",
+    "trace_id": "50d9f29e-d784-4bc8-a58e-49a3e9d682e3",
+    "routing_details": {
+      "query": "What is the punishment for theft in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "4184b2f6d0802593b5719982549f4f10a1acf177dbbfcb66a9be5d461d92c782",
+    "hash": "3fa10d55620491390c4bed388159e437bcc4aa3b438b7139020e77f096a48fee"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:29:58.243725",
+    "trace_id": "50d9f29e-d784-4bc8-a58e-49a3e9d682e3",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What is the punishment for theft in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "3fa10d55620491390c4bed388159e437bcc4aa3b438b7139020e77f096a48fee",
+    "hash": "9b0d7985ef837e9cdf21ee5a81c39b42d2c99abce3cbdc7a1c427b73f2e60811"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:30:47.365543",
+    "trace_id": "b4d7fcd7-763d-4631-bb3f-32bfe445ae8c",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "9b0d7985ef837e9cdf21ee5a81c39b42d2c99abce3cbdc7a1c427b73f2e60811",
+    "hash": "caa643f2bed569dd3cde11cf621ba9a63a9621b5f1b68b0c126caff65d124cda"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:30:47.368440",
+    "trace_id": "b4d7fcd7-763d-4631-bb3f-32bfe445ae8c",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "caa643f2bed569dd3cde11cf621ba9a63a9621b5f1b68b0c126caff65d124cda",
+    "hash": "fd8d1b2aa4ed1d7270129b53fab13d3b0b8491cb632ca7955d8c68d2964d4575"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:34:04.442935",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "fd8d1b2aa4ed1d7270129b53fab13d3b0b8491cb632ca7955d8c68d2964d4575",
+    "hash": "ea3c5ec12dc027136a03199cc2161a50cc9e66dbfc7824b17a7afbbd972ca69c"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:35:31.571991",
+    "trace_id": "5204409d-d05a-44ab-a2ff-cfdd32cb0003",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "ea3c5ec12dc027136a03199cc2161a50cc9e66dbfc7824b17a7afbbd972ca69c",
+    "hash": "959f340810975ce6f859a3203ac21f251d69d4cbef9ac4db238fd0559611da83"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:35:31.574604",
+    "trace_id": "5204409d-d05a-44ab-a2ff-cfdd32cb0003",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "959f340810975ce6f859a3203ac21f251d69d4cbef9ac4db238fd0559611da83",
+    "hash": "695107d18277fb52b9582b9f6de35a5ef9d4f3dea349e2261bc173a2bc7b78b4"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:35:35.678167",
+    "trace_id": "5b5ab4ce-c2cb-4949-92d2-c37bf94438f6_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "695107d18277fb52b9582b9f6de35a5ef9d4f3dea349e2261bc173a2bc7b78b4",
+    "hash": "ca8b19d53fb31a2012c2148d344a6239ab3d5694901aa7a9f7b25c10a99e890d"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:35:43.912172",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "ca8b19d53fb31a2012c2148d344a6239ab3d5694901aa7a9f7b25c10a99e890d",
+    "hash": "7f6bd2345db56991511a2d7be5164fbe67d67dcb7cdaf8a4d6ad7e94ee55d29e"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:43:18.100430",
+    "trace_id": "362da45f-80db-4274-bc0d-f4faf49c8e7d",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "7f6bd2345db56991511a2d7be5164fbe67d67dcb7cdaf8a4d6ad7e94ee55d29e",
+    "hash": "edbdd513822fd80df9b4b126dbd80b04388b0a29a1271e606b7ce86b84dfe6ee"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:43:18.104482",
+    "trace_id": "362da45f-80db-4274-bc0d-f4faf49c8e7d",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "edbdd513822fd80df9b4b126dbd80b04388b0a29a1271e606b7ce86b84dfe6ee",
+    "hash": "12f9e0fce0fb699c46f07a0f747b23bbe975437fd6da89f655247b437c679ec9"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:54:21.246903",
+    "trace_id": "fda2bd78-8819-4ad6-856d-98f7af474be5",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "12f9e0fce0fb699c46f07a0f747b23bbe975437fd6da89f655247b437c679ec9",
+    "hash": "22bee7ec6105b3f3e20fe2cedd3b2dddd6e78e1a2d6e0d3232cec679b2750a21"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:54:21.247905",
+    "trace_id": "fda2bd78-8819-4ad6-856d-98f7af474be5",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "22bee7ec6105b3f3e20fe2cedd3b2dddd6e78e1a2d6e0d3232cec679b2750a21",
+    "hash": "c81fd9450be69b1573ecbfb7e1bc750d8c535d70d29c7aff21f4e5746a0e4357"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:54:25.330429",
+    "trace_id": "f42b9e91-3190-4ee2-b2ba-8b760406926b_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "c81fd9450be69b1573ecbfb7e1bc750d8c535d70d29c7aff21f4e5746a0e4357",
+    "hash": "d337c3dbcf814e3a2616688d14a10b635b86637ae4727beb0637ee1b5d618979"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:54:33.475298",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "d337c3dbcf814e3a2616688d14a10b635b86637ae4727beb0637ee1b5d618979",
+    "hash": "0e8605a2b55a70c5281aaae8f8c509862232b7003a5e2210fe7f0ae96fac4e80"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:56:57.264639",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "0e8605a2b55a70c5281aaae8f8c509862232b7003a5e2210fe7f0ae96fac4e80",
+    "hash": "ab987109bd1150313fc61569f06750e8f03535c3cfc1be7f67bed45523e7a662"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T12:57:01.432227",
+    "trace_id": "aa554c01-c68f-476d-8b67-5cd1af322b28",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "ab987109bd1150313fc61569f06750e8f03535c3cfc1be7f67bed45523e7a662",
+    "hash": "8e639e3e870aae9032746f941c8c278c44a28f7ebf17d5f145fb7bcc7e36d2f6"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:57:01.433270",
+    "trace_id": "aa554c01-c68f-476d-8b67-5cd1af322b28",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "8e639e3e870aae9032746f941c8c278c44a28f7ebf17d5f145fb7bcc7e36d2f6",
+    "hash": "24a09c08799feb5fe0ca4788c6cd9ad749ad4713074202384fbeb6ece6837b96"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:57:05.519618",
+    "trace_id": "8846dcd9-32c8-4100-ab88-61275b37c5a4_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "24a09c08799feb5fe0ca4788c6cd9ad749ad4713074202384fbeb6ece6837b96",
+    "hash": "d3d1affd571592efa43f1913403ddebae727367899902eb9e8d668809da9ffc3"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T12:57:13.665163",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "d3d1affd571592efa43f1913403ddebae727367899902eb9e8d668809da9ffc3",
+    "hash": "c98d7db5fe17e0e3f653fa950baa0ffcf9ec1f821dfeccfce2394627fde9a1a3"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T13:01:06.847355",
+    "trace_id": "6fa1e670-df5b-476d-9cd2-45288a1c83ac",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "c98d7db5fe17e0e3f653fa950baa0ffcf9ec1f821dfeccfce2394627fde9a1a3",
+    "hash": "d59cbd2514847b7fc6451870b751dc3614f9d6c4fa6107145944b417735bcd22"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T13:01:06.850343",
+    "trace_id": "6fa1e670-df5b-476d-9cd2-45288a1c83ac",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "d59cbd2514847b7fc6451870b751dc3614f9d6c4fa6107145944b417735bcd22",
+    "hash": "d127d1f6123d193823a295077047bb7faf906e2f82c5bec5bdfe66ebc7accb55"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T13:15:24.431089",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "d127d1f6123d193823a295077047bb7faf906e2f82c5bec5bdfe66ebc7accb55",
+    "hash": "d9ef23f33108a91aa53f40be19cc15ba85db6aa0a498cb5bb31158f427ad391b"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T13:15:29.588869",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "d9ef23f33108a91aa53f40be19cc15ba85db6aa0a498cb5bb31158f427ad391b",
+    "hash": "aaf1ed3cb3b8cef8c71a9af6df0024f73d580120a9ca228a402b6435009e3c1a"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T13:15:33.803923",
+    "trace_id": "ecf16c80-9d95-4f8e-9a1b-87d34efb5787",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "aaf1ed3cb3b8cef8c71a9af6df0024f73d580120a9ca228a402b6435009e3c1a",
+    "hash": "5793447a18447a6142be8766c346c34ef8b327678890fd666153f531591dead1"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T13:15:33.805309",
+    "trace_id": "ecf16c80-9d95-4f8e-9a1b-87d34efb5787",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "5793447a18447a6142be8766c346c34ef8b327678890fd666153f531591dead1",
+    "hash": "2703080b5ed266c5c0ffab35d512b4ade6f6b2e4e2601b051586c2654349687c"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:14:18.391014",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "2703080b5ed266c5c0ffab35d512b4ade6f6b2e4e2601b051586c2654349687c",
+    "hash": "8ce5ae5a98baa2f448bb0a69cc202e2d19a54c12ee8466aa44aaacac23ffe300"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:14:22.484740",
+    "trace_id": "test-trace-456",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-456",
+      "rating": 3
+    },
+    "prev_hash": "8ce5ae5a98baa2f448bb0a69cc202e2d19a54c12ee8466aa44aaacac23ffe300",
+    "hash": "0f26c2ac13274232e7d634832bf88bdd5fef9e36bb36cd0c212d96883cfab675"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:14:26.584680",
+    "trace_id": "test-trace-789",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-789",
+      "rating": 1
+    },
+    "prev_hash": "0f26c2ac13274232e7d634832bf88bdd5fef9e36bb36cd0c212d96883cfab675",
+    "hash": "18be7c3b72d9c07dcfd9aa04edd08366a2a14e5070342977922006ddbbfd132f"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:14:30.638767",
+    "trace_id": "test-trace-999",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-999",
+      "rating": 5
+    },
+    "prev_hash": "18be7c3b72d9c07dcfd9aa04edd08366a2a14e5070342977922006ddbbfd132f",
+    "hash": "a2fe8c1dd54446ed6a8794cd13094e72c4ffb5dc16891ee21b6ae3b8e7dcd4f2"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T15:14:34.857531",
+    "trace_id": "8e6ccb92-bcaf-474d-bfc7-d6cc3d25af01",
+    "routing_details": {
+      "query": "What is the punishment for theft in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "a2fe8c1dd54446ed6a8794cd13094e72c4ffb5dc16891ee21b6ae3b8e7dcd4f2",
+    "hash": "02e48d9cb8b95604fe44850622ec550a5056a73032cae17bbf91aba30bf11172"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:14:34.859457",
+    "trace_id": "8e6ccb92-bcaf-474d-bfc7-d6cc3d25af01",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What is the punishment for theft in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "02e48d9cb8b95604fe44850622ec550a5056a73032cae17bbf91aba30bf11172",
+    "hash": "0bdd5168dc0d231fb62851d052d4e7fa3d0dea1e7c023e16b4426245d752c64f"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:14:38.948101",
+    "trace_id": "75589a75-d953-4f71-8240-c294e337be2c_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Compare contract law",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "0bdd5168dc0d231fb62851d052d4e7fa3d0dea1e7c023e16b4426245d752c64f",
+    "hash": "bfd04e77d706875fa73298740a823ac7820ef5b102bbbe76a08c01b0486bfa54"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T15:15:47.457908",
+    "trace_id": "bcb24188-48e1-4300-8b43-f183c2bb982b",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "bfd04e77d706875fa73298740a823ac7820ef5b102bbbe76a08c01b0486bfa54",
+    "hash": "6bca6a408569d3397611893ea1d4d9e03f66bc7da0e0ac7d54f0146847e70d06"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:15:47.460956",
+    "trace_id": "bcb24188-48e1-4300-8b43-f183c2bb982b",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "6bca6a408569d3397611893ea1d4d9e03f66bc7da0e0ac7d54f0146847e70d06",
+    "hash": "f541af12604ce415b30fbbe967cbdd14aab714cd34b31bd0fdbf354b780d9a9f"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:15:51.567552",
+    "trace_id": "5c147521-442f-4e4e-8a07-1246edad8a8f_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "f541af12604ce415b30fbbe967cbdd14aab714cd34b31bd0fdbf354b780d9a9f",
+    "hash": "2c98d6e20a9511c32913f0cd4235c374fd91f145bd5f96a68353539a2e1511c7"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:15:59.741750",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "2c98d6e20a9511c32913f0cd4235c374fd91f145bd5f96a68353539a2e1511c7",
+    "hash": "53c29e7b9b9ad055a8ecc0f7f2ae45e276fc27d692cef9bf59b539a53e7b7108"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:16:22.017183",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "53c29e7b9b9ad055a8ecc0f7f2ae45e276fc27d692cef9bf59b539a53e7b7108",
+    "hash": "f2a26bd788ce3d2b164a383dd64cd97f149838ff0e20df48ce19b5c358939555"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T15:16:26.229543",
+    "trace_id": "5977de05-8152-431f-a4a1-23e2b080ced1",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "f2a26bd788ce3d2b164a383dd64cd97f149838ff0e20df48ce19b5c358939555",
+    "hash": "a920acc4e9b6893807f83b02c2acb2875aa2ec634a7c745cadba8e5826949442"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:16:26.234075",
+    "trace_id": "5977de05-8152-431f-a4a1-23e2b080ced1",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "a920acc4e9b6893807f83b02c2acb2875aa2ec634a7c745cadba8e5826949442",
+    "hash": "c521288512e6cd8384df41abd8cf7d0cc0df04a478070125b29d418693b069e4"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:16:30.325741",
+    "trace_id": "6060ab5d-3afd-4cd0-9267-cca3e2cf42fc_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "c521288512e6cd8384df41abd8cf7d0cc0df04a478070125b29d418693b069e4",
+    "hash": "f91642e1f65a9be2ae6f0b6994bb934447c5bf36edc35b9164338fb0d69ed4b9"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:16:38.519236",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 5
+    },
+    "prev_hash": "f91642e1f65a9be2ae6f0b6994bb934447c5bf36edc35b9164338fb0d69ed4b9",
+    "hash": "4a38be195e2f16b85a7b9a160c4b02c46183f43a32584d4aa723beb35b11aa17"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T15:29:45.909922",
+    "trace_id": "26ea8e1c-1ae0-4c67-a079-a6db225f7029",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "4a38be195e2f16b85a7b9a160c4b02c46183f43a32584d4aa723beb35b11aa17",
+    "hash": "2353727feafa95bdb61c1f35ba2f136ae8ebc56a47a1373fc417e9e27b36b8f3"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:29:45.915928",
+    "trace_id": "26ea8e1c-1ae0-4c67-a079-a6db225f7029",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "2353727feafa95bdb61c1f35ba2f136ae8ebc56a47a1373fc417e9e27b36b8f3",
+    "hash": "3801108ce350518ecf70b23714ea5116b3fbc10bafcde5bbf9f6f3fab076d67b"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T15:43:55.881896",
+    "trace_id": "dd1ed507-c65d-430a-829d-9742fb5e9abb",
+    "routing_details": {
+      "query": "test query",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "3801108ce350518ecf70b23714ea5116b3fbc10bafcde5bbf9f6f3fab076d67b",
+    "hash": "f7421153dcfaa6b35984a677bd51850343a1e1f9bdcd609301c644ad85c2283f"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:43:55.884955",
+    "trace_id": "dd1ed507-c65d-430a-829d-9742fb5e9abb",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "f7421153dcfaa6b35984a677bd51850343a1e1f9bdcd609301c644ad85c2283f",
+    "hash": "3db837c0da5f50e4b13ad21496f85bb263a1339b0093e3b91a386f45b749dcec"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T15:47:28.921876",
+    "trace_id": "aca2c0c1-f6da-42f0-b85c-f2a37ddd3aaa",
+    "routing_details": {
+      "query": "What are fundamental rights?",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "3db837c0da5f50e4b13ad21496f85bb263a1339b0093e3b91a386f45b749dcec",
+    "hash": "cc3d57966b8d780922cd4c459b2a75a17845486f7fe1b7f5dbecbff95fc2861c"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T15:47:28.925392",
+    "trace_id": "aca2c0c1-f6da-42f0-b85c-f2a37ddd3aaa",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What are fundamental rights?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "cc3d57966b8d780922cd4c459b2a75a17845486f7fe1b7f5dbecbff95fc2861c",
+    "hash": "fa71b2ccf0b66fa293a16896d80108ff08d8a875f26e4ddf02d543d6d3c600d2"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-01T16:04:33.860391",
+    "trace_id": "74569e5c-111a-424e-9abf-5fc0ffb17426",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "fa71b2ccf0b66fa293a16896d80108ff08d8a875f26e4ddf02d543d6d3c600d2",
+    "hash": "3a21cb8cc8df7cc752652f669ed0b405b28c6b33936bc790bff85f01ce32f3d5"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-01T16:04:33.870272",
+    "trace_id": "74569e5c-111a-424e-9abf-5fc0ffb17426",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "3a21cb8cc8df7cc752652f669ed0b405b28c6b33936bc790bff85f01ce32f3d5",
+    "hash": "69029963fcac8b459568cd74208f1131da5c00c3b0ee886909b1facfb58f4c0c"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:18:28.436107",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 4
+    },
+    "prev_hash": "69029963fcac8b459568cd74208f1131da5c00c3b0ee886909b1facfb58f4c0c",
+    "hash": "cf196a951724c24ba9a1699d5fc5a66b74b631818b58e4c765e1985b53db1013"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:19:45.703442",
+    "trace_id": "95b70243-4850-4d44-b751-fc1f320155dd_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What is the punishment for theft?",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "cf196a951724c24ba9a1699d5fc5a66b74b631818b58e4c765e1985b53db1013",
+    "hash": "591bc90419e11a49d2cc88e837cf548d1a904e22ded7a0dc26eb8a0c3f71774a"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:19:53.798457",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 4
+    },
+    "prev_hash": "591bc90419e11a49d2cc88e837cf548d1a904e22ded7a0dc26eb8a0c3f71774a",
+    "hash": "45326c9ae22f216deb1dd49fa5db99297c8f678cf9d5e7c80e6a7df08d575865"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:21:24.404955",
+    "trace_id": "83f1f8b4-4ea5-4d92-90a5-8d8396389a2c",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "45326c9ae22f216deb1dd49fa5db99297c8f678cf9d5e7c80e6a7df08d575865",
+    "hash": "773d37b82ad705117d85c979e38fd2263165c5690e068cb6eb0583d6152e1903"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:21:24.415338",
+    "trace_id": "83f1f8b4-4ea5-4d92-90a5-8d8396389a2c",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "773d37b82ad705117d85c979e38fd2263165c5690e068cb6eb0583d6152e1903",
+    "hash": "1806ae0ff5d51a94aa277544e8b5e4f83cfa588791456f3817936490a761e392"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:21:44.164450",
+    "trace_id": "ff059d35-1e75-4bce-97c5-17575bd36913",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "1806ae0ff5d51a94aa277544e8b5e4f83cfa588791456f3817936490a761e392",
+    "hash": "b57e28da6436dca406f21a376bf82af3c196c356d0807f9477d0c0fbde184fac"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:21:44.167078",
+    "trace_id": "ff059d35-1e75-4bce-97c5-17575bd36913",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "b57e28da6436dca406f21a376bf82af3c196c356d0807f9477d0c0fbde184fac",
+    "hash": "ebfbb159a84d054eec464af58878e5ec9edc4aea28887a6b493bac8166d074ad"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:21:50.391357",
+    "trace_id": "6c355136-7099-443f-99c9-1ec759ce790f",
+    "routing_details": {
+      "query": "Test query",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "ebfbb159a84d054eec464af58878e5ec9edc4aea28887a6b493bac8166d074ad",
+    "hash": "fa31c072419e03f71b9373df1700dfcbf19834d989ee7279c885fe867854053f"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:21:50.394233",
+    "trace_id": "6c355136-7099-443f-99c9-1ec759ce790f",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "fa31c072419e03f71b9373df1700dfcbf19834d989ee7279c885fe867854053f",
+    "hash": "6201ab67296fa3d9e62257bb51902630fbaefade94418584c1a58ac419b73b43"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:22:28.285474",
+    "trace_id": "ca4539fe-781c-4208-aa9f-0ee8c9347384",
+    "routing_details": {
+      "query": "What are fundamental rights?",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "6201ab67296fa3d9e62257bb51902630fbaefade94418584c1a58ac419b73b43",
+    "hash": "90bf96ffdcc92b507afe803e1a57318dd9312df324d127cd263f41b71d57c26f"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:22:28.289490",
+    "trace_id": "ca4539fe-781c-4208-aa9f-0ee8c9347384",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What are fundamental rights?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "90bf96ffdcc92b507afe803e1a57318dd9312df324d127cd263f41b71d57c26f",
+    "hash": "6710c833d760bb22bc27cea3bcd0478997a3ec759c5f09ac76e3084d5b8e31dd"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:22:32.339915",
+    "trace_id": "13bb65f6-c90f-4c9f-b263-f0747a7318fb_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What is the punishment for theft?",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "6710c833d760bb22bc27cea3bcd0478997a3ec759c5f09ac76e3084d5b8e31dd",
+    "hash": "5b4acf9db208b1e687a2d12b04459daddb0b29eaf4582b69f2d9748fb05a4aec"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:22:40.464360",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 4
+    },
+    "prev_hash": "5b4acf9db208b1e687a2d12b04459daddb0b29eaf4582b69f2d9748fb05a4aec",
+    "hash": "caada04bd4b94da93dc22352320ff3b6026417c87bf53589d0cfb0d1db755a12"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:22:54.593407",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 3
+    },
+    "prev_hash": "caada04bd4b94da93dc22352320ff3b6026417c87bf53589d0cfb0d1db755a12",
+    "hash": "88e5048c1f336437c15364ffd49484ec093b0b1902c3335e56766247a0b09e32"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:23:23.013637",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 4
+    },
+    "prev_hash": "88e5048c1f336437c15364ffd49484ec093b0b1902c3335e56766247a0b09e32",
+    "hash": "39a803f1d2ce997f5d32f45f914e530f40c0e69b3ebe46b23a966a429779cb41"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:25:02.339576",
+    "trace_id": "2f02f4a8-c1fe-4f03-8a3d-ebb17330e114",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "39a803f1d2ce997f5d32f45f914e530f40c0e69b3ebe46b23a966a429779cb41",
+    "hash": "220e997b387a8e28261d671b05a996f4f12c44a117676194f05d8a12c70a89f5"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:25:02.352692",
+    "trace_id": "2f02f4a8-c1fe-4f03-8a3d-ebb17330e114",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "220e997b387a8e28261d671b05a996f4f12c44a117676194f05d8a12c70a89f5",
+    "hash": "6f006a0322ee8e32ac1ee529f86d11e77543bde97933cfb9d62b70a6bbb53937"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:37:29.375897",
+    "trace_id": "7618e166-3151-441c-a566-025c9a6e2e16_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What is the punishment for theft?",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "6f006a0322ee8e32ac1ee529f86d11e77543bde97933cfb9d62b70a6bbb53937",
+    "hash": "04525671019f634d25a7526299abb7ddac6f7df2b86197b07162e67fa1fe9524"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:37:37.484171",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 4
+    },
+    "prev_hash": "04525671019f634d25a7526299abb7ddac6f7df2b86197b07162e67fa1fe9524",
+    "hash": "4eea37cffdb8ab6b06e321f87fedad1e6a15ceb2ed2a3b98f4963218d01176d1"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:38:06.253558",
+    "trace_id": "a59869fb-2044-4a19-b27f-92c42ff55740",
+    "routing_details": {
+      "query": "What are fundamental rights?",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "4eea37cffdb8ab6b06e321f87fedad1e6a15ceb2ed2a3b98f4963218d01176d1",
+    "hash": "410188ec0f50a6d1f5ba2285b9cb5cc01c07cfb825b6e1bddcc623099e3d0d54"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:38:06.257238",
+    "trace_id": "a59869fb-2044-4a19-b27f-92c42ff55740",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What are fundamental rights?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "410188ec0f50a6d1f5ba2285b9cb5cc01c07cfb825b6e1bddcc623099e3d0d54",
+    "hash": "f0601bc72d5d97e917287c66a4e05f0a0f96fd4113fb2603abf372d689f4e8b5"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:38:10.310881",
+    "trace_id": "374dcd04-ba2f-481d-b6b1-49ee36a8cce2_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What is the punishment for theft?",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "f0601bc72d5d97e917287c66a4e05f0a0f96fd4113fb2603abf372d689f4e8b5",
+    "hash": "f0429e49e5bb4e3c4a5543df4d5bfc62dab01dd8baa2711672695b09295527f9"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:38:18.435420",
+    "trace_id": "test-trace-123",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-123",
+      "rating": 4
+    },
+    "prev_hash": "f0429e49e5bb4e3c4a5543df4d5bfc62dab01dd8baa2711672695b09295527f9",
+    "hash": "43b10f7a8e38083332f0a6a2741a8584baa257c88bbf24ebf448930252052ed5"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:39:32.161107",
+    "trace_id": "42afac65-92ed-469f-8b64-53a2dbfec05c_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Cross-jurisdiction query",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "43b10f7a8e38083332f0a6a2741a8584baa257c88bbf24ebf448930252052ed5",
+    "hash": "39cb01da7b4ced2765f5efc0b924265356661425a029ea4fc7fe807bf9b64022"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:39:40.309951",
+    "trace_id": "valid-trace-id",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "valid-trace-id",
+      "rating": 3
+    },
+    "prev_hash": "39cb01da7b4ced2765f5efc0b924265356661425a029ea4fc7fe807bf9b64022",
+    "hash": "8b602cbc0384a32e424b663dbd1210690506e7e5a446970e93fbb6d744045a5c"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:42:43.419921",
+    "trace_id": "53436f5a-7b89-4fdd-a3ff-f8126d7f3d84_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test multi query 0",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "8b602cbc0384a32e424b663dbd1210690506e7e5a446970e93fbb6d744045a5c",
+    "hash": "570876db79874e77cb4cb7ed6b87dcd225b623e2ec572d27d91babd1d479a3e2"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:42:51.568338",
+    "trace_id": "test-trace-0",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-0",
+      "rating": 4
+    },
+    "prev_hash": "570876db79874e77cb4cb7ed6b87dcd225b623e2ec572d27d91babd1d479a3e2",
+    "hash": "d206eb8ab4710ee1902fde3346852008f91effec7fb9bd132e431ea5d1b97eac"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:42:55.734658",
+    "trace_id": "4fd39b3a-c2bf-4ed6-a68e-0c64cfa41011",
+    "routing_details": {
+      "query": "Test query 1",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "d206eb8ab4710ee1902fde3346852008f91effec7fb9bd132e431ea5d1b97eac",
+    "hash": "a6c99883a6f36b6cdae0f935ccdd8399120d559a5e608975fc2ab9954dea98e1"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:42:55.738549",
+    "trace_id": "4fd39b3a-c2bf-4ed6-a68e-0c64cfa41011",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query 1",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "a6c99883a6f36b6cdae0f935ccdd8399120d559a5e608975fc2ab9954dea98e1",
+    "hash": "1a497b2e6aafd0966e3128d81909b682b10b4dc48dc58abceaf31c7f931e99db"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:42:59.824026",
+    "trace_id": "495de9ca-7842-4604-bf81-3ae01991a958_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test multi query 1",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "1a497b2e6aafd0966e3128d81909b682b10b4dc48dc58abceaf31c7f931e99db",
+    "hash": "1389e95d31be2961b034f07eee35dab9e2fd68cefb7d4c6b692e3e80eec1996a"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:43:07.950748",
+    "trace_id": "test-trace-1",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-1",
+      "rating": 4
+    },
+    "prev_hash": "1389e95d31be2961b034f07eee35dab9e2fd68cefb7d4c6b692e3e80eec1996a",
+    "hash": "efe119c2b8cdba4e75730bf3c5f5092bb8178eefeb165a424004b449c1ac97de"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:43:12.132802",
+    "trace_id": "e1c7f9f5-1c6e-4022-b406-8c871bb63064",
+    "routing_details": {
+      "query": "Test query 2",
+      "jurisdiction_hint": null,
+      "domain_hint": null,
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "efe119c2b8cdba4e75730bf3c5f5092bb8178eefeb165a424004b449c1ac97de",
+    "hash": "ab2d06ebd271e89ec55526371ea036ec4972ce7c2e1723ce9059e0cacbe71eb8"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:43:12.136793",
+    "trace_id": "e1c7f9f5-1c6e-4022-b406-8c871bb63064",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test query 2",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "ab2d06ebd271e89ec55526371ea036ec4972ce7c2e1723ce9059e0cacbe71eb8",
+    "hash": "a6bca5e80511eafb7d768eadfe34983c4fddec79b47f888325ee1232a7f242ea"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:43:16.182564",
+    "trace_id": "db18a79f-d1f1-482d-b949-2d71aa846d40_UK",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "Test multi query 2",
+      "target_jurisdiction": "UK"
+    },
+    "prev_hash": "a6bca5e80511eafb7d768eadfe34983c4fddec79b47f888325ee1232a7f242ea",
+    "hash": "9c5b895a95ad72b48380798a3e6a38a949c776f6e3ed11a3c41b84fdfb2b536e"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:43:24.279378",
+    "trace_id": "test-trace-2",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "test-trace-2",
+      "rating": 4
+    },
+    "prev_hash": "9c5b895a95ad72b48380798a3e6a38a949c776f6e3ed11a3c41b84fdfb2b536e",
+    "hash": "9a8336c15ed74cfbb646def9d8bbbb4b77a8aa6246e890ad2496911df2435bd2"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T05:45:43.342221",
+    "trace_id": "d48ad615-2925-4b03-9782-f6fac9deb0b0",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "9a8336c15ed74cfbb646def9d8bbbb4b77a8aa6246e890ad2496911df2435bd2",
+    "hash": "8beccf35809673c15f4f32f28fa3642093a2ee3a2a02fc0aa6ee6c51ba4e2b95"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T05:45:43.351192",
+    "trace_id": "d48ad615-2925-4b03-9782-f6fac9deb0b0",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "8beccf35809673c15f4f32f28fa3642093a2ee3a2a02fc0aa6ee6c51ba4e2b95",
+    "hash": "9f58d994117c0703fdc68a255a62552b2d56ab16a0b20c30dc48ba6dcde5a4b2"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-02T06:34:06.392682",
+    "trace_id": "e1e494b4-7988-4085-b7de-7b72bf0eb1c8",
+    "routing_details": {
+      "query": "string",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "9f58d994117c0703fdc68a255a62552b2d56ab16a0b20c30dc48ba6dcde5a4b2",
+    "hash": "476c442861c416e5dae5900638d4bd601be133cb7e17b32cc8a1499651c4e74a"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-02T06:34:06.438183",
+    "trace_id": "e1e494b4-7988-4085-b7de-7b72bf0eb1c8",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "string",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "476c442861c416e5dae5900638d4bd601be133cb7e17b32cc8a1499651c4e74a",
+    "hash": "6be2e7a7e6e4ba24579975f7f24095c39ed8c1706026320228341360a9f53e67"
+  }
+]

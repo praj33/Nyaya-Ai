@@ -5,12 +5,12 @@ Ensures all agent execution passes through enforcement controls
 from typing import Dict, Any, Optional, Callable
 from datetime import datetime
 import traceback
-from ..enforcement_engine.engine import (
+from enforcement_engine.engine import (
     SovereignEnforcementEngine, 
     EnforcementSignal,
     EnforcementDecision
 )
-from ..enforcement_engine.decision_model import EnforcementResult
+from enforcement_engine.decision_model import EnforcementResult
 
 
 class GovernedExecutionPipeline:
