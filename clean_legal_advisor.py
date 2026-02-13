@@ -28,6 +28,46 @@ except ImportError:
 # Import BM25 search (always available)
 from bm25_search import LegalBM25Search
 
+# Statute constants for specific query types
+LAND_DISPUTE_STATUTES = [
+    {
+        "act": "Transfer of Property Act, 1882",
+        "year": 1882,
+        "section": "54",
+        "title": "Sale of immovable property"
+    },
+    {
+        "act": "Registration Act, 1908",
+        "year": 1908,
+        "section": "17",
+        "title": "Documents of which registration is compulsory"
+    },
+    {
+        "act": "Specific Relief Act, 1963",
+        "year": 1963,
+        "section": "16",
+        "title": "Personal bars to relief"
+    },
+    {
+        "act": "Code of Civil Procedure, 1908",
+        "year": 1908,
+        "section": "9",
+        "title": "Courts to try all civil suits unless barred"
+    },
+    {
+        "act": "Limitation Act, 1963",
+        "year": 1963,
+        "section": "65",
+        "title": "Suit for possession of immovable property"
+    },
+    {
+        "act": "Indian Evidence Act, 1872",
+        "year": 1872,
+        "section": "91",
+        "title": "Evidence of terms of contracts reduced to writing"
+    }
+]
+
 class LegalDomain(Enum):
     CRIMINAL = "criminal"
     CIVIL = "civil"
@@ -973,6 +1013,11 @@ class EnhancedLegalAdvisor:
         if dowry_filtered:
             confidence_score = self.dowry_precision.boost_confidence(all_statutes)
             ontology_filtered = True
+        
+        # Check for land dispute queries and use predefined statutes
+        query_lower = legal_query.query_text.lower()
+        if any(keyword in query_lower for keyword in ['land dispute', 'property dispute', 'land', 'boundary', 'title deed', 'encroachment']):
+            all_statutes = LAND_DISPUTE_STATUTES.copy()
         
         # Store domains in advice object
         advice = LegalAdvice(
