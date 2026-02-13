@@ -1,12 +1,18 @@
-# Core dependencies
 fastapi>=0.104.0
 uvicorn>=0.24.0
 pydantic>=2.0.0
 
-# Vector search dependencies
-faiss-cpu>=1.7.4
-sentence-transformers>=2.2.0
 numpy>=1.24.0
+scikit-learn
+faiss-cpu
 
-# Optional: GPU acceleration
-# faiss-gpu>=1.7.4  # Uncomment for GPU support
+sentence-transformers
+huggingface-hub
+transformers
+
+torch==2.1.2+cpu
+
+httpx
+python-multipart
+pyyaml
+tqdm
