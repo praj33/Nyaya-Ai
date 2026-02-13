@@ -176,9 +176,13 @@ class EnhancedLegalAdvisor:
                 'terrorist_attack': ['113', '66F'],
                 'property_dispute': ['40', '41', '42', '43'],
                 'tenant_eviction': ['20', '22', '23'],
-                'accident': ['40', '43', '44', '50'],
-                'drunk_driving': ['30', '31'],
-                'traffic_violation': ['20', '21', '22', '23', '24']
+                'accident': ['279', '304A', '337', '338'],  # Vehicular accidents causing death/hurt
+                'car_accident': ['279', '304A', '337', '338'],
+                'road_accident': ['279', '304A', '337', '338'],
+                'drunk_driving': ['185', '279', '304A'],  # Motor Vehicles Act + IPC
+                'rash_driving': ['279', '304A', '337', '338'],
+                'negligent_driving': ['279', '304A', '337', '338'],
+                'traffic_violation': ['177', '178', '179', '183', '184', '185']
             },
             'UK': {
                 'theft': ['section_1_theft'],
@@ -288,7 +292,8 @@ class EnhancedLegalAdvisor:
         criminal_keywords = ['theft', 'murder', 'assault', 'rape', 'robbery', 'fraud', 'kidnapping',
                            'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
                            'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
-                           'accident', 'drunk', 'rash driving', 'hit and run', 'harass', 'harassment']
+                           'accident', 'drunk', 'rash driving', 'hit and run', 'harass', 'harassment',
+                           'died', 'death', 'killed', 'car accident', 'road accident', 'vehicle']
         
         # Family law keywords
         family_keywords = ['divorce', 'marriage', 'custody', 'alimony', 'maintenance', 'matrimonial',
@@ -525,9 +530,9 @@ class EnhancedLegalAdvisor:
             },
             # Traffic -> Motor Vehicles Act
             {
-                'keywords': ['accident', 'vehicle', 'car', 'bike', 'driving', 'license', 'insurance', 'traffic', 'challan', 'fine', 'road', 'collision', 'hit', 'drunk', 'speed'],
-                'acts': ['motor_vehicles'],
-                'min_sections': 3
+                'keywords': ['accident', 'vehicle', 'car', 'bike', 'driving', 'license', 'insurance', 'traffic', 'challan', 'fine', 'road', 'collision', 'hit', 'drunk', 'speed', 'died', 'death', 'killed', 'rash', 'negligent'],
+                'acts': ['motor_vehicles', 'ipc', 'bns'],
+                'min_sections': 2
             },
             # Family -> Marriage Acts
             {
