@@ -1,0 +1,36 @@
+{
+  "act_name": "Unlawful Activities (Prevention) Act, 1967",
+  "abbreviation": "UAPA",
+  "year": 1967,
+  "jurisdiction": "India",
+  "key_sections": {
+    "TERRORISM": {
+      "2": "Definitions - unlawful activity, unlawful association",
+      "3": "Declaration of an association as unlawful",
+      "10": "Penalty for being member of unlawful association",
+      "13": "Punishment for unlawful activities",
+      "15": "Terrorist act - Whoever commits a terrorist act shall be punished with imprisonment for not less than 5 years which may extend to imprisonment for life, and shall also be liable to fine",
+      "16": "Punishment for terrorist act - Death or life imprisonment",
+      "17": "Punishment for raising funds for terrorist act",
+      "18": "Punishment for conspiracy to commit terrorist act",
+      "18A": "Punishment for organizing terrorist camps",
+      "18B": "Punishment for recruiting for terrorist act",
+      "19": "Punishment for harbouring or concealing terrorists",
+      "20": "Punishment for being member of terrorist organization",
+      "21": "Punishment for holding proceeds of terrorism",
+      "23": "Enhanced penalties for terrorist acts resulting in death",
+      "35": "Presumption as to terrorist acts",
+      "36": "Presumption as to membership of terrorist organization",
+      "37": "Bail restrictions for terrorist offences",
+      "38": "Admissibility of evidence collected through interception",
+      "43": "Power to investigate terrorist cases",
+      "43A": "Attachment of property used in terrorism",
+      "43B": "Freezing of funds of terrorist organizations",
+      "43C": "Forfeiture of proceeds of terrorism",
+      "43D": "Modified application of Code of Criminal Procedure",
+      "43E": "Terrorist activities affecting national security",
+      "45": "Sanction for prosecution",
+      "51": "Offences by companies and organizations"
+    }
+  }
+}

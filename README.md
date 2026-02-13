@@ -60,6 +60,20 @@ The Nyaya AI backend is composed of 7 core modules that work together to provide
 - **Validator**: Ensures data integrity and schema compliance
 - **Standard Schemas**: Section, Act, and Case objects with jurisdiction tags
 
+### 9. Case Law Retrieval System
+- **Case Law Loader**: Loads judicial precedents from JSON files
+- **Case Law Retriever**: Keyword-based matching for relevant precedents
+- **Domain Filtering**: Returns only cases matching query domain
+- **Jurisdiction Filtering**: Returns only cases from relevant jurisdiction
+- **Top-K Selection**: Returns most relevant 3 cases per query
+
+### 10. Jurisdiction Detection System
+- **Jurisdiction Detector**: Automatically infers jurisdiction from user queries
+- **Keyword Heuristics**: Detects legal acts, terms, geographic indicators, currency
+- **Confidence Scoring**: Provides 0.0-1.0 confidence for detection accuracy
+- **User Hint Precedence**: User-provided hints always override automatic detection
+- **Default Behavior**: Falls back to India (IN) with 0.5 confidence when no indicators found
+
 ## 📡 API Documentation
 
 ### Base URL
@@ -88,18 +102,49 @@ Execute a single-jurisdiction legal query with sovereign enforcement.
 {
   "domain": "criminal",
   "jurisdiction": "IN",
-  "confidence": 0.85,
-  "legal_route": ["jurisdiction_router_agent", "india_legal_agent"],
+  "jurisdiction_detected": "IN",
+  "jurisdiction_confidence": 0.94,
+  "confidence": {
+    "overall": 0.85,
+    "jurisdiction": 0.90,
+    "domain": 0.85,
+    "statute_match": 0.80,
+    "procedural_match": 0.75
+  },
+  "legal_route": ["jurisdiction_detector", "enhanced_legal_advisor", "ontology_resolver", "case_law_retriever"],
+  "statutes": [
+    {
+      "act": "Indian Penal Code",
+      "year": 1860,
+      "section": "378",
+      "title": "Theft - Whoever intends to take dishonestly any movable property"
+    }
+  ],
+  "case_laws": [
+    {
+      "title": "State v. Accused (2020)",
+      "court": "Supreme Court of India",
+      "year": 2020,
+      "principle": "Theft requires dishonest intention at the time of taking property"
+    }
+  ],
   "constitutional_articles": ["Article 14", "Article 21"],
-  "provenance_chain": [],
-  "reasoning_trace": {},
-  "trace_id": "uuid-string",
-  "enforcement_metadata": {
-    "decision": "ALLOW",
-    "rule_id": "CONF-001",
-    "policy_source": "System Safety",
-    "governance_approved": true
-  }
+  "provenance_chain": [
+    {
+      "timestamp": "2024-01-01T12:00:00",
+      "event": "ontology_filtered_query_processed",
+      "jurisdiction_detected": "IN",
+      "jurisdiction_confidence": 0.94
+    }
+  ],
+  "reasoning_trace": {
+    "jurisdiction_detection": {
+      "detected": "IN",
+      "confidence": 0.94,
+      "user_provided": false
+    }
+  },
+  "trace_id": "uuid-string"
 }
 ```
 

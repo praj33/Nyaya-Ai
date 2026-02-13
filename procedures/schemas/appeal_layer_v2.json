@@ -1,0 +1,173 @@
+{
+  "version": "2.0",
+  "layer": "appeal_standardization",
+  "principles": {
+    "deterministic": true,
+    "non_advisory": true,
+    "jurisdiction_respecting": true
+  },
+  "canonical_escalation_states": {
+    "APPEAL_ALLOWED": "Appeal is procedurally permitted",
+    "APPEAL_RESTRICTED": "Appeal permitted only on limited grounds",
+    "APPEAL_DISALLOWED": "No appeal available at this stage",
+    "SPECIAL_LEAVE_REQUIRED": "Appeal requires discretionary leave"
+  },
+  "jurisdictional_mappings": {
+    "India": {
+      "Criminal": [
+        {
+          "from": "Magistrate Court",
+          "to": "Sessions Court",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "Sessions Court",
+          "to": "High Court",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "High Court",
+          "to": "Supreme Court of India",
+          "state": "SPECIAL_LEAVE_REQUIRED"
+        }
+      ],
+      "Civil": [
+        {
+          "from": "District Court",
+          "to": "High Court",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "High Court",
+          "to": "Supreme Court of India",
+          "state": "SPECIAL_LEAVE_REQUIRED"
+        }
+      ],
+      "Family": [
+        {
+          "from": "Family Court",
+          "to": "High Court",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Consumer": [
+        {
+          "from": "District Commission",
+          "to": "State Commission",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "State Commission",
+          "to": "National Commission",
+          "state": "APPEAL_ALLOWED"
+        }
+      ]
+    },
+    "UAE": {
+      "Criminal": [
+        {
+          "from": "Court of First Instance",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "Court of Appeal",
+          "to": "Court of Cassation",
+          "state": "APPEAL_RESTRICTED"
+        }
+      ],
+      "Civil": [
+        {
+          "from": "Court of First Instance",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Family": [
+        {
+          "from": "Personal Status Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Consumer": [
+        {
+          "from": "Court of First Instance",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ]
+    },
+    "UK": {
+      "Criminal": [
+        {
+          "from": "Magistrates’ Court",
+          "to": "Crown Court",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "Crown Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_RESTRICTED"
+        }
+      ],
+      "Civil": [
+        {
+          "from": "County Court",
+          "to": "High Court",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Family": [
+        {
+          "from": "Family Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Consumer": [
+        {
+          "from": "County Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ]
+    },
+    "KSA": {
+      "Criminal": [
+        {
+          "from": "Criminal Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        },
+        {
+          "from": "Court of Appeal",
+          "to": "Supreme Court of Saudi Arabia",
+          "state": "APPEAL_RESTRICTED"
+        }
+      ],
+      "Civil": [
+        {
+          "from": "General Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Family": [
+        {
+          "from": "Personal Status Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ],
+      "Consumer": [
+        {
+          "from": "Commercial Court",
+          "to": "Court of Appeal",
+          "state": "APPEAL_ALLOWED"
+        }
+      ]
+    }
+  },
+  "status": "Day 2 complete — escalation logic standardized"
+}

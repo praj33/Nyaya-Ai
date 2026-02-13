@@ -1,0 +1,30 @@
+{
+  "act_name": "Special Marriage Act 1954",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "applicability": {
+      "1": "Applies to all citizens of India regardless of religion",
+      "2": "Inter-religious marriages, civil marriages without religious ceremonies",
+      "3": "Indians living abroad can marry under this Act"
+    },
+    "marriage_conditions": {
+      "4": "Conditions - Age 21 for male, 18 for female, monogamy, sound mind, not within prohibited degrees",
+      "5": "Notice of intended marriage - 30 days notice to Marriage Officer",
+      "6": "Objections to marriage - Any person can object within 30 days",
+      "7": "Marriage solemnization - Before Marriage Officer with 3 witnesses"
+    },
+    "divorce_grounds": {
+      "27": "Divorce grounds - Adultery, cruelty, desertion for 2 years, mental disorder, venereal disease, renunciation, not heard alive for 7 years, no cohabitation for 1 year after judicial separation, no resumption after restitution decree",
+      "28": "Divorce by mutual consent - After 1 year of marriage, 6-18 months waiting period"
+    },
+    "maintenance": {
+      "36": "Alimony pendente lite - Interim maintenance during proceedings",
+      "37": "Permanent alimony - Monthly or lump sum payment after divorce",
+      "38": "Custody of children - Based on child's welfare"
+    },
+    "registration": {
+      "15": "Marriage certificate issued immediately after solemnization",
+      "16": "Registration of marriages solemnized under other laws"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "theft_001",
+    "query": "someone stole my phone",
+    "expected_domains": ["criminal"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "303"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "theft_002",
+    "query": "my wallet was stolen",
+    "expected_domains": ["criminal"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "303"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "robbery_001",
+    "query": "I was robbed at gunpoint",
+    "expected_domains": ["criminal"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "309"}
+    ],
+    "must_not_include_statutes": []
+  }
+]

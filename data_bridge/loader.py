@@ -262,6 +262,65 @@ class JSONLoader:
                         act_id=act_id
                     )
                     sections.append(section_obj)
+        elif "structure" in data:
+            # BNS/UK Criminal Justice Act structure
+            file_name = os.path.basename(file_path).replace('.json', '')
+            act_id = f"{jurisdiction.value}_{file_name}"
+            
+            for category, sections_dict in data["structure"].items():
+                if isinstance(sections_dict, dict):
+                    for section_num, section_text in sections_dict.items():
+                        if isinstance(section_text, str) and not section_num.lower().startswith('title'):
+                            section_obj = self.normalize_section(
+                                {
+                                    "section_number": section_num,
+                                    "text": section_text,
+                                    "category": category
+                                },
+                                jurisdiction,
+                                original_key=section_num,
+                                act_id=act_id
+                            )
+                            sections.append(section_obj)
+        elif "key_provisions" in data:
+            # Hindu Marriage Act style: {"key_provisions": {"category": {"Section_X": "text"}}}
+            file_name = os.path.basename(file_path).replace('.json', '')
+            act_id = f"{jurisdiction.value}_{file_name}"
+            
+            if isinstance(data["key_provisions"], dict):
+                for category, provisions in data["key_provisions"].items():
+                    if isinstance(provisions, dict):
+                        for section_key, section_content in provisions.items():
+                            # Handle both string and list content
+                            if isinstance(section_content, list):
+                                text = "; ".join(section_content)
+                            else:
+                                text = str(section_content)
+                            
+                            section_obj = self.normalize_section(
+                                {
+                                    "section_number": section_key.replace("Section_", ""),
+                                    "text": text,
+                                    "category": category
+                                },
+                                jurisdiction,
+                                original_key=section_key,
+                                act_id=act_id
+                            )
+                            sections.append(section_obj)
+            elif isinstance(data["key_provisions"], list):
+                for idx, provision in enumerate(data["key_provisions"]):
+                    section_obj = self.normalize_section(
+                        {
+                            "section_number": str(idx + 1),
+                            "text": str(provision),
+                            "category": "key_provisions"
+                        },
+                        jurisdiction,
+                        original_key=str(idx),
+                        act_id=act_id
+                    )
+                    sections.append(section_obj)
         elif "sections" in data:
             # Direct sections array or object
             # Extract act_id from file path
@@ -470,6 +529,30 @@ class JSONLoader:
                     for category, sections_dict in data["key_sections"].items():
                         for section_num in sections_dict.keys():
                             section_ids.append(f"{act_id}_{section_num}")
+            
+                act_obj = self.normalize_act(
+                    {
+                        "act_id": act_id,
+                        "act_name": act_name,
+                        "year": year,
+                        "sections": section_ids
+                    },
+                    jurisdiction,
+                    act_id=act_id
+                )
+                acts.append(act_obj)
+            elif "key_provisions" in data:
+                # Hindu Marriage Act style
+                act_name = data.get("code", file_name.replace('_', ' ').title())
+                year = self.extract_year_from_name(act_name)
+                
+                # Extract section IDs for this act
+                section_ids = []
+                if isinstance(data.get("key_provisions"), dict):
+                    for category, provisions in data["key_provisions"].items():
+                        if isinstance(provisions, dict):
+                            for section_key in provisions.keys():
+                                section_ids.append(f"{act_id}_{section_key}")
             
                 act_obj = self.normalize_act(
                     {

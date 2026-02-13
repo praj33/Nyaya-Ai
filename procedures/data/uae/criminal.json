@@ -1,0 +1,199 @@
+{
+  "country": "UAE",
+  "domain": "Criminal",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Federal Decree-Law No. 35 of 2022 (Criminal Procedure Law)",
+      "type": "statute",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law"
+    },
+    {
+      "name": "UAE Public Prosecution",
+      "type": "government_portal",
+      "url": "https://www.pp.gov.ae"
+    },
+    {
+      "name": "UAE Ministry of Justice",
+      "type": "government_portal",
+      "url": "https://www.moj.gov.ae"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Police",
+      "Public Prosecution",
+      "Criminal Court of First Instance",
+      "Court of Appeal",
+      "Court of Cassation"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Complaint and Police Investigation",
+        "canonical_step": "CRIME_REPORTING",
+        "description": "Criminal complaint is received and investigated by police under UAE criminal procedure law.",
+        "actor": "Police"
+      },
+      {
+        "step": 2,
+        "title": "Referral to Public Prosecution",
+        "canonical_step": "INVESTIGATION",
+        "description": "Case file is referred to the Public Prosecution for legal assessment and further action.",
+        "actor": "Police / Public Prosecution"
+      },
+      {
+        "step": 3,
+        "title": "Detention or Release Decision",
+        "canonical_step": "PRE_TRIAL_RELEASE_DECISION",
+        "description": "Public Prosecution determines whether the accused is detained or released with or without guarantees pending investigation or trial.",
+        "actor": "Public Prosecution",
+        "conditional_branches": [
+          {
+            "condition": "Release ordered",
+            "canonical_outcome": "RELEASE_GRANTED",
+            "next_step": "Release with guarantees",
+            "effect": "Accused released subject to financial or personal guarantees"
+          },
+          {
+            "condition": "Detention ordered",
+            "canonical_outcome": "DETENTION_ORDERED",
+            "next_step": "Continued detention",
+            "effect": "Accused remains in custody pending further proceedings"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Release with guarantee",
+            "Continued detention",
+            "Conditional release with travel or reporting restrictions"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature and seriousness of the offence",
+            "Risk of flight or non-appearance",
+            "Status of investigation",
+            "Nationality and residency status",
+            "Availability of guarantees"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Incomplete investigation records",
+            "Pending forensic or expert reports",
+            "Unclear residency or identity status of accused",
+            "Procedural delays in prosecution review"
+          ]
+        }
+      },
+      {
+        "step": 4,
+        "title": "Decision to Prosecute or Dismiss",
+        "canonical_step": "PROSECUTION_DECISION",
+        "description": "Public Prosecution evaluates evidence and decides whether to file charges or dismiss the case.",
+        "actor": "Public Prosecution",
+        "conditional_branches": [
+          {
+            "condition": "Charges filed",
+            "canonical_outcome": "CHARGES_FILED",
+            "next_step": "Referral to Criminal Court",
+            "effect": "Case proceeds to trial before the competent criminal court"
+          },
+          {
+            "condition": "Case dismissed",
+            "canonical_outcome": "CASE_DISMISSED",
+            "next_step": "Case closed",
+            "effect": "Proceedings terminated at prosecution stage"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Charges filed before court",
+            "Case dismissed for insufficient evidence",
+            "Further investigation ordered"
+          ],
+          "probability_range": {
+            "min": 0.4,
+            "max": 0.8
+          },
+          "dependencies": [
+            "Sufficiency of admissible evidence",
+            "Legal classification of offence",
+            "Completion of investigation requirements",
+            "Compliance with procedural safeguards"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Medium",
+          "effort_intensity": "Medium to High",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Insufficient or inadmissible evidence",
+            "Procedural violations during investigation",
+            "Missing expert or forensic documentation",
+            "Incorrect legal characterization of offence"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Trial Before Criminal Court",
+        "canonical_step": "TRIAL",
+        "description": "Criminal Court hears the case, examines evidence, and hears arguments from prosecution and defence.",
+        "actor": "Court"
+      },
+      {
+        "step": 6,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment acquitting or convicting the accused in accordance with UAE law.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Parties may appeal the judgment before higher courts as permitted by law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Police investigation report",
+      "Statements of accused and witnesses",
+      "Forensic and expert reports",
+      "Prosecution charge decision",
+      "Court filings and judgments"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–18 months",
+      "worst_case": "2–3 years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Criminal Court of First Instance",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment or sentence"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Court of Cassation",
+        "condition": "Appeal on points of law"
+      }
+    ]
+  }
+}

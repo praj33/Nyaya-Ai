@@ -1,0 +1,63 @@
+{
+  "act_name": "Farmers Protection and Welfare Acts",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "crop_insurance": {
+      "1": "Pradhan Mantri Fasal Bima Yojana (PMFBY) - Crop insurance scheme covering yield losses due to natural calamities, pests, and diseases. Premium: 2% for Kharif, 1.5% for Rabi crops",
+      "2": "Weather Based Crop Insurance Scheme (WBCIS) - Insurance against adverse weather conditions affecting crop yield",
+      "3": "Restructured Weather Based Crop Insurance Scheme - Coverage for rainfall, temperature, humidity affecting crops"
+    },
+    "minimum_support_price": {
+      "4": "MSP for Agricultural Produce - Government guaranteed minimum price for 23 crops including paddy, wheat, pulses, oilseeds",
+      "5": "Price Support Scheme - Government procurement at MSP to protect farmers from price crashes",
+      "6": "Market Intervention Scheme - Government intervention when market prices fall below economic levels"
+    },
+    "debt_relief": {
+      "7": "Agricultural Debt Waiver and Debt Relief Scheme - Relief for small and marginal farmers from institutional credit",
+      "8": "Interest Subvention Scheme - Short-term crop loans up to Rs.3 lakh at subsidized 7% interest rate",
+      "9": "Kisan Credit Card (KCC) - Easy credit access for farmers for crop production and allied activities"
+    },
+    "compensation_for_losses": {
+      "10": "Compensation for crop loss due to natural calamities - State Disaster Response Fund (SDRF) and National Disaster Response Fund (NDRF) provisions",
+      "11": "Compensation for crop damage by wild animals - State government schemes for wildlife damage compensation",
+      "12": "Compensation for land acquisition - Right to Fair Compensation and Transparency in Land Acquisition Act, 2013 - 4 times market value for rural land"
+    },
+    "market_protection": {
+      "13": "Agricultural Produce Market Committee (APMC) Act - Regulated markets for fair price discovery and farmer protection",
+      "14": "Essential Commodities Act provisions - Prevention of hoarding and black marketing of agricultural produce",
+      "15": "Contract Farming Act - Legal framework for contract farming with price assurance and dispute resolution"
+    },
+    "input_subsidies": {
+      "16": "Fertilizer subsidy - Subsidized fertilizers (urea, DAP, MOP) to reduce input costs",
+      "17": "Seed subsidy - Quality seeds at subsidized rates through government agencies",
+      "18": "Power subsidy - Subsidized or free electricity for agricultural operations and irrigation"
+    },
+    "income_support": {
+      "19": "PM-KISAN Scheme - Direct income support of Rs.6,000 per year to all farmer families in three installments",
+      "20": "State-specific income support schemes - Additional income support by various state governments"
+    },
+    "legal_remedies": {
+      "21": "Civil suit for recovery of dues - Farmers can file civil suits for non-payment by buyers/traders",
+      "22": "Criminal complaint for cheating - Section 420 IPC applicable for fraud in agricultural transactions",
+      "23": "Consumer court remedies - Farmers can approach consumer forums for defective seeds, fertilizers, equipment",
+      "24": "APMC dispute resolution - Grievance redressal mechanism in regulated markets",
+      "25": "Revenue court remedies - Land disputes and agricultural matters under revenue jurisdiction"
+    },
+    "disaster_relief": {
+      "26": "Immediate relief for crop loss - Ex-gratia payment for complete crop loss due to natural disasters",
+      "27": "Input subsidy for replanting - Financial assistance for purchasing seeds and inputs after crop failure",
+      "28": "Livestock loss compensation - Compensation for loss of cattle and livestock in disasters"
+    },
+    "tenant_farmer_rights": {
+      "29": "Tenant farmer recognition - Legal recognition and protection for tenant farmers and sharecroppers",
+      "30": "Access to institutional credit - Tenant farmers eligible for crop loans with landowner consent",
+      "31": "Insurance coverage for tenants - Crop insurance available for tenant farmers"
+    },
+    "procedural_rights": {
+      "32": "Right to information on MSP - Farmers entitled to know MSP rates and procurement centers",
+      "33": "Right to quality testing - Free soil testing and seed quality testing facilities",
+      "34": "Right to timely payment - Payment within 3 days for produce sold in APMC mandis",
+      "35": "Right to appeal - Appeal mechanism against APMC decisions and market disputes"
+    }
+  }
+}

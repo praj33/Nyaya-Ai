@@ -1,0 +1,31 @@
+{
+  "code": "Information Technology Act, 2000",
+  "jurisdiction": "India",
+  "key_sections": {
+    "cybercrime": {
+      "43": "Penalty for damage to computer, computer system - Compensation up to Rs.1 crore",
+      "43A": "Compensation for failure to protect data - Body corporate liable for negligence",
+      "66": "Computer related offences - Hacking with computer system - Imprisonment up to 3 years or fine up to Rs.5 lakhs",
+      "66A": "Punishment for sending offensive messages through communication service (Struck down by Supreme Court)",
+      "66B": "Punishment for dishonestly receiving stolen computer resource or communication device - Imprisonment up to 3 years or fine up to Rs.1 lakh",
+      "66C": "Punishment for identity theft - Imprisonment up to 3 years and fine up to Rs.1 lakh",
+      "66D": "Punishment for cheating by personation using computer resource - Imprisonment up to 3 years and fine up to Rs.1 lakh",
+      "66E": "Punishment for violation of privacy - Capturing, publishing or transmitting private images without consent - Imprisonment up to 3 years or fine up to Rs.2 lakhs",
+      "66F": "Punishment for cyber terrorism - Life imprisonment",
+      "67": "Publishing or transmitting obscene material in electronic form - Imprisonment up to 3 years and fine up to Rs.5 lakhs",
+      "67A": "Publishing or transmitting material containing sexually explicit act in electronic form - Imprisonment up to 5 years and fine up to Rs.10 lakhs",
+      "67B": "Publishing or transmitting material depicting children in sexually explicit act - Imprisonment up to 5 years and fine up to Rs.10 lakhs on first conviction, 7 years and Rs.10 lakhs on subsequent",
+      "67C": "Preservation and retention of information by intermediaries - Failure punishable with imprisonment up to 3 years",
+      "69": "Power to issue directions for interception or monitoring or decryption - Violation punishable with imprisonment up to 7 years",
+      "70": "Protected system - Unauthorized access punishable with imprisonment up to 10 years",
+      "72": "Breach of confidentiality and privacy - Imprisonment up to 2 years or fine up to Rs.1 lakh",
+      "72A": "Punishment for disclosure of information in breach of lawful contract - Imprisonment up to 3 years or fine up to Rs.5 lakhs",
+      "73": "Publishing false digital signature certificates - Imprisonment up to 2 years or fine up to Rs.1 lakh",
+      "74": "Publication for fraudulent purpose - Imprisonment up to 2 years or fine up to Rs.1 lakh",
+      "75": "Act to apply for offence or contravention committed outside India",
+      "76": "Confiscation of computer, computer system, etc.",
+      "77": "Compounding of offences",
+      "78": "Power to investigate offences"
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "country": "UK",
+  "domain": "Family",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Family Procedure Rules 2010",
+      "type": "statute",
+      "url": "https://www.justice.gov.uk/courts/procedure-rules/family"
+    },
+    {
+      "name": "Children Act 1989",
+      "type": "statute",
+      "url": "https://www.legislation.gov.uk"
+    },
+    {
+      "name": "HM Courts & Tribunals Service",
+      "type": "government_portal",
+      "url": "https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Family Court",
+      "High Court (Family Division)",
+      "Court of Appeal",
+      "Supreme Court"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Pre-Application Mediation Assessment",
+        "canonical_step": "MEDIATION_ATTEMPT",
+        "description": "Parties attend a Mediation Information and Assessment Meeting (MIAM) unless exempt, to explore non-court dispute resolution options.",
+        "actor": "Applicant / Mediator"
+      },
+      {
+        "step": 2,
+        "title": "Filing of Family Application",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Applicant files a family application relating to divorce, financial remedies, or child arrangements before the Family Court.",
+        "actor": "Applicant / Legal Representative"
+      },
+      {
+        "step": 3,
+        "title": "Service and Response",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Application is served on the respondent, who files an acknowledgment or response.",
+        "actor": "Court / Respondent"
+      },
+      {
+        "step": 4,
+        "title": "Case Management Hearing",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court conducts a case management hearing to identify issues, give directions, and determine the future course of proceedings.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 5,
+        "title": "Further Mediation or Negotiation",
+        "canonical_step": "MEDIATION_ATTEMPT",
+        "description": "Court may encourage further mediation or negotiated settlement at any stage of the proceedings.",
+        "actor": "Court / Parties",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Consent order",
+            "effect": "Agreement approved by the court and proceedings concluded"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Proceed to determination",
+            "effect": "Case proceeds to judicial determination"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full agreement on all issues",
+            "Partial agreement with limited issues litigated",
+            "No agreement and continuation to trial"
+          ],
+          "probability_range": {
+            "min": 0.35,
+            "max": 0.75
+          },
+          "dependencies": [
+            "Nature of family dispute",
+            "Presence of children",
+            "Financial complexity",
+            "Willingness of parties to compromise",
+            "Judicial encouragement of settlement"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Non-compliance with court directions",
+            "Escalation of conflict",
+            "Delay due to repeated adjournments"
+          ]
+        }
+      },
+      {
+        "step": 6,
+        "title": "Final Hearing",
+        "canonical_step": "TRIAL",
+        "description": "Court hears evidence and submissions and determines outstanding issues.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 7,
+        "title": "Final Order",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues final orders relating to divorce, finances, or child arrangements.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 8,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the decision to a higher court where permitted by law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Family application forms",
+      "MIAM certificate (if applicable)",
+      "Financial disclosure documents",
+      "Witness statements",
+      "Expert or welfare reports (if applicable)",
+      "Court orders"
+    ],
+    "timelines": {
+      "best_case": "6–12 months",
+      "average": "1–2 years",
+      "worst_case": "3+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Family Court / High Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against final order"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Supreme Court",
+        "condition": "Appeal on point of law of general public importance"
+      }
+    ]
+  }
+}

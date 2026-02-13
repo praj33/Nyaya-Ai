@@ -7,6 +7,7 @@ from provenance_chain.lineage_tracer import tracer
 from provenance_chain.hash_chain_ledger import ledger
 from provenance_chain.event_signer import signer
 from enforcement_provenance.ledger import get_trace_history as get_enforcement_trace_history
+from core.response.enricher import enrich_response
 
 class ResponseBuilder:
     """Builds standardized responses for the Nyaya API Gateway."""
@@ -20,18 +21,38 @@ class ResponseBuilder:
         trace_id: str,
         provenance_chain: List[Dict[str, Any]] = None,
         reasoning_trace: Dict[str, Any] = None,
-        constitutional_articles: List[str] = None
+        constitutional_articles: List[str] = None,
+        query_text: str = "",
+        statutes: List[Dict] = None
     ) -> NyayaResponse:
         """Build a standardized Nyaya response."""
+        base_response = {
+            "domain": domain,
+            "jurisdiction": jurisdiction,
+            "confidence": confidence,
+            "legal_route": legal_route,
+            "constitutional_articles": constitutional_articles or [],
+            "provenance_chain": provenance_chain or [],
+            "reasoning_trace": reasoning_trace or {},
+            "trace_id": trace_id
+        }
+        
+        # Enrich response with required fields
+        enriched = enrich_response(base_response, query_text, domain, statutes or [])
+        
         return NyayaResponse(
-            domain=domain,
-            jurisdiction=jurisdiction,
-            confidence=confidence,
-            legal_route=legal_route,
-            constitutional_articles=constitutional_articles or [],
-            provenance_chain=provenance_chain or [],
-            reasoning_trace=reasoning_trace or {},
-            trace_id=trace_id
+            domain=enriched["domain"],
+            jurisdiction=enriched["jurisdiction"],
+            confidence=enriched["confidence"],
+            legal_route=enriched["legal_route"],
+            constitutional_articles=enriched["constitutional_articles"],
+            provenance_chain=enriched["provenance_chain"],
+            reasoning_trace=enriched["reasoning_trace"],
+            trace_id=enriched["trace_id"],
+            enforcement_decision=enriched.get("enforcement_decision", "ALLOW"),
+            timeline=enriched.get("timeline", []),
+            glossary=enriched.get("glossary", []),
+            evidence_requirements=enriched.get("evidence_requirements", [])
         )
 
     @staticmethod

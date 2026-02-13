@@ -1,0 +1,64 @@
+{
+  "act_name": "Property and Real Estate Laws",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "property_registration": {
+      "1": "Registration Act - All property transactions above Rs.100 must be registered",
+      "2": "Registration within 4 months of execution of document",
+      "3": "Stamp duty payment mandatory - varies by state (5-10% of property value)",
+      "4": "Unregistered documents not admissible as evidence in court",
+      "5": "Title verification mandatory before purchase"
+    },
+    "property_transfer": {
+      "10": "Transfer of Property Act - Sale deed must be in writing and registered",
+      "11": "Seller must have clear title to transfer property",
+      "12": "Buyer entitled to possession after full payment",
+      "13": "Gift deed for property transfer without consideration",
+      "14": "Will for testamentary transfer of property"
+    },
+    "tenant_rights": {
+      "20": "Rent Control Act - Protection against arbitrary eviction",
+      "21": "Rent increase limited to prescribed percentage",
+      "22": "Tenant cannot be evicted without court order",
+      "23": "Grounds for eviction - Non-payment of rent, subletting, property damage",
+      "24": "Notice period - 15 days for monthly tenancy, 6 months for yearly",
+      "25": "Security deposit - Maximum 2-3 months rent"
+    },
+    "landlord_rights": {
+      "30": "Right to receive rent on agreed date",
+      "31": "Right to evict for non-payment after 15 days notice",
+      "32": "Right to inspect property with prior notice",
+      "33": "Right to increase rent as per agreement or law",
+      "34": "Right to claim damages for property damage by tenant"
+    },
+    "property_disputes": {
+      "40": "Partition suit for division of joint property",
+      "41": "Specific performance suit to enforce sale agreement",
+      "42": "Declaration suit to establish ownership rights",
+      "43": "Injunction to prevent illegal construction or encroachment",
+      "44": "Adverse possession - 12 years continuous possession gives ownership rights"
+    },
+    "rera_provisions": {
+      "50": "RERA - Real Estate Regulatory Authority for buyer protection",
+      "51": "Builder must register project with RERA before advertising",
+      "52": "70% of buyer payments must be kept in escrow account",
+      "53": "Delay in possession - Buyer entitled to refund with interest",
+      "54": "Defects in construction - Builder liable for 5 years",
+      "55": "Carpet area must be as per RERA definition",
+      "56": "Complaint to RERA within 3 years of cause of action"
+    },
+    "mortgage": {
+      "60": "Simple mortgage - Debt secured by property without possession transfer",
+      "61": "Mortgage by conditional sale - Sale becomes absolute on default",
+      "62": "Usufructuary mortgage - Creditor gets possession and rents",
+      "63": "English mortgage - Property transferred with condition of re-transfer on payment",
+      "64": "Foreclosure - Creditor can sell property on default after court decree"
+    },
+    "easement_rights": {
+      "70": "Right of way - Access through another's property",
+      "71": "Right to light and air - Cannot be obstructed by neighbor",
+      "72": "Right to water - Access to water source",
+      "73": "Easement by prescription - 20 years continuous use creates right"
+    }
+  }
+}

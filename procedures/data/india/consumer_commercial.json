@@ -1,0 +1,152 @@
+{
+  "country": "India",
+  "domain": "Consumer / Commercial",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Consumer Protection Act, 2019",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Commercial Courts Act, 2015",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Supreme Court of India",
+      "type": "government_portal",
+      "url": "https://www.sci.gov.in"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "District Consumer Commission",
+      "State Consumer Commission",
+      "National Consumer Commission",
+      "Commercial Court",
+      "High Court",
+      "Supreme Court"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Consumer Complaint or Commercial Suit",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Consumer complaint or commercial suit is filed before the appropriate forum depending on the nature and value of the dispute.",
+        "actor": "Consumer / Plaintiff / Advocate"
+      },
+      {
+        "step": 2,
+        "title": "Admission and Issue of Notice",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Forum examines the complaint or plaint and issues notice to the opposite party.",
+        "actor": "Forum / Court"
+      },
+      {
+        "step": 3,
+        "title": "Written Version and Pleadings",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Opposite party files its written response and supporting documents within the prescribed timeline.",
+        "actor": "Opposite Party / Advocate"
+      },
+      {
+        "step": 4,
+        "title": "Settlement or Mediation",
+        "canonical_step": "SETTLEMENT_ATTEMPT",
+        "description": "Forum or court may refer the matter for settlement or mediation, including through mediation cells or Lok Adalat where applicable.",
+        "actor": "Forum / Court / Mediator",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement recorded",
+            "effect": "Dispute resolved and proceedings concluded"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Proceed to adjudication",
+            "effect": "Case proceeds for adjudication on merits"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement",
+            "Partial settlement",
+            "No settlement"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature of consumer grievance or commercial dispute",
+            "Quality of documentary evidence",
+            "Willingness of parties to compromise",
+            "Judicial encouragement of settlement"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Incomplete documentation",
+            "Non-appearance of parties",
+            "Delay in mediation process"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Evidence and Hearings",
+        "canonical_step": "TRIAL",
+        "description": "Forum or court considers documentary evidence, affidavits, and hears arguments from the parties.",
+        "actor": "Forum / Court"
+      },
+      {
+        "step": 6,
+        "title": "Final Order or Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Forum or court passes final order or judgment granting or denying relief.",
+        "actor": "Forum / Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may file an appeal before the appropriate appellate authority.",
+        "actor": "Forum / Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Complaint or plaint",
+      "Invoices, receipts, or contracts",
+      "Correspondence between parties",
+      "Affidavits and evidence",
+      "Orders or judgments"
+    ],
+    "timelines": {
+      "best_case": "6–12 months",
+      "average": "1–3 years",
+      "worst_case": "4+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "District / State Consumer Commission or Commercial Court",
+        "to": "State / National Commission or High Court",
+        "condition": "Appeal against order or judgment"
+      },
+      {
+        "from": "High Court / National Commission",
+        "to": "Supreme Court",
+        "condition": "Appeal on substantial question of law"
+      }
+    ]
+  }
+}

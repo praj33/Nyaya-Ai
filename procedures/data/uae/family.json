@@ -1,0 +1,145 @@
+{
+  "country": "UAE",
+  "domain": "Family",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Federal Decree-Law No. 28 of 2005 (Personal Status Law)",
+      "type": "statute",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law"
+    },
+    {
+      "name": "Federal Decree-Law No. 41 of 2022 (Civil Personal Status Law)",
+      "type": "statute",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law"
+    },
+    {
+      "name": "UAE Ministry of Justice",
+      "type": "government_portal",
+      "url": "https://www.moj.gov.ae"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Family Guidance Committee",
+      "Personal Status Court",
+      "Court of Appeal",
+      "Court of Cassation"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Family Dispute Request",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "A family dispute request relating to divorce, maintenance, custody, or personal status is submitted as a mandatory pre-litigation step.",
+        "actor": "Applicant / Legal Representative"
+      },
+      {
+        "step": 2,
+        "title": "Family Guidance and Mediation",
+        "canonical_step": "MEDIATION_ATTEMPT",
+        "description": "Family Guidance Committee conducts mediation sessions to attempt amicable settlement between the parties.",
+        "actor": "Family Guidance Committee",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement agreement recorded",
+            "effect": "Dispute resolved and settlement documented"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Referral to Personal Status Court",
+            "effect": "Case referred for judicial adjudication"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement on all issues",
+            "Partial settlement with remaining issues litigated",
+            "No settlement and referral to court"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature of family dispute",
+            "Willingness of parties to reconcile",
+            "Presence of children or custody issues",
+            "Cultural and personal considerations",
+            "Effectiveness of mediation process"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Non-cooperation of parties",
+            "Absence of required documentation",
+            "Emotional volatility affecting mediation",
+            "Jurisdictional or residency issues"
+          ]
+        }
+      },
+      {
+        "step": 3,
+        "title": "Filing Before Personal Status Court",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "If mediation fails, the dispute is formally filed before the Personal Status Court for adjudication.",
+        "actor": "Applicant / Legal Representative"
+      },
+      {
+        "step": 4,
+        "title": "Hearings and Evidence Review",
+        "canonical_step": "TRIAL",
+        "description": "Court conducts hearings, examines evidence, and hears submissions from both parties.",
+        "actor": "Court"
+      },
+      {
+        "step": 5,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues a judgment resolving the family dispute in accordance with applicable personal status law.",
+        "actor": "Court"
+      },
+      {
+        "step": 6,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the judgment before higher courts as permitted by law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Family dispute request",
+      "Marriage certificate (if applicable)",
+      "Identity and residency documents",
+      "Income and financial disclosures",
+      "Child-related documents (if applicable)"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–18 months",
+      "worst_case": "2–3 years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Personal Status Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Court of Cassation",
+        "condition": "Appeal on points of law"
+      }
+    ]
+  }
+}

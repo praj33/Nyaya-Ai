@@ -1,0 +1,151 @@
+{
+  "country": "UAE",
+  "domain": "Civil",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Federal Decree-Law No. 42 of 2022 (Civil Procedure Law)",
+      "type": "statute",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law"
+    },
+    {
+      "name": "UAE Ministry of Justice",
+      "type": "government_portal",
+      "url": "https://www.moj.gov.ae"
+    },
+    {
+      "name": "UAE Courts",
+      "type": "government_portal",
+      "url": "https://www.adjd.gov.ae"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Court of First Instance",
+      "Court of Appeal",
+      "Court of Cassation"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Civil Claim",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Plaintiff files a civil claim electronically or in person before the competent Court of First Instance in accordance with UAE civil procedure law.",
+        "actor": "Plaintiff / Legal Representative"
+      },
+      {
+        "step": 2,
+        "title": "Case Registration and Notification",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court registers the case and notifies the defendant of the claim and hearing schedule.",
+        "actor": "Court"
+      },
+      {
+        "step": 3,
+        "title": "Submission of Memoranda",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Parties submit written memoranda, documents, and evidence within timelines prescribed by the court.",
+        "actor": "Plaintiff / Defendant"
+      },
+      {
+        "step": 4,
+        "title": "Settlement or Conciliation Consideration",
+        "canonical_step": "SETTLEMENT_ATTEMPT",
+        "description": "Court may encourage settlement or amicable resolution between the parties before proceeding to adjudication.",
+        "actor": "Court",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement ratified",
+            "effect": "Dispute resolved and recorded by the court"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Judicial determination",
+            "effect": "Case proceeds to judicial determination on merits"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement and case closure",
+            "Partial settlement on specific claims",
+            "No settlement and continuation to judgment"
+          ],
+          "probability_range": {
+            "min": 0.25,
+            "max": 0.65
+          },
+          "dependencies": [
+            "Nature and value of the dispute",
+            "Commercial relationship between parties",
+            "Willingness to compromise",
+            "Clarity of contractual obligations",
+            "Judicial encouragement of settlement"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Incomplete documentation",
+            "Disputes over contractual interpretation",
+            "Non-attendance of parties",
+            "Failure to comply with procedural timelines"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Hearings and Evidence Review",
+        "canonical_step": "TRIAL",
+        "description": "Court conducts hearings, reviews documentary evidence, and may appoint experts if required.",
+        "actor": "Court"
+      },
+      {
+        "step": 6,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment resolving the civil dispute.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the judgment before higher courts within prescribed timelines.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Statement of claim",
+      "Contracts or agreements",
+      "Invoices and payment records",
+      "Correspondence between parties",
+      "Expert reports (if applicable)"
+    ],
+    "timelines": {
+      "best_case": "4–8 months",
+      "average": "8–18 months",
+      "worst_case": "2–3 years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Court of First Instance",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Court of Cassation",
+        "condition": "Appeal on points of law"
+      }
+    ]
+  }
+}

@@ -1,0 +1,566 @@
+{
+  "cyber_bullying": {
+    "keywords": [
+      "cyber bullying",
+      "online harassment",
+      "threatening messages",
+      "blackmail online",
+      "fake profile harassment",
+      "revenge porn"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Information Technology Act",
+        "year": 2000,
+        "section": "66E",
+        "title": "Violation of privacy",
+        "section_data": "Whoever, intentionally or knowingly captures, publishes or transmits the image of a private area of any person without his or her consent, under circumstances violating the privacy of that person, shall be punished with imprisonment which may extend to three years or with fine not exceeding two lakh rupees, or with both."
+      },
+      {
+        "act": "Information Technology Act",
+        "year": 2000,
+        "section": "67",
+        "title": "Publishing obscene material electronically",
+        "section_data": "Whoever publishes or transmits or causes to be published or transmitted in the electronic form, any material which is lascivious or appeals to the prurient interest or if its effect is such as to tend to deprave and corrupt persons who are likely, having regard to all relevant circumstances, to read, see or hear the matter contained or embodied in it, shall be punished on first conviction with imprisonment of either description for a term which may extend to three years and with fine which may extend to five lakh rupees and in the event of second or subsequent conviction with imprisonment of either description for a term which may extend to five years and also with fine which may extend to ten lakh rupees."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "356",
+        "title": "Criminal intimidation",
+        "section_data": "Whoever threatens another with any injury to his person, reputation or property, or to the person or reputation of any one in whom that person is interested, with intent to cause alarm to that person, or to cause that person to do any act which he is not legally bound to do, or to omit to do any act which that person is legally entitled to do, as the means of avoiding the execution of such threat, commits criminal intimidation."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "workplace_sexual_harassment": {
+    "keywords": [
+      "boss touching",
+      "manager harassing",
+      "office sexual harassment",
+      "workplace molestation",
+      "colleague forcing sex",
+      "boss touched",
+      "manager touched",
+      "workplace harassment"
+    ],
+    "domains": ["criminal", "employment"],
+    "statutes": [
+      {
+        "act": "Sexual Harassment of Women at Workplace Act",
+        "year": 2013,
+        "section": "3",
+        "title": "Prevention of sexual harassment",
+        "section_data": "No woman shall be subjected to sexual harassment at any workplace. For the purpose of this Act, sexual harassment includes any one or more of the following unwelcome acts or behaviour (whether directly or by implication) namely: (a) physical contact and advances; or (b) a demand or request for sexual favours; or (c) making sexually coloured remarks; or (d) showing pornography; or (e) any other unwelcome physical, verbal or non-verbal conduct of sexual nature."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "74",
+        "title": "Sexual harassment",
+        "section_data": "Whoever makes any gesture or act or utters any word or makes any sound or exhibits any object with the intention that such word or sound shall be heard, or such gesture, act or object shall be seen by any woman, or intrudes upon the privacy of a woman, shall be punished with simple imprisonment for a term which may extend to three years, and also with fine."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "ragging_hazing": {
+    "keywords": [
+      "ragging",
+      "hazing",
+      "college seniors beating",
+      "forced drinking",
+      "hostel harassment"
+    ],
+    "domains": ["criminal", "education"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "115",
+        "title": "Voluntarily causing hurt",
+        "section_data": "Whoever voluntarily causes hurt to any person shall be punished with imprisonment of either description for a term which may extend to one year, or with fine which may extend to ten thousand rupees, or with both."
+      },
+      {
+        "act": "University Grants Commission Regulations",
+        "year": 2009,
+        "section": "anti_ragging",
+        "title": "Prohibition of ragging in educational institutions",
+        "section_data": "Ragging in any form is strictly prohibited, within the premises of any educational institution and any part of such institution and also outside the premises of the educational institution. Any individual or collective act or practice of ragging constitutes gross indiscipline and shall be dealt with under these Regulations."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "domestic_worker_abuse": {
+    "keywords": [
+      "maid beaten",
+      "domestic worker abused",
+      "house help beaten",
+      "servant harassment",
+      "maid not paid",
+      "forced to work without pay"
+    ],
+    "domains": ["criminal", "labour"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "115",
+        "title": "Voluntarily causing hurt",
+        "section_data": "Whoever voluntarily causes hurt to any person shall be punished with imprisonment of either description for a term which may extend to one year, or with fine which may extend to ten thousand rupees, or with both."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "127",
+        "title": "Wrongful confinement",
+        "section_data": "Whoever wrongfully restrains any person in such a manner as to prevent that person from proceeding beyond certain circumscribing limits, is said wrongfully to confine that person."
+      },
+      {
+        "act": "Minimum Wages Act",
+        "year": 1948,
+        "section": "22",
+        "title": "Penalty for non-payment of wages",
+        "section_data": "Any employer who pays to any employee wages at a rate less than the minimum rate of wages fixed for that class of employees under this Act shall be punishable with imprisonment for a term which may extend to six months or with fine which may extend to five hundred rupees or with both."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "human_trafficking": {
+    "keywords": [
+      "human trafficking",
+      "sold for labour",
+      "forced prostitution",
+      "people smuggling",
+      "trafficked girl",
+      "trafficked child",
+      "girl trafficked",
+      "child trafficked",
+      "trafficked for prostitution",
+      "child trafficking"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "143",
+        "title": "Trafficking of persons",
+        "section_data": "Whoever recruits, transports, harbours, transfers or receives a person or persons, by using threats, or force, or any other form of coercion, or by abduction, or by practising fraud, or deception, or by abuse of power, or by inducement, including the giving or receiving of payments or benefits, in order to achieve the consent of any person having control over the person recruited, transported, harboured, transferred or received, for the purpose of exploitation, shall be punished with rigorous imprisonment for a term which shall not be less than seven years, but which may extend to ten years, and shall also be liable to fine."
+      },
+      {
+        "act": "Immoral Traffic (Prevention) Act",
+        "year": 1956,
+        "section": "5",
+        "title": "Procuring, inducing or taking person for prostitution",
+        "section_data": "Any person who procures or attempts to procure a person whether with or without his consent, for the purpose of prostitution; or knowingly takes or attempts to take a person or causes a person to be taken, from one place to another with a view to his carrying on, or being brought up to carry on prostitution; or causes or induces a person to carry on prostitution, shall be punishable on conviction with rigorous imprisonment for a term of not less than three years and not more than seven years and also with fine which may extend to two thousand rupees."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "child_labour": {
+    "keywords": [
+      "child labour",
+      "child working in factory",
+      "minor forced to work",
+      "child domestic worker",
+      "underage labour"
+    ],
+    "domains": ["criminal", "labour"],
+    "statutes": [
+      {
+        "act": "Child and Adolescent Labour (Prohibition and Regulation) Act",
+        "year": 1986,
+        "section": "3",
+        "title": "Prohibition of employment of children",
+        "section_data": "No child shall be employed or permitted to work in any occupation or process. Provided that nothing in this section shall apply to any workshop wherein any process is carried on by the occupier with the aid of his family or to any school established, assisted or recognised by Government."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "143",
+        "title": "Trafficking of persons",
+        "section_data": "Whoever recruits, transports, harbours, transfers or receives a person or persons, by using threats, or force, or any other form of coercion, or by abduction, or by practising fraud, or deception, or by abuse of power, or by inducement, including the giving or receiving of payments or benefits, in order to achieve the consent of any person having control over the person recruited, transported, harboured, transferred or received, for the purpose of exploitation, shall be punished with rigorous imprisonment for a term which shall not be less than seven years, but which may extend to ten years, and shall also be liable to fine."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "elder_abuse": {
+    "keywords": [
+      "old parents beaten",
+      "elder abuse",
+      "senior citizen harassment",
+      "parents thrown out",
+      "not giving food to parents",
+      "abandoning elderly"
+    ],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "115",
+        "title": "Voluntarily causing hurt",
+        "section_data": "Whoever voluntarily causes hurt to any person shall be punished with imprisonment of either description for a term which may extend to one year, or with fine which may extend to ten thousand rupees, or with both."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "127",
+        "title": "Wrongful confinement",
+        "section_data": "Whoever wrongfully restrains any person in such a manner as to prevent that person from proceeding beyond certain circumscribing limits, is said wrongfully to confine that person."
+      },
+      {
+        "act": "Maintenance and Welfare of Parents and Senior Citizens Act",
+        "year": 2007,
+        "section": "24",
+        "title": "Abandonment of senior citizen",
+        "section_data": "Whoever, having sufficient means, neglects or refuses to maintain a parent or senior citizen who is unable to maintain himself, shall be punishable with fine which may extend to five thousand rupees or with imprisonment for a term which may extend to three months or with both."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "organ_trafficking": {
+    "keywords": [
+      "organ trafficking",
+      "kidney selling racket",
+      "forced organ removal",
+      "illegal transplant",
+      "organ smuggling"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "143",
+        "title": "Trafficking of persons",
+        "section_data": "Whoever recruits, transports, harbours, transfers or receives a person or persons, by using threats, or force, or any other form of coercion, or by abduction, or by practising fraud, or deception, or by abuse of power, or by inducement, including the giving or receiving of payments or benefits, in order to achieve the consent of any person having control over the person recruited, transported, harboured, transferred or received, for the purpose of exploitation, shall be punished with rigorous imprisonment for a term which shall not be less than seven years, but which may extend to ten years, and shall also be liable to fine."
+      },
+      {
+        "act": "Transplantation of Human Organs and Tissues Act",
+        "year": 1994,
+        "section": "19",
+        "title": "Punishment for commercial dealings in human organs",
+        "section_data": "Any person who renders his services to or at any hospital or other institution or to any person for the removal of any human organ in contravention of any of the provisions of this Act, or abets or attempts to do any of the acts referred to in this section, shall be punishable with imprisonment for a term which may extend to five years and with fine which may extend to ten thousand rupees."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "forced_marriage": {
+    "keywords": [
+      "forced marriage",
+      "married against my will",
+      "parents forcing marriage",
+      "threatened to marry",
+      "coerced marriage"
+    ],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "143",
+        "title": "Trafficking of persons",
+        "section_data": "Whoever recruits, transports, harbours, transfers or receives a person or persons, by using threats, or force, or any other form of coercion, or by abduction, or by practising fraud, or deception, or by abuse of power, or by inducement, including the giving or receiving of payments or benefits, in order to achieve the consent of any person having control over the person recruited, transported, harboured, transferred or received, for the purpose of exploitation, shall be punished with rigorous imprisonment for a term which shall not be less than seven years, but which may extend to ten years, and shall also be liable to fine."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "85",
+        "title": "Cruelty by husband or relative of husband",
+        "section_data": "Whoever, being the husband or the relative of the husband of a woman, subjects such woman to cruelty shall be punished with imprisonment for a term which may extend to three years and shall also be liable to fine."
+      },
+      {
+        "act": "Prohibition of Child Marriage Act",
+        "year": 2006,
+        "section": "9",
+        "title": "Punishment for male adult marrying a child",
+        "section_data": "Whoever, being a male adult above eighteen years of age, contracts a child marriage shall be punishable with rigorous imprisonment which may extend to two years or with fine which may extend to one lakh rupees or with both."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "honour_killing": {
+    "keywords": [
+      "honour killing",
+      "family killed for love marriage",
+      "family killed girl for love marriage",
+      "killed for inter caste marriage",
+      "parents killed daughter for relationship",
+      "khap ordered killing",
+      "honor killing"
+    ],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "103",
+        "title": "Murder",
+        "section_data": "Whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "143",
+        "title": "Trafficking or exploitation related coercion",
+        "section_data": "Whoever recruits, transports, harbours, transfers or receives a person or persons, by using threats, or force, or any other form of coercion, or by abduction, or by practising fraud, or deception, or by abuse of power, or by inducement, including the giving or receiving of payments or benefits, in order to achieve the consent of any person having control over the person recruited, transported, harboured, transferred or received, for the purpose of exploitation, shall be punished with rigorous imprisonment for a term which shall not be less than seven years, but which may extend to ten years, and shall also be liable to fine."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "acid_attack": {
+    "keywords": [
+      "acid attack",
+      "threw acid",
+      "acid burned my face",
+      "acid assault",
+      "corrosive attack"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "124",
+        "title": "Voluntarily causing grievous hurt by dangerous means",
+        "section_data": "Whoever voluntarily causes grievous hurt by means of any instrument for shooting, stabbing or cutting, or any instrument which, used as a weapon of offence, is likely to cause death, or by means of fire or any heated substance, or by means of any poison or any corrosive substance, or by means of any explosive substance, or by means of any substance which it is deleterious to the human body to inhale, to swallow, or to receive into the blood, or by means of any animal, shall be punished with imprisonment for life, or with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "109",
+        "title": "Attempt to murder",
+        "section_data": "Whoever does any act with such intention or knowledge, and under such circumstances that, if he by that act caused death, he would be guilty of murder, shall be punished with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine; and if hurt is caused to any person by such act, the offender shall be liable either to imprisonment for life, or to such punishment as is hereinbefore mentioned."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "blackmail_extortion": {
+    "keywords": [
+      "blackmail",
+      "threatening to leak photos",
+      "extortion",
+      "demanding money threatening",
+      "threat to publish private photos",
+      "sextortion"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "308",
+        "title": "Extortion",
+        "section_data": "Whoever intentionally puts any person in fear of any injury to that person, or to any other, and thereby dishonestly induces the person so put in fear to deliver to any person any property, or valuable security or anything signed or sealed which may be converted into a valuable security, commits extortion."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "356",
+        "title": "Criminal intimidation",
+        "section_data": "Whoever threatens another with any injury to his person, reputation or property, or to the person or reputation of any one in whom that person is interested, with intent to cause alarm to that person, or to cause that person to do any act which he is not legally bound to do, or to omit to do any act which that person is legally entitled to do, as the means of avoiding the execution of such threat, commits criminal intimidation."
+      },
+      {
+        "act": "Information Technology Act",
+        "year": 2000,
+        "section": "67",
+        "title": "Publishing obscene material electronically",
+        "section_data": "Whoever publishes or transmits or causes to be published or transmitted in the electronic form, any material which is lascivious or appeals to the prurient interest or if its effect is such as to tend to deprave and corrupt persons who are likely, having regard to all relevant circumstances, to read, see or hear the matter contained or embodied in it, shall be punished on first conviction with imprisonment of either description for a term which may extend to three years and with fine which may extend to five lakh rupees and in the event of second or subsequent conviction with imprisonment of either description for a term which may extend to five years and also with fine which may extend to ten lakh rupees."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "kidnapping_abduction": {
+    "keywords": [
+      "kidnapped",
+      "kidnapping",
+      "abducted",
+      "abduction",
+      "forcibly taken",
+      "taken against will"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "137",
+        "title": "Kidnapping",
+        "section_data": "Whoever takes or entices any minor under sixteen years of age if a male, or under eighteen years of age if a female, or any person of unsound mind, out of the keeping of the lawful guardian of such minor or person of unsound mind, without the consent of such guardian, is said to kidnap such minor or person from lawful guardianship."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "140",
+        "title": "Kidnapping or abducting in order to murder",
+        "section_data": "Whoever kidnaps or abducts any person in order that such person may be murdered or may be so disposed of as to be put in danger of being murdered, shall be punished with imprisonment for life or rigorous imprisonment for a term which may extend to ten years, and shall also be liable to fine."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "gang_rape": {
+    "keywords": [
+      "gang rape",
+      "multiple men raped",
+      "group rape",
+      "several men assaulted",
+      "gang sexual assault",
+      "multiple perpetrators rape"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "70",
+        "title": "Gang rape",
+        "section_data": "Where a woman is raped by one or more persons constituting a group or acting in furtherance of a common intention, each of those persons shall be deemed to have committed the offence of rape and shall be punished with rigorous imprisonment for a term which shall not be less than twenty years, but which may extend to imprisonment for life, which shall mean imprisonment for the remainder of that person's natural life, and with fine."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "63",
+        "title": "Rape",
+        "section_data": "A man is said to commit rape if he penetrates his penis, to any extent, into the vagina, mouth, urethra or anus of a woman or makes her to do so with him or any other person; or inserts, to any extent, any object or a part of the body, not being the penis, into the vagina, the urethra or anus of a woman or makes her to do so with him or any other person; or manipulates any part of the body of a woman so as to cause penetration into the vagina, urethra, anus or any part of body of such woman or makes her to do so with him or any other person; or applies his mouth to the vagina, anus, urethra of a woman or makes her to do so with him or any other person, under the circumstances falling under any of the following seven descriptions."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "dowry_harassment": {
+    "keywords": [
+      "dowry",
+      "demanding dowry",
+      "husband demanding dowry",
+      "dowry harassment",
+      "asking for dowry",
+      "dowry demand"
+    ],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "85",
+        "title": "Cruelty by husband or relative of husband",
+        "section_data": "Whoever, being the husband or the relative of the husband of a woman, subjects such woman to cruelty shall be punished with imprisonment for a term which may extend to three years and shall also be liable to fine."
+      },
+      {
+        "act": "Dowry Prohibition Act",
+        "year": 1961,
+        "section": "4",
+        "title": "Penalty for demanding dowry",
+        "section_data": "If any person, after the commencement of this Act, demands, directly or indirectly, from the parents or other relatives or guardian of a bride or bridegroom, as the case may be, any dowry, he shall be punishable with imprisonment for a term which shall not be less than six months, but which may extend to two years and with fine which may extend to ten thousand rupees."
+      },
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "3",
+        "title": "Definition of domestic violence",
+        "section_data": "For the purposes of this Act, any act, omission or commission or conduct of the respondent shall constitute domestic violence in case it harms or injures or endangers the health, safety, life, limb or well-being, whether mental or physical, of the aggrieved person or tends to do so and includes causing physical abuse, sexual abuse, verbal and emotional abuse and economic abuse."
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "terrorism_bomb_blast": {
+    "keywords": [
+      "bomb blast",
+      "bomb explosion",
+      "terrorist attack",
+      "terrorism",
+      "explosive device",
+      "bombing",
+      "blast in market",
+      "explosion"
+    ],
+    "domains": ["criminal", "terrorism"],
+    "constitutional_articles": ["Article 21"],
+    "statutes": [
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "113",
+        "title": "Terrorist act",
+        "section_data": "Whoever does any act with intent to threaten or likely to threaten the unity, integrity, security, economic security, or sovereignty of India or with intent to strike terror or likely to strike terror in the people or any section of the people in India or in any foreign country, commits a terrorist act."
+      },
+      {
+        "act": "Unlawful Activities (Prevention) Act",
+        "year": 1967,
+        "section": "15",
+        "title": "Terrorist act",
+        "section_data": "Whoever does any act with intent to threaten or likely to threaten the unity, integrity, security or sovereignty of India or with intent to strike terror or likely to strike terror in the people or any section of the people in India or in any foreign country, by using bombs, dynamite or other explosive substances or inflammable substances or firearms or other lethal weapons or poisonous or noxious gases or other chemicals or by any other substances (whether biological radioactive, nuclear or otherwise) of a hazardous nature or by any other means of whatever nature to cause or likely to cause death of, or injuries to, any person or persons or loss of, or damage to, or destruction of, property or disruption of any supplies or services essential to the life of the community in India or in any foreign country or causes damage or destruction of any property or equipment used or intended to be used for the defence of India or in connection with any other purposes of the Government of India, any State Government or any of their agencies, or detains any person and threatens to kill or injure such person or does any other act in order to compel the Government in India or the Government of a foreign country or any other person to do or abstain from doing any act, commits a terrorist act."
+      },
+      {
+        "act": "Unlawful Activities (Prevention) Act",
+        "year": 1967,
+        "section": "16",
+        "title": "Punishment for terrorist act",
+        "section_data": "Whoever commits a terrorist act, shall be punished with imprisonment for a term which shall not be less than five years but which may extend to imprisonment for life, and shall also be liable to fine."
+      }
+    ],
+    "enforcement_decision": "BLOCK"
+  },
+
+  "farmer_crop_loss": {
+    "keywords": [
+      "farmer loss",
+      "loss of farmers",
+      "crop loss",
+      "crop damage",
+      "agricultural loss",
+      "farm loss",
+      "harvest loss",
+      "crop failure",
+      "farmer compensation"
+    ],
+    "domains": ["commercial", "agricultural"],
+    "constitutional_articles": ["Article 39(b)", "Article 39(c)"],
+    "statutes": [
+      {
+        "act": "Farmers Protection Act",
+        "year": 2020,
+        "section": "10",
+        "title": "Compensation for crop loss due to natural calamities",
+        "section_data": "Compensation for crop loss due to natural calamities - State Disaster Response Fund (SDRF) and National Disaster Response Fund (NDRF) provisions for farmers affected by floods, drought, cyclones, and other natural disasters."
+      },
+      {
+        "act": "Farmers Protection Act",
+        "year": 2020,
+        "section": "1",
+        "title": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+        "section_data": "Crop insurance scheme covering yield losses due to natural calamities, pests, and diseases. Premium: 2% for Kharif, 1.5% for Rabi crops. Provides financial support to farmers in case of crop failure."
+      },
+      {
+        "act": "Farmers Protection Act",
+        "year": 2020,
+        "section": "26",
+        "title": "Immediate relief for crop loss",
+        "section_data": "Ex-gratia payment for complete crop loss due to natural disasters. Immediate financial assistance to help farmers recover from crop failure and restart agricultural activities."
+      },
+      {
+        "act": "Farmers Protection Act",
+        "year": 2020,
+        "section": "27",
+        "title": "Input subsidy for replanting",
+        "section_data": "Financial assistance for purchasing seeds and inputs after crop failure. Subsidy provided to enable farmers to replant crops and recover from agricultural losses."
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  }
+}

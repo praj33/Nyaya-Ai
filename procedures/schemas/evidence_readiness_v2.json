@@ -1,0 +1,50 @@
+{
+  "version": "2.0",
+  "layer": "evidence_readiness",
+  "principles": {
+    "deterministic": true,
+    "non_advisory": true,
+    "machine_readable": true
+  },
+  "canonical_evidence_states": {
+    "EVIDENCE_COMPLETE": "All mandatory documents present",
+    "EVIDENCE_PARTIAL": "Some mandatory documents missing",
+    "EVIDENCE_MISSING": "Critical mandatory documents missing"
+  },
+  "confidence_penalties": {
+    "EVIDENCE_COMPLETE": 0.0,
+    "EVIDENCE_PARTIAL": -0.3,
+    "EVIDENCE_MISSING": -0.7
+  },
+  "mandatory_documents_by_step": {
+    "CRIME_REPORTING": [
+      "complaint_or_information",
+      "identity_proof"
+    ],
+    "INVESTIGATION": [
+      "witness_statements",
+      "forensic_reports"
+    ],
+    "PRE_TRIAL_RELEASE_DECISION": [
+      "arrest_memo",
+      "case_diary"
+    ],
+    "SETTLEMENT_ATTEMPT": [
+      "settlement_terms_draft"
+    ],
+    "TRIAL": [
+      "evidence_exhibits",
+      "witness_lists"
+    ],
+    "APPEAL": [
+      "impugned_order",
+      "grounds_of_appeal"
+    ]
+  },
+  "validation_rules": {
+    "all_penalties_negative_or_zero": true,
+    "penalty_applies_only_on_missing_evidence": true,
+    "mandatory_documents_reference_canonical_steps": true
+  },
+  "status": "Day 5 complete — evidence readiness layer defined"
+}

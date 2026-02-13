@@ -1,0 +1,199 @@
+{
+  "country": "KSA",
+  "domain": "Criminal",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Law of Criminal Procedure (Royal Decree No. M/2)",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Public Prosecution of Saudi Arabia",
+      "type": "government_portal",
+      "url": "https://www.pp.gov.sa"
+    },
+    {
+      "name": "Ministry of Justice (Najiz)",
+      "type": "government_portal",
+      "url": "https://najiz.sa"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Police",
+      "Public Prosecution",
+      "Criminal Court",
+      "Court of Appeal",
+      "Supreme Court of Saudi Arabia"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Reporting of Crime and Initial Investigation",
+        "canonical_step": "CRIME_REPORTING",
+        "description": "A criminal complaint is reported and investigated by police authorities in accordance with the Law of Criminal Procedure.",
+        "actor": "Police"
+      },
+      {
+        "step": 2,
+        "title": "Referral to Public Prosecution",
+        "canonical_step": "INVESTIGATION",
+        "description": "Investigation records are referred to the Public Prosecution for legal supervision and further action.",
+        "actor": "Police / Public Prosecution"
+      },
+      {
+        "step": 3,
+        "title": "Detention or Release Decision",
+        "canonical_step": "PRE_TRIAL_RELEASE_DECISION",
+        "description": "Public Prosecution determines whether the accused is detained or released with or without guarantees pending prosecution.",
+        "actor": "Public Prosecution",
+        "conditional_branches": [
+          {
+            "condition": "Release ordered",
+            "canonical_outcome": "RELEASE_GRANTED",
+            "next_step": "Release with guarantees",
+            "effect": "Accused released subject to guarantees or undertakings"
+          },
+          {
+            "condition": "Detention ordered",
+            "canonical_outcome": "DETENTION_ORDERED",
+            "next_step": "Continued detention",
+            "effect": "Accused remains in detention pending prosecution"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Release with guarantees",
+            "Temporary detention",
+            "Extended detention with judicial approval"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Severity of the alleged offence",
+            "Risk of absconding",
+            "Public interest considerations",
+            "Status of investigation completeness",
+            "Availability of guarantees"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Incomplete investigation documentation",
+            "Pending forensic or technical reports",
+            "Procedural delays in prosecution review",
+            "Unclear identity or residency status of accused"
+          ]
+        }
+      },
+      {
+        "step": 4,
+        "title": "Decision to Prosecute or Dismiss",
+        "canonical_step": "PROSECUTION_DECISION",
+        "description": "Public Prosecution evaluates evidence and determines whether to file charges before the criminal court or dismiss the case.",
+        "actor": "Public Prosecution",
+        "conditional_branches": [
+          {
+            "condition": "Charges filed",
+            "canonical_outcome": "CHARGES_FILED",
+            "next_step": "Referral to Criminal Court",
+            "effect": "Case proceeds to criminal trial"
+          },
+          {
+            "condition": "Case dismissed",
+            "canonical_outcome": "CASE_DISMISSED",
+            "next_step": "Case closed",
+            "effect": "Criminal proceedings terminated"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Charges filed before court",
+            "Case dismissed for lack of evidence",
+            "Further investigation ordered"
+          ],
+          "probability_range": {
+            "min": 0.4,
+            "max": 0.8
+          },
+          "dependencies": [
+            "Sufficiency of admissible evidence",
+            "Compliance with Sharia principles",
+            "Completion of investigation requirements",
+            "Legal classification of offence"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Medium",
+          "effort_intensity": "Medium to High",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Insufficient or inadmissible evidence",
+            "Procedural violations during investigation",
+            "Missing expert or forensic reports",
+            "Incorrect offence classification"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Trial Before Criminal Court",
+        "canonical_step": "TRIAL",
+        "description": "Criminal Court hears the case, examines evidence, and applies Sharia principles and statutory law.",
+        "actor": "Criminal Court"
+      },
+      {
+        "step": 6,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment acquitting or convicting the accused and determines penalties where applicable.",
+        "actor": "Criminal Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Judgment may be appealed before higher courts as permitted under Saudi law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Police investigation report",
+      "Statements of accused and witnesses",
+      "Forensic and expert reports",
+      "Public Prosecution charge decision",
+      "Court judgments and records"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–24 months",
+      "worst_case": "3+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Criminal Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Supreme Court of Saudi Arabia",
+        "condition": "Appeal on points of law or Sharia compliance"
+      }
+    ]
+  }
+}

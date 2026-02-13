@@ -1,0 +1,65 @@
+{
+  "version": "1.2",
+  "principles": {
+    "scope": "Judicial reasoning factors only",
+    "restrictions": [
+      "No legal advice",
+      "No outcome prediction",
+      "No weighting or scoring",
+      "No jurisdiction-specific phrasing"
+    ],
+    "usage_rules": [
+      "Only allowed on decision-heavy procedural steps",
+      "All values must be selected from this schema",
+      "Lists must remain unordered",
+      "Terms must remain descriptive and neutral"
+    ]
+  },
+  "canonical_groups": {
+    "pre_trial_release": [
+      "severity_of_offence",
+      "risk_of_absconding",
+      "risk_of_reoffending",
+      "criminal_antecedents",
+      "likelihood_of_evidence_tampering",
+      "public_interest",
+      "victim_protection",
+      "personal_circumstances_of_accused"
+    ],
+    "prosecution_decision": [
+      "evidential_sufficiency",
+      "admissibility_of_evidence",
+      "credibility_of_witnesses",
+      "legal_classification_of_offence",
+      "procedural_compliance",
+      "public_interest",
+      "availability_of_supporting_material"
+    ],
+    "settlement_attempt": [
+      "willingness_of_parties",
+      "nature_of_dispute",
+      "relationship_between_parties",
+      "cost_benefit_balance",
+      "judicial_encouragement",
+      "likelihood_of_voluntary_compliance"
+    ],
+    "case_allocation_discretion": [
+      "jurisdictional_appropriateness",
+      "complexity_of_matter",
+      "value_of_claim",
+      "statutory_mandates",
+      "procedural_efficiency"
+    ]
+  },
+  "canonical_step_mapping": {
+    "PRE_TRIAL_RELEASE_DECISION": "pre_trial_release",
+    "PROSECUTION_DECISION": "prosecution_decision",
+    "SETTLEMENT_ATTEMPT": "settlement_attempt",
+    "CASE_ALLOCATION": "case_allocation_discretion"
+  },
+  "validation": {
+    "must_reference_existing_group": true,
+    "no_custom_terms_allowed": true,
+    "cross_country_consistency_required": true
+  }
+}

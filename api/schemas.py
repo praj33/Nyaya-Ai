@@ -10,6 +10,8 @@ class UserRole(str, Enum):
 class DomainHint(str, Enum):
     CRIMINAL = "criminal"
     CIVIL = "civil"
+    FAMILY = "family"
+    COMMERCIAL = "commercial"
     CONSTITUTIONAL = "constitutional"
 
 class JurisdictionHint(str, Enum):
@@ -51,15 +53,43 @@ class FeedbackRequest(BaseModel):
     feedback_type: FeedbackType
     comment: Optional[str] = Field(None, max_length=1000)
 
+class StatuteSchema(BaseModel):
+    act: str
+    year: int
+    section: str
+    title: str
+
+class CaseLawSchema(BaseModel):
+    title: str
+    court: str
+    year: int
+    principle: str
+
+class ConfidenceSchema(BaseModel):
+    overall: float = Field(..., ge=0.0, le=1.0)
+    jurisdiction: float = Field(..., ge=0.0, le=1.0)
+    domain: float = Field(..., ge=0.0, le=1.0)
+    statute_match: float = Field(..., ge=0.0, le=1.0)
+    procedural_match: float = Field(..., ge=0.0, le=1.0)
+
 class NyayaResponse(BaseModel):
     domain: str
+    domains: List[str] = []
     jurisdiction: str
-    confidence: float = Field(..., ge=0.0, le=1.0)
+    jurisdiction_detected: str
+    jurisdiction_confidence: float = Field(..., ge=0.0, le=1.0)
+    confidence: ConfidenceSchema
     legal_route: List[str]
+    statutes: List[StatuteSchema] = []
+    case_laws: List[CaseLawSchema] = []
     constitutional_articles: List[str] = []
     provenance_chain: List[Dict[str, Any]] = []
     reasoning_trace: Dict[str, Any] = {}
     trace_id: str
+    enforcement_decision: str = "ALLOW"
+    timeline: List[Dict[str, str]] = []
+    glossary: List[Dict[str, str]] = []
+    evidence_requirements: List[str] = []
 
 class MultiJurisdictionResponse(BaseModel):
     comparative_analysis: Dict[str, NyayaResponse]
@@ -91,3 +121,47 @@ class ErrorResponse(BaseModel):
     error_code: str
     message: str
     trace_id: str
+
+class ProcedureRequest(BaseModel):
+    country: str = Field(..., description="Country code (e.g., india, uae, uk)")
+    domain: str = Field(..., description="Legal domain (e.g., criminal, civil, family, consumer_commercial)")
+    current_step: Optional[str] = Field(None, description="Current canonical step")
+
+class EvidenceAssessmentRequest(BaseModel):
+    canonical_step: str = Field(..., description="Canonical step name")
+    available_documents: List[str] = Field(..., description="List of available documents")
+
+class FailureAnalysisRequest(BaseModel):
+    failure_code: str = Field(..., description="Failure code to analyze")
+
+class ProcedureComparisonRequest(BaseModel):
+    countries: List[str] = Field(..., min_items=2, max_items=4, description="Countries to compare")
+    domain: str = Field(..., description="Legal domain to compare")
+
+class ProcedureResponse(BaseModel):
+    country: str
+    domain: str
+    procedure_overview: Dict[str, Any]
+    steps: List[Dict[str, Any]]
+    escalation_paths: List[Dict[str, Any]]
+    current_step_analysis: Optional[Dict[str, Any]] = None
+
+class EvidenceAssessmentResponse(BaseModel):
+    evidence_state: str
+    mandatory_documents: List[str]
+    available_documents: List[str]
+    missing_documents: List[str]
+    confidence_penalty: float
+    readiness_percentage: float
+
+class FailureAnalysisResponse(BaseModel):
+    failure_code: str
+    failure_type: str
+    description: str
+    recoverable: bool
+    severity: str
+
+class ProcedureComparisonResponse(BaseModel):
+    domain: str
+    countries: List[str]
+    procedures: Dict[str, Any]

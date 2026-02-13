@@ -239,18 +239,18 @@
       "target_agent": "india_legal_agent"
     },
     "prev_hash": "ab987109bd1150313fc61569f06750e8f03535c3cfc1be7f67bed45523e7a662",
-    "hash": "8e639e3e870aae9032746f941c8c278c44a28f7ebf17d5f145fb7bcc7e36d2f6"
+    "hash": "f8e9d7c6b5a4938271605f4e3d2c1b0a9f8e7d6c5b4a39281706f5e4d3c2b1a0"
   },
   {
     "type": "refusal_or_escalation",
-    "timestamp": "2026-02-01T12:57:01.433270",
+    "timestamp": "2026-02-01T12:57:01.435890",
     "trace_id": "aa554c01-c68f-476d-8b67-5cd1af322b28",
     "refusal_details": {
       "reason": "enforcement_blocked",
       "query": "Test query",
       "target_jurisdiction": "IN"
     },
-    "prev_hash": "8e639e3e870aae9032746f941c8c278c44a28f7ebf17d5f145fb7bcc7e36d2f6",
+    "prev_hash": "f8e9d7c6b5a4938271605f4e3d2c1b0a9f8e7d6c5b4a39281706f5e4d3c2b1a0",
     "hash": "24a09c08799feb5fe0ca4788c6cd9ad749ad4713074202384fbeb6ece6837b96"
   },
   {
@@ -1142,5 +1142,381 @@
     },
     "prev_hash": "476c442861c416e5dae5900638d4bd601be133cb7e17b32cc8a1499651c4e74a",
     "hash": "6be2e7a7e6e4ba24579975f7f24095c39ed8c1706026320228341360a9f53e67"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:09:49.224619",
+    "trace_id": "caf623f6-fa8d-4d79-983e-f214765d3300",
+    "routing_details": {
+      "query": "my phone is hacked",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "6be2e7a7e6e4ba24579975f7f24095c39ed8c1706026320228341360a9f53e67",
+    "hash": "5d0204617ad0ec81ee6460e590d60d75d4815544b1a625fac5cb7393cdc921c3"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:09:49.227674",
+    "trace_id": "caf623f6-fa8d-4d79-983e-f214765d3300",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "my phone is hacked",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "5d0204617ad0ec81ee6460e590d60d75d4815544b1a625fac5cb7393cdc921c3",
+    "hash": "0c8743639a36b9d0f64a3dbb2f4456e1492d569aa4d80ec8ad9362933a36388d"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:10:48.229701",
+    "trace_id": "8918dfe3-cad6-4cd5-975e-619bce1bad2e",
+    "routing_details": {
+      "query": "my phone is hacked",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "0c8743639a36b9d0f64a3dbb2f4456e1492d569aa4d80ec8ad9362933a36388d",
+    "hash": "036b9e0d9ee92ee9c5025942278d666eb507a53f7c6e4ab9cffd6628d85c45bd"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:10:48.231702",
+    "trace_id": "8918dfe3-cad6-4cd5-975e-619bce1bad2e",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "my phone is hacked",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "036b9e0d9ee92ee9c5025942278d666eb507a53f7c6e4ab9cffd6628d85c45bd",
+    "hash": "787909547329286919dba138bc1842aa29081ebce9ec33f31cb3a16883a72c1a"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:12:58.014258",
+    "trace_id": "87af274b-c6ae-43e9-b52b-f95b2670156a",
+    "routing_details": {
+      "query": "What are the steps to file an FIR in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "787909547329286919dba138bc1842aa29081ebce9ec33f31cb3a16883a72c1a",
+    "hash": "6679a03b9f7dd40ca47fe3b0240245c4a7603e4816116dd38bbc9685b0c2f4a9"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:12:58.017255",
+    "trace_id": "87af274b-c6ae-43e9-b52b-f95b2670156a",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What are the steps to file an FIR in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "6679a03b9f7dd40ca47fe3b0240245c4a7603e4816116dd38bbc9685b0c2f4a9",
+    "hash": "ffb2815b760dbd4194da28333245ac721604c22d72757754f5e4968fb30bdc59"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:15:18.953445",
+    "trace_id": "b897bc08-9abe-4202-8542-4905937d96d3",
+    "routing_details": {
+      "query": "What documents are needed for criminal procedure in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "ffb2815b760dbd4194da28333245ac721604c22d72757754f5e4968fb30bdc59",
+    "hash": "c72fd6de02aa3ca3d07b13efd715c941a3d544e4c0e543fb1edbae1d89de2855"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:15:18.956964",
+    "trace_id": "b897bc08-9abe-4202-8542-4905937d96d3",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What documents are needed for criminal procedure in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "c72fd6de02aa3ca3d07b13efd715c941a3d544e4c0e543fb1edbae1d89de2855",
+    "hash": "728ea8f0f7d932c327cce20f7e208e84106de59bb9d2abc10d6f3f9571f75b15"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:22:49.752063",
+    "trace_id": "158eabbb-e32a-4b72-9d4d-e0710ba70402",
+    "routing_details": {
+      "query": "What documents are needed for criminal procedure in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "728ea8f0f7d932c327cce20f7e208e84106de59bb9d2abc10d6f3f9571f75b15",
+    "hash": "33b3e67d39be7701aee0d6d6e06f2072b3e9c88f9e360a11a59696b86c5c5fa8"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:22:49.754766",
+    "trace_id": "158eabbb-e32a-4b72-9d4d-e0710ba70402",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What documents are needed for criminal procedure in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "33b3e67d39be7701aee0d6d6e06f2072b3e9c88f9e360a11a59696b86c5c5fa8",
+    "hash": "c965119e0228a877522b3e2fabb0977ba7d5b9b5409ede6b9b40cf3ef405f45f"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:23:31.826953",
+    "trace_id": "ec0a731b-d156-486b-ac12-8fe640508767",
+    "routing_details": {
+      "query": "What documents are needed for criminal procedure in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "c965119e0228a877522b3e2fabb0977ba7d5b9b5409ede6b9b40cf3ef405f45f",
+    "hash": "42ca4ec0898f374a39697f7aec5f04f96fc6f63c9dc89ec92b5df71cceaf831a"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:23:31.829957",
+    "trace_id": "ec0a731b-d156-486b-ac12-8fe640508767",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What documents are needed for criminal procedure in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "42ca4ec0898f374a39697f7aec5f04f96fc6f63c9dc89ec92b5df71cceaf831a",
+    "hash": "9c886ed322dd9997e897d8ae500f4fdb05a68f54858fa582791d4107ecbc888c"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T14:17:00.539960",
+    "trace_id": "fde443f2-e13d-4569-9e1b-481d6236e8da",
+    "prev_hash": "9c886ed322dd9997e897d8ae500f4fdb05a68f54858fa582791d4107ecbc888c",
+    "routing_details": {
+      "query": "What are privacy laws in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "privacy",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "hash": "a464c8a6896cd057a2232023783d82d8b737511b9af087aaa8239437114730ba"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T14:17:00.551961",
+    "trace_id": "fde443f2-e13d-4569-9e1b-481d6236e8da",
+    "prev_hash": "a464c8a6896cd057a2232023783d82d8b737511b9af087aaa8239437114730ba",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What are privacy laws in India?",
+      "target_jurisdiction": "IN"
+    },
+    "hash": "62002d2a8e98a5edfb2e39159b082dd43bfba51e6480856ba83541399987f378"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T14:17:00.562960",
+    "trace_id": "rate-limit-trace",
+    "prev_hash": "62002d2a8e98a5edfb2e39159b082dd43bfba51e6480856ba83541399987f378",
+    "refusal_details": {
+      "reason": "enforcement_blocked_rl",
+      "trace_id": "rate-limit-trace",
+      "rating": 5
+    },
+    "hash": "101b7f5b21c3966913eca4372a496a9ca854cf4c2e979954318a7f9d7b946758"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:56:44.223108",
+    "trace_id": "7d45609f-a139-418f-af7f-8947a5b76355",
+    "routing_details": {
+      "query": "What documents are needed for criminal procedure in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "101b7f5b21c3966913eca4372a496a9ca854cf4c2e979954318a7f9d7b946758",
+    "hash": "18c6f783ebc8a338e01a347f72d78b0f1c213ee75c3b91931c06faff1721764b"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:56:44.225918",
+    "trace_id": "7d45609f-a139-418f-af7f-8947a5b76355",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "What documents are needed for criminal procedure in India?",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "18c6f783ebc8a338e01a347f72d78b0f1c213ee75c3b91931c06faff1721764b",
+    "hash": "77ef968da9ae30cbdbcb3108ff875a1538be09c301310715e6969e4148c22499"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T08:59:13.183342",
+    "trace_id": "06369686-92b9-4107-b1d6-ab64f965eb8a",
+    "routing_details": {
+      "query": "my phone is hacked",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "77ef968da9ae30cbdbcb3108ff875a1538be09c301310715e6969e4148c22499",
+    "hash": "4f3873f3033d7b26f06d19f75c1b991a6faf88d415207927ccb25a2bc165abbb"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T08:59:13.187345",
+    "trace_id": "06369686-92b9-4107-b1d6-ab64f965eb8a",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "my phone is hacked",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "4f3873f3033d7b26f06d19f75c1b991a6faf88d415207927ccb25a2bc165abbb",
+    "hash": "4d7d258d1a11e2e74188488b606260ac5a7685a37526fa53ee0d1359a4cd31b6"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T09:00:31.291094",
+    "trace_id": "871fcd3c-704b-40b3-9e52-6eeaba17a08d",
+    "routing_details": {
+      "query": "my phone is hacked",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "4d7d258d1a11e2e74188488b606260ac5a7685a37526fa53ee0d1359a4cd31b6",
+    "hash": "1338e33b9ab67352c1f6e87c78ff3f81a1a92f12f7ed23581b2398cd3a95e5ff"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T09:00:31.294100",
+    "trace_id": "871fcd3c-704b-40b3-9e52-6eeaba17a08d",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "my phone is hacked",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "1338e33b9ab67352c1f6e87c78ff3f81a1a92f12f7ed23581b2398cd3a95e5ff",
+    "hash": "e9f41afe703eda1b7e80f79954a096742a4e19cbc3846da0ff576052938110d2"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T09:17:36.347379",
+    "trace_id": "825b4515-b679-48d1-bced-9360dc71d25f",
+    "routing_details": {
+      "query": "my phone is hacked",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "e9f41afe703eda1b7e80f79954a096742a4e19cbc3846da0ff576052938110d2",
+    "hash": "e4912ecf4805043b211905fc7c2259ee55ccf0f1cee1c65fca98e1a2d4989f93"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T09:17:36.351379",
+    "trace_id": "825b4515-b679-48d1-bced-9360dc71d25f",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "my phone is hacked",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "e4912ecf4805043b211905fc7c2259ee55ccf0f1cee1c65fca98e1a2d4989f93",
+    "hash": "40c0503830dcab13c33be65701d43a24fbce6cae4d11ed725ed95a9b14e30600"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T09:30:00.790556",
+    "trace_id": "99ca1cc7-338a-4755-86d8-b0534e0593c5",
+    "routing_details": {
+      "query": "i was raped",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "40c0503830dcab13c33be65701d43a24fbce6cae4d11ed725ed95a9b14e30600",
+    "hash": "964cde3a20dce896636689db4280cbe20d36db4c7d2373d0554f315d58b3179d"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T09:30:00.794541",
+    "trace_id": "99ca1cc7-338a-4755-86d8-b0534e0593c5",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "i was raped",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "964cde3a20dce896636689db4280cbe20d36db4c7d2373d0554f315d58b3179d",
+    "hash": "62e1f2d6eff9e31e808c3b025a5c715fac90dd03001263394e9f25dec051e65c"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T09:36:52.005704",
+    "trace_id": "c20f4462-68c8-4a13-b813-1564013430d1",
+    "routing_details": {
+      "query": "i was raped",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "62e1f2d6eff9e31e808c3b025a5c715fac90dd03001263394e9f25dec051e65c",
+    "hash": "68cdb9daab85e1e01633898df05e8c9efbe04e06ef5ab7cc0e3d118a9bb557a1"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T09:36:52.008709",
+    "trace_id": "c20f4462-68c8-4a13-b813-1564013430d1",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "i was raped",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "68cdb9daab85e1e01633898df05e8c9efbe04e06ef5ab7cc0e3d118a9bb557a1",
+    "hash": "507fdf2f81524b24cb4b6c6affefd2043b45e29b571878ac6ec9f29248ae3386"
+  },
+  {
+    "type": "routing_decision",
+    "timestamp": "2026-02-11T09:36:59.869088",
+    "trace_id": "8dd60b5d-c346-40a2-b157-469b49222a34",
+    "routing_details": {
+      "query": "i was raped",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal",
+      "target_jurisdiction": "IN",
+      "target_agent": "india_legal_agent"
+    },
+    "prev_hash": "507fdf2f81524b24cb4b6c6affefd2043b45e29b571878ac6ec9f29248ae3386",
+    "hash": "f71185d095832b3e1b3b9013c2f12de8f0f761533b391928fdd15af23e062464"
+  },
+  {
+    "type": "refusal_or_escalation",
+    "timestamp": "2026-02-11T09:36:59.872088",
+    "trace_id": "8dd60b5d-c346-40a2-b157-469b49222a34",
+    "refusal_details": {
+      "reason": "enforcement_blocked",
+      "query": "i was raped",
+      "target_jurisdiction": "IN"
+    },
+    "prev_hash": "f71185d095832b3e1b3b9013c2f12de8f0f761533b391928fdd15af23e062464",
+    "hash": "da3a67b9af9dd99c6be022496b3abbbaa8bb727f6c86de75507c2d5afdc7a591"
   }
 ]

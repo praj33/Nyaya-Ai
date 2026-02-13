@@ -1,0 +1,20 @@
+[
+  {
+    "id": "murder_001",
+    "query": "someone killed my brother",
+    "expected_domains": ["criminal"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "103"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "murder_002",
+    "query": "my father was murdered",
+    "expected_domains": ["criminal"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "103"}
+    ],
+    "must_not_include_statutes": []
+  }
+]

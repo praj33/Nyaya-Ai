@@ -1,0 +1,59 @@
+[
+  {
+    "id": "dowry_demand_001",
+    "query": "my husband is demanding dowry",
+    "expected_domains": ["criminal", "family"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85"},
+      {"act": "Dowry Prohibition Act", "section": "4"}
+    ],
+    "must_not_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "80"}
+    ]
+  },
+  {
+    "id": "dowry_death_001",
+    "query": "my wife died due to dowry",
+    "expected_domains": ["criminal"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "80"}
+    ],
+    "must_not_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85"}
+    ]
+  },
+  {
+    "id": "dowry_harassment_001",
+    "query": "dowry harassment by in-laws",
+    "expected_domains": ["criminal", "family"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85"},
+      {"act": "Dowry Prohibition Act", "section": "4"}
+    ],
+    "must_not_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "80"}
+    ]
+  },
+  {
+    "id": "domestic_violence_001",
+    "query": "husband beating me",
+    "expected_domains": ["criminal", "family"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85"},
+      {"act": "Protection of Women from Domestic Violence Act", "section": "3"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "economic_abuse_001",
+    "query": "husband asking for money",
+    "expected_domains": ["criminal", "family"],
+    "must_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85"},
+      {"act": "Dowry Prohibition Act", "section": "4"}
+    ],
+    "must_not_include_statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "80"}
+    ]
+  }
+]

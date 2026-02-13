@@ -1,0 +1,152 @@
+{
+  "country": "KSA",
+  "domain": "Civil",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Civil Transactions Law (Royal Decree No. M/191 of 2023)",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Law of Procedure Before Sharia Courts",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Ministry of Justice (Najiz)",
+      "type": "government_portal",
+      "url": "https://najiz.sa"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "General Court",
+      "Commercial Court (where applicable)",
+      "Court of Appeal",
+      "Supreme Court of Saudi Arabia"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Civil Claim",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Claimant files a civil claim electronically through the Najiz portal in accordance with civil and Sharia procedural law.",
+        "actor": "Claimant / Legal Representative"
+      },
+      {
+        "step": 2,
+        "title": "Case Registration and Notification",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court registers the case and notifies the defendant of the claim and hearing schedule.",
+        "actor": "Court"
+      },
+      {
+        "step": 3,
+        "title": "Exchange of Submissions and Evidence",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Parties submit pleadings, responses, and documentary evidence within timelines set by the court.",
+        "actor": "Claimant / Defendant"
+      },
+      {
+        "step": 4,
+        "title": "Settlement or Reconciliation Consideration",
+        "canonical_step": "SETTLEMENT_ATTEMPT",
+        "description": "Court may encourage reconciliation or settlement between parties prior to adjudication.",
+        "actor": "Court",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement recorded",
+            "effect": "Dispute resolved and settlement ratified by the court"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Judicial determination",
+            "effect": "Case proceeds to adjudication on merits"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement",
+            "Partial settlement",
+            "No settlement"
+          ],
+          "probability_range": {
+            "min": 0.25,
+            "max": 0.65
+          },
+          "dependencies": [
+            "Nature and value of civil claim",
+            "Willingness of parties to reconcile",
+            "Clarity of contractual or transactional evidence",
+            "Judicial encouragement of settlement",
+            "Compatibility of settlement with Sharia principles"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Incomplete documentation",
+            "Jurisdictional objections",
+            "Failure to comply with procedural deadlines",
+            "Disputes over Sharia compliance of claims"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Hearings and Evidence Review",
+        "canonical_step": "TRIAL",
+        "description": "Court conducts hearings, reviews evidence, and hears submissions from the parties.",
+        "actor": "Court"
+      },
+      {
+        "step": 6,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment resolving the civil dispute in accordance with Sharia and statutory law.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the judgment before higher courts as permitted by law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Statement of claim",
+      "Contracts or transactional documents",
+      "Correspondence between parties",
+      "Witness statements (if applicable)",
+      "Expert or valuation reports (if required)"
+    ],
+    "timelines": {
+      "best_case": "4–8 months",
+      "average": "8–24 months",
+      "worst_case": "3+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "General Court / Commercial Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Supreme Court of Saudi Arabia",
+        "condition": "Appeal on points of law or Sharia compliance"
+      }
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "divorce_cruelty_001",
+    "query": "I want divorce due to cruelty",
+    "expected_domains": ["family"],
+    "must_include_statutes": [
+      {"act": "Hindu Marriage Act", "section": "13"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "divorce_adultery_001",
+    "query": "my husband is having an affair",
+    "expected_domains": ["family"],
+    "must_include_statutes": [
+      {"act": "Hindu Marriage Act", "section": "13"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "divorce_desertion_001",
+    "query": "my wife left me 2 years ago",
+    "expected_domains": ["family"],
+    "must_include_statutes": [
+      {"act": "Hindu Marriage Act", "section": "13"}
+    ],
+    "must_not_include_statutes": []
+  }
+]

@@ -1,0 +1,1 @@
+# Addons package for legal ontology extensions

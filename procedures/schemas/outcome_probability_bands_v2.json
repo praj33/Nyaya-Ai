@@ -1,0 +1,75 @@
+{
+  "version": "2.0",
+  "layer": "outcome_safe_probability_bands",
+  "principles": {
+    "ranges_only": true,
+    "non_predictive": true,
+    "jurisdiction_aware": true,
+    "domain_aware": true
+  },
+  "bands": {
+    "India": {
+      "Criminal": {
+        "BAIL_GRANTED": { "min": 0.3, "max": 0.7 },
+        "CASE_DISMISSED": { "min": 0.1, "max": 0.3 }
+      },
+      "Civil": {
+        "SETTLEMENT_REACHED": { "min": 0.2, "max": 0.6 }
+      },
+      "Family": {
+        "MEDIATION_SUCCESS": { "min": 0.3, "max": 0.7 }
+      },
+      "Consumer": {
+        "SETTLEMENT_REACHED": { "min": 0.4, "max": 0.8 }
+      }
+    },
+    "UAE": {
+      "Criminal": {
+        "BAIL_GRANTED": { "min": 0.2, "max": 0.5 }
+      },
+      "Civil": {
+        "SETTLEMENT_REACHED": { "min": 0.3, "max": 0.6 }
+      },
+      "Family": {
+        "MEDIATION_SUCCESS": { "min": 0.3, "max": 0.6 }
+      },
+      "Consumer": {
+        "SETTLEMENT_REACHED": { "min": 0.4, "max": 0.7 }
+      }
+    },
+    "UK": {
+      "Criminal": {
+        "BAIL_GRANTED": { "min": 0.4, "max": 0.8 }
+      },
+      "Civil": {
+        "SETTLEMENT_REACHED": { "min": 0.3, "max": 0.7 }
+      },
+      "Family": {
+        "MEDIATION_SUCCESS": { "min": 0.4, "max": 0.8 }
+      },
+      "Consumer": {
+        "SETTLEMENT_REACHED": { "min": 0.5, "max": 0.9 }
+      }
+    },
+    "KSA": {
+      "Criminal": {
+        "BAIL_GRANTED": { "min": 0.2, "max": 0.4 }
+      },
+      "Civil": {
+        "SETTLEMENT_REACHED": { "min": 0.2, "max": 0.5 }
+      },
+      "Family": {
+        "MEDIATION_SUCCESS": { "min": 0.3, "max": 0.6 }
+      },
+      "Consumer": {
+        "SETTLEMENT_REACHED": { "min": 0.3, "max": 0.6 }
+      }
+    }
+  },
+  "validation_rules": {
+    "min_must_be_less_than_max": true,
+    "no_single_point_values": true,
+    "no_cross_jurisdiction_inference": true
+  },
+  "status": "Day 4 complete — safe probability bands standardized"
+}

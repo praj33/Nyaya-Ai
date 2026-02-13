@@ -1,5 +1,12 @@
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
-pydantic==2.5.0
-python-multipart==0.0.6
-requests==2.31.0
+# Core dependencies
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.0.0
+
+# Vector search dependencies
+faiss-cpu>=1.7.4
+sentence-transformers>=2.2.0
+numpy>=1.24.0
+
+# Optional: GPU acceleration
+# faiss-gpu>=1.7.4  # Uncomment for GPU support

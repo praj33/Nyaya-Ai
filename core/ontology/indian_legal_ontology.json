@@ -1,0 +1,368 @@
+{
+  "acts": [
+    {
+      "act_id": "bns_sections",
+      "name": "Bharatiya Nyaya Sanhita",
+      "year": 2023,
+      "abbreviation": "BNS",
+      "jurisdiction": "IN",
+      "domain": ["criminal"],
+      "section_range": ["1", "358"],
+      "keywords": ["criminal", "offence", "punishment", "imprisonment", "fine", "bharatiya", "nyaya", "sanhita"],
+      "priority": 1,
+      "replaces": ["ipc_sections"],
+      "active": true
+    },
+    {
+      "act_id": "ipc_sections",
+      "name": "Indian Penal Code",
+      "year": 1860,
+      "abbreviation": "IPC",
+      "jurisdiction": "IN",
+      "domain": ["criminal"],
+      "section_range": ["1", "511"],
+      "keywords": ["criminal", "offence", "punishment", "imprisonment", "fine", "penal"],
+      "priority": 2,
+      "replaced_by": "bns_sections",
+      "active": false
+    },
+    {
+      "act_id": "crpc_sections",
+      "name": "Code of Criminal Procedure",
+      "year": 1973,
+      "abbreviation": "CrPC",
+      "jurisdiction": "IN",
+      "domain": ["criminal", "procedural"],
+      "section_range": ["1", "484"],
+      "keywords": ["procedure", "investigation", "trial", "bail", "arrest", "fir", "charge sheet", "criminal procedure"],
+      "priority": 2,
+      "replaced_by": "bnss_sections",
+      "active": false
+    },
+    {
+      "act_id": "bnss_sections",
+      "name": "Bharatiya Nagarik Suraksha Sanhita",
+      "year": 2023,
+      "abbreviation": "BNSS",
+      "jurisdiction": "IN",
+      "domain": ["criminal", "procedural"],
+      "section_range": ["1", "531"],
+      "keywords": ["procedure", "investigation", "trial", "bail", "arrest", "bharatiya", "nagarik", "suraksha"],
+      "priority": 1,
+      "replaces": ["crpc_sections"],
+      "active": true
+    },
+    {
+      "act_id": "it_act_2000",
+      "name": "Information Technology Act",
+      "year": 2000,
+      "abbreviation": "IT Act",
+      "jurisdiction": "IN",
+      "domain": ["cyber", "criminal"],
+      "section_range": ["1", "94"],
+      "keywords": ["cyber", "hacking", "computer", "internet", "digital", "data", "electronic", "information technology", "cyber terrorism", "phishing"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "uapa_1967",
+      "name": "Unlawful Activities (Prevention) Act",
+      "year": 1967,
+      "abbreviation": "UAPA",
+      "jurisdiction": "IN",
+      "domain": ["criminal", "terrorism"],
+      "section_range": ["1", "51"],
+      "keywords": ["terrorism", "terrorist", "unlawful", "extremism", "national security", "anti-terror", "terrorist organization"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "hindu_marriage_act",
+      "name": "Hindu Marriage Act",
+      "year": 1955,
+      "abbreviation": "HMA",
+      "jurisdiction": "IN",
+      "domain": ["family"],
+      "section_range": ["1", "30"],
+      "keywords": ["marriage", "divorce", "hindu", "matrimonial", "custody", "alimony", "maintenance", "separation"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "special_marriage_act",
+      "name": "Special Marriage Act",
+      "year": 1954,
+      "abbreviation": "SMA",
+      "jurisdiction": "IN",
+      "domain": ["family"],
+      "section_range": ["1", "60"],
+      "keywords": ["marriage", "divorce", "special marriage", "inter-faith", "matrimonial", "custody", "alimony"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "domestic_violence_act",
+      "name": "Protection of Women from Domestic Violence Act",
+      "year": 2005,
+      "abbreviation": "PWDVA",
+      "jurisdiction": "IN",
+      "domain": ["family", "criminal"],
+      "section_range": ["1", "37"],
+      "keywords": ["domestic violence", "protection", "women", "abuse", "harassment", "matrimonial"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "dowry_prohibition_act",
+      "name": "Dowry Prohibition Act",
+      "year": 1961,
+      "abbreviation": "DPA",
+      "jurisdiction": "IN",
+      "domain": ["criminal", "family"],
+      "section_range": ["1", "10"],
+      "keywords": ["dowry", "prohibition", "marriage", "demand", "giving", "taking"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "consumer_protection_act",
+      "name": "Consumer Protection Act",
+      "year": 2019,
+      "abbreviation": "CPA",
+      "jurisdiction": "IN",
+      "domain": ["civil", "consumer"],
+      "section_range": ["1", "107"],
+      "keywords": ["consumer", "defective", "product", "service", "complaint", "refund", "compensation"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "labour_employment_laws",
+      "name": "Labour and Employment Laws",
+      "year": 1948,
+      "abbreviation": "Labour Laws",
+      "jurisdiction": "IN",
+      "domain": ["civil", "employment"],
+      "section_range": ["1", "100"],
+      "keywords": ["labour", "employment", "salary", "wages", "termination", "workplace", "employee", "employer", "gratuity"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "property_real_estate_laws",
+      "name": "Property and Real Estate Laws",
+      "year": 2016,
+      "abbreviation": "RERA",
+      "jurisdiction": "IN",
+      "domain": ["civil", "property"],
+      "section_range": ["1", "92"],
+      "keywords": ["property", "real estate", "tenant", "landlord", "lease", "rent", "rera", "builder"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "motor_vehicles_act",
+      "name": "Motor Vehicles Act",
+      "year": 1988,
+      "abbreviation": "MVA",
+      "jurisdiction": "IN",
+      "domain": ["civil", "traffic"],
+      "section_range": ["1", "217"],
+      "keywords": ["vehicle", "accident", "driving", "license", "traffic", "insurance", "motor", "road"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "farmers_protection_act",
+      "name": "Farmers Protection Act",
+      "year": 2020,
+      "abbreviation": "FPA",
+      "jurisdiction": "IN",
+      "domain": ["civil", "agricultural"],
+      "section_range": ["1", "50"],
+      "keywords": ["farmer", "agriculture", "crop", "farming", "cultivation", "msp", "agricultural"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "cpc_sections",
+      "name": "Code of Civil Procedure",
+      "year": 1908,
+      "abbreviation": "CPC",
+      "jurisdiction": "IN",
+      "domain": ["civil", "procedural"],
+      "section_range": ["1", "158"],
+      "keywords": ["civil procedure", "suit", "plaint", "decree", "appeal", "execution"],
+      "priority": 2,
+      "active": true
+    },
+    {
+      "act_id": "indian_evidence_act",
+      "name": "Indian Evidence Act",
+      "year": 1872,
+      "abbreviation": "IEA",
+      "jurisdiction": "IN",
+      "domain": ["procedural"],
+      "section_range": ["1", "167"],
+      "keywords": ["evidence", "witness", "proof", "admissibility", "testimony"],
+      "priority": 2,
+      "active": true
+    }
+  ],
+  "offense_categories": {
+    "dowry_demand": {
+      "keywords": ["dowry", "harassment", "beating", "torture", "abuse", "threatened", "forced money", "cruelty", "498a", "demanding dowry", "asking for dowry", "asking for money", "demanding money", "money demand", "cash demand"],
+      "exclude_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
+      "domains": ["criminal", "family"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 15(3)"],
+      "primary_statutes": [
+        {"act_id": "bns_sections", "sections": ["85"]},
+        {"act_id": "ipc_sections", "sections": ["498A"]},
+        {"act_id": "dowry_prohibition_act", "sections": ["4", "3", "6"]},
+        {"act_id": "domestic_violence_act", "sections": ["3", "12", "18", "19", "20", "21", "22", "23"]}
+      ],
+      "secondary_statutes": [
+        {"act_id": "hindu_marriage_act", "sections": ["13", "10"]}
+      ]
+    },
+    "dowry_death": {
+      "keywords": ["dowry death", "died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
+      "require_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
+      "domains": ["criminal"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 15(3)"],
+      "primary_statutes": [
+        {"act_id": "bns_sections", "sections": ["80"]},
+        {"act_id": "ipc_sections", "sections": ["304B"]},
+        {"act_id": "dowry_prohibition_act", "sections": ["3", "4", "6"]}
+      ],
+      "secondary_statutes": []
+    },
+    "economic_abuse_marital": {
+      "keywords": ["asking for money", "demanding money", "forcing me to pay", "pressuring for money", "took my salary", "controls my income", "financial abuse", "economic abuse", "financial pressure", "economic pressure", "financial control", "economic control", "money control", "salary control", "income control"],
+      "exclude_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
+      "domains": ["criminal", "family"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 15(3)"],
+      "primary_statutes": [
+        {"act_id": "bns_sections", "sections": ["85"]},
+        {"act_id": "ipc_sections", "sections": ["498A"]},
+        {"act_id": "dowry_prohibition_act", "sections": ["4"]},
+        {"act_id": "domestic_violence_act", "sections": ["3"]}
+      ],
+      "secondary_statutes": [
+        {"act_id": "hindu_marriage_act", "sections": ["13"]}
+      ]
+    },
+    "cyber_bullying": {
+      "keywords": ["cyber bullying", "online harassment", "threatening messages", "blackmail online", "fake profile harassment", "revenge porn"],
+      "domains": ["criminal", "cyber"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 19"],
+      "primary_statutes": [
+        {"act_id": "it_act_2000", "sections": ["66E", "67"]},
+        {"act_id": "bns_sections", "sections": ["356"]}
+      ],
+      "secondary_statutes": []
+    },
+    "workplace_sexual_harassment": {
+      "keywords": ["boss touching", "manager harassing", "office sexual harassment", "workplace molestation", "colleague forcing sex", "boss touched", "manager touched", "workplace harassment"],
+      "domains": ["criminal", "employment"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 15(3)"],
+      "primary_statutes": [
+        {"act_id": "labour_employment_laws", "sections": ["3"]},
+        {"act_id": "bns_sections", "sections": ["74"]}
+      ],
+      "secondary_statutes": []
+    },
+    "ragging_hazing": {
+      "keywords": ["ragging", "hazing", "college seniors beating", "forced drinking", "hostel harassment"],
+      "domains": ["criminal"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 19"],
+      "primary_statutes": [
+        {"act_id": "bns_sections", "sections": ["115"]}
+      ],
+      "secondary_statutes": []
+    },
+    "domestic_worker_abuse": {
+      "keywords": ["maid beaten", "domestic worker abused", "house help beaten", "servant harassment", "maid not paid", "forced to work without pay"],
+      "domains": ["criminal", "employment"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 23"],
+      "primary_statutes": [
+        {"act_id": "bns_sections", "sections": ["115", "127"]},
+        {"act_id": "labour_employment_laws", "sections": ["22"]}
+      ],
+      "secondary_statutes": []
+    },
+    "human_trafficking": {
+      "keywords": ["human trafficking", "sold for labour", "forced prostitution", "people smuggling", "trafficked girl", "trafficked child", "girl trafficked", "child trafficked", "trafficked for prostitution"],
+      "domains": ["criminal"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 23"],
+      "primary_statutes": [
+        {"act_id": "bns_sections", "sections": ["143"]}
+      ],
+      "secondary_statutes": []
+    },
+    "child_labour": {
+      "keywords": ["child labour", "child working in factory", "minor forced to work", "child domestic worker", "underage labour"],
+      "domains": ["criminal", "employment"],
+      "primary_domain": "criminal",
+      "constitutional_articles": ["Article 21", "Article 24"],
+      "primary_statutes": [
+        {"act_id": "labour_employment_laws", "sections": ["3"]},
+        {"act_id": "bns_sections", "sections": ["143"]}
+      ],
+      "secondary_statutes": []
+    }
+  },
+  "domain_rules": {
+    "criminal": {
+      "primary_acts": ["bns_sections", "ipc_sections", "it_act_2000", "uapa_1967", "domestic_violence_act", "dowry_prohibition_act"],
+      "procedural_acts": ["bnss_sections", "crpc_sections"],
+      "exclude_domains": []
+    },
+    "family": {
+      "primary_acts": ["hindu_marriage_act", "special_marriage_act", "domestic_violence_act"],
+      "procedural_acts": ["cpc_sections"],
+      "exclude_domains": []
+    },
+    "civil": {
+      "primary_acts": ["labour_employment_laws", "property_real_estate_laws", "motor_vehicles_act", "farmers_protection_act", "cpc_sections"],
+      "procedural_acts": ["cpc_sections"],
+      "exclude_domains": []
+    },
+    "consumer": {
+      "primary_acts": ["consumer_protection_act"],
+      "procedural_acts": ["cpc_sections"],
+      "exclude_domains": []
+    },
+    "cyber": {
+      "primary_acts": ["it_act_2000"],
+      "procedural_acts": ["bnss_sections", "crpc_sections"],
+      "exclude_domains": ["family"]
+    },
+    "terrorism": {
+      "primary_acts": ["uapa_1967", "bns_sections", "it_act_2000"],
+      "procedural_acts": ["bnss_sections", "crpc_sections"],
+      "exclude_domains": ["family", "civil"]
+    },
+    "criminal_family": {
+      "primary_acts": ["bns_sections", "ipc_sections", "dowry_prohibition_act", "domestic_violence_act", "hindu_marriage_act"],
+      "procedural_acts": ["bnss_sections", "crpc_sections"],
+      "exclude_domains": []
+    }
+  },
+  "auto_inclusion_rules": {
+    "terrorism_keywords": ["terrorism", "terrorist", "extremism", "unlawful activities", "national security", "anti-terror"],
+    "terrorism_acts": ["uapa_1967", "bns_sections"],
+    "dowry_harassment_keywords": ["dowry", "498a", "dowry harassment", "husband harass", "husband beat", "husband torture", "husband abuse", "husband threat", "asking for dowry", "demanding dowry", "asking for money", "demanding money"],
+    "dowry_harassment_acts": ["bns_sections", "ipc_sections", "dowry_prohibition_act", "domestic_violence_act"],
+    "dowry_death_keywords": ["dowry death", "died", "killed", "burnt", "burned", "suicide", "found dead", "body"],
+    "dowry_death_acts": ["bns_sections", "ipc_sections", "dowry_prohibition_act"]
+  }
+}

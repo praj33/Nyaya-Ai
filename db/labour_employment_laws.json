@@ -1,0 +1,67 @@
+{
+  "act_name": "Labour and Employment Laws",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "minimum_wages": {
+      "1": "Payment of Wages Act - Wages must be paid by 7th of every month",
+      "2": "Minimum Wages Act - State-wise minimum wages for different categories",
+      "3": "No unauthorized deductions from wages except as permitted by law",
+      "4": "Overtime payment at double the rate for work beyond 9 hours/day",
+      "5": "Equal pay for equal work regardless of gender"
+    },
+    "working_conditions": {
+      "10": "Maximum 48 hours work per week, 9 hours per day",
+      "11": "Weekly holiday mandatory - at least one day off per week",
+      "12": "Paid annual leave - 1 day for every 20 days worked",
+      "13": "Maternity leave - 26 weeks paid leave for women employees",
+      "14": "Paternity leave - 15 days for male employees",
+      "15": "Safe and healthy working environment mandatory"
+    },
+    "termination_retrenchment": {
+      "20": "Notice period - 1 month notice or salary in lieu required",
+      "21": "Retrenchment compensation - 15 days wages for every year of service",
+      "22": "No termination during maternity leave or medical leave",
+      "23": "Wrongful termination - reinstatement with back wages",
+      "24": "Layoff compensation - 50% of wages during layoff period"
+    },
+    "workplace_harassment": {
+      "30": "Sexual Harassment of Women at Workplace Act - Zero tolerance policy",
+      "31": "Internal Complaints Committee mandatory in organizations with 10+ employees",
+      "32": "Complaint must be filed within 3 months of incident",
+      "33": "Inquiry to be completed within 90 days",
+      "34": "Penalties - Up to Rs.50,000 fine and cancellation of business license",
+      "35": "Protection against retaliation for complainants"
+    },
+    "provident_fund": {
+      "40": "EPF - 12% employee contribution + 12% employer contribution mandatory",
+      "41": "Applicable to establishments with 20 or more employees",
+      "42": "EPF withdrawal allowed for unemployment, medical emergency, housing",
+      "43": "Pension scheme for employees after 10 years of service"
+    },
+    "gratuity": {
+      "50": "Gratuity payable after 5 years of continuous service",
+      "51": "15 days wages for every year of service",
+      "52": "Maximum gratuity amount - Rs.20 lakh",
+      "53": "Payable on retirement, resignation, death, or disability"
+    },
+    "contract_labor": {
+      "60": "Contract workers entitled to same wages as regular workers",
+      "61": "Principal employer liable for payment if contractor defaults",
+      "62": "Contract labor cannot be engaged for perennial work",
+      "63": "Welfare facilities mandatory for contract workers"
+    },
+    "industrial_disputes": {
+      "70": "Conciliation - Mandatory before strike or lockout",
+      "71": "Labour Court for individual disputes",
+      "72": "Industrial Tribunal for collective disputes",
+      "73": "Illegal strike - Strike without 14 days notice is illegal",
+      "74": "Unfair labour practices prohibited"
+    },
+    "employee_benefits": {
+      "80": "ESI - Medical insurance for employees earning up to Rs.21,000/month",
+      "81": "Bonus - Minimum 8.33% of wages, maximum 20%",
+      "82": "Leave encashment on resignation or retirement",
+      "83": "Travel allowance, medical reimbursement as per company policy"
+    }
+  }
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Sareetha v. Venkata Subbaiah (1983)",
+    "court": "Andhra Pradesh High Court",
+    "year": 1983,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Restitution of conjugal rights under Section 9 HMA violates woman's right to privacy and dignity under Article 21. Forced cohabitation is unconstitutional.",
+    "keywords": ["section 9", "restitution", "conjugal rights", "privacy", "article 21", "divorce"]
+  },
+  {
+    "title": "Sarla Mudgal v. Union of India (1995)",
+    "court": "Supreme Court of India",
+    "year": 1995,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Hindu man cannot convert to Islam to contract second marriage while first marriage subsists. Such conversion is fraud and bigamy.",
+    "keywords": ["bigamy", "conversion", "second marriage", "hindu marriage", "fraud"]
+  },
+  {
+    "title": "Danial Latifi v. Union of India (2001)",
+    "court": "Supreme Court of India",
+    "year": 2001,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Muslim Women (Protection of Rights on Divorce) Act 1986 provides for reasonable and fair provision for divorced Muslim women including maintenance.",
+    "keywords": ["muslim divorce", "maintenance", "alimony", "divorced women", "rights"]
+  },
+  {
+    "title": "Shayara Bano v. Union of India (2017)",
+    "court": "Supreme Court of India",
+    "year": 2017,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Triple Talaq (instant divorce) declared unconstitutional and violative of Article 14. Muslim women entitled to equal protection under law.",
+    "keywords": ["triple talaq", "muslim divorce", "article 14", "unconstitutional", "women rights"]
+  },
+  {
+    "title": "Amit Kumar v. Suman Beniwal (2017)",
+    "court": "Supreme Court of India",
+    "year": 2017,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Cruelty under Section 13 HMA includes sustained mental torture, humiliation, and harassment. Single act of cruelty may not suffice unless grave.",
+    "keywords": ["cruelty", "section 13", "divorce", "mental torture", "hindu marriage act"]
+  },
+  {
+    "title": "Rajnesh v. Neha (2020)",
+    "court": "Supreme Court of India",
+    "year": 2020,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Guidelines for maintenance under Section 125 CrPC. Court must consider income, needs, and standard of living. Maintenance should be fair and reasonable.",
+    "keywords": ["maintenance", "section 125", "crpc", "alimony", "wife", "children"]
+  },
+  {
+    "title": "Indra Sarma v. V.K.V. Sarma (2013)",
+    "court": "Supreme Court of India",
+    "year": 2013,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Live-in relationships recognized. Woman in live-in relationship entitled to protection under Domestic Violence Act if relationship is in nature of marriage.",
+    "keywords": ["live-in", "domestic violence", "relationship", "protection", "dv act"]
+  },
+  {
+    "title": "Naveen Kohli v. Neelu Kohli (2006)",
+    "court": "Supreme Court of India",
+    "year": 2006,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Irretrievable breakdown of marriage is valid ground for divorce. When marriage is dead beyond repair, court can grant divorce even without statutory ground.",
+    "keywords": ["irretrievable breakdown", "divorce", "marriage", "separation", "grounds"]
+  },
+  {
+    "title": "Pratibha Rani v. Suraj Kumar (1985)",
+    "court": "Supreme Court of India",
+    "year": 1985,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Custody of child must be decided based on welfare of child. Mother's custody preferred for young children unless she is unfit.",
+    "keywords": ["custody", "child welfare", "mother", "guardianship", "best interest"]
+  },
+  {
+    "title": "Rosy Jacob v. Jacob A. Chakramakkal (1973)",
+    "court": "Supreme Court of India",
+    "year": 1973,
+    "jurisdiction": "IN",
+    "domain": "family",
+    "principle": "Adultery must be proved by clear and satisfactory evidence. Mere suspicion or opportunity not sufficient. Burden of proof on petitioner.",
+    "keywords": ["adultery", "divorce", "proof", "evidence", "burden of proof"]
+  }
+]

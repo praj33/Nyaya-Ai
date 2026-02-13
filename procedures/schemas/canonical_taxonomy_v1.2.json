@@ -1,0 +1,30 @@
+{
+  "canonical_steps": {
+    "CRIME_REPORTING": "Initial reporting of alleged offence",
+    "INVESTIGATION": "Fact-finding and evidence collection by authorities",
+    "PRE_TRIAL_RELEASE_DECISION": "Decision on detention, bail, or release",
+    "PROSECUTION_DECISION": "Decision to charge or dismiss",
+    "CASE_ALLOCATION": "Allocation to appropriate court or track",
+    "SETTLEMENT_ATTEMPT": "Formal attempt to resolve dispute without trial",
+    "MEDIATION_ATTEMPT": "Facilitated reconciliation or mediation",
+    "TRIAL": "Judicial adjudication on merits",
+    "JUDGMENT": "Final determination by court",
+    "APPEAL": "Review by higher judicial authority"
+  },
+  "canonical_outcomes": {
+    "RELEASE_GRANTED": "Accused released pending proceedings",
+    "DETENTION_ORDERED": "Accused detained pending proceedings",
+    "CHARGES_FILED": "Prosecution initiated",
+    "CASE_DISMISSED": "Proceedings terminated",
+    "SETTLEMENT_REACHED": "Dispute resolved consensually",
+    "SETTLEMENT_FAILED": "No consensual resolution achieved",
+    "CONVICTION": "Accused found guilty",
+    "ACQUITTAL": "Accused found not guilty"
+  },
+  "canonical_domains": {
+    "CRIMINAL": "Criminal justice procedures",
+    "CIVIL": "Civil disputes and claims",
+    "FAMILY": "Personal status and family matters",
+    "CONSUMER_COMMERCIAL": "Consumer and commercial disputes"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "country": "KSA",
+  "domain": "Family",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Personal Status Law (Royal Decree No. M/73 of 2022)",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Law of Procedure Before Sharia Courts",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Ministry of Justice (Najiz)",
+      "type": "government_portal",
+      "url": "https://najiz.sa"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Reconciliation Center",
+      "Personal Status Court",
+      "Court of Appeal",
+      "Supreme Court of Saudi Arabia"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Family Dispute Request",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "A family dispute relating to marriage, divorce, maintenance, custody, or guardianship is filed electronically through the Najiz platform.",
+        "actor": "Applicant / Legal Representative"
+      },
+      {
+        "step": 2,
+        "title": "Reconciliation and Mediation",
+        "canonical_step": "MEDIATION_ATTEMPT",
+        "description": "The Reconciliation Center conducts mediation sessions to attempt amicable resolution in accordance with Saudi family procedure.",
+        "actor": "Reconciliation Center",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement ratified",
+            "effect": "Dispute resolved and settlement documented in accordance with Sharia"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Referral to Personal Status Court",
+            "effect": "Case proceeds to judicial adjudication"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full reconciliation and settlement",
+            "Partial settlement with remaining issues litigated",
+            "No settlement and referral to court"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature of the family dispute",
+            "Willingness of parties to reconcile",
+            "Presence of children or custody issues",
+            "Cultural and personal considerations",
+            "Compatibility of settlement with Sharia principles"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Non-cooperation of parties",
+            "Incomplete family or identity documentation",
+            "Emotional volatility affecting mediation",
+            "Disputes over Sharia compliance of settlement terms"
+          ]
+        }
+      },
+      {
+        "step": 3,
+        "title": "Filing Before Personal Status Court",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "If reconciliation fails, the dispute is formally filed before the Personal Status Court for adjudication.",
+        "actor": "Applicant / Legal Representative"
+      },
+      {
+        "step": 4,
+        "title": "Hearings and Evidence Review",
+        "canonical_step": "TRIAL",
+        "description": "Court conducts hearings, reviews evidence, and hears submissions in accordance with Sharia and statutory law.",
+        "actor": "Personal Status Court"
+      },
+      {
+        "step": 5,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment resolving the family dispute, including orders on divorce, custody, or maintenance.",
+        "actor": "Personal Status Court"
+      },
+      {
+        "step": 6,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Judgment may be appealed before higher courts as permitted under Saudi law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Family dispute request",
+      "Marriage contract (if applicable)",
+      "Identity and residency documents",
+      "Financial disclosures",
+      "Child-related documents (if applicable)"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–18 months",
+      "worst_case": "2–3 years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Personal Status Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Supreme Court of Saudi Arabia",
+        "condition": "Appeal on points of law or Sharia compliance"
+      }
+    ]
+  }
+}

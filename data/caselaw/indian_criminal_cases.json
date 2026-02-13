@@ -1,0 +1,92 @@
+[
+  {
+    "title": "State of Punjab v. Gurmit Singh (1996)",
+    "court": "Supreme Court of India",
+    "year": 1996,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Rape is a crime against basic human rights and violates victim's right to life under Article 21. Conviction can be based on sole testimony of victim if credible.",
+    "keywords": ["rape", "sexual assault", "victim testimony", "article 21", "human rights", "conviction"]
+  },
+  {
+    "title": "Vishaka v. State of Rajasthan (1997)",
+    "court": "Supreme Court of India",
+    "year": 1997,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Laid down guidelines for prevention of sexual harassment at workplace. Employers must provide safe working environment and complaint mechanism.",
+    "keywords": ["sexual harassment", "workplace", "vishaka guidelines", "employer liability", "safe environment"]
+  },
+  {
+    "title": "State of Karnataka v. Appa Balu Ingale (1993)",
+    "court": "Supreme Court of India",
+    "year": 1993,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Cruelty under Section 498A IPC includes mental torture and harassment for dowry. Sustained harassment amounts to cruelty even without physical violence.",
+    "keywords": ["498a", "cruelty", "dowry", "mental torture", "harassment", "matrimonial"]
+  },
+  {
+    "title": "Sushil Kumar Sharma v. Union of India (2005)",
+    "court": "Supreme Court of India",
+    "year": 2005,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Section 498A IPC should not be used as weapon for vendetta. Arrest should not be automatic and mechanical. Police must satisfy themselves about credibility before arrest.",
+    "keywords": ["498a", "arrest", "misuse", "cruelty", "dowry", "investigation"]
+  },
+  {
+    "title": "Arnesh Kumar v. State of Bihar (2014)",
+    "court": "Supreme Court of India",
+    "year": 2014,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Arrest not mandatory for offences punishable with less than 7 years imprisonment. Police must follow CrPC Section 41A notice procedure before arrest.",
+    "keywords": ["arrest", "crpc 41a", "notice", "investigation", "bail"]
+  },
+  {
+    "title": "Rajesh Sharma v. State of UP (2017)",
+    "court": "Supreme Court of India",
+    "year": 2017,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Family Welfare Committees to be set up to prevent misuse of Section 498A. No automatic arrest of accused or their relatives without proper inquiry.",
+    "keywords": ["498a", "family welfare committee", "misuse", "arrest", "inquiry"]
+  },
+  {
+    "title": "Shreya Singhal v. Union of India (2015)",
+    "court": "Supreme Court of India",
+    "year": 2015,
+    "jurisdiction": "IN",
+    "domain": "cyber",
+    "principle": "Section 66A of IT Act struck down as unconstitutional. Restrictions on free speech must be reasonable and within Article 19(2) exceptions.",
+    "keywords": ["66a", "it act", "free speech", "article 19", "unconstitutional", "cyber"]
+  },
+  {
+    "title": "State of Maharashtra v. Madhukar Narayan (1991)",
+    "court": "Supreme Court of India",
+    "year": 1991,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Terrorism cases require strict proof. Confessions under TADA admissible but must be corroborated. Courts must scrutinize evidence carefully.",
+    "keywords": ["terrorism", "tada", "confession", "evidence", "corroboration"]
+  },
+  {
+    "title": "Navtej Singh Johar v. Union of India (2018)",
+    "court": "Supreme Court of India",
+    "year": 2018,
+    "jurisdiction": "IN",
+    "domain": "criminal",
+    "principle": "Section 377 IPC decriminalized for consensual adult relations. Right to privacy and dignity under Article 21 includes sexual orientation.",
+    "keywords": ["377", "privacy", "dignity", "article 21", "consensual", "decriminalization"]
+  },
+  {
+    "title": "K.S. Puttaswamy v. Union of India (2017)",
+    "court": "Supreme Court of India",
+    "year": 2017,
+    "jurisdiction": "IN",
+    "domain": "constitutional",
+    "principle": "Right to privacy is fundamental right under Article 21. State surveillance and data collection must be proportionate and follow due process.",
+    "keywords": ["privacy", "article 21", "fundamental right", "surveillance", "data protection"]
+  }
+]

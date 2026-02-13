@@ -1,0 +1,29 @@
+[
+  {
+    "id": "cyber_fraud_001",
+    "query": "someone hacked my bank account",
+    "expected_domains": ["cyber", "criminal"],
+    "must_include_statutes": [
+      {"act": "Information Technology Act", "section": "66C"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "cyber_fraud_002",
+    "query": "I received a phishing email",
+    "expected_domains": ["cyber", "criminal"],
+    "must_include_statutes": [
+      {"act": "Information Technology Act", "section": "66D"}
+    ],
+    "must_not_include_statutes": []
+  },
+  {
+    "id": "cyber_fraud_003",
+    "query": "online fraud on payment app",
+    "expected_domains": ["cyber", "criminal"],
+    "must_include_statutes": [
+      {"act": "Information Technology Act", "section": "66D"}
+    ],
+    "must_not_include_statutes": []
+  }
+]

@@ -1,6 +1,15 @@
+import sys
+import os
+sys.path.append('.')
+sys.path.append('..')
+
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from api.router import router
+try:
+    from api.router import router
+except ImportError:
+    # Fallback for import issues
+    from .router import router
 import uvicorn
 import os
 
@@ -48,6 +57,19 @@ async def add_trace_id_middleware(request: Request, call_next):
 # Include routers
 app.include_router(router)
 
+# Include procedure router
+try:
+    from api.procedure_router import procedure_router
+    app.include_router(procedure_router)
+except ImportError:
+    pass  # Procedure router not available
+
+# Include enhanced legal database endpoints
+try:
+    from legal_database.enhanced_procedure_endpoints import *
+except ImportError:
+    pass  # Enhanced endpoints not available
+
 # Include debug router (for development only)
 try:
     from api.debug_router import debug_router
@@ -75,6 +97,16 @@ async def root():
             "explain_reasoning": "POST /nyaya/explain_reasoning",
             "feedback": "POST /nyaya/feedback",
             "trace": "GET /nyaya/trace/{trace_id}",
+            "procedure_analyze": "POST /nyaya/procedures/analyze",
+            "procedure_summary": "GET /nyaya/procedures/summary/{country}/{domain}",
+            "evidence_assess": "POST /nyaya/procedures/evidence/assess",
+            "failure_analyze": "POST /nyaya/procedures/failure/analyze",
+            "procedure_compare": "POST /nyaya/procedures/compare",
+            "procedure_list": "GET /nyaya/procedures/list",
+            "procedure_schemas": "GET /nyaya/procedures/schemas",
+            "enhanced_analysis": "GET /nyaya/procedures/enhanced_analysis/{jurisdiction}/{domain}",
+            "domain_classification": "GET /nyaya/procedures/domain_classification/{jurisdiction}",
+            "legal_sections": "GET /nyaya/procedures/legal_sections/{jurisdiction}/{domain}",
             "health": "GET /health",
             "docs": "GET /docs"
         }

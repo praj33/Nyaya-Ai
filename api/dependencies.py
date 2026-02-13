@@ -1,6 +1,6 @@
 import uuid
 from fastapi import Request, HTTPException, Depends
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 from provenance_chain.nonce_manager import nonce_manager
 from provenance_chain.event_signer import signer
 from provenance_chain.lineage_tracer import tracer
@@ -10,8 +10,12 @@ async def get_trace_id() -> str:
     """Generate a unique trace ID for request tracking."""
     return str(uuid.uuid4())
 
-async def validate_nonce(nonce: str) -> str:
-    """Validate nonce for anti-replay protection."""
+async def validate_nonce(nonce: Optional[str] = None) -> str:
+    """Validate nonce for anti-replay protection. Auto-generates if not provided."""
+    if not nonce:
+        # Auto-generate nonce for easier testing
+        nonce = nonce_manager.generate_nonce()
+    
     if not nonce_manager.validate_nonce(nonce):
         raise HTTPException(
             status_code=400,

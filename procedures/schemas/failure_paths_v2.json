@@ -1,0 +1,73 @@
+{
+  "version": "2.0",
+  "layer": "failure_path_intelligence",
+  "principles": {
+    "deterministic": true,
+    "non_advisory": true,
+    "actor_attribution_required": true,
+    "recoverability_explicit": true
+  },
+  "canonical_failure_types": {
+    "COMPLAINANT_FAILURE": "Failure caused by complainant or applicant",
+    "DEFENDANT_FAILURE": "Failure caused by accused or respondent",
+    "COURT_REJECTION": "Failure due to judicial rejection or dismissal",
+    "PROCEDURAL_COLLAPSE": "Failure due to procedural non-compliance",
+    "SYSTEM_TIMEOUT": "Failure due to statutory or system-imposed lapse"
+  },
+  "failure_states": [
+    {
+      "failure_code": "MISSING_MANDATORY_DOCUMENTS",
+      "failure_type": "COMPLAINANT_FAILURE",
+      "description": "Mandatory documents not filed or submitted",
+      "recoverable": true
+    },
+    {
+      "failure_code": "NON_APPEARANCE_BY_COMPLAINANT",
+      "failure_type": "COMPLAINANT_FAILURE",
+      "description": "Complainant fails to appear when required",
+      "recoverable": true
+    },
+    {
+      "failure_code": "NON_APPEARANCE_BY_DEFENDANT",
+      "failure_type": "DEFENDANT_FAILURE",
+      "description": "Defendant fails to appear leading to adverse procedural consequence",
+      "recoverable": true
+    },
+    {
+      "failure_code": "JURISDICTION_REJECTED",
+      "failure_type": "COURT_REJECTION",
+      "description": "Court rejects matter due to lack of jurisdiction",
+      "recoverable": false
+    },
+    {
+      "failure_code": "INSUFFICIENT_PRIMA_FACIE_CASE",
+      "failure_type": "COURT_REJECTION",
+      "description": "Court finds no prima facie case to proceed",
+      "recoverable": false
+    },
+    {
+      "failure_code": "LIMITATION_PERIOD_EXPIRED",
+      "failure_type": "PROCEDURAL_COLLAPSE",
+      "description": "Statutory limitation period expired",
+      "recoverable": false
+    },
+    {
+      "failure_code": "SERVICE_OF_NOTICE_FAILED",
+      "failure_type": "PROCEDURAL_COLLAPSE",
+      "description": "Notice or summons not served as required",
+      "recoverable": true
+    },
+    {
+      "failure_code": "STATUTORY_TIME_LIMIT_EXCEEDED",
+      "failure_type": "SYSTEM_TIMEOUT",
+      "description": "Procedure lapses due to statutory or system-imposed time limits",
+      "recoverable": false
+    }
+  ],
+  "mapping_rules": {
+    "must_reference_canonical_failure_type": true,
+    "each_step_may_define_multiple_failures": true,
+    "recoverability_must_be_explicit": true
+  },
+  "status": "Day 3 complete — failure path intelligence defined"
+}

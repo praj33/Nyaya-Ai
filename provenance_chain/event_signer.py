@@ -4,6 +4,10 @@ import hashlib
 import base64
 from typing import Dict, Any
 import json
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 class EventSigner:
     def __init__(self):

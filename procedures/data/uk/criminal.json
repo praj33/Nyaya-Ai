@@ -1,0 +1,203 @@
+{
+  "country": "UK",
+  "domain": "Criminal",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Police and Criminal Evidence Act 1984 (PACE)",
+      "type": "statute",
+      "url": "https://www.legislation.gov.uk"
+    },
+    {
+      "name": "Criminal Justice Act 2003",
+      "type": "statute",
+      "url": "https://www.legislation.gov.uk"
+    },
+    {
+      "name": "Crown Prosecution Service (CPS)",
+      "type": "government_portal",
+      "url": "https://www.cps.gov.uk"
+    },
+    {
+      "name": "HM Courts & Tribunals Service",
+      "type": "government_portal",
+      "url": "https://www.gov.uk/government/organisations/hm-courts-and-tribunals-service"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Police",
+      "Crown Prosecution Service",
+      "Magistrates’ Court",
+      "Crown Court",
+      "Court of Appeal",
+      "Supreme Court"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Reporting of Crime and Police Investigation",
+        "canonical_step": "CRIME_REPORTING",
+        "description": "An alleged criminal offence is reported and investigated by the police in accordance with PACE and related regulations.",
+        "actor": "Police"
+      },
+      {
+        "step": 2,
+        "title": "Charging Decision",
+        "canonical_step": "PROSECUTION_DECISION",
+        "description": "Police or the Crown Prosecution Service determines whether there is sufficient evidence and public interest to bring charges.",
+        "actor": "Police / Crown Prosecution Service",
+        "conditional_branches": [
+          {
+            "condition": "Charge authorised",
+            "canonical_outcome": "CHARGES_FILED",
+            "next_step": "First court appearance",
+            "effect": "Defendant is formally charged and summoned to court"
+          },
+          {
+            "condition": "No further action",
+            "canonical_outcome": "CASE_DISMISSED",
+            "next_step": "Case closed",
+            "effect": "Proceedings terminated at charging stage"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Charge authorised by CPS",
+            "No further action",
+            "Further investigation requested"
+          ],
+          "probability_range": {
+            "min": 0.4,
+            "max": 0.8
+          },
+          "dependencies": [
+            "Evidential sufficiency",
+            "Public interest test",
+            "Quality of witness statements",
+            "Availability of forensic evidence"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Insufficient evidence",
+            "Unreliable witnesses",
+            "Procedural breaches under PACE",
+            "Delay affecting evidence quality"
+          ]
+        }
+      },
+      {
+        "step": 3,
+        "title": "Bail or Remand Decision",
+        "canonical_step": "PRE_TRIAL_RELEASE_DECISION",
+        "description": "Court determines whether the defendant is granted bail or remanded in custody pending trial.",
+        "actor": "Court",
+        "conditional_branches": [
+          {
+            "condition": "Bail granted",
+            "canonical_outcome": "RELEASE_GRANTED",
+            "next_step": "Release on bail",
+            "effect": "Defendant released subject to bail conditions"
+          },
+          {
+            "condition": "Bail refused",
+            "canonical_outcome": "DETENTION_ORDERED",
+            "next_step": "Remand in custody",
+            "effect": "Defendant remanded in custody"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Unconditional bail",
+            "Conditional bail",
+            "Remand in custody"
+          ],
+          "probability_range": {
+            "min": 0.35,
+            "max": 0.75
+          },
+          "dependencies": [
+            "Nature and seriousness of offence",
+            "Previous convictions",
+            "Risk of absconding",
+            "Risk of reoffending or interference with justice"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low",
+          "effort_intensity": "Low to Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Breach of bail conditions",
+            "Failure to attend court",
+            "New offences while on bail"
+          ]
+        }
+      },
+      {
+        "step": 4,
+        "title": "Allocation to Magistrates’ Court or Crown Court",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Case is allocated to Magistrates’ Court or Crown Court depending on offence classification.",
+        "actor": "Court"
+      },
+      {
+        "step": 5,
+        "title": "Trial",
+        "canonical_step": "TRIAL",
+        "description": "Court hears evidence from prosecution and defence, examines witnesses, and considers legal submissions.",
+        "actor": "Court"
+      },
+      {
+        "step": 6,
+        "title": "Verdict and Sentence",
+        "canonical_step": "JUDGMENT",
+        "description": "Court delivers verdict and, where applicable, imposes sentence.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Defendant or prosecution may appeal the conviction or sentence before higher courts.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Police investigation records",
+      "Witness statements",
+      "Forensic reports",
+      "Charging documents",
+      "Court orders and judgments"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–24 months",
+      "worst_case": "3+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Magistrates’ Court / Crown Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against conviction or sentence"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Supreme Court",
+        "condition": "Appeal on point of law of general public importance"
+      }
+    ]
+  }
+}

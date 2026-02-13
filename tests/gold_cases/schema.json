@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["id", "query", "expected_domains", "must_include_statutes"],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "query": {
+      "type": "string"
+    },
+    "expected_domains": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "must_include_statutes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["act", "section"],
+        "properties": {
+          "act": {
+            "type": "string"
+          },
+          "section": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "must_not_include_statutes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["act", "section"],
+        "properties": {
+          "act": {
+            "type": "string"
+          },
+          "section": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

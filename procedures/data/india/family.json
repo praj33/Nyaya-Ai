@@ -1,0 +1,151 @@
+{
+  "country": "India",
+  "domain": "Family",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Hindu Marriage Act, 1955",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Family Courts Act, 1984",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Supreme Court of India",
+      "type": "government_portal",
+      "url": "https://www.sci.gov.in"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Family Court",
+      "District Court",
+      "High Court",
+      "Supreme Court"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Family Petition",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "A family law petition relating to marriage, divorce, maintenance, custody, or guardianship is filed before the competent Family Court.",
+        "actor": "Petitioner / Advocate"
+      },
+      {
+        "step": 2,
+        "title": "Issue of Notice and Appearance",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court issues notice to the respondent, and parties appear before the court.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 3,
+        "title": "Counselling or Mediation",
+        "canonical_step": "MEDIATION_ATTEMPT",
+        "description": "Court refers parties for counselling or mediation to explore the possibility of reconciliation or amicable settlement.",
+        "actor": "Court / Mediator",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement recorded",
+            "effect": "Dispute resolved through mutual agreement"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Proceed to adjudication",
+            "effect": "Case proceeds for judicial determination"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Reconciliation achieved",
+            "Partial settlement",
+            "No settlement"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature of matrimonial dispute",
+            "Willingness of parties to reconcile",
+            "Presence of children",
+            "Duration of marriage",
+            "Effectiveness of mediation process"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Non-cooperation of parties",
+            "Emotional distress impacting mediation",
+            "Delay due to repeated adjournments"
+          ]
+        }
+      },
+      {
+        "step": 4,
+        "title": "Framing of Issues",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court frames issues based on pleadings to identify matters requiring adjudication.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 5,
+        "title": "Trial",
+        "canonical_step": "TRIAL",
+        "description": "Court records evidence, examines witnesses, and hears arguments from both parties.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 6,
+        "title": "Judgment and Orders",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment and passes orders relating to divorce, custody, maintenance, or other reliefs.",
+        "actor": "Family Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the judgment or orders before the appellate court.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Marriage certificate",
+      "Family petition",
+      "Financial disclosures",
+      "Child-related documents (if applicable)",
+      "Court orders and judgments"
+    ],
+    "timelines": {
+      "best_case": "6–12 months",
+      "average": "1–3 years",
+      "worst_case": "5+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Family Court / District Court",
+        "to": "High Court",
+        "condition": "Appeal against judgment or orders"
+      },
+      {
+        "from": "High Court",
+        "to": "Supreme Court",
+        "condition": "Appeal on substantial question of law"
+      }
+    ]
+  }
+}

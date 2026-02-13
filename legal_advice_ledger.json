@@ -1,0 +1,138 @@
+[
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:17:54.166336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "query": "What is the punishment for theft in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal"
+    },
+    "prev_hash": "GENESIS",
+    "hash": "9a29cbb61e6823d2f1bf747122c258309874ab65cecddec42e5822622c640f87"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:17:54.166336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "criminal"
+    },
+    "prev_hash": "9a29cbb61e6823d2f1bf747122c258309874ab65cecddec42e5822622c640f87",
+    "hash": "2adc106c9eed834af367a7b792757ab75293c3f9e9cdfe8ff0966b17ce0a142d"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "sections_found": 5,
+      "confidence_score": 0.9
+    },
+    "prev_hash": "2adc106c9eed834af367a7b792757ab75293c3f9e9cdfe8ff0966b17ce0a142d",
+    "hash": "c5b1af007f28be8c712cce3a9bdad4d815553837489e0a6215e3658759dc557c"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "query": "How to file for divorce in UK?",
+      "jurisdiction_hint": "UK",
+      "domain_hint": "family"
+    },
+    "prev_hash": "c5b1af007f28be8c712cce3a9bdad4d815553837489e0a6215e3658759dc557c",
+    "hash": "64c73399cc7f2f62199381e18801a0d9b13d887ac53f45138e3abf649d41d782"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "jurisdiction": "UK",
+      "domain": "family"
+    },
+    "prev_hash": "64c73399cc7f2f62199381e18801a0d9b13d887ac53f45138e3abf649d41d782",
+    "hash": "e8cba0818c98e2a66ed8ccb23b0020ae2e63c17897bc20608533fbff25e291b7"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "sections_found": 1,
+      "confidence_score": 0.2
+    },
+    "prev_hash": "e8cba0818c98e2a66ed8ccb23b0020ae2e63c17897bc20608533fbff25e291b7",
+    "hash": "4a35084d7211eefd766b113ce61929fa96e91f26613a081477776406796b3142"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "query": "What are the requirements for company formation in UAE?",
+      "jurisdiction_hint": "UAE",
+      "domain_hint": "commercial"
+    },
+    "prev_hash": "4a35084d7211eefd766b113ce61929fa96e91f26613a081477776406796b3142",
+    "hash": "62db8249ead5df80e8747b5511ceca36c2091999e138a814bd9f60c2eb175e2f"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "jurisdiction": "UAE",
+      "domain": "commercial"
+    },
+    "prev_hash": "62db8249ead5df80e8747b5511ceca36c2091999e138a814bd9f60c2eb175e2f",
+    "hash": "cb8ca235bb7e1e1f2b8d49615f02f1cacfd66f227dc6f19fc75632ceaea97690"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "sections_found": 5,
+      "confidence_score": 0.9
+    },
+    "prev_hash": "cb8ca235bb7e1e1f2b8d49615f02f1cacfd66f227dc6f19fc75632ceaea97690",
+    "hash": "2eb60ffe1c81556cde2b6a07a147ed95acb154c1b4fc44fedb7458ecce384a19"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "query": "Can I get compensation for medical negligence?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "civil"
+    },
+    "prev_hash": "2eb60ffe1c81556cde2b6a07a147ed95acb154c1b4fc44fedb7458ecce384a19",
+    "hash": "518a823eec58d4c3dcd38349648d3da300d116227a7c5cc24d8fc99348d9d95e"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:17:54.167336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "civil"
+    },
+    "prev_hash": "518a823eec58d4c3dcd38349648d3da300d116227a7c5cc24d8fc99348d9d95e",
+    "hash": "4b655a4a4c044aaa189f2a6a3409ef4a1742e05ccaa7e9363621ddcc4c7833b7"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:17:54.169336",
+    "trace_id": "trace_20260211_151754",
+    "details": {
+      "sections_found": 5,
+      "confidence_score": 0.9
+    },
+    "prev_hash": "4b655a4a4c044aaa189f2a6a3409ef4a1742e05ccaa7e9363621ddcc4c7833b7",
+    "hash": "fb172304eeba3253465132c299d3698ceb822cec7640ccfb515a74f8c1638d93"
+  }
+]

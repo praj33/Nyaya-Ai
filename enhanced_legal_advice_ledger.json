@@ -1,0 +1,398 @@
+[
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.592796",
+    "trace_id": "trace_20260211_152925_592796",
+    "details": {
+      "query": "What is the punishment for theft in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal"
+    },
+    "prev_hash": "GENESIS",
+    "hash": "ace9192d16f411e83ce7ee56603edd3ced35d92bf459f15df17eba06428491e5"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.592796",
+    "trace_id": "trace_20260211_152925_592796",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "criminal",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "ace9192d16f411e83ce7ee56603edd3ced35d92bf459f15df17eba06428491e5",
+    "hash": "c82fdd45fa9297dc43bc01c1d6d537106d67bf79fcccf18e6a734cb440ed0dc2"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.596795",
+    "trace_id": "trace_20260211_152925_592796",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.95,
+      "jurisdiction_final": "IN",
+      "domain_final": "criminal",
+      "procedural_steps_count": 5,
+      "remedies_count": 3
+    },
+    "prev_hash": "c82fdd45fa9297dc43bc01c1d6d537106d67bf79fcccf18e6a734cb440ed0dc2",
+    "hash": "a326a3e82c81383c4171b1e270d61198732e8b2c9929a3bcc345ed66300283aa"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.596795",
+    "trace_id": "trace_20260211_152925_596795",
+    "details": {
+      "query": "I was raped in Delhi. What legal action can I take?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal"
+    },
+    "prev_hash": "a326a3e82c81383c4171b1e270d61198732e8b2c9929a3bcc345ed66300283aa",
+    "hash": "6f15ad9e636a741688aa997412c687310338b16ed86895760597f29628aabe7f"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.596795",
+    "trace_id": "trace_20260211_152925_596795",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "criminal",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "6f15ad9e636a741688aa997412c687310338b16ed86895760597f29628aabe7f",
+    "hash": "bf86e08aabe7a7f40197ef1ab7d7f3cf6605363ea21b1a053bf1d3aa8883d325"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.598795",
+    "trace_id": "trace_20260211_152925_596795",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.8999999999999999,
+      "jurisdiction_final": "IN",
+      "domain_final": "criminal",
+      "procedural_steps_count": 8,
+      "remedies_count": 7
+    },
+    "prev_hash": "bf86e08aabe7a7f40197ef1ab7d7f3cf6605363ea21b1a053bf1d3aa8883d325",
+    "hash": "fff466e4e317676b0ce43cbc923abb5f0026bbbc7debaed523a7d220b75bc7c4"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.598795",
+    "trace_id": "trace_20260211_152925_598795",
+    "details": {
+      "query": "How to file for divorce in UK?",
+      "jurisdiction_hint": "UK",
+      "domain_hint": "family"
+    },
+    "prev_hash": "fff466e4e317676b0ce43cbc923abb5f0026bbbc7debaed523a7d220b75bc7c4",
+    "hash": "1d8b76a8ac7229c2cd061b36ce09392428f9ee16759d6ed4f8c9d1025307d649"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.598795",
+    "trace_id": "trace_20260211_152925_598795",
+    "details": {
+      "jurisdiction": "UK",
+      "domain": "family",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "1d8b76a8ac7229c2cd061b36ce09392428f9ee16759d6ed4f8c9d1025307d649",
+    "hash": "d955c6dda3a0423f92fc927c22930d2b40704d70ae02c2bcf426ccd71a641402"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.598795",
+    "trace_id": "trace_20260211_152925_598795",
+    "details": {
+      "sections_found": 9,
+      "confidence_score": 0.8799999999999999,
+      "jurisdiction_final": "UK",
+      "domain_final": "family",
+      "procedural_steps_count": 5,
+      "remedies_count": 8
+    },
+    "prev_hash": "d955c6dda3a0423f92fc927c22930d2b40704d70ae02c2bcf426ccd71a641402",
+    "hash": "5a0d18bc2a67a334dfa7a8710589c376d3f3607b201ba274ceed63e449602c8e"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.598795",
+    "trace_id": "trace_20260211_152925_598795",
+    "details": {
+      "query": "What are the requirements for LLC formation in UAE?",
+      "jurisdiction_hint": "UAE",
+      "domain_hint": "commercial"
+    },
+    "prev_hash": "5a0d18bc2a67a334dfa7a8710589c376d3f3607b201ba274ceed63e449602c8e",
+    "hash": "bf76e9757bf35fe898db3805f65fdd572618fbac3f4e826d1a8d4f700e166d0b"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.598795",
+    "trace_id": "trace_20260211_152925_598795",
+    "details": {
+      "jurisdiction": "UAE",
+      "domain": "commercial",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "bf76e9757bf35fe898db3805f65fdd572618fbac3f4e826d1a8d4f700e166d0b",
+    "hash": "7bf6fc0e0a0b495ad4673757602a4cf91c41003d9af73a24f9ac155d764fce23"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.599795",
+    "trace_id": "trace_20260211_152925_598795",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.95,
+      "jurisdiction_final": "UAE",
+      "domain_final": "commercial",
+      "procedural_steps_count": 5,
+      "remedies_count": 8
+    },
+    "prev_hash": "7bf6fc0e0a0b495ad4673757602a4cf91c41003d9af73a24f9ac155d764fce23",
+    "hash": "9530165de0fd118448e29ed71c3f3b53d06c9aa614ee83433278bd4f269ab84c"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.599795",
+    "trace_id": "trace_20260211_152925_599795",
+    "details": {
+      "query": "Can I get compensation for medical negligence in India?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "civil"
+    },
+    "prev_hash": "9530165de0fd118448e29ed71c3f3b53d06c9aa614ee83433278bd4f269ab84c",
+    "hash": "2a6b279ec5ea6ca6831b4037fd6c2cf3e51e9f670c048c2521adeaabeaf850c3"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.599795",
+    "trace_id": "trace_20260211_152925_599795",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "civil",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "2a6b279ec5ea6ca6831b4037fd6c2cf3e51e9f670c048c2521adeaabeaf850c3",
+    "hash": "40506eec4132b04490f80154220d70dbf9ee8c72da6c23a0aed55c8e9aec2935"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.601795",
+    "trace_id": "trace_20260211_152925_599795",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.95,
+      "jurisdiction_final": "IN",
+      "domain_final": "civil",
+      "procedural_steps_count": 7,
+      "remedies_count": 7
+    },
+    "prev_hash": "40506eec4132b04490f80154220d70dbf9ee8c72da6c23a0aed55c8e9aec2935",
+    "hash": "a24e230a8ccfbd28d39cfdfa70992528756898ee2a119ddbf408e6ce5ff8ddd9"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.602801",
+    "trace_id": "trace_20260211_152925_602801",
+    "details": {
+      "query": "Someone is stalking me in Mumbai. What can I do?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal"
+    },
+    "prev_hash": "a24e230a8ccfbd28d39cfdfa70992528756898ee2a119ddbf408e6ce5ff8ddd9",
+    "hash": "4eba23acf1933985f8fbca7011b68eed638cb9fbb68cbb2fea9c6036d4afd85e"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.602801",
+    "trace_id": "trace_20260211_152925_602801",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "criminal",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "4eba23acf1933985f8fbca7011b68eed638cb9fbb68cbb2fea9c6036d4afd85e",
+    "hash": "e616a0a4e96ec851b61ae40d41e005723cb6f4a0611486c8120c8ace584b3d55"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.603804",
+    "trace_id": "trace_20260211_152925_602801",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.95,
+      "jurisdiction_final": "IN",
+      "domain_final": "criminal",
+      "procedural_steps_count": 5,
+      "remedies_count": 2
+    },
+    "prev_hash": "e616a0a4e96ec851b61ae40d41e005723cb6f4a0611486c8120c8ace584b3d55",
+    "hash": "ca2ba83c8052cc650697e15c6b4486b7bf15bce92774ee45e0c4701f23635527"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.603804",
+    "trace_id": "trace_20260211_152925_603804",
+    "details": {
+      "query": "My employer in Dubai is not paying salary. What are my rights?",
+      "jurisdiction_hint": "UAE",
+      "domain_hint": "civil"
+    },
+    "prev_hash": "ca2ba83c8052cc650697e15c6b4486b7bf15bce92774ee45e0c4701f23635527",
+    "hash": "5e55096a85301c6becdaba110e377a8d145c49abfb8146843ee76a5d7a956cf4"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.604806",
+    "trace_id": "trace_20260211_152925_603804",
+    "details": {
+      "jurisdiction": "UAE",
+      "domain": "civil",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "5e55096a85301c6becdaba110e377a8d145c49abfb8146843ee76a5d7a956cf4",
+    "hash": "37d99cff1f9dc231b3cae57ad7a70a2b0b4bee861f78e99096324f14e88e679a"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.604806",
+    "trace_id": "trace_20260211_152925_603804",
+    "details": {
+      "sections_found": 7,
+      "confidence_score": 0.84,
+      "jurisdiction_final": "UAE",
+      "domain_final": "civil",
+      "procedural_steps_count": 6,
+      "remedies_count": 8
+    },
+    "prev_hash": "37d99cff1f9dc231b3cae57ad7a70a2b0b4bee861f78e99096324f14e88e679a",
+    "hash": "02d88e0d30a1d0ffa01c00a2f221127193583d095748a67d92914d46ad24a5b7"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.604806",
+    "trace_id": "trace_20260211_152925_604806",
+    "details": {
+      "query": "Dowry harassment case in India - what sections apply?",
+      "jurisdiction_hint": "India",
+      "domain_hint": "criminal"
+    },
+    "prev_hash": "02d88e0d30a1d0ffa01c00a2f221127193583d095748a67d92914d46ad24a5b7",
+    "hash": "03f3620592300d4c4c9c4f6232519c8425f07362032807ff6ccd44a1bbe97144"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.604806",
+    "trace_id": "trace_20260211_152925_604806",
+    "details": {
+      "jurisdiction": "IN",
+      "domain": "criminal",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "03f3620592300d4c4c9c4f6232519c8425f07362032807ff6ccd44a1bbe97144",
+    "hash": "1a9cd2d4aa0b39a6ea2c8bc68619797a735e4ef296f2b5ea0a0fb6fbce4ae5c4"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.614800",
+    "trace_id": "trace_20260211_152925_604806",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.95,
+      "jurisdiction_final": "IN",
+      "domain_final": "criminal",
+      "procedural_steps_count": 5,
+      "remedies_count": 3
+    },
+    "prev_hash": "1a9cd2d4aa0b39a6ea2c8bc68619797a735e4ef296f2b5ea0a0fb6fbce4ae5c4",
+    "hash": "29b4d7b1087b00f5eb02855bdc71730e5a2290d97f28777728cc0a73893f6063"
+  },
+  {
+    "type": "query_received",
+    "timestamp": "2026-02-11T15:29:25.615804",
+    "trace_id": "trace_20260211_152925_615804",
+    "details": {
+      "query": "Cybercrime fraud in UAE - need legal help",
+      "jurisdiction_hint": "UAE",
+      "domain_hint": "criminal"
+    },
+    "prev_hash": "29b4d7b1087b00f5eb02855bdc71730e5a2290d97f28777728cc0a73893f6063",
+    "hash": "648c119130d69fb23f346c8826a871698f2ab677f568756c547756c44285c478"
+  },
+  {
+    "type": "jurisdiction_resolved",
+    "timestamp": "2026-02-11T15:29:25.615804",
+    "trace_id": "trace_20260211_152925_615804",
+    "details": {
+      "jurisdiction": "UAE",
+      "domain": "criminal",
+      "available_jurisdictions": [
+        "IN",
+        "UAE",
+        "UK"
+      ],
+      "total_sections": 1310
+    },
+    "prev_hash": "648c119130d69fb23f346c8826a871698f2ab677f568756c547756c44285c478",
+    "hash": "992ba527ba84064a1caf3daa70fcedb54d850f4e64ff25a75d81c179515135a9"
+  },
+  {
+    "type": "advice_generated",
+    "timestamp": "2026-02-11T15:29:25.615804",
+    "trace_id": "trace_20260211_152925_615804",
+    "details": {
+      "sections_found": 10,
+      "confidence_score": 0.95,
+      "jurisdiction_final": "UAE",
+      "domain_final": "criminal",
+      "procedural_steps_count": 6,
+      "remedies_count": 8
+    },
+    "prev_hash": "992ba527ba84064a1caf3daa70fcedb54d850f4e64ff25a75d81c179515135a9",
+    "hash": "9c70327dc76ada7b299ffafaaa9cc66e6b55a3d0f429fa63e4277ba138cf6d75"
+  }
+]

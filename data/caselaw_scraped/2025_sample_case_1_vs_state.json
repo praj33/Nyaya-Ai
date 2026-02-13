@@ -1,0 +1,12 @@
+{
+  "title": "Sample Case 1 vs State",
+  "court": "Supreme Court of India",
+  "year": 2025,
+  "citation": "2025 SCC 1",
+  "jurisdiction": "IN",
+  "domain": "unknown",
+  "principle": "This is a sample judgment text for case 1",
+  "full_text": "This is a sample judgment text for case 1. The court held that...",
+  "source": "scraped",
+  "url": "https://main.sci.gov.in/judgments/case-1"
+}

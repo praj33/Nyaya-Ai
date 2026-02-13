@@ -1,0 +1,47 @@
+{
+  "act_name": "Protection of Women from Domestic Violence Act 2005",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "definition_domestic_violence": {
+      "3": "Domestic violence includes physical abuse, sexual abuse, verbal/emotional abuse, economic abuse",
+      "3A": "Physical abuse - Assault, criminal force, endangering life/health",
+      "3B": "Sexual abuse - Forced sexual acts, pornography",
+      "3C": "Verbal/emotional abuse - Insults, ridicule, humiliation, threats",
+      "3D": "Economic abuse - Deprivation of resources, preventing employment, disposal of property"
+    },
+    "right_to_reside": {
+      "17": "Right to reside in shared household - Woman cannot be evicted from matrimonial home",
+      "18": "Right to reside even if no ownership - Irrespective of title, woman has right to live",
+      "19": "Protection against dispossession - Cannot be thrown out without court order"
+    },
+    "protection_orders": {
+      "18": "Protection order - Prohibit respondent from committing acts of domestic violence",
+      "19": "Residence order - Woman can continue to reside, respondent may be asked to leave",
+      "20": "Monetary relief - Compensation for injuries, medical expenses, loss of earnings, maintenance",
+      "21": "Custody order - Temporary custody of children to aggrieved person",
+      "22": "Compensation order - Damages for mental torture and emotional distress",
+      "23": "Interim/ex-parte orders - Immediate relief in urgent cases"
+    },
+    "procedure": {
+      "12": "Application to Magistrate - Can be filed by woman or Protection Officer",
+      "13": "Notice to respondent - Within 2 days of application",
+      "14": "Counseling - Magistrate may refer to counseling",
+      "15": "Medical examination - Court can order medical examination",
+      "26": "Relief can be sought along with other proceedings - Divorce, maintenance, custody"
+    },
+    "penalties": {
+      "31": "Breach of protection order - Imprisonment up to 1 year or fine up to Rs.20,000 or both",
+      "32": "Cognizable and non-bailable offense - Police must register FIR and arrest"
+    },
+    "support_services": {
+      "8": "Protection Officers - Appointed by State Government to assist victims",
+      "9": "Service providers - Shelter homes, medical facilities, legal aid",
+      "10": "Duties of police - Register complaint, assist in medical examination, provide information about rights"
+    },
+    "maintenance": {
+      "20A": "Monetary relief includes maintenance for wife and children",
+      "20B": "Amount based on income and needs",
+      "20C": "Payable from date of application"
+    }
+  }
+}

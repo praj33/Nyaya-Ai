@@ -1,0 +1,53 @@
+{
+  "act_name": "Consumer Protection Act 2019",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "consumer_rights": {
+      "2": "Right to be protected against marketing of hazardous goods and services",
+      "3": "Right to be informed about quality, quantity, potency, purity, standard and price",
+      "4": "Right to be assured access to variety of goods at competitive prices",
+      "5": "Right to be heard and assured that consumer interests receive due consideration",
+      "6": "Right to seek redressal against unfair trade practices or exploitation",
+      "7": "Right to consumer education"
+    },
+    "unfair_trade_practices": {
+      "10": "False or misleading representation about goods or services",
+      "11": "False representation that goods are of particular standard, quality or grade",
+      "12": "False representation about price or discount",
+      "13": "Offering gifts, prizes without intent to provide them",
+      "14": "Conducting contests without disclosing terms and conditions",
+      "15": "Bait advertising - advertising goods at low price without intent to sell"
+    },
+    "defective_goods": {
+      "20": "Product liability for defective products causing harm",
+      "21": "Manufacturer liable for manufacturing defects",
+      "22": "Service provider liable for deficiency in services",
+      "23": "Seller liable for selling defective products knowingly",
+      "24": "Compensation for death, injury or property damage from defective products"
+    },
+    "e_commerce": {
+      "30": "E-commerce platforms must display total price including all charges",
+      "31": "Mandatory disclosure of country of origin",
+      "32": "No unfair trade practices in online sales",
+      "33": "Liability of e-commerce platforms for defective products",
+      "34": "Consumer right to return goods within specified period"
+    },
+    "remedies": {
+      "40": "Removal of defects in goods",
+      "41": "Replacement of defective goods",
+      "42": "Refund of price paid",
+      "43": "Compensation for loss or injury",
+      "44": "Removal of deficiency in services",
+      "45": "Discontinuation of unfair trade practice",
+      "46": "Withdrawal of hazardous goods from sale",
+      "47": "Payment of punitive damages up to Rs.1 crore"
+    },
+    "complaint_filing": {
+      "50": "District Consumer Forum - claims up to Rs.1 crore",
+      "51": "State Consumer Commission - claims Rs.1-10 crore",
+      "52": "National Consumer Commission - claims above Rs.10 crore",
+      "53": "Complaint can be filed within 2 years from cause of action",
+      "54": "No court fees for complaints up to Rs.5 lakh"
+    }
+  }
+}

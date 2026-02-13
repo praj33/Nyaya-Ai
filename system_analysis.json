@@ -1,0 +1,159 @@
+{
+  "system_overview": {
+    "total_python_files": 951,
+    "total_json_files": 70,
+    "total_documentation": 19,
+    "core_modules": 10,
+    "total_size_mb": 31.93023681640625
+  },
+  "modules": {
+    "api": {
+      "description": "FastAPI-based REST API layer",
+      "python_files": 7,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 7
+    },
+    "data_bridge": {
+      "description": "Data normalization and loading system",
+      "python_files": 6,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 6
+    },
+    "sovereign_agents": {
+      "description": "AI agents for legal processing",
+      "python_files": 4,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 4
+    },
+    "jurisdiction_router": {
+      "description": "Multi-jurisdictional routing logic",
+      "python_files": 4,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 4
+    },
+    "enforcement_engine": {
+      "description": "Governance and compliance enforcement",
+      "python_files": 4,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 4
+    },
+    "provenance_chain": {
+      "description": "Audit trail and cryptographic verification",
+      "python_files": 6,
+      "json_files": 2,
+      "documentation": 0,
+      "total_files": 8
+    },
+    "rl_engine": {
+      "description": "Reinforcement learning feedback system",
+      "python_files": 6,
+      "json_files": 0,
+      "documentation": 1,
+      "total_files": 7
+    },
+    "legal_database": {
+      "description": "Enhanced legal data processing",
+      "python_files": 5,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 5
+    },
+    "procedures": {
+      "description": "Legal procedure intelligence",
+      "python_files": 4,
+      "json_files": 23,
+      "documentation": 3,
+      "total_files": 30
+    },
+    "governed_execution": {
+      "description": "Controlled agent execution pipeline",
+      "python_files": 1,
+      "json_files": 0,
+      "documentation": 0,
+      "total_files": 1
+    }
+  },
+  "data_assets": {
+    "total_files": 35,
+    "jurisdictions": {
+      "india": 7,
+      "uk": 10,
+      "uae": 14
+    },
+    "estimated_size_mb": 0.36429500579833984
+  },
+  "configuration": {
+    "dependencies": 5
+  },
+  "documentation": {
+    "architecture": 1,
+    "api": 1,
+    "enforcement": 1,
+    "integration": 2,
+    "governance": 1,
+    "validation": 1,
+    "tracing": 2,
+    "quickstart": 2
+  },
+  "api_endpoints": {
+    "router.py": {
+      "description": "Main API routing logic",
+      "endpoints": 5,
+      "lines": 544
+    },
+    "schemas.py": {
+      "description": "Request/response schemas",
+      "endpoints": 0,
+      "lines": 137
+    },
+    "dependencies.py": {
+      "description": "API dependencies and middleware",
+      "endpoints": 0,
+      "lines": 71
+    },
+    "response_builder.py": {
+      "description": "Response formatting utilities",
+      "endpoints": 0,
+      "lines": 246
+    },
+    "procedure_router.py": {
+      "description": "Procedure-specific endpoints",
+      "endpoints": 0,
+      "lines": 217
+    },
+    "debug_router.py": {
+      "description": "Debug and testing endpoints",
+      "endpoints": 0,
+      "lines": 50
+    }
+  },
+  "schemas": {
+    "total": 16
+  },
+  "test_files": {},
+  "integration_points": {
+    "integrated_legal_advisor.py": {
+      "imports": 11,
+      "classes": 4,
+      "functions": 1,
+      "lines": 345
+    },
+    "test_enhanced_integration.py": {
+      "imports": 5,
+      "classes": 0,
+      "functions": 5,
+      "lines": 120
+    },
+    "system_functionality_check.py": {
+      "imports": 2,
+      "classes": 0,
+      "functions": 5,
+      "lines": 439
+    }
+  }
+}

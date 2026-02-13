@@ -1,0 +1,76 @@
+{
+  "act_name": "Hindu Marriage Act 1955",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "marriage_conditions": {
+      "5": "Conditions for valid Hindu marriage - Monogamy, age (21 for male, 18 for female), sound mind, not within prohibited degrees",
+      "7": "Marriage ceremonies - Saptapadi (seven steps) essential for valid marriage",
+      "8": "Registration of Hindu marriages - Optional but recommended for legal proof",
+      "11": "Void marriages - Bigamy, prohibited relationship, sapinda relationship",
+      "12": "Voidable marriages - Impotency, mental disorder, pregnancy by another man, consent by fraud/force"
+    },
+    "restitution_conjugal_rights": {
+      "9": "Restitution of conjugal rights - Spouse can petition if other withdraws from society without reasonable excuse",
+      "9A": "Alternative relief in restitution proceedings - Court may grant judicial separation or divorce"
+    },
+    "judicial_separation": {
+      "10": "Judicial separation on grounds of adultery, cruelty, desertion, conversion, mental disorder, venereal disease, renunciation, presumption of death",
+      "22": "Resumption of cohabitation after judicial separation - Parties can resume married life"
+    },
+    "divorce_grounds": {
+      "13": "Divorce grounds - Adultery, cruelty, desertion for 2 years, conversion, mental disorder, leprosy, venereal disease, renunciation, not heard alive for 7 years",
+      "13A": "Alternate relief in divorce proceedings - Court may grant judicial separation instead",
+      "13B": "Divorce by mutual consent - After 1 year of marriage, by mutual agreement, 6-18 months waiting period",
+      "14": "Bars to matrimonial relief - No petition within 1 year of marriage except exceptional hardship"
+    },
+    "divorce_wife_grounds": {
+      "13_2": "Additional grounds for wife - Husband remarried before Act, husband guilty of rape/sodomy/bestiality, repudiation of marriage before age 15, non-resumption of cohabitation after decree of maintenance"
+    },
+    "nullity_marriage": {
+      "11": "Void marriages - Petition for nullity can be filed by either party",
+      "12": "Voidable marriages - Petition within 1 year of discovering fraud or force"
+    },
+    "maintenance_alimony": {
+      "24": "Maintenance pendente lite - Interim maintenance during proceedings based on income and needs",
+      "25": "Permanent alimony - Court can order monthly/lump sum payment considering income, property, conduct",
+      "27": "Maintenance to wife after divorce - Wife entitled to maintenance if not remarried and unable to maintain herself"
+    },
+    "custody_children": {
+      "26": "Custody of children - Court decides based on child's welfare, age, wishes, parent's conduct and capacity",
+      "26A": "Welfare of child paramount - Best interest of child is primary consideration",
+      "26B": "Visitation rights - Non-custodial parent entitled to meet child regularly"
+    },
+    "property_rights": {
+      "27A": "Wife's right to residence - Wife entitled to live in matrimonial home",
+      "27B": "Stridhan - Wife's exclusive property including gifts, jewelry, inherited property",
+      "27C": "Division of property - Court can order equitable distribution of jointly acquired property"
+    },
+    "procedure": {
+      "19": "Court's duty to reconcile - Court must make efforts to reconcile parties before granting divorce",
+      "20": "Jurisdiction - District Court where marriage solemnized or parties last resided or respondent resides",
+      "21": "Proceedings to be in camera - Divorce proceedings held in private to protect privacy",
+      "21A": "Decree not to be granted within 6 months - Cooling off period for mutual consent divorce",
+      "28": "Appeals - Appeal to High Court within 90 days of decree"
+    },
+    "special_provisions": {
+      "15": "Divorced persons when may marry again - After decree becomes final",
+      "16": "Legitimacy of children - Children of void/voidable marriages are legitimate",
+      "17": "Punishment of bigamy - Imprisonment up to 7 years and fine under IPC Section 494",
+      "18": "Punishment for contravention of decrees - Imprisonment up to 1 year or fine up to Rs.1,000"
+    },
+    "maintenance_amounts": {
+      "25A": "Factors for determining alimony - Income, property, standard of living, duration of marriage, age, health, earning capacity",
+      "25B": "Modification of alimony - Court can increase/decrease based on changed circumstances",
+      "25C": "Enforcement of alimony - Attachment of salary, property, arrest for non-payment"
+    },
+    "domestic_violence": {
+      "498A_reference": "Cruelty includes physical and mental torture - Refer IPC Section 498A for criminal action",
+      "DV_Act_reference": "Protection of Women from Domestic Violence Act 2005 provides additional remedies"
+    },
+    "mediation": {
+      "23A": "Mandatory mediation - Family courts must refer cases to mediation",
+      "23B": "Mediation timeline - 60 days for mediation process",
+      "23C": "Confidentiality - Mediation proceedings confidential"
+    }
+  }
+}

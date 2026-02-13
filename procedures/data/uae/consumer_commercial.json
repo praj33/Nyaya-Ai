@@ -1,0 +1,157 @@
+{
+  "country": "UAE",
+  "domain": "Consumer / Commercial",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Federal Law No. 15 of 2020 (Consumer Protection Law)",
+      "type": "statute",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law"
+    },
+    {
+      "name": "Federal Decree-Law No. 50 of 2022 (Commercial Transactions Law)",
+      "type": "statute",
+      "url": "https://u.ae/en/information-and-services/justice-safety-and-the-law"
+    },
+    {
+      "name": "UAE Ministry of Economy",
+      "type": "government_portal",
+      "url": "https://www.moec.gov.ae"
+    },
+    {
+      "name": "UAE Ministry of Justice",
+      "type": "government_portal",
+      "url": "https://www.moj.gov.ae"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Ministry of Economy",
+      "Department of Economic Development",
+      "Court of First Instance",
+      "Court of Appeal",
+      "Court of Cassation"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Consumer Complaint or Commercial Claim",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Consumer complaint or commercial claim is filed with the competent authority or court depending on the nature and value of the dispute.",
+        "actor": "Consumer / Claimant / Legal Representative"
+      },
+      {
+        "step": 2,
+        "title": "Preliminary Review and Notification",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Authority or court reviews the complaint for jurisdiction and completeness and notifies the opposing party.",
+        "actor": "Authority / Court"
+      },
+      {
+        "step": 3,
+        "title": "Submission of Responses and Documents",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Opposing party submits responses, documents, and evidence within prescribed timelines.",
+        "actor": "Opposing Party / Legal Representative"
+      },
+      {
+        "step": 4,
+        "title": "Settlement or Mediation Attempt",
+        "canonical_step": "SETTLEMENT_ATTEMPT",
+        "description": "Authority or court encourages settlement or mediation between the parties before proceeding to adjudication.",
+        "actor": "Authority / Court / Mediator",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement recorded",
+            "effect": "Dispute resolved and proceedings concluded"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Proceed to adjudication",
+            "effect": "Case proceeds to adjudication on merits"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement",
+            "Partial settlement",
+            "No settlement"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature and value of the claim",
+            "Quality of documentary evidence",
+            "Willingness of parties to compromise",
+            "Regulatory encouragement of settlement"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Incomplete documentation",
+            "Jurisdictional objections",
+            "Non-participation in mediation",
+            "Delay in settlement process"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Hearings and Evidence Review",
+        "canonical_step": "TRIAL",
+        "description": "Court or authority reviews evidence, hears arguments, and may appoint experts where necessary.",
+        "actor": "Court / Authority"
+      },
+      {
+        "step": 6,
+        "title": "Final Decision or Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Authority or court issues a final decision or judgment resolving the consumer or commercial dispute.",
+        "actor": "Court / Authority"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the decision before the appropriate appellate authority or court.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Complaint or statement of claim",
+      "Contracts, invoices, or receipts",
+      "Correspondence between parties",
+      "Affidavits and supporting documents",
+      "Orders or judgments"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–18 months",
+      "worst_case": "2–3 years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Court of First Instance / Competent Authority",
+        "to": "Court of Appeal",
+        "condition": "Appeal against decision or judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Court of Cassation",
+        "condition": "Appeal on points of law"
+      }
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "country": "India",
+  "domain": "Civil",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Code of Civil Procedure, 1908",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Supreme Court of India",
+      "type": "government_portal",
+      "url": "https://www.sci.gov.in"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Civil Court",
+      "District Court",
+      "High Court",
+      "Supreme Court"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Institution of Suit",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Plaintiff institutes a civil suit by filing a plaint before the competent civil court under the Code of Civil Procedure.",
+        "actor": "Plaintiff / Advocate"
+      },
+      {
+        "step": 2,
+        "title": "Issue and Service of Summons",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court issues summons to the defendant to appear and respond to the suit.",
+        "actor": "Court"
+      },
+      {
+        "step": 3,
+        "title": "Filing of Written Statement",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Defendant files a written statement responding to the allegations in the plaint.",
+        "actor": "Defendant / Advocate"
+      },
+      {
+        "step": 4,
+        "title": "Framing of Issues",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court frames issues based on pleadings to identify matters requiring adjudication.",
+        "actor": "Court"
+      },
+      {
+        "step": 5,
+        "title": "Settlement or Alternative Dispute Resolution",
+        "canonical_step": "SETTLEMENT_ATTEMPT",
+        "description": "Court may refer the matter for settlement, mediation, conciliation, or arbitration under Section 89 of CPC.",
+        "actor": "Court",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement recorded",
+            "effect": "Dispute resolved and proceedings concluded"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Proceed to trial",
+            "effect": "Suit proceeds to trial on merits"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement",
+            "Partial settlement",
+            "No settlement"
+          ],
+          "probability_range": {
+            "min": 0.25,
+            "max": 0.65
+          },
+          "dependencies": [
+            "Nature of dispute",
+            "Willingness of parties",
+            "Complexity of issues",
+            "Judicial encouragement of ADR"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Non-cooperation of parties",
+            "Incomplete documentation",
+            "Delay in settlement process"
+          ]
+        }
+      },
+      {
+        "step": 6,
+        "title": "Trial",
+        "canonical_step": "TRIAL",
+        "description": "Parties lead evidence, witnesses are examined, and arguments are advanced before the court.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Judgment and Decree",
+        "canonical_step": "JUDGMENT",
+        "description": "Court pronounces judgment and draws up a decree determining the rights of parties.",
+        "actor": "Court"
+      },
+      {
+        "step": 8,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may file an appeal before the appropriate appellate court as per law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Plaint",
+      "Written statement",
+      "Affidavits and evidence",
+      "Witness lists",
+      "Court orders and decree"
+    ],
+    "timelines": {
+      "best_case": "1–2 years",
+      "average": "3–5 years",
+      "worst_case": "7+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Civil / District Court",
+        "to": "High Court",
+        "condition": "Appeal on facts or law"
+      },
+      {
+        "from": "High Court",
+        "to": "Supreme Court",
+        "condition": "Appeal on substantial question of law"
+      }
+    ]
+  }
+}

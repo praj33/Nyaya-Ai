@@ -1,0 +1,64 @@
+{
+  "act_name": "Motor Vehicles Act 1988",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "licensing": {
+      "3": "Driving without valid license - Rs.5,000 fine",
+      "4": "Learner's license valid for 6 months",
+      "5": "Permanent license valid for 20 years (non-transport) or 3 years (transport)",
+      "6": "International driving permit for driving abroad",
+      "7": "Disqualification for drunk driving, rash driving, or causing death"
+    },
+    "insurance": {
+      "10": "Third-party insurance mandatory for all vehicles",
+      "11": "Driving without insurance - Rs.2,000 fine and/or 3 months imprisonment",
+      "12": "Comprehensive insurance covers own damage and third-party liability",
+      "13": "No-fault liability - Rs.50,000 for death, Rs.25,000 for grievous injury",
+      "14": "Hit and run cases - Rs.2 lakh for death, Rs.50,000 for grievous injury from Motor Accident Fund"
+    },
+    "traffic_violations": {
+      "20": "Over-speeding - Rs.1,000-2,000 fine",
+      "21": "Red light jumping - Rs.1,000 fine",
+      "22": "Using mobile while driving - Rs.1,000-5,000 fine",
+      "23": "Not wearing seatbelt - Rs.1,000 fine",
+      "24": "Not wearing helmet (two-wheeler) - Rs.1,000 fine and license suspension",
+      "25": "Overloading - Rs.2,000 fine per extra passenger/ton",
+      "26": "Wrong side driving - Rs.10,000 fine"
+    },
+    "drunk_driving": {
+      "30": "Drunk driving (first offense) - Rs.10,000 fine and/or 6 months imprisonment",
+      "31": "Drunk driving (second offense) - Rs.15,000 fine and/or 2 years imprisonment",
+      "32": "Blood alcohol limit - 30mg per 100ml blood",
+      "33": "Refusal to give breath test - Same penalty as drunk driving",
+      "34": "License suspension for 6 months on first offense"
+    },
+    "accidents": {
+      "40": "Duty to report accident causing injury/death to police",
+      "41": "Duty to provide medical aid to accident victim",
+      "42": "Leaving accident scene without reporting - 6 months imprisonment and/or fine",
+      "43": "Rash and negligent driving causing death - 5 years imprisonment and fine up to Rs.10 lakh",
+      "44": "Rash and negligent driving causing injury - 6 months imprisonment and/or Rs.5,000 fine"
+    },
+    "compensation": {
+      "50": "Motor Accident Claims Tribunal for compensation claims",
+      "51": "Compensation for death - Based on age, income, dependency",
+      "52": "Compensation for permanent disability - Based on loss of earning capacity",
+      "53": "Compensation for temporary disability - Loss of income during recovery",
+      "54": "Medical expenses reimbursement",
+      "55": "Pain and suffering compensation",
+      "56": "Claim must be filed within 6 months of accident"
+    },
+    "vehicle_standards": {
+      "60": "Pollution Under Control (PUC) certificate mandatory",
+      "61": "Vehicle fitness certificate for vehicles over 15 years",
+      "62": "Modification of vehicles requires RTO approval",
+      "63": "Tinted glass/film on windows prohibited",
+      "64": "Pressure horn prohibited - Rs.10,000 fine"
+    },
+    "juvenile_driving": {
+      "70": "Juvenile driving (under 18) - Guardian liable, Rs.25,000 fine and 3 years imprisonment",
+      "71": "Vehicle registration cancelled",
+      "72": "Juvenile sent to reform home"
+    }
+  }
+}

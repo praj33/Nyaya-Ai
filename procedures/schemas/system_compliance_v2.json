@@ -1,0 +1,38 @@
+{
+  "version": "2.0",
+  "layer": "system_compliance",
+  "principles": {
+    "auditability": true,
+    "immutability": true,
+    "deterministic_ingestion": true
+  },
+  "dataset_metadata": {
+    "dataset_version": "2.0",
+    "last_verified": "2025-01",
+    "maintainer": "Nyaya AI",
+    "source_policy": "official_statutes_and_court_procedures_only"
+  },
+  "integrity_fields": {
+    "dataset_hash": {
+      "algorithm": "sha256",
+      "description": "Hash of all procedure and schema files at release time"
+    },
+    "integrity_flags": {
+      "schema_validated": true,
+      "no_hallucinated_content": true,
+      "jurisdiction_verified": true,
+      "non_advisory_compliant": true
+    }
+  },
+  "ingestion_requirements": {
+    "schema_v1_1_supported": true,
+    "schema_v2_supported": true,
+    "partial_ingestion_allowed": false
+  },
+  "validation_rules": {
+    "dataset_version_required": true,
+    "dataset_hash_required_at_release": true,
+    "integrity_flags_must_be_true": true
+  },
+  "status": "Day 6 complete — system compliance layer defined"
+}

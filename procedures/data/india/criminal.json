@@ -1,0 +1,210 @@
+{
+  "country": "India",
+  "domain": "Criminal",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Code of Criminal Procedure, 1973",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Indian Penal Code, 1860",
+      "type": "statute",
+      "url": "https://legislative.gov.in"
+    },
+    {
+      "name": "Supreme Court of India",
+      "type": "government_portal",
+      "url": "https://www.sci.gov.in"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Police",
+      "Magistrate Court",
+      "Sessions Court",
+      "High Court",
+      "Supreme Court"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of FIR",
+        "canonical_step": "CRIME_REPORTING",
+        "description": "Information relating to the commission of a cognizable offence is recorded by the police under Section 154 of the CrPC.",
+        "actor": "Police"
+      },
+      {
+        "step": 2,
+        "title": "Investigation",
+        "canonical_step": "INVESTIGATION",
+        "description": "Police conduct investigation including evidence collection, witness examination, and arrests where necessary.",
+        "actor": "Police"
+      },
+      {
+        "step": 3,
+        "title": "Bail Hearing",
+        "canonical_step": "PRE_TRIAL_RELEASE_DECISION",
+        "description": "Court considers bail application and determines whether the accused should be released or remanded to custody.",
+        "actor": "Court",
+        "conditional_branches": [
+          {
+            "condition": "Bail granted",
+            "canonical_outcome": "RELEASE_GRANTED",
+            "next_step": "Release on bail",
+            "effect": "Accused released subject to bail conditions"
+          },
+          {
+            "condition": "Bail rejected",
+            "canonical_outcome": "DETENTION_ORDERED",
+            "next_step": "Judicial custody",
+            "effect": "Accused remanded to custody"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Regular bail granted",
+            "Interim bail granted",
+            "Bail rejected"
+          ],
+          "probability_range": {
+            "min": 0.35,
+            "max": 0.75
+          },
+          "dependencies": [
+            "Nature and gravity of offence",
+            "Criminal antecedents",
+            "Risk of absconding",
+            "Likelihood of evidence tampering"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Incomplete investigation",
+            "Non-compliance with bail conditions",
+            "Adverse criminal history"
+          ]
+        }
+      },
+      {
+        "step": 4,
+        "title": "Filing of Charge Sheet or Closure Report",
+        "canonical_step": "PROSECUTION_DECISION",
+        "description": "Police submit a charge sheet under Section 173 CrPC or file a closure report if evidence is insufficient.",
+        "actor": "Police",
+        "conditional_branches": [
+          {
+            "condition": "Charge sheet filed",
+            "canonical_outcome": "CHARGES_FILED",
+            "next_step": "Cognizance by Magistrate",
+            "effect": "Prosecution initiated"
+          },
+          {
+            "condition": "Closure report filed",
+            "canonical_outcome": "CASE_DISMISSED",
+            "next_step": "Case closed or protest petition",
+            "effect": "Proceedings terminated unless contested"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Charge sheet accepted",
+            "Further investigation ordered",
+            "Case closed"
+          ],
+          "probability_range": {
+            "min": 0.4,
+            "max": 0.8
+          },
+          "dependencies": [
+            "Quality of evidence",
+            "Completeness of investigation",
+            "Legal sufficiency of allegations"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Medium",
+          "effort_intensity": "Medium to High",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "High",
+          "failure_risks": [
+            "Insufficient evidence",
+            "Procedural lapses",
+            "Delay in investigation"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Cognizance by Magistrate",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Magistrate takes cognizance of the offence and issues process to the accused.",
+        "actor": "Magistrate Court"
+      },
+      {
+        "step": 6,
+        "title": "Framing of Charges",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Court frames charges against the accused if sufficient grounds exist to proceed with trial.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Trial",
+        "canonical_step": "TRIAL",
+        "description": "Evidence is led by prosecution and defence, witnesses are examined, and arguments are heard.",
+        "actor": "Court"
+      },
+      {
+        "step": 8,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court delivers judgment acquitting or convicting the accused.",
+        "actor": "Court"
+      },
+      {
+        "step": 9,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the judgment before a higher court as per law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "FIR",
+      "Police case diary",
+      "Charge sheet or closure report",
+      "Witness statements",
+      "Forensic reports",
+      "Court orders and judgments"
+    ],
+    "timelines": {
+      "best_case": "6–12 months",
+      "average": "1–3 years",
+      "worst_case": "5+ years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Magistrate / Sessions Court",
+        "to": "High Court",
+        "condition": "Appeal or revision"
+      },
+      {
+        "from": "High Court",
+        "to": "Supreme Court",
+        "condition": "Special leave or constitutional appeal"
+      }
+    ]
+  }
+}

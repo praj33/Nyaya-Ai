@@ -1,0 +1,158 @@
+{
+  "dowry_demand": {
+    "keywords": ["dowry", "asking for money", "demanding money", "dowry harassment", "torture", "beating", "abuse"],
+    "exclude_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body", "divorce"],
+    "domains": ["criminal", "family"],
+    "constitutional_articles": ["Article 21", "Article 15(3)"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85", "title": "Cruelty by husband or relatives"},
+      {"act": "Indian Penal Code", "section": "498A", "title": "Cruelty by husband or relatives"},
+      {"act": "Dowry Prohibition Act", "section": "4", "title": "Penalty for demanding dowry"},
+      {"act": "Protection of Women from Domestic Violence Act", "section": "3", "title": "Definition of domestic violence"}
+    ]
+  },
+  "dowry_death": {
+    "keywords": ["dowry death"],
+    "require_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
+    "domains": ["criminal"],
+    "constitutional_articles": ["Article 21", "Article 15(3)"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "80", "title": "Dowry death"},
+      {"act": "Indian Penal Code", "section": "304B", "title": "Dowry death"},
+      {"act": "Dowry Prohibition Act", "section": "3", "title": "Prohibition of dowry"}
+    ]
+  },
+  "economic_abuse_marital": {
+    "keywords": ["asking for money", "demanding money", "forcing me to pay", "took my salary", "controls my income", "financial abuse", "economic abuse"],
+    "exclude_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "85", "title": "Cruelty by husband or relatives"},
+      {"act": "Indian Penal Code", "section": "498A", "title": "Cruelty by husband or relatives"},
+      {"act": "Dowry Prohibition Act", "section": "4", "title": "Penalty for demanding dowry"},
+      {"act": "Protection of Women from Domestic Violence Act", "section": "3", "title": "Definition of domestic violence"}
+    ]
+  },
+  "authority_assault": {
+    "keywords": ["teacher", "coach", "principal", "warden", "employer", "boss"],
+    "trigger_verbs": ["beat", "beating", "hit", "slapped", "assaulted", "punched"],
+    "domains": ["criminal"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "115", "title": "Voluntarily causing hurt"},
+      {"act": "Bharatiya Nyaya Sanhita", "section": "117", "title": "Voluntarily causing grievous hurt"}
+    ]
+  },
+  "child_sexual_offense": {
+    "keywords": ["pedophile", "child abuse", "minor sexual", "molested child", "sex with child"],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Protection of Children from Sexual Offences Act",
+        "year": 2012,
+        "section": "3",
+        "title": "Penetrative sexual assault"
+      },
+      {
+        "act": "Protection of Children from Sexual Offences Act",
+        "year": 2012,
+        "section": "7",
+        "title": "Sexual assault"
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "section": "64",
+        "title": "Rape"
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "section": "65",
+        "title": "Punishment for rape"
+      },
+      {
+        "act": "Indian Penal Code",
+        "section": "375",
+        "title": "Rape"
+      },
+      {
+        "act": "Indian Penal Code",
+        "section": "376",
+        "title": "Punishment for rape"
+      }
+    ]
+  },
+  "theft": {
+    "keywords": ["stole", "stolen", "theft", "took my", "missing"],
+    "exclude_keywords": ["robbery", "robbed", "gunpoint", "knife", "weapon"],
+    "domains": ["criminal"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "303", "title": "Theft"},
+      {"act": "Indian Penal Code", "section": "379", "title": "Theft"}
+    ]
+  },
+  "robbery": {
+    "keywords": ["robbed", "robbery", "gunpoint", "knife point", "weapon", "threatened"],
+    "domains": ["criminal"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "309", "title": "Robbery"},
+      {"act": "Indian Penal Code", "section": "392", "title": "Robbery"}
+    ]
+  },
+  "murder": {
+    "keywords": ["killed", "murdered", "murder", "homicide"],
+    "exclude_keywords": ["dowry"],
+    "domains": ["criminal"],
+    "constitutional_articles": ["Article 21"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "103", "title": "Murder"},
+      {"act": "Indian Penal Code", "section": "302", "title": "Murder"}
+    ]
+  },
+  "cyber_fraud": {
+    "keywords": ["hacked", "hacking", "phishing", "online fraud", "cyber fraud", "bank account hacked", "payment app fraud"],
+    "domains": ["cyber", "criminal"],
+    "statutes": [
+      {"act": "Information Technology Act", "section": "66C", "title": "Identity theft"},
+      {"act": "Information Technology Act", "section": "66D", "title": "Cheating by personation using computer"}
+    ]
+  },
+  "rape": {
+    "keywords": ["rape", "raped", "sexual assault", "forced sex", "non-consensual sex"],
+    "exclude_keywords": ["gang", "group", "multiple men", "several men"],
+    "domains": ["criminal"],
+    "constitutional_articles": ["Article 21"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "year": 2023, "section": "63", "title": "Rape"},
+      {"act": "Bharatiya Nyaya Sanhita", "year": 2023, "section": "64", "title": "Punishment for rape"},
+      {"act": "Indian Penal Code", "year": 1860, "section": "375", "title": "Rape"},
+      {"act": "Indian Penal Code", "year": 1860, "section": "376", "title": "Punishment for rape"}
+    ]
+  },
+  "gang_rape": {
+    "keywords": ["gang rape", "gangrape", "gang raped", "gangraped", "multiple men raped", "group rape", "several men assaulted", "gang sexual assault", "multiple perpetrators rape"],
+    "domains": ["criminal"],
+    "constitutional_articles": ["Article 21"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "year": 2023, "section": "70", "title": "Gang rape"},
+      {"act": "Bharatiya Nyaya Sanhita", "year": 2023, "section": "63", "title": "Rape"},
+      {"act": "Bharatiya Nyaya Sanhita", "year": 2023, "section": "64", "title": "Punishment for rape"}
+    ]
+  },
+  "divorce_cruelty": {
+    "keywords": ["divorce", "want divorce", "cruelty", "separation", "left me", "affair", "adultery", "desertion"],
+    "domains": ["family"],
+    "constitutional_articles": ["Article 14", "Article 21"],
+    "statutes": [
+      {"act": "Hindu Marriage Act", "section": "13", "title": "Divorce"},
+      {"act": "Special Marriage Act", "section": "27", "title": "Divorce"}
+    ]
+  },
+  "suicide_abetment": {
+    "keywords": ["suicide", "committed suicide", "done suicide", "killed himself", "killed herself", "took own life"],
+    "domains": ["criminal"],
+    "statutes": [
+      {"act": "Bharatiya Nyaya Sanhita", "section": "108", "title": "Abetment of suicide"},
+      {"act": "Indian Penal Code", "section": "306", "title": "Abetment of suicide"},
+      {"act": "Indian Penal Code", "section": "305", "title": "Abetment of suicide of child or insane person"}
+    ]
+  }
+}

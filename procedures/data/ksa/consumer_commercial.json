@@ -1,0 +1,163 @@
+{
+  "country": "KSA",
+  "domain": "Consumer / Commercial",
+  "last_verified": "2025-01",
+  "sources": [
+    {
+      "name": "Consumer Protection Law (Royal Decree No. M/66 of 2018)",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Commercial Courts Law (Royal Decree No. M/93 of 2020)",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Law of Procedure Before Sharia Courts",
+      "type": "statute",
+      "url": "https://laws.boe.gov.sa"
+    },
+    {
+      "name": "Ministry of Commerce",
+      "type": "government_portal",
+      "url": "https://mc.gov.sa"
+    },
+    {
+      "name": "Ministry of Justice (Najiz)",
+      "type": "government_portal",
+      "url": "https://najiz.sa"
+    }
+  ],
+  "procedure": {
+    "authority": [
+      "Ministry of Commerce",
+      "Commercial Court",
+      "General Court",
+      "Court of Appeal",
+      "Supreme Court of Saudi Arabia"
+    ],
+    "steps": [
+      {
+        "step": 1,
+        "title": "Filing of Consumer Complaint or Commercial Claim",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Consumer complaint or commercial claim is filed with the Ministry of Commerce or directly before the competent court through the Najiz platform.",
+        "actor": "Consumer / Claimant / Legal Representative"
+      },
+      {
+        "step": 2,
+        "title": "Preliminary Review and Notification",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Authority or court reviews the complaint for jurisdiction and completeness and notifies the opposing party.",
+        "actor": "Authority / Court"
+      },
+      {
+        "step": 3,
+        "title": "Submission of Responses and Evidence",
+        "canonical_step": "CASE_ALLOCATION",
+        "description": "Opposing party submits responses, documents, and evidence within prescribed timelines.",
+        "actor": "Opposing Party / Legal Representative"
+      },
+      {
+        "step": 4,
+        "title": "Settlement or Reconciliation Attempt",
+        "canonical_step": "SETTLEMENT_ATTEMPT",
+        "description": "Authority or court encourages settlement or reconciliation between the parties prior to adjudication.",
+        "actor": "Authority / Court",
+        "conditional_branches": [
+          {
+            "condition": "Settlement reached",
+            "canonical_outcome": "SETTLEMENT_REACHED",
+            "next_step": "Settlement ratified",
+            "effect": "Dispute resolved and settlement documented in compliance with Sharia"
+          },
+          {
+            "condition": "Settlement not reached",
+            "canonical_outcome": "SETTLEMENT_FAILED",
+            "next_step": "Proceed to adjudication",
+            "effect": "Case proceeds to court adjudication"
+          }
+        ],
+        "outcome_intelligence": {
+          "typical_outcomes": [
+            "Full settlement and closure",
+            "Partial settlement with remaining issues adjudicated",
+            "No settlement and continuation to judgment"
+          ],
+          "probability_range": {
+            "min": 0.3,
+            "max": 0.7
+          },
+          "dependencies": [
+            "Nature and value of the claim",
+            "Quality of contractual or transactional evidence",
+            "Willingness of parties to compromise",
+            "Regulatory encouragement of settlement",
+            "Compliance of settlement terms with Sharia principles"
+          ]
+        },
+        "cost_effort": {
+          "cost_band": "Low to Medium",
+          "effort_intensity": "Medium",
+          "case_difficulty": 3
+        },
+        "risk_flags": {
+          "high_risk_case": false,
+          "evidence_sensitivity": "Medium",
+          "failure_risks": [
+            "Incomplete or unclear documentation",
+            "Jurisdictional objections",
+            "Failure to comply with procedural timelines",
+            "Settlement terms conflicting with Sharia principles"
+          ]
+        }
+      },
+      {
+        "step": 5,
+        "title": "Hearings and Evidence Review",
+        "canonical_step": "TRIAL",
+        "description": "Court conducts hearings, reviews documentary evidence, and hears submissions from the parties.",
+        "actor": "Commercial Court / General Court"
+      },
+      {
+        "step": 6,
+        "title": "Judgment",
+        "canonical_step": "JUDGMENT",
+        "description": "Court issues judgment resolving the consumer or commercial dispute in accordance with Sharia and statutory law.",
+        "actor": "Court"
+      },
+      {
+        "step": 7,
+        "title": "Appeal",
+        "canonical_step": "APPEAL",
+        "description": "Aggrieved party may appeal the judgment before higher courts as permitted by Saudi law.",
+        "actor": "Court / Parties"
+      }
+    ],
+    "documents_required": [
+      "Complaint or statement of claim",
+      "Contracts, invoices, or receipts",
+      "Correspondence between parties",
+      "Regulatory filings or inspection reports (if applicable)",
+      "Expert or valuation reports (if required)"
+    ],
+    "timelines": {
+      "best_case": "3–6 months",
+      "average": "6–18 months",
+      "worst_case": "2–3 years"
+    },
+    "escalation_paths": [
+      {
+        "from": "Commercial Court / General Court",
+        "to": "Court of Appeal",
+        "condition": "Appeal against judgment"
+      },
+      {
+        "from": "Court of Appeal",
+        "to": "Supreme Court of Saudi Arabia",
+        "condition": "Appeal on points of law or Sharia compliance"
+      }
+    ]
+  }
+}

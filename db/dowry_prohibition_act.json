@@ -1,0 +1,15 @@
+{
+  "act_name": "Dowry Prohibition Act, 1961",
+  "abbreviation": "DPA",
+  "year": 1961,
+  "jurisdiction": "India",
+  "key_sections": {
+    "DOWRY_OFFENCES": {
+      "2": "Definition of dowry - Any property or valuable security given or agreed to be given in connection with marriage",
+      "3": "Penalty for giving or taking dowry - Imprisonment up to 5 years and fine up to Rs. 15,000",
+      "4": "Penalty for demanding dowry - Imprisonment from 6 months to 2 years and fine up to Rs. 10,000",
+      "6": "Dowry to be for the benefit of the wife or her heirs",
+      "8": "Offences to be cognizable, non-bailable and non-compoundable"
+    }
+  }
+}
