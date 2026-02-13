@@ -872,10 +872,15 @@ class EnhancedLegalAdvisor:
         # Search relevant sections
         relevant_sections = self._search_relevant_sections(legal_query.query_text, jurisdiction, domain)
         
-        # Apply ontology filter
+        # Apply ontology filter (skip for family domain to allow Hindu Marriage Act)
         allowed_act_ids = self.ontology_filter.get_allowed_act_ids(domain)
-        filtered_sections = self._apply_ontology_filter(relevant_sections, allowed_act_ids)
-        ontology_filtered = len(relevant_sections) != len(filtered_sections)
+        if domain == 'family':
+            # For family domain, don't filter - allow all found sections
+            filtered_sections = relevant_sections
+            ontology_filtered = False
+        else:
+            filtered_sections = self._apply_ontology_filter(relevant_sections, allowed_act_ids)
+            ontology_filtered = len(relevant_sections) != len(filtered_sections)
         
         # Limit to top 5 most relevant sections to avoid noise
         relevant_sections = filtered_sections[:5]
