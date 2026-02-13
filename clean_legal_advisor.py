@@ -148,6 +148,7 @@ class EnhancedLegalAdvisor:
                 'assault': ['130', '131', '132', '133', '134', '135', '136', '351', '352', '353', '354', '354A', '354B', '354C', '354D'],
                 'kidnapping': ['87', '137', '138', '139', '140', '141', '142', '359', '360', '361', '363', '364', '365', '366', '367'],
                 'dowry': ['80', '304B', '498A'],
+                'adultery': ['13'],  # Hindu Marriage Act Section 13 - Divorce on grounds of adultery
                 'cheating': ['318', '319', '415', '416', '417', '418', '419', '420'],
                 'robbery': ['309', '310', '311', '312', '390', '391', '392', '393', '394', '395', '396', '397', '398'],
                 'snatching': ['309', '356', '390', '392'],
@@ -289,7 +290,8 @@ class EnhancedLegalAdvisor:
         
         # Family law keywords
         family_keywords = ['divorce', 'marriage', 'custody', 'alimony', 'maintenance', 'matrimonial',
-                          'spouse', 'wife', 'husband', 'separation', 'guardianship', 'adoption']
+                          'spouse', 'wife', 'husband', 'separation', 'guardianship', 'adoption',
+                          'cheating', 'adultery', 'affair', 'unfaithful']
         
         # Civil law keywords
         civil_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
