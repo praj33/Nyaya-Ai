@@ -37,20 +37,24 @@ class ProcedureLoader:
     def _load_procedures(self):
         """Load all procedure files."""
         if not self.base_path.exists():
+            print(f"WARNING: Procedure base path does not exist: {self.base_path}")
             return
         
+        print(f"Loading procedures from: {self.base_path}")
         for country_dir in self.base_path.iterdir():
             if not country_dir.is_dir():
                 continue
             
             country = country_dir.name
             self.procedures_cache[country] = {}
+            print(f"Loading procedures for country: {country}")
             
             for proc_file in country_dir.glob("*.json"):
                 try:
                     with open(proc_file, 'r', encoding='utf-8') as f:
                         domain = proc_file.stem
                         self.procedures_cache[country][domain] = json.load(f)
+                        print(f"  Loaded {country}/{domain}")
                 except Exception as e:
                     print(f"Error loading procedure {proc_file}: {e}")
     
