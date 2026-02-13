@@ -16,6 +16,7 @@ from events.event_types import EventType
 from core.ontology.ontology_filter import OntologyFilter
 from core.addons.addon_subtype_resolver import AddonSubtypeResolver
 from core.addons.dowry_precision_layer import DowryPrecisionLayer
+from procedures.loader import procedure_loader
 
 # Try to import semantic search (optional)
 try:
@@ -337,7 +338,14 @@ class EnhancedLegalAdvisor:
         
         # Strategy 1: Use BM25 for initial ranking
         bm25_results = self.bm25_search.search(query, jurisdiction, top_k=50)
-        matched_sections = [(section, score * 10) for section, score in bm25_results]  # Scale BM25 scores
+        matched_sections = [(section, score * 10) for section, score in bm25_results]
+        
+        # Filter out "Repeal and savings" and other irrelevant sections
+        exclude_keywords = ['repeal', 'savings', 'commencement', 'short title', 'definitions', 'extent', 'application']
+        matched_sections = [
+            (section, score) for section, score in matched_sections
+            if not any(keyword in section.text.lower()[:50] for keyword in exclude_keywords)
+        ]
         
         # Strategy 2: Boost with crime mappings
         query_lower = query.lower()
@@ -450,6 +458,10 @@ class EnhancedLegalAdvisor:
         # Remove duplicates and sort by relevance
         unique_sections = {}
         for section, score in matched_sections:
+            # Skip sections with very low scores
+            if score < 2:
+                continue
+            
             if section.section_id not in unique_sections:
                 unique_sections[section.section_id] = (section, score)
             else:
@@ -641,196 +653,17 @@ class EnhancedLegalAdvisor:
         return analysis
     
     def _generate_procedural_steps(self, sections: List[Section], domain: str, jurisdiction: str, query: str = "", domains: List[str] = None) -> List[str]:
-        """Generate detailed procedural steps based on sections, domain, and jurisdiction"""
-        steps = []
-        query_lower = query.lower()
+        """Generate detailed procedural steps from procedure datasets"""
+        jurisdiction_map = {'IN': 'india', 'UK': 'uk', 'UAE': 'uae'}
+        country = jurisdiction_map.get(jurisdiction, 'india').lower()
         
-        if domains is None:
-            domains = [domain]
+        procedure = procedure_loader.get_procedure(country, domain.lower())
         
-        # Check for marital cruelty (hybrid criminal-family)
-        is_marital_cruelty = 'criminal' in domains and 'family' in domains
+        if procedure and "procedure" in procedure and "steps" in procedure["procedure"]:
+            steps = procedure["procedure"]["steps"]
+            return [f"{step.get('title', '')}" for step in steps]
         
-        if is_marital_cruelty:
-            if jurisdiction == 'IN':
-                steps = [
-                    "IMMEDIATE: File FIR at nearest police station under IPC 498A/BNS 85 (Cruelty) and Dowry Prohibition Act",
-                    "Medical examination if physical injuries present (within 24 hours)",
-                    "Apply for protection order under Domestic Violence Act Section 18",
-                    "Apply for residence order to secure matrimonial home (DV Act Section 19)",
-                    "Police investigation and evidence collection",
-                    "Charge sheet filing by prosecution",
-                    "Criminal trial in Sessions Court",
-                    "Parallel: File petition for divorce on grounds of cruelty (Hindu Marriage Act Section 13)",
-                    "Parallel: Claim maintenance and alimony (HMA Sections 25, 27)",
-                    "Judgment and sentencing in criminal case",
-                    "Divorce decree and financial settlement in family court"
-                ]
-            return steps
-        
-        # Check for specific offense types
-        is_sexual_offence = any('375' in s.section_number or '376' in s.section_number or 
-                               '63' in s.section_number or '64' in s.section_number or
-                               'rape' in s.section_id.lower() for s in sections)
-        
-        is_serious_crime = any(word in s.text.lower() for s in sections 
-                              for word in ['murder', 'homicide', 'terrorism', 'trafficking'])
-        
-        if domain == 'criminal':
-            if jurisdiction == 'IN':
-                if is_sexual_offence:
-                    steps = [
-                        "IMMEDIATE: Report to police (FIR under Section 154 CrPC)",
-                        "Medical examination and evidence collection (within 24 hours)",
-                        "Police investigation under Section 173 CrPC",
-                        "Charge sheet filing by prosecution",
-                        "Fast-track court proceedings (mandatory under law)",
-                        "In-camera trial to protect victim identity",
-                        "Judgment and sentencing",
-                        "Victim support services and compensation under Section 357A CrPC"
-                    ]
-                elif is_serious_crime:
-                    steps = [
-                        "Immediate police reporting and FIR registration",
-                        "Detailed investigation and evidence collection",
-                        "Senior police officer supervision",
-                        "Charge sheet filing within 90 days",
-                        "Sessions Court trial",
-                        "Judgment and sentencing",
-                        "Appeal options to High Court/Supreme Court"
-                    ]
-                else:
-                    steps = [
-                        "File FIR/Police complaint at nearest police station",
-                        "Police investigation and evidence collection",
-                        "Charge sheet filing by prosecution",
-                        "Court proceedings and trial",
-                        "Judgment and sentencing"
-                    ]
-            
-            elif jurisdiction == 'UK':
-                steps = [
-                    "Report to police (999 for emergencies, 101 for non-emergencies)",
-                    "Police investigation and evidence gathering",
-                    "Crown Prosecution Service (CPS) charging decision",
-                    "Magistrates' Court or Crown Court trial",
-                    "Sentencing if convicted",
-                    "Appeal options to Court of Appeal"
-                ]
-            
-            elif jurisdiction == 'UAE':
-                steps = [
-                    "Report to police (999 emergency or local police station)",
-                    "Police investigation and evidence collection",
-                    "Public prosecution review and charging",
-                    "Criminal court trial",
-                    "Judgment and sentencing",
-                    "Appeal to Court of Appeal and Cassation Court"
-                ]
-        
-        elif domain == 'civil':
-            if jurisdiction == 'IN':
-                steps = [
-                    "Send legal notice to opposing party (mandatory)",
-                    "File civil recovery suit in appropriate court with jurisdiction",
-                    "Serve summons and pleadings to defendant",
-                    "Written statement filing by defendant",
-                    "Evidence presentation and arguments",
-                    "Final arguments",
-                    "Court judgment and decree",
-                    "Decree execution if required"
-                ]
-            
-            elif jurisdiction == 'UK':
-                steps = [
-                    "Pre-action correspondence and protocol compliance",
-                    "File claim in County Court or High Court",
-                    "Serve claim on defendant",
-                    "Defence filing and case management",
-                    "Evidence exchange and trial",
-                    "Judgment and enforcement"
-                ]
-            
-            elif jurisdiction == 'UAE':
-                steps = [
-                    "Mandatory mediation attempt (in some emirates)",
-                    "File civil claim in competent court",
-                    "Serve claim documents on defendant",
-                    "Defence filing and case preparation",
-                    "Court hearings and evidence presentation",
-                    "Judgment and execution"
-                ]
-        
-        elif domain == 'consumer':
-            if jurisdiction == 'IN':
-                steps = [
-                    "File consumer complaint with District Consumer Commission",
-                    "Attach supporting documents (invoice, warranty, correspondence)",
-                    "District Commission hearing",
-                    "Order for refund/replacement/compensation",
-                    "Appeal to State Commission (if required)",
-                    "Appeal to National Commission (if required)"
-                ]
-            else:
-                steps = [
-                    "File consumer complaint",
-                    "Hearing and evidence",
-                    "Order",
-                    "Appeal (if required)"
-                ]
-        
-        elif domain == 'family':
-            if jurisdiction == 'IN':
-                # Check if it's a divorce query
-                if any(word in query_lower for word in ['divorce', 'separation', 'dissolve marriage']):
-                    steps = [
-                        "Attempt mediation/counseling (recommended but not mandatory)",
-                        "File divorce petition in family court under Hindu Marriage Act Section 13",
-                        "Serve petition to spouse through court",
-                        "Mandatory mediation session (Family Courts Act)",
-                        "If mediation fails, proceed to evidence stage",
-                        "Both parties present evidence and witnesses",
-                        "Court may grant decree nisi (conditional divorce)",
-                        "After 6 months, decree absolute (final divorce) granted",
-                        "Settlement of maintenance, alimony, and custody matters"
-                    ]
-                else:
-                    steps = [
-                        "Attempt mediation/counseling (recommended)",
-                        "File petition in family court",
-                        "Mandatory mediation session",
-                        "Evidence and witness examination",
-                        "Final decree and implementation"
-                    ]
-            
-            elif jurisdiction == 'UK':
-                steps = [
-                    "Mediation Information and Assessment Meeting (MIAM)",
-                    "Family Court proceedings",
-                    "CAFCASS involvement for children matters",
-                    "First Hearing Dispute Resolution (FHDRA)",
-                    "Final hearing with judgment"
-                ]
-            
-            elif jurisdiction == 'UAE':
-                steps = [
-                    "Reconciliation committee involvement",
-                    "Personal Status Court proceedings",
-                    "Court-mandated reconciliation attempts",
-                    "Evidence and witness hearings",
-                    "Final judgment and implementation"
-                ]
-        
-        elif domain == 'commercial':
-            steps = [
-                "Commercial dispute notice",
-                "Arbitration/mediation attempt",
-                "Commercial court filing",
-                "Expert evidence and hearings",
-                "Commercial judgment and enforcement"
-            ]
-        
-        return steps
+        return ["Consult legal counsel", "Gather evidence", "File appropriate action"]
     
     def _generate_remedies(self, sections: List[Section], domain: str, jurisdiction: str, query: str = "") -> List[str]:
         """Generate comprehensive available remedies"""
