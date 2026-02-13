@@ -177,8 +177,10 @@ class EnhancedLegalAdvisor:
                 'property_dispute': ['40', '41', '42', '43'],
                 'tenant_eviction': ['20', '22', '23'],
                 'accident': ['279', '304A', '337', '338'],  # Vehicular accidents causing death/hurt
+                'bike_accident': ['279', '304A', '337', '338'],
                 'car_accident': ['279', '304A', '337', '338'],
                 'road_accident': ['279', '304A', '337', '338'],
+                'vehicle_accident': ['279', '304A', '337', '338'],
                 'drunk_driving': ['185', '279', '304A'],  # Motor Vehicles Act + IPC
                 'rash_driving': ['279', '304A', '337', '338'],
                 'negligent_driving': ['279', '304A', '337', '338'],
@@ -293,7 +295,7 @@ class EnhancedLegalAdvisor:
                            'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
                            'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
                            'accident', 'drunk', 'rash driving', 'hit and run', 'harass', 'harassment',
-                           'died', 'death', 'killed', 'car accident', 'road accident', 'vehicle']
+                           'died', 'death', 'killed', 'car accident', 'road accident', 'vehicle', 'bike']
         
         # Family law keywords
         family_keywords = ['divorce', 'marriage', 'custody', 'alimony', 'maintenance', 'matrimonial',
@@ -530,7 +532,7 @@ class EnhancedLegalAdvisor:
             },
             # Traffic -> Motor Vehicles Act
             {
-                'keywords': ['accident', 'vehicle', 'car', 'bike', 'driving', 'license', 'insurance', 'traffic', 'challan', 'fine', 'road', 'collision', 'hit', 'drunk', 'speed', 'died', 'death', 'killed', 'rash', 'negligent'],
+                'keywords': ['accident', 'vehicle', 'car', 'bike', 'motorcycle', 'scooter', 'driving', 'license', 'insurance', 'traffic', 'challan', 'fine', 'road', 'collision', 'hit', 'drunk', 'speed', 'died', 'death', 'killed', 'rash', 'negligent'],
                 'acts': ['motor_vehicles', 'ipc', 'bns'],
                 'min_sections': 2
             },
