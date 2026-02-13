@@ -150,6 +150,7 @@ class EnhancedLegalAdvisor:
                 'dowry': ['80', '304B', '498A'],
                 'adultery': ['13'],  # Hindu Marriage Act Section 13 - Divorce on grounds of adultery
                 'cheating': ['318', '319', '415', '416', '417', '418', '419', '420'],
+                'medical_negligence': ['304A', '336', '337', '338'],  # Causing death/hurt by negligence
                 'robbery': ['309', '310', '311', '312', '390', '391', '392', '393', '394', '395', '396', '397', '398'],
                 'snatching': ['309', '356', '390', '392'],
                 'chain_snatching': ['309', '356', '390', '392'],
@@ -255,7 +256,8 @@ class EnhancedLegalAdvisor:
         # Domain Re-evaluation Layer - semantic sanity check overrides hint
         civil_indicators = ['sue', 'recover money', 'remaining amount', 'payment dispute', 'breach of contract',
                            'refund', 'invoice', 'non-payment', 'agreement', 'damages', 'compensation',
-                           'contract', 'civil suit', 'money recovery', 'debt recovery']
+                           'contract', 'civil suit', 'money recovery', 'debt recovery', 'negligence',
+                           'medical negligence', 'doctor', 'hospital', 'treatment', 'malpractice']
         
         consumer_indicators = ['defective product', 'warranty', 'overcharging', 'service deficiency',
                               'consumer complaint', 'consumer forum', 'product quality', 'seller refused']
