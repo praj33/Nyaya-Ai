@@ -268,7 +268,20 @@ class EnhancedLegalAdvisor:
         consumer_indicators = ['defective product', 'warranty', 'overcharging', 'service deficiency',
                               'consumer complaint', 'consumer forum', 'product quality', 'seller refused']
         
-        # Check civil indicators first
+        # Property/home seizure indicators (civil matter unless explicitly criminal forfeiture)
+        property_seizure_indicators = ['home was seized', 'house was seized', 'property was seized',
+                                       'home seized', 'house seized', 'property seized',
+                                       'seized my home', 'seized my house', 'seized my property',
+                                       'illegal seizure', 'wrongful seizure', 'attachment of property']
+        
+        # Check property seizure first (civil unless criminal context)
+        if any(indicator in query_lower for indicator in property_seizure_indicators):
+            # Only treat as criminal if explicit criminal context
+            criminal_context = ['criminal case', 'crime proceeds', 'illegal assets', 'money laundering', 'drug']
+            if not any(ctx in query_lower for ctx in criminal_context):
+                return ['civil']
+        
+        # Check civil indicators
         if any(indicator in query_lower for indicator in civil_indicators):
             return ['civil']
         
@@ -290,6 +303,11 @@ class EnhancedLegalAdvisor:
         if any(keyword in query_lower for keyword in terrorism_keywords):
             return ['terrorism']
         
+        # Civil law keywords (check BEFORE criminal to prioritize property/land disputes)
+        civil_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
+                         'consumer', 'defective', 'refund', 'land', 'dispute', 'boundary', 'title deed',
+                         'encroachment', 'easement', 'ownership', 'possession', 'foreclosure', 'attachment']
+        
         # Criminal law keywords
         criminal_keywords = ['theft', 'murder', 'assault', 'rape', 'robbery', 'fraud', 'kidnapping',
                            'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
@@ -302,10 +320,6 @@ class EnhancedLegalAdvisor:
                           'spouse', 'wife', 'husband', 'separation', 'guardianship', 'adoption',
                           'cheating', 'adultery', 'affair', 'unfaithful']
         
-        # Civil law keywords
-        civil_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
-                         'consumer', 'defective', 'refund', 'compensation', 'negligence']
-        
         # Employment/Labour keywords
         employment_keywords = ['salary', 'wages', 'termination', 'fired', 'workplace',
                               'employee', 'employer', 'leave', 'overtime', 'gratuity', 'provident fund']
@@ -314,6 +328,10 @@ class EnhancedLegalAdvisor:
         commercial_keywords = ['contract', 'company', 'business', 'trade', 'corporate', 'partnership',
                               'farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation',
                               'msp', 'insurance', 'loan', 'debt']
+        
+        # Check for civil keywords FIRST (before criminal)
+        if any(keyword in query_lower for keyword in civil_keywords):
+            return ['civil']
         
         # Check for criminal keywords
         if any(keyword in query_lower for keyword in criminal_keywords):
@@ -327,18 +345,11 @@ class EnhancedLegalAdvisor:
         if any(keyword in query_lower for keyword in employment_keywords):
             return ['commercial']
         
-        # Check for civil keywords
-        if any(keyword in query_lower for keyword in civil_keywords):
-            return ['civil']
-        
         # Check for commercial/agricultural keywords
         if any(keyword in query_lower for keyword in commercial_keywords):
             return ['commercial']
         
-        # Use hint only if no strong semantic indicators found
-        if hint:
-            return [hint.lower()]
-        
+        # IGNORE hint if semantic indicators found - only use as last resort
         return ['civil']
     
     def _search_relevant_sections(self, query: str, jurisdiction: str, domain: str) -> List[Section]:
@@ -347,34 +358,13 @@ class EnhancedLegalAdvisor:
         # Get allowed act_ids from ontology
         allowed_act_ids = self.ontology_filter.get_allowed_act_ids(domain)
         
-        # Strategy 1: Use BM25 for initial ranking
-        bm25_results = self.bm25_search.search(query, jurisdiction, top_k=50)
-        matched_sections = [(section, score * 10) for section, score in bm25_results]
-        
-        # Filter out "Repeal and savings" and other irrelevant sections
-        exclude_keywords = ['repeal', 'savings', 'commencement', 'short title', 'definitions', 'extent', 'application']
-        matched_sections = [
-            (section, score) for section, score in matched_sections
-            if not any(keyword in section.text.lower()[:50] for keyword in exclude_keywords)
-        ]
-        
-        # Strategy 2: Boost with crime mappings
+        matched_sections = []
         query_lower = query.lower()
         
-        # Special handling for family law queries
-        if domain == 'family':
-            family_keywords = ['husband', 'wife', 'spouse', 'marriage', 'divorce', 'cheating', 'adultery', 'affair']
-            if any(kw in query_lower for kw in family_keywords):
-                # Search Hindu Marriage Act specifically
-                for section in self.sections:
-                    if (section.jurisdiction.value == jurisdiction and 
-                        'hindu_marriage_act' in section.act_id.lower() and
-                        section.section_number == '13'):
-                        matched_sections.append((section, 20))  # High priority
-        
+        # Strategy 1: PRIORITIZE crime mappings (highest priority)
+        crime_mapping_triggered = False
         if jurisdiction in self.crime_mappings:
             for crime, section_numbers in self.crime_mappings[jurisdiction].items():
-                # Check for exact match or partial match (e.g., "hacked" matches "hacking")
                 crime_words = crime.split('_')
                 match_found = False
                 
@@ -389,14 +379,12 @@ class EnhancedLegalAdvisor:
                             match_found = True
                             break
                 
-                # Fuzzy match: check if query words share common root with crime words
-                # e.g., "hacked" shares "hack" with "hacking"
+                # Fuzzy match
                 if not match_found:
                     for query_word in query_lower.split():
                         if len(query_word) > 3:
                             for crime_word in crime_words:
                                 if len(crime_word) > 3:
-                                    # Check if first 4 characters match (hack == hack)
                                     if query_word[:4] == crime_word[:4]:
                                         match_found = True
                                         break
@@ -404,33 +392,44 @@ class EnhancedLegalAdvisor:
                             break
                 
                 if match_found:
+                    crime_mapping_triggered = True
                     for section in self.sections:
                         if (section.jurisdiction.value == jurisdiction and 
                             section.section_number in section_numbers):
-                            # For terrorism, prioritize BNS 113 and IT Act 66F
+                            # TEMPORARY: Skip BNS sections for accidents until database is fixed
+                            if crime in ['accident', 'bike_accident', 'car_accident', 'road_accident', 'vehicle_accident', 
+                                       'drunk_driving', 'rash_driving', 'negligent_driving'] and 'bns' in section.act_id.lower():
+                                continue
+                            
+                            # Give VERY HIGH priority to crime mapping matches
                             if crime in ['terrorism', 'terrorist_attack']:
                                 if section.section_number == '113' and 'bns' in section.act_id.lower():
-                                    matched_sections.append((section, 25))  # Highest priority for BNS 113
+                                    matched_sections.append((section, 100))  # Highest priority
                                 elif section.section_number == '66F' and 'it_act' in section.act_id.lower():
-                                    matched_sections.append((section, 24))  # High priority for IT Act 66F
-                            # For cybercrime, prioritize IT Act sections
+                                    matched_sections.append((section, 95))
                             elif crime in ['cybercrime', 'hacking', 'identity_theft', 'cyber_terrorism']:
                                 if 'it_act' in section.act_id.lower():
-                                    matched_sections.append((section, 20))  # Highest priority for IT Act
+                                    matched_sections.append((section, 90))
                                 else:
-                                    matched_sections.append((section, 5))  # Lower priority for other acts
+                                    matched_sections.append((section, 50))
                             else:
-                                matched_sections.append((section, 15))  # Normal priority
+                                matched_sections.append((section, 80))  # Very high priority for all crime mappings
         
-        # Strategy 1.5: Act-specific search for family law
-        if domain == 'family' and jurisdiction == 'IN':
-            # Search Hindu Marriage Act sections
-            for section in self.sections:
-                if (section.jurisdiction.value == jurisdiction and 
-                    'hindu_marriage_act' in section.act_id.lower()):
-                    matched_sections.append((section, 12))  # High priority for family domain
+        # Strategy 2: Use BM25 only if crime mapping didn't trigger OR as supplementary
+        bm25_results = self.bm25_search.search(query, jurisdiction, top_k=50)
+        for section, score in bm25_results:
+            # Exclude defense/procedural sections (but allow CPC for civil domain)
+            exclude_titles = ['accident in doing', 'lawful act', 'repeal', 'savings']
+            if domain != 'civil':
+                exclude_titles.extend(['commencement', 'short title', 'definitions', 'extent', 'application'])
+            
+            if any(keyword in section.text.lower()[:80] for keyword in exclude_titles):
+                continue
+            
+            # Lower priority for BM25 results
+            matched_sections.append((section, score * 5 if not crime_mapping_triggered else score * 2))
         
-        # Strategy 2: Keyword matching in section text
+        # Special handling for family law queries
         query_words = set(word.lower() for word in query.split() if len(word) > 2)
         for word in query_words:
             if word in self.section_index:
@@ -506,9 +505,15 @@ class EnhancedLegalAdvisor:
                 'acts': ['it_act'],
                 'min_sections': 4
             },
+            # Property -> Property Laws (check BEFORE agriculture)
+            {
+                'keywords': ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage', 'rera', 'builder', 'flat', 'house', 'apartment', 'real estate', 'ownership', 'land dispute', 'boundary dispute', 'title deed', 'encroachment'],
+                'acts': ['property', 'real_estate'],
+                'min_sections': 2
+            },
             # Agriculture -> Farmers Protection Act
             {
-                'keywords': ['farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation', 'msp', 'kisan', 'agriculture', 'farming', 'land', 'irrigation', 'seed', 'fertilizer'],
+                'keywords': ['farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation', 'msp', 'kisan', 'agriculture', 'farming', 'irrigation', 'seed', 'fertilizer'],
                 'acts': ['farmers_protection'],
                 'min_sections': 3
             },
