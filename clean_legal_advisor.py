@@ -351,6 +351,18 @@ class EnhancedLegalAdvisor:
         
         # Strategy 2: Boost with crime mappings
         query_lower = query.lower()
+        
+        # Special handling for family law queries
+        if domain == 'family':
+            family_keywords = ['husband', 'wife', 'spouse', 'marriage', 'divorce', 'cheating', 'adultery', 'affair']
+            if any(kw in query_lower for kw in family_keywords):
+                # Search Hindu Marriage Act specifically
+                for section in self.sections:
+                    if (section.jurisdiction.value == jurisdiction and 
+                        'hindu_marriage_act' in section.act_id.lower() and
+                        section.section_number == '13'):
+                        matched_sections.append((section, 20))  # High priority
+        
         if jurisdiction in self.crime_mappings:
             for crime, section_numbers in self.crime_mappings[jurisdiction].items():
                 # Check for exact match or partial match (e.g., "hacked" matches "hacking")
