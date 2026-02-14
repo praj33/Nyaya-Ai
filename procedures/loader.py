@@ -10,9 +10,33 @@ class ProcedureLoader:
     
     def __init__(self, base_path: str = None):
         if base_path is None:
-            # Point to nyaya-legal-procedure-datasets
+            # Try multiple paths in order of preference
             current_dir = Path(__file__).parent.parent.parent
-            base_path = current_dir / "nyaya-legal-procedure-datasets" / "data" / "procedures"
+            
+            # Option 1: External dataset (development)
+            external_path = current_dir / "nyaya-legal-procedure-datasets" / "data" / "procedures"
+            
+            # Option 2: Internal procedures folder (deployment)
+            internal_path = Path(__file__).parent.parent / "procedures" / "data"
+            
+            # Option 3: Alternative internal path
+            alt_internal_path = Path(__file__).parent / "data"
+            
+            # Choose first existing path
+            if external_path.exists():
+                base_path = external_path
+                print(f"Using external procedures: {external_path}")
+            elif internal_path.exists():
+                base_path = internal_path
+                print(f"Using internal procedures: {internal_path}")
+            elif alt_internal_path.exists():
+                base_path = alt_internal_path
+                print(f"Using alternative internal procedures: {alt_internal_path}")
+            else:
+                # Fallback to external path (will show warning later)
+                base_path = external_path
+                print(f"WARNING: No procedures folder found, using default: {external_path}")
+        
         self.base_path = Path(base_path)
         self.procedures_cache: Dict[str, Dict[str, Any]] = {}
         self.schemas_cache: Dict[str, Any] = {}
