@@ -322,7 +322,7 @@
   },
   "domain_rules": {
     "criminal": {
-      "primary_acts": ["bns_sections", "ipc_sections", "it_act_2000", "uapa_1967", "domestic_violence_act", "dowry_prohibition_act"],
+      "primary_acts": ["bns_sections", "ipc_sections", "it_act_2000", "uapa_1967", "domestic_violence_act", "dowry_prohibition_act", "motor_vehicles_act"],
       "procedural_acts": ["bnss_sections", "crpc_sections"],
       "exclude_domains": []
     },

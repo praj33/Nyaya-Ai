@@ -150,7 +150,18 @@ class LegalAdvice:
 
 class EnhancedLegalAdvisor:
     def __init__(self):
-        self.loader = JSONLoader("db")
+        import os
+        if os.path.exists("Nyaya_AI/db"):
+            db_path = "Nyaya_AI/db"
+        elif os.path.exists("db"):
+            db_path = "db"
+        else:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            db_path = os.path.join(current_dir, "db")
+            if not os.path.exists(db_path):
+                db_path = os.path.join(os.path.dirname(current_dir), "db")
+        
+        self.loader = JSONLoader(db_path)
         self.sections, self.acts, self.cases = self.loader.load_and_normalize_directory()
         self.enforcement_ledger = []
         self.ontology_filter = OntologyFilter()
@@ -280,6 +291,8 @@ class EnhancedLegalAdvisor:
                 'insurance': ['10', '11', '12', '13', '14'],  # Vehicle insurance
                 'hit_and_run': ['14', '42', '279', '304A'],  # Hit and run cases
                 'juvenile_driving': ['70', '71', '72'],  # Underage driving
+                'suicide': ['305', '306', '309'],  # Abetment of suicide, attempt to suicide (IPC)
+                'abetment_suicide': ['305', '306'],  # Abetment of suicide
             },
             'UK': {
                 'theft': ['section_1_theft'],
@@ -287,29 +300,40 @@ class EnhancedLegalAdvisor:
                 'burglary': ['section_9_burglary'],
                 'fraud': ['section_1_fraud_by_false_representation', 'section_2_fraud_by_failure_to_disclose', 'section_3_fraud_by_abuse_of_position'],
                 'assault': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault'],
-                'rape': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
+                'rape': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault', 'section_4_causing_sexual_activity'],
+                'sexual_assault': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
+                'sexual_harassment': ['section_3_sexual_assault'],
                 'drugs': ['section_4_production_and_supply', 'section_5_possession'],
                 'cybercrime': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent', 'section_3_unauthorised_modification'],
                 'hacking': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent'],
                 'accident': ['section_1_causing_death_by_dangerous_driving', 'section_2_dangerous_driving'],
                 'dangerous_driving': ['section_1_causing_death_by_dangerous_driving', 'section_2_dangerous_driving'],
-                'drunk_driving': ['section_4_driving_with_excess_alcohol'],
-                'traffic_violation': ['section_1', 'section_2', 'section_4']
+                'drunk_driving': ['section_4_driving_with_excess_alcohol', 'section_5_driving_under_influence'],
+                'traffic_violation': ['section_4_driving_with_excess_alcohol', 'section_5_driving_under_influence'],
+                'terrorism': ['section_1_terrorism_act', 'section_11_membership', 'section_15_fundraising', 'section_5_preparation'],
+                'terrorist_attack': ['section_1_terrorism_act', 'section_5_preparation'],
+                'suicide': ['section_2_suicide_act'],
             },
             'UAE': {
-                'theft': ['article_391'],
-                'robbery': ['article_392'],
-                'assault': ['article_333'],
-                'beating': ['article_333'],
-                'domestic_violence': ['article_333'],
-                'violence': ['article_333'],
-                'defamation': ['article_372'],
-                'cybercrime': ['unauthorized_access_article_3', 'data_interference_article_4', 'cyber_fraud_article_6'],
-                'hacking': ['unauthorized_access_article_3', 'data_interference_article_4'],
-                'drugs': ['possession_article_39', 'trafficking_article_40'],
-                'accident': ['article_1'],
-                'traffic_violation': ['article_1'],
-                'drunk_driving': ['drunk_driving_article_62']
+                'theft': ['theft_article_391', 'article_391', 'Article_391', '391'],
+                'robbery': ['robbery_article_392', 'article_392', 'Article_392', '392'],
+                'assault': ['assault_article_333', 'article_333', 'Article_333', '333'],
+                'beating': ['assault_article_333', 'article_333', 'Article_333', '333'],
+                'domestic_violence': ['assault_article_333', 'article_333', 'Article_333', '333'],
+                'violence': ['assault_article_333', 'article_333', 'Article_333', '333'],
+                'defamation': ['defamation_article_372', 'article_372', 'Article_372', '372'],
+                'rape': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'sexual_assault': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'sexual_harassment': ['article_359', 'Article_359', '359'],
+                'cybercrime': ['unauthorized_access_article_3', 'data_interference_article_4', 'cyber_fraud_article_6', 'article_3', 'article_4', 'article_6', 'Article_3', 'Article_4', 'Article_6'],
+                'hacking': ['unauthorized_access_article_3', 'data_interference_article_4', 'article_3', 'article_4', 'Article_3', 'Article_4'],
+                'drugs': ['possession_article_39', 'trafficking_article_40', 'article_39', 'article_40', 'Article_39', 'Article_40'],
+                'accident': ['article_1', 'Article_1', 'drunk_driving_article_62'],
+                'traffic_violation': ['article_1', 'Article_1', 'drunk_driving_article_62'],
+                'drunk_driving': ['drunk_driving_article_62', 'article_62', 'Article_62', '62'],
+                'terrorism': ['article_1', 'article_2', 'Article_1', 'Article_2', '1', '2'],
+                'terrorist_attack': ['article_1', 'article_2', 'Article_1', 'Article_2', '1', '2'],
+                'suicide': ['article_340', 'Article_340', '340'],
             }
         }
         return mappings
@@ -382,7 +406,8 @@ class EnhancedLegalAdvisor:
         serious_crime_keywords = ['theft', 'murder', 'assault', 'rape', 'robbery', 'fraud', 'kidnapping',
                                  'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
                                  'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
-                                 'died', 'death', 'killed', 'harass', 'harassment', 'violence', 'attack']
+                                 'died', 'death', 'killed', 'harass', 'harassment', 'violence', 'attack',
+                                 'suicide', 'abetment', 'attempt to suicide']
         if any(keyword in query_lower for keyword in serious_crime_keywords):
             return ['criminal']
         
@@ -511,16 +536,20 @@ class EnhancedLegalAdvisor:
                                 # Give VERY HIGH priority to crime mapping matches
                                 if crime in ['terrorism', 'terrorist_attack']:
                                     if section.section_number == '113' and 'bns' in section.act_id.lower():
-                                        matched_sections.append((section, 100))  # Highest priority
+                                        matched_sections.append((section, 200))  # Highest priority
                                     elif section.section_number == '66F' and 'it_act' in section.act_id.lower():
-                                        matched_sections.append((section, 95))
+                                        matched_sections.append((section, 195))
+                                    else:
+                                        matched_sections.append((section, 180))
+                                elif crime in ['rape', 'sexual_assault', 'sexual_harassment']:
+                                    matched_sections.append((section, 190))  # Very high for sexual offences
                                 elif crime in ['cybercrime', 'hacking', 'identity_theft', 'cyber_terrorism']:
                                     if 'it_act' in section.act_id.lower():
-                                        matched_sections.append((section, 90))
+                                        matched_sections.append((section, 180))
                                     else:
-                                        matched_sections.append((section, 50))
+                                        matched_sections.append((section, 100))
                                 else:
-                                    matched_sections.append((section, 80))  # Very high priority for all crime mappings
+                                    matched_sections.append((section, 150))  # High priority for all crime mappings
         
         # Strategy 2: Use BM25 only if crime mapping didn't trigger OR as supplementary
         bm25_results = self.bm25_search.search(query, jurisdiction, top_k=50)
@@ -788,15 +817,64 @@ class EnhancedLegalAdvisor:
         return analysis
     
     def _generate_procedural_steps(self, sections: List[Section], domain: str, jurisdiction: str, query: str = "", domains: List[str] = None) -> List[str]:
-        """Generate detailed procedural steps from procedure datasets"""
+        """Generate comprehensive procedural steps with outcomes, timelines, and risk information"""
         jurisdiction_map = {'IN': 'india', 'UK': 'uk', 'UAE': 'uae'}
         country = jurisdiction_map.get(jurisdiction, 'india').lower()
+        
+        # Map terrorism domain to criminal
+        if domain == 'terrorism':
+            domain = 'criminal'
+        
+        # Map consumer to consumer_commercial
+        if domain == 'consumer':
+            domain = 'consumer_commercial'
         
         procedure = procedure_loader.get_procedure(country, domain.lower())
         
         if procedure and "procedure" in procedure and "steps" in procedure["procedure"]:
             steps = procedure["procedure"]["steps"]
-            return [f"{step.get('title', '')}" for step in steps]
+            detailed_steps = []
+            
+            for step in steps:
+                # Base step with title and description
+                step_text = f"{step.get('title', '')}: {step.get('description', '')}"
+                
+                # Add conditional branches if available
+                if 'conditional_branches' in step and step['conditional_branches']:
+                    branches = step['conditional_branches']
+                    outcomes = []
+                    for branch in branches:
+                        condition = branch.get('condition', '')
+                        effect = branch.get('effect', '')
+                        if condition and effect:
+                            outcomes.append(f"{condition} -> {effect}")
+                    if outcomes:
+                        step_text += f" | Possible outcomes: {'; '.join(outcomes)}"
+                
+                # Add outcome intelligence if available
+                if 'outcome_intelligence' in step and step['outcome_intelligence']:
+                    intel = step['outcome_intelligence']
+                    if 'typical_outcomes' in intel and intel['typical_outcomes']:
+                        typical = ', '.join(intel['typical_outcomes'][:2])  # Show top 2
+                        step_text += f" | Typical outcomes: {typical}"
+                
+                # Add risk flags if high risk
+                if 'risk_flags' in step and step['risk_flags']:
+                    risks = step['risk_flags']
+                    if risks.get('high_risk_case') or (risks.get('failure_risks') and len(risks['failure_risks']) > 0):
+                        failure_risks = risks.get('failure_risks', [])
+                        if failure_risks:
+                            step_text += f" | Key risks: {failure_risks[0]}"
+                
+                detailed_steps.append(step_text)
+            
+            # Add timeline information at the end
+            if 'timelines' in procedure['procedure']:
+                timelines = procedure['procedure']['timelines']
+                timeline_text = f"Expected Timeline: Best case: {timelines.get('best_case', 'N/A')}, Average: {timelines.get('average', 'N/A')}, Worst case: {timelines.get('worst_case', 'N/A')}"
+                detailed_steps.append(timeline_text)
+            
+            return detailed_steps
         
         return ["Consult legal counsel", "Gather evidence", "File appropriate action"]
     

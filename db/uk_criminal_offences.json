@@ -1,0 +1,323 @@
+{
+  "jurisdiction": "UK",
+  "act_name": "UK Criminal Law Compilation",
+  "last_updated": "2024",
+  "criminal_sections": {
+    "sexual_offences_act_2003": {
+      "section_1": {
+        "offence": "Rape",
+        "elements_required": [
+          "Intentional penetration of vagina, anus or mouth with penis",
+          "Victim does not consent",
+          "Defendant does not reasonably believe victim consents",
+          "Penetration is sexual"
+        ],
+        "punishment": "Life imprisonment",
+        "process_steps": [
+          "Police investigation",
+          "CPS charging decision",
+          "Crown Court trial",
+          "Special measures for victim"
+        ]
+      },
+      "section_2": {
+        "offence": "Assault by Penetration",
+        "elements_required": [
+          "Intentional penetration with body part or object",
+          "Penetration of vagina or anus",
+          "Victim does not consent",
+          "Penetration is sexual"
+        ],
+        "punishment": "Life imprisonment",
+        "process_steps": [
+          "Medical examination",
+          "Forensic evidence",
+          "Police investigation",
+          "Crown Court prosecution"
+        ]
+      },
+      "section_3": {
+        "offence": "Sexual Assault",
+        "elements_required": [
+          "Intentional touching",
+          "Touching is sexual",
+          "Victim does not consent",
+          "No reasonable belief in consent"
+        ],
+        "punishment": "Up to 10 years imprisonment",
+        "process_steps": [
+          "Complaint to police",
+          "Investigation",
+          "CPS review",
+          "Magistrates or Crown Court trial"
+        ]
+      },
+      "section_4": {
+        "offence": "Causing Sexual Activity Without Consent",
+        "elements_required": [
+          "Intentionally causing another to engage in sexual activity",
+          "Victim does not consent",
+          "No reasonable belief in consent",
+          "Activity is sexual"
+        ],
+        "punishment": "Life imprisonment (if penetration involved)",
+        "process_steps": [
+          "Police investigation",
+          "Evidence gathering",
+          "CPS prosecution",
+          "Crown Court trial"
+        ]
+      }
+    },
+    "terrorism_act_2000": {
+      "section_1": {
+        "offence": "Terrorism Definition and Offences",
+        "elements_required": [
+          "Use or threat of action designed to influence government",
+          "Action made for political, religious or ideological cause",
+          "Involves serious violence, damage or endangers life",
+          "Creates serious risk to public health or safety"
+        ],
+        "punishment": "Life imprisonment",
+        "process_steps": [
+          "Counter-terrorism police investigation",
+          "Extended detention powers",
+          "CPS terrorism unit prosecution",
+          "Central Criminal Court trial"
+        ]
+      },
+      "section_5": {
+        "offence": "Preparation of Terrorist Acts",
+        "elements_required": [
+          "Engaging in conduct in preparation for terrorism",
+          "Intent to commit acts of terrorism",
+          "Planning or facilitating terrorist activities",
+          "Possession of materials for terrorism"
+        ],
+        "punishment": "Life imprisonment",
+        "process_steps": [
+          "Intelligence-led investigation",
+          "Surveillance and monitoring",
+          "Arrest and detention",
+          "Prosecution in Crown Court"
+        ]
+      },
+      "section_11": {
+        "offence": "Membership of Proscribed Organization",
+        "elements_required": [
+          "Belonging to banned terrorist organization",
+          "Knowledge of proscription",
+          "Active membership or support",
+          "Participation in activities"
+        ],
+        "punishment": "Up to 10 years imprisonment",
+        "process_steps": [
+          "Investigation by security services",
+          "Evidence of membership",
+          "CPS prosecution",
+          "Crown Court trial"
+        ]
+      },
+      "section_15": {
+        "offence": "Terrorist Financing",
+        "elements_required": [
+          "Providing money or property for terrorism",
+          "Knowledge or reasonable suspicion of terrorist use",
+          "Facilitating terrorist activities",
+          "Fundraising for terrorism"
+        ],
+        "punishment": "Up to 14 years imprisonment",
+        "process_steps": [
+          "Financial investigation",
+          "Asset freezing",
+          "Prosecution",
+          "Confiscation proceedings"
+        ]
+      }
+    },
+    "offences_against_person_act_1861": {
+      "section_18": {
+        "offence": "Wounding with Intent",
+        "elements_required": [
+          "Unlawfully and maliciously wounding",
+          "Intent to cause grievous bodily harm",
+          "Use of weapon or serious violence",
+          "Causing serious injury"
+        ],
+        "punishment": "Life imprisonment",
+        "process_steps": [
+          "Medical evidence",
+          "Police investigation",
+          "CPS charging",
+          "Crown Court trial"
+        ]
+      },
+      "section_20": {
+        "offence": "Malicious Wounding",
+        "elements_required": [
+          "Unlawfully and maliciously wounding",
+          "Inflicting grievous bodily harm",
+          "Without intent to cause GBH",
+          "Recklessness as to harm"
+        ],
+        "punishment": "Up to 5 years imprisonment",
+        "process_steps": [
+          "Medical report",
+          "Police investigation",
+          "CPS review",
+          "Crown Court prosecution"
+        ]
+      },
+      "section_39": {
+        "offence": "Common Assault",
+        "elements_required": [
+          "Intentional or reckless assault",
+          "Causing victim to apprehend immediate violence",
+          "No actual physical harm required",
+          "Unlawful force or threat"
+        ],
+        "punishment": "Up to 6 months imprisonment and/or fine",
+        "process_steps": [
+          "Police report",
+          "Investigation",
+          "Magistrates Court trial",
+          "Summary conviction"
+        ]
+      }
+    },
+    "theft_act_1968": {
+      "section_1": {
+        "offence": "Theft",
+        "elements_required": [
+          "Dishonestly appropriating property",
+          "Property belongs to another",
+          "Intent to permanently deprive",
+          "No legal right to property"
+        ],
+        "punishment": "Up to 7 years imprisonment",
+        "process_steps": [
+          "Police report",
+          "Investigation",
+          "CPS charging",
+          "Magistrates or Crown Court trial"
+        ]
+      },
+      "section_8": {
+        "offence": "Robbery",
+        "elements_required": [
+          "Theft with use or threat of force",
+          "Force used immediately before or at time of theft",
+          "Intent to steal",
+          "Putting victim in fear"
+        ],
+        "punishment": "Life imprisonment",
+        "process_steps": [
+          "Emergency police response",
+          "Victim statement",
+          "Evidence collection",
+          "Crown Court prosecution"
+        ]
+      },
+      "section_9": {
+        "offence": "Burglary",
+        "elements_required": [
+          "Entering building as trespasser",
+          "Intent to steal, inflict GBH or damage",
+          "Unauthorized entry",
+          "Dwelling or non-dwelling"
+        ],
+        "punishment": "Up to 14 years imprisonment (dwelling)",
+        "process_steps": [
+          "Scene examination",
+          "Forensic evidence",
+          "Investigation",
+          "Crown Court trial"
+        ]
+      }
+    },
+    "road_traffic_act_1988": {
+      "section_1": {
+        "offence": "Causing Death by Dangerous Driving",
+        "elements_required": [
+          "Driving dangerously on road or public place",
+          "Causing death of another person",
+          "Driving falls far below expected standard",
+          "Obvious danger to competent driver"
+        ],
+        "punishment": "Up to 14 years imprisonment",
+        "process_steps": [
+          "Police investigation",
+          "Collision reconstruction",
+          "CPS charging",
+          "Crown Court trial"
+        ]
+      },
+      "section_2": {
+        "offence": "Dangerous Driving",
+        "elements_required": [
+          "Driving dangerously on road",
+          "Driving falls far below expected standard",
+          "Obvious danger to competent driver",
+          "No death resulted"
+        ],
+        "punishment": "Up to 2 years imprisonment",
+        "process_steps": [
+          "Police report",
+          "Evidence gathering",
+          "Prosecution",
+          "Court trial"
+        ]
+      },
+      "section_4": {
+        "offence": "Driving with Excess Alcohol",
+        "elements_required": [
+          "Driving or attempting to drive",
+          "Alcohol level above prescribed limit",
+          "On road or public place",
+          "Breath, blood or urine test"
+        ],
+        "punishment": "Up to 6 months imprisonment, unlimited fine, driving ban",
+        "process_steps": [
+          "Breathalyzer test",
+          "Arrest if over limit",
+          "Magistrates Court",
+          "Mandatory driving ban"
+        ]
+      },
+      "section_5": {
+        "offence": "Driving Under Influence of Drugs",
+        "elements_required": [
+          "Driving while unfit through drugs",
+          "Impaired ability to drive properly",
+          "On road or public place",
+          "Drug test evidence"
+        ],
+        "punishment": "Up to 6 months imprisonment, unlimited fine, driving ban",
+        "process_steps": [
+          "Field impairment test",
+          "Drug screening",
+          "Arrest and charge",
+          "Court proceedings"
+        ]
+      }
+    },
+    "suicide_act_1961": {
+      "section_2": {
+        "offence": "Assisting Suicide",
+        "elements_required": [
+          "Doing act capable of encouraging or assisting suicide",
+          "Act intended to encourage or assist",
+          "Suicide or attempted suicide occurs",
+          "Knowledge of suicidal intent"
+        ],
+        "punishment": "Up to 14 years imprisonment",
+        "process_steps": [
+          "Police investigation",
+          "CPS review (DPP consent required)",
+          "Crown Court prosecution",
+          "Careful consideration of circumstances"
+        ]
+      }
+    }
+  }
+}

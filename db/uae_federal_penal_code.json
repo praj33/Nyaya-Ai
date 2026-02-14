@@ -1,0 +1,245 @@
+{
+  "jurisdiction": "UAE",
+  "act_name": "UAE Federal Penal Code",
+  "law_number": "Federal Law No. 3 of 1987",
+  "last_updated": "2024",
+  "criminal_sections": {
+    "terrorism": {
+      "article_1": {
+        "offence": "Terrorist Acts and Organizations",
+        "elements_required": [
+          "Acts intended to create terror or panic among people",
+          "Threatening public safety and security",
+          "Membership or support of terrorist organizations",
+          "Financing or facilitating terrorist activities"
+        ],
+        "punishment": "Life imprisonment or death penalty",
+        "process_steps": [
+          "Immediate arrest by security forces",
+          "Investigation by State Security",
+          "Prosecution in Federal Supreme Court",
+          "No bail for terrorism charges"
+        ]
+      },
+      "article_2": {
+        "offence": "Terrorist Financing and Support",
+        "elements_required": [
+          "Providing financial support to terrorist groups",
+          "Facilitating terrorist operations",
+          "Harboring or assisting terrorists",
+          "Promoting terrorist ideology"
+        ],
+        "punishment": "10 years to life imprisonment and heavy fines",
+        "process_steps": [
+          "Financial investigation",
+          "Asset freezing",
+          "Criminal prosecution",
+          "International cooperation"
+        ]
+      }
+    },
+    "sexual_offences": {
+      "article_354": {
+        "offence": "Rape and Sexual Assault",
+        "elements_required": [
+          "Non-consensual sexual intercourse",
+          "Use of force, threat, or coercion",
+          "Victim unable to consent",
+          "Aggravated if victim is minor"
+        ],
+        "punishment": "Life imprisonment or death penalty (if victim is minor)",
+        "process_steps": [
+          "Medical examination and evidence collection",
+          "Police investigation",
+          "Public prosecution",
+          "Trial in Criminal Court",
+          "Victim protection measures"
+        ]
+      },
+      "article_355": {
+        "offence": "Sexual Assault by Penetration",
+        "elements_required": [
+          "Non-consensual penetration",
+          "Use of force or threat",
+          "Serious bodily harm",
+          "Psychological trauma"
+        ],
+        "punishment": "15 years to life imprisonment",
+        "process_steps": [
+          "Immediate medical care",
+          "Forensic evidence collection",
+          "Criminal investigation",
+          "Court proceedings"
+        ]
+      },
+      "article_356": {
+        "offence": "Aggravated Sexual Offences",
+        "elements_required": [
+          "Multiple perpetrators",
+          "Victim is minor or disabled",
+          "Use of weapons or drugs",
+          "Resulting in death or permanent injury"
+        ],
+        "punishment": "Death penalty or life imprisonment",
+        "process_steps": [
+          "Emergency response",
+          "Comprehensive investigation",
+          "Federal prosecution",
+          "Maximum penalties"
+        ]
+      },
+      "article_359": {
+        "offence": "Sexual Harassment",
+        "elements_required": [
+          "Unwanted sexual advances",
+          "Verbal or physical harassment",
+          "Creating hostile environment",
+          "Abuse of power or authority"
+        ],
+        "punishment": "6 months to 3 years imprisonment and AED 10,000 to 50,000 fine",
+        "process_steps": [
+          "Complaint filing",
+          "Investigation",
+          "Mediation attempt",
+          "Criminal prosecution if severe"
+        ]
+      }
+    },
+    "violent_crimes": {
+      "article_333": {
+        "offence": "Assault and Battery",
+        "elements_required": [
+          "Intentional physical harm",
+          "Use of force against another person",
+          "Resulting in injury",
+          "Without legal justification"
+        ],
+        "punishment": "6 months to 5 years imprisonment and/or fine",
+        "process_steps": [
+          "Medical report",
+          "Police complaint",
+          "Investigation",
+          "Court trial"
+        ]
+      },
+      "article_340": {
+        "offence": "Abetment of Suicide",
+        "elements_required": [
+          "Encouraging or assisting suicide",
+          "Providing means for suicide",
+          "Psychological coercion",
+          "Resulting in death or attempt"
+        ],
+        "punishment": "5 to 15 years imprisonment",
+        "process_steps": [
+          "Investigation of circumstances",
+          "Evidence collection",
+          "Prosecution",
+          "Court judgment"
+        ]
+      },
+      "article_372": {
+        "offence": "Defamation and Slander",
+        "elements_required": [
+          "False statements damaging reputation",
+          "Public dissemination",
+          "Intent to harm",
+          "Actual damage to reputation"
+        ],
+        "punishment": "Up to 2 years imprisonment and AED 20,000 fine",
+        "process_steps": [
+          "Civil or criminal complaint",
+          "Evidence of defamation",
+          "Court proceedings",
+          "Compensation award"
+        ]
+      }
+    },
+    "property_crimes": {
+      "article_391": {
+        "offence": "Theft",
+        "elements_required": [
+          "Taking property without consent",
+          "Intent to permanently deprive owner",
+          "Property belongs to another",
+          "No legal right to property"
+        ],
+        "punishment": "6 months to 3 years imprisonment and/or fine",
+        "process_steps": [
+          "Police report",
+          "Investigation",
+          "Recovery of stolen property",
+          "Criminal prosecution"
+        ]
+      },
+      "article_392": {
+        "offence": "Robbery",
+        "elements_required": [
+          "Theft with use of force",
+          "Threat or intimidation",
+          "Immediate danger to victim",
+          "Taking property by violence"
+        ],
+        "punishment": "5 to 15 years imprisonment",
+        "process_steps": [
+          "Emergency police response",
+          "Victim statement",
+          "Evidence collection",
+          "Fast-track prosecution"
+        ]
+      }
+    },
+    "drug_offences": {
+      "article_39": {
+        "offence": "Drug Possession",
+        "elements_required": [
+          "Possession of controlled substances",
+          "Without legal authorization",
+          "For personal use or distribution",
+          "Knowledge of illegal nature"
+        ],
+        "punishment": "4 years imprisonment minimum and heavy fines",
+        "process_steps": [
+          "Arrest and detention",
+          "Drug testing",
+          "Prosecution",
+          "Mandatory rehabilitation"
+        ]
+      },
+      "article_40": {
+        "offence": "Drug Trafficking",
+        "elements_required": [
+          "Import, export, or distribution of drugs",
+          "Large quantities",
+          "Commercial intent",
+          "Organized criminal activity"
+        ],
+        "punishment": "Life imprisonment or death penalty",
+        "process_steps": [
+          "Investigation by anti-narcotics unit",
+          "Asset seizure",
+          "Federal prosecution",
+          "Maximum penalties"
+        ]
+      }
+    },
+    "traffic_offences": {
+      "article_62": {
+        "offence": "Drunk Driving",
+        "elements_required": [
+          "Operating vehicle while intoxicated",
+          "Blood alcohol above legal limit",
+          "Impaired driving ability",
+          "Endangering public safety"
+        ],
+        "punishment": "AED 25,000 fine, 1 year license suspension, possible imprisonment",
+        "process_steps": [
+          "Breathalyzer test",
+          "Vehicle impoundment",
+          "Court appearance",
+          "License suspension"
+        ]
+      }
+    }
+  }
+}
