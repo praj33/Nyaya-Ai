@@ -100,6 +100,7 @@ ACT_METADATA = {
     'uk_human_rights_act_1998': {'name': 'Human Rights Act', 'year': 1998},
     'uk_law_dataset': {'name': 'UK Criminal Code', 'year': 2023},
     'uk_equality_act_2010': {'name': 'Equality Act', 'year': 2010},
+    'uk_road_traffic_act_1988': {'name': 'Road Traffic Act', 'year': 1988},
     
     # UAE Acts
     'uae_penal_code': {'name': 'UAE Penal Code', 'year': 1987},
@@ -108,6 +109,8 @@ ACT_METADATA = {
     'uae_comprehensive_laws_reference': {'name': 'UAE Federal Laws', 'year': 2021},
     'uae_law_dataset': {'name': 'UAE Legal Code', 'year': 2021},
     'uae_personal_status_map': {'name': 'UAE Personal Status Law', 'year': 2005},
+    'uae_traffic_law_federal_law_no_21_1995': {'name': 'UAE Traffic Law', 'year': 1995},
+    'uae_anti_narcotics_law_federal_law_no_14_1995': {'name': 'UAE Anti-Narcotics Law', 'year': 1995},
 }
 
 class LegalDomain(Enum):
@@ -277,7 +280,11 @@ class EnhancedLegalAdvisor:
                 'rape': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
                 'drugs': ['section_4_production_and_supply', 'section_5_possession'],
                 'cybercrime': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent', 'section_3_unauthorised_modification'],
-                'hacking': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent']
+                'hacking': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent'],
+                'accident': ['section_1_causing_death_by_dangerous_driving', 'section_2_dangerous_driving'],
+                'dangerous_driving': ['section_1_causing_death_by_dangerous_driving', 'section_2_dangerous_driving'],
+                'drunk_driving': ['section_4_driving_with_excess_alcohol'],
+                'traffic_violation': ['section_1', 'section_2', 'section_4']
             },
             'UAE': {
                 'theft': ['article_391'],
@@ -289,7 +296,10 @@ class EnhancedLegalAdvisor:
                 'defamation': ['article_372'],
                 'cybercrime': ['unauthorized_access_article_3', 'data_interference_article_4', 'cyber_fraud_article_6'],
                 'hacking': ['unauthorized_access_article_3', 'data_interference_article_4'],
-                'drugs': ['possession_article_39', 'trafficking_article_40']
+                'drugs': ['possession_article_39', 'trafficking_article_40'],
+                'accident': ['article_1'],
+                'traffic_violation': ['article_1'],
+                'drunk_driving': ['drunk_driving_article_62']
             }
         }
         return mappings
@@ -344,37 +354,7 @@ class EnhancedLegalAdvisor:
         """Enhanced domain detection - returns list of applicable domains"""
         query_lower = query.lower()
         
-        # Domain Re-evaluation Layer - semantic sanity check overrides hint
-        civil_indicators = ['sue', 'recover money', 'remaining amount', 'payment dispute', 'breach of contract',
-                           'refund', 'invoice', 'non-payment', 'agreement', 'damages', 'compensation',
-                           'contract', 'civil suit', 'money recovery', 'debt recovery', 'negligence',
-                           'medical negligence', 'doctor', 'hospital', 'treatment', 'malpractice']
-        
-        consumer_indicators = ['defective product', 'warranty', 'overcharging', 'service deficiency',
-                              'consumer complaint', 'consumer forum', 'product quality', 'seller refused']
-        
-        # Property/home seizure indicators (civil matter unless explicitly criminal forfeiture)
-        property_seizure_indicators = ['home was seized', 'house was seized', 'property was seized',
-                                       'home seized', 'house seized', 'property seized',
-                                       'seized my home', 'seized my house', 'seized my property',
-                                       'illegal seizure', 'wrongful seizure', 'attachment of property']
-        
-        # Check property seizure first (civil unless criminal context)
-        if any(indicator in query_lower for indicator in property_seizure_indicators):
-            # Only treat as criminal if explicit criminal context
-            criminal_context = ['criminal case', 'crime proceeds', 'illegal assets', 'money laundering', 'drug']
-            if not any(ctx in query_lower for ctx in criminal_context):
-                return ['civil']
-        
-        # Check civil indicators
-        if any(indicator in query_lower for indicator in civil_indicators):
-            return ['civil']
-        
-        # Check consumer indicators
-        if any(indicator in query_lower for indicator in consumer_indicators):
-            return ['consumer']
-        
-        # Marital cruelty is ALWAYS criminal + family
+        # PRIORITY 1: Marital cruelty/domestic violence (ALWAYS criminal + family)
         marital_cruelty_keywords = ['dowry', '498a', 'dowry death', 'dowry harassment', 
                                     'husband harass', 'husband beat', 'husband torture', 
                                     'husband abuse', 'husband threat', 'cruelty', 'beating',
@@ -383,58 +363,84 @@ class EnhancedLegalAdvisor:
         if any(keyword in query_lower for keyword in marital_cruelty_keywords):
             return ['criminal', 'family']
         
-        # Terrorism
+        # PRIORITY 2: Terrorism
         terrorism_keywords = ['terrorism', 'terrorist', 'extremism', 'unlawful activities']
         if any(keyword in query_lower for keyword in terrorism_keywords):
             return ['terrorism']
         
-        # Civil law keywords (check BEFORE criminal to prioritize property/land disputes)
-        civil_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
-                         'consumer', 'defective', 'refund', 'land', 'dispute', 'boundary', 'title deed',
-                         'encroachment', 'easement', 'ownership', 'possession', 'foreclosure', 'attachment']
+        # PRIORITY 3: Serious crimes (check before civil to avoid misclassification)
+        serious_crime_keywords = ['theft', 'murder', 'assault', 'rape', 'robbery', 'fraud', 'kidnapping',
+                                 'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
+                                 'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
+                                 'died', 'death', 'killed', 'harass', 'harassment', 'violence', 'attack']
+        if any(keyword in query_lower for keyword in serious_crime_keywords):
+            return ['criminal']
         
-        # Criminal law keywords
-        criminal_keywords = ['theft', 'murder', 'assault', 'rape', 'robbery', 'fraud', 'kidnapping',
-                           'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
-                           'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
-                           'accident', 'drunk', 'rash driving', 'hit and run', 'harass', 'harassment',
-                           'died', 'death', 'killed', 'car accident', 'road accident', 'vehicle', 'bike']
+        # PRIORITY 4: Traffic/Vehicle offenses (criminal)
+        traffic_keywords = ['accident', 'drunk', 'rash driving', 'hit and run', 'car accident', 
+                           'road accident', 'vehicle', 'bike', 'traffic', 'signal', 'speeding', 
+                           'over speed', 'challan', 'driving', 'license', 'vehicle accident']
+        if any(keyword in query_lower for keyword in traffic_keywords):
+            return ['criminal']
         
-        # Family law keywords
+        # PRIORITY 5: Property seizure (civil unless criminal context)
+        property_seizure_indicators = ['home was seized', 'house was seized', 'property was seized',
+                                       'home seized', 'house seized', 'property seized',
+                                       'seized my home', 'seized my house', 'seized my property',
+                                       'illegal seizure', 'wrongful seizure', 'attachment of property']
+        if any(indicator in query_lower for indicator in property_seizure_indicators):
+            criminal_context = ['criminal case', 'crime proceeds', 'illegal assets', 'money laundering', 'drug']
+            if not any(ctx in query_lower for ctx in criminal_context):
+                return ['civil']
+            return ['criminal']
+        
+        # PRIORITY 6: Civil disputes (explicit civil indicators)
+        civil_indicators = ['sue', 'recover money', 'remaining amount', 'payment dispute', 'breach of contract',
+                           'refund', 'invoice', 'non-payment', 'agreement', 'damages', 'compensation',
+                           'contract', 'civil suit', 'money recovery', 'debt recovery', 'negligence',
+                           'medical negligence', 'doctor', 'hospital', 'treatment', 'malpractice']
+        if any(indicator in query_lower for indicator in civil_indicators):
+            return ['civil']
+        
+        # PRIORITY 7: Consumer issues
+        consumer_indicators = ['defective product', 'warranty', 'overcharging', 'service deficiency',
+                              'consumer complaint', 'consumer forum', 'product quality', 'seller refused']
+        if any(indicator in query_lower for indicator in consumer_indicators):
+            return ['consumer']
+        
+        # PRIORITY 8: Property/Land disputes (civil)
+        property_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
+                            'land', 'dispute', 'boundary', 'title deed', 'encroachment', 'easement', 
+                            'ownership', 'possession', 'foreclosure', 'attachment']
+        if any(keyword in query_lower for keyword in property_keywords):
+            return ['civil']
+        
+        # PRIORITY 9: Family law
         family_keywords = ['divorce', 'marriage', 'custody', 'alimony', 'maintenance', 'matrimonial',
                           'spouse', 'wife', 'husband', 'separation', 'guardianship', 'adoption',
                           'cheating', 'adultery', 'affair', 'unfaithful']
-        
-        # Employment/Labour keywords
-        employment_keywords = ['salary', 'wages', 'termination', 'fired', 'workplace',
-                              'employee', 'employer', 'leave', 'overtime', 'gratuity', 'provident fund']
-        
-        # Commercial/Agricultural keywords
-        commercial_keywords = ['contract', 'company', 'business', 'trade', 'corporate', 'partnership',
-                              'farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation',
-                              'msp', 'insurance', 'loan', 'debt']
-        
-        # Check for civil keywords FIRST (before criminal)
-        if any(keyword in query_lower for keyword in civil_keywords):
-            return ['civil']
-        
-        # Check for criminal keywords
-        if any(keyword in query_lower for keyword in criminal_keywords):
-            return ['criminal']
-        
-        # Check for family keywords
         if any(keyword in query_lower for keyword in family_keywords):
             return ['family']
         
-        # Check for employment keywords
+        # PRIORITY 10: Employment/Labour
+        employment_keywords = ['salary', 'wages', 'termination', 'fired', 'workplace',
+                              'employee', 'employer', 'leave', 'overtime', 'gratuity', 'provident fund']
         if any(keyword in query_lower for keyword in employment_keywords):
             return ['commercial']
         
-        # Check for commercial/agricultural keywords
+        # PRIORITY 11: Commercial/Agricultural
+        commercial_keywords = ['contract', 'company', 'business', 'trade', 'corporate', 'partnership',
+                              'farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation',
+                              'msp', 'insurance', 'loan', 'debt']
         if any(keyword in query_lower for keyword in commercial_keywords):
             return ['commercial']
         
-        # IGNORE hint if semantic indicators found - only use as last resort
+        # PRIORITY 12: Consumer (general)
+        consumer_general = ['consumer', 'defective', 'refund']
+        if any(keyword in query_lower for keyword in consumer_general):
+            return ['consumer']
+        
+        # DEFAULT: Civil (safest fallback)
         return ['civil']
     
     def _search_relevant_sections(self, query: str, jurisdiction: str, domain: str) -> List[Section]:
