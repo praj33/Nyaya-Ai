@@ -261,15 +261,25 @@ class EnhancedLegalAdvisor:
                 'terrorist_attack': ['113', '66F'],
                 'property_dispute': ['40', '41', '42', '43'],
                 'tenant_eviction': ['20', '22', '23'],
-                'accident': ['279', '304A', '337', '338'],  # Vehicular accidents causing death/hurt
-                'bike_accident': ['279', '304A', '337', '338'],
-                'car_accident': ['279', '304A', '337', '338'],
-                'road_accident': ['279', '304A', '337', '338'],
-                'vehicle_accident': ['279', '304A', '337', '338'],
-                'drunk_driving': ['185', '279', '304A'],  # Motor Vehicles Act + IPC
-                'rash_driving': ['279', '304A', '337', '338'],
-                'negligent_driving': ['279', '304A', '337', '338'],
-                'traffic_violation': ['177', '178', '179', '183', '184', '185']
+                'accident': ['279', '304A', '337', '338', '40', '41', '42', '43', '44'],  # IPC + MVA accident sections
+                'bike_accident': ['279', '304A', '337', '338', '40', '41', '42', '43', '44'],
+                'car_accident': ['279', '304A', '337', '338', '40', '41', '42', '43', '44'],
+                'road_accident': ['279', '304A', '337', '338', '40', '41', '42', '43', '44'],
+                'vehicle_accident': ['279', '304A', '337', '338', '40', '41', '42', '43', '44'],
+                'drunk_driving': ['185', '279', '304A', '30', '31', '32', '33', '34'],  # IPC + MVA drunk driving
+                'rash_driving': ['279', '304A', '337', '338', '43', '44'],
+                'negligent_driving': ['279', '304A', '337', '338', '43', '44'],
+                'traffic_violation': ['177', '178', '179', '183', '184', '185', '20', '21', '22', '23', '24', '25', '26'],
+                'traffic': ['177', '178', '179', '183', '184', '185', '20', '21', '22', '23', '24', '25', '26'],
+                'signal': ['177', '178', '179', '183', '184', '185', '21'],  # Red light jumping
+                'speeding': ['177', '178', '179', '183', '184', '185', '20'],  # Over-speeding
+                'challan': ['177', '178', '179', '183', '184', '185', '20', '21', '22', '23', '24', '25', '26'],
+                'helmet': ['24'],  # Not wearing helmet
+                'seatbelt': ['23'],  # Not wearing seatbelt
+                'license': ['3', '4', '5', '6', '7'],  # Driving license related
+                'insurance': ['10', '11', '12', '13', '14'],  # Vehicle insurance
+                'hit_and_run': ['14', '42', '279', '304A'],  # Hit and run cases
+                'juvenile_driving': ['70', '71', '72'],  # Underage driving
             },
             'UK': {
                 'theft': ['section_1_theft'],
