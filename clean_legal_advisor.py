@@ -68,6 +68,48 @@ LAND_DISPUTE_STATUTES = [
     }
 ]
 
+# Act metadata mapping for proper statute formatting
+ACT_METADATA = {
+    # Indian Acts
+    'bns_sections': {'name': 'Bharatiya Nyaya Sanhita', 'year': 2023},
+    'ipc_sections': {'name': 'Indian Penal Code', 'year': 1860},
+    'crpc_sections': {'name': 'Code of Criminal Procedure', 'year': 1973},
+    'bnss_sections': {'name': 'Bharatiya Nagarik Suraksha Sanhita', 'year': 2023},
+    'cpc_sections': {'name': 'Code of Civil Procedure', 'year': 1908},
+    'indian_evidence_act': {'name': 'Indian Evidence Act', 'year': 1872},
+    'it_act_2000': {'name': 'Information Technology Act', 'year': 2000},
+    'hindu_marriage_act': {'name': 'Hindu Marriage Act', 'year': 1955},
+    'special_marriage_act': {'name': 'Special Marriage Act', 'year': 1954},
+    'domestic_violence_act': {'name': 'Protection of Women from Domestic Violence Act', 'year': 2005},
+    'dowry_prohibition_act': {'name': 'Dowry Prohibition Act', 'year': 1961},
+    'consumer_protection_act': {'name': 'Consumer Protection Act', 'year': 2019},
+    'motor_vehicles_act': {'name': 'Motor Vehicles Act', 'year': 1988},
+    'uapa_1967': {'name': 'Unlawful Activities (Prevention) Act', 'year': 1967},
+    'labour_employment_laws': {'name': 'Labour and Employment Laws', 'year': 1948},
+    'property_real_estate_laws': {'name': 'Real Estate (Regulation and Development) Act', 'year': 2016},
+    'farmers_protection_act': {'name': 'Farmers Protection Act', 'year': 2020},
+    
+    # UK Acts
+    'uk_theft_act': {'name': 'Theft Act', 'year': 1968},
+    'uk_fraud_act': {'name': 'Fraud Act', 'year': 2006},
+    'uk_offences_against_person': {'name': 'Offences Against the Person Act', 'year': 1861},
+    'uk_sexual_offences': {'name': 'Sexual Offences Act', 'year': 2003},
+    'uk_misuse_drugs': {'name': 'Misuse of Drugs Act', 'year': 1971},
+    'uk_computer_misuse': {'name': 'Computer Misuse Act', 'year': 1990},
+    'uk_criminal_law': {'name': 'UK Criminal Law', 'year': 2023},
+    'uk_human_rights_act_1998': {'name': 'Human Rights Act', 'year': 1998},
+    'uk_law_dataset': {'name': 'UK Criminal Code', 'year': 2023},
+    'uk_equality_act_2010': {'name': 'Equality Act', 'year': 2010},
+    
+    # UAE Acts
+    'uae_penal_code': {'name': 'UAE Penal Code', 'year': 1987},
+    'uae_cybercrime_law': {'name': 'UAE Cybercrime Law', 'year': 2012},
+    'uae_personal_status_law': {'name': 'UAE Personal Status Law', 'year': 2005},
+    'uae_comprehensive_laws_reference': {'name': 'UAE Federal Laws', 'year': 2021},
+    'uae_law_dataset': {'name': 'UAE Legal Code', 'year': 2021},
+    'uae_personal_status_map': {'name': 'UAE Personal Status Law', 'year': 2005},
+}
+
 class LegalDomain(Enum):
     CRIMINAL = "criminal"
     CIVIL = "civil"
@@ -241,6 +283,9 @@ class EnhancedLegalAdvisor:
                 'theft': ['article_391'],
                 'robbery': ['article_392'],
                 'assault': ['article_333'],
+                'beating': ['article_333'],
+                'domestic_violence': ['article_333'],
+                'violence': ['article_333'],
                 'defamation': ['article_372'],
                 'cybercrime': ['unauthorized_access_article_3', 'data_interference_article_4', 'cyber_fraud_article_6'],
                 'hacking': ['unauthorized_access_article_3', 'data_interference_article_4'],
@@ -334,7 +379,7 @@ class EnhancedLegalAdvisor:
                                     'husband harass', 'husband beat', 'husband torture', 
                                     'husband abuse', 'husband threat', 'cruelty', 'beating',
                                     'torture', 'forced money', 'burning', 'asking for money',
-                                    'demanding money', 'money demand', 'cash demand']
+                                    'demanding money', 'money demand', 'cash demand', 'domestic violence']
         if any(keyword in query_lower for keyword in marital_cruelty_keywords):
             return ['criminal', 'family']
         
@@ -434,26 +479,32 @@ class EnhancedLegalAdvisor:
                 if match_found:
                     crime_mapping_triggered = True
                     for section in self.sections:
-                        if (section.jurisdiction.value == jurisdiction and 
-                            section.section_number in section_numbers):
-                            # TEMPORARY: Skip BNS sections for accidents until database is fixed
-                            if crime in ['accident', 'bike_accident', 'car_accident', 'road_accident', 'vehicle_accident', 
+                        if section.jurisdiction.value == jurisdiction:
+                            # Flexible matching: check if section_number contains any of the mapped numbers
+                            # or if any mapped number is in the section_number
+                            section_matches = any(
+                                mapped_num in section.section_number or section.section_number in mapped_num
+                                for mapped_num in section_numbers
+                            )
+                            if section_matches:
+                                # TEMPORARY: Skip BNS sections for accidents until database is fixed
+                                if crime in ['accident', 'bike_accident', 'car_accident', 'road_accident', 'vehicle_accident', 
                                        'drunk_driving', 'rash_driving', 'negligent_driving'] and 'bns' in section.act_id.lower():
-                                continue
-                            
-                            # Give VERY HIGH priority to crime mapping matches
-                            if crime in ['terrorism', 'terrorist_attack']:
-                                if section.section_number == '113' and 'bns' in section.act_id.lower():
-                                    matched_sections.append((section, 100))  # Highest priority
-                                elif section.section_number == '66F' and 'it_act' in section.act_id.lower():
-                                    matched_sections.append((section, 95))
-                            elif crime in ['cybercrime', 'hacking', 'identity_theft', 'cyber_terrorism']:
-                                if 'it_act' in section.act_id.lower():
-                                    matched_sections.append((section, 90))
+                                    continue
+                                
+                                # Give VERY HIGH priority to crime mapping matches
+                                if crime in ['terrorism', 'terrorist_attack']:
+                                    if section.section_number == '113' and 'bns' in section.act_id.lower():
+                                        matched_sections.append((section, 100))  # Highest priority
+                                    elif section.section_number == '66F' and 'it_act' in section.act_id.lower():
+                                        matched_sections.append((section, 95))
+                                elif crime in ['cybercrime', 'hacking', 'identity_theft', 'cyber_terrorism']:
+                                    if 'it_act' in section.act_id.lower():
+                                        matched_sections.append((section, 90))
+                                    else:
+                                        matched_sections.append((section, 50))
                                 else:
-                                    matched_sections.append((section, 50))
-                            else:
-                                matched_sections.append((section, 80))  # Very high priority for all crime mappings
+                                    matched_sections.append((section, 80))  # Very high priority for all crime mappings
         
         # Strategy 2: Use BM25 only if crime mapping didn't trigger OR as supplementary
         bm25_results = self.bm25_search.search(query, jurisdiction, top_k=50)
@@ -919,10 +970,10 @@ class EnhancedLegalAdvisor:
         # Search relevant sections
         relevant_sections = self._search_relevant_sections(legal_query.query_text, jurisdiction, domain)
         
-        # Apply ontology filter (skip for family domain to allow Hindu Marriage Act)
+        # Apply ontology filter (skip for family domain and non-Indian jurisdictions)
         allowed_act_ids = self.ontology_filter.get_allowed_act_ids(domain)
-        if domain == 'family':
-            # For family domain, don't filter - allow all found sections
+        if domain == 'family' or jurisdiction != 'IN':
+            # For family domain or non-Indian jurisdictions, don't filter - allow all found sections
             filtered_sections = relevant_sections
             ontology_filtered = False
         else:
@@ -964,7 +1015,8 @@ class EnhancedLegalAdvisor:
         })
         
         # Check addon subtypes for specialized offenses (prioritize over base retrieval)
-        addon_subtype = self.addon_resolver.detect_addon_subtype(legal_query.query_text)
+        # ONLY apply addon for Indian jurisdiction (addon statutes are India-specific)
+        addon_subtype = self.addon_resolver.detect_addon_subtype(legal_query.query_text) if jurisdiction == 'IN' else None
         addon_statutes = []
         constitutional_articles = []
         dowry_filtered = False
@@ -1000,12 +1052,33 @@ class EnhancedLegalAdvisor:
                 ontology_filtered = False
         
         # Apply Dowry Precision Layer
-        all_statutes = [{
-            'act': section.act_id.replace('_', ' ').title() if section.act_id else 'Unknown Act',
-            'year': 0,
-            'section': section.section_number,
-            'title': section.text[:100] if len(section.text) > 100 else section.text
-        } for section in relevant_sections] + addon_statutes
+        all_statutes = []
+        for section in relevant_sections:
+            act_id_lower = section.act_id.lower() if section.act_id else ''
+            act_metadata = None
+            
+            # Find matching act metadata
+            for act_key, metadata in ACT_METADATA.items():
+                if act_key.lower() in act_id_lower or act_id_lower in act_key.lower():
+                    act_metadata = metadata
+                    break
+            
+            if act_metadata:
+                all_statutes.append({
+                    'act': act_metadata['name'],
+                    'year': act_metadata['year'],
+                    'section': section.section_number,
+                    'title': section.text[:100] if len(section.text) > 100 else section.text
+                })
+            else:
+                all_statutes.append({
+                    'act': section.act_id.replace('_', ' ').title() if section.act_id else 'Unknown Act',
+                    'year': 0,
+                    'section': section.section_number,
+                    'title': section.text[:100] if len(section.text) > 100 else section.text
+                })
+        
+        all_statutes.extend(addon_statutes)
         
         all_statutes, dowry_filtered = self.dowry_precision.filter_and_prioritize(all_statutes, legal_query.query_text)
         
@@ -1014,9 +1087,9 @@ class EnhancedLegalAdvisor:
             confidence_score = self.dowry_precision.boost_confidence(all_statutes)
             ontology_filtered = True
         
-        # Check for land dispute queries and use predefined statutes
+        # Check for land dispute queries and use predefined statutes (India only)
         query_lower = legal_query.query_text.lower()
-        if any(keyword in query_lower for keyword in ['land dispute', 'property dispute', 'land', 'boundary', 'title deed', 'encroachment']):
+        if jurisdiction == 'IN' and any(keyword in query_lower for keyword in ['land dispute', 'property dispute', 'land', 'boundary', 'title deed', 'encroachment']):
             all_statutes = LAND_DISPUTE_STATUTES.copy()
         
         # Store domains in advice object
