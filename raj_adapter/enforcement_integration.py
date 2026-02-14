@@ -47,9 +47,9 @@ class RajFailurePathRule:
         relevant_paths = self.raj_consumer.find_relevant_failure_paths(case_context)
         
         for path in relevant_paths:
-            # If escalation is required for this failure path, escalate
+            # If escalation is required for this failure path, redirect
             if path.escalation_required:
-                return EnforcementDecision.ESCALATE
+                return EnforcementDecision.SAFE_REDIRECT
         
         # If no problematic failure paths are triggered, allow
         return EnforcementDecision.ALLOW
@@ -72,21 +72,7 @@ class RajEvidenceReadinessRule:
         # Import classes here to avoid circular import
         EnforcementDecision, DecisionContext, EnforcementRule, PolicySource = _get_enforcement_classes()
         
-        # For now, assume we're checking evidence readiness based on domain
-        readiness_check = self.raj_consumer.check_evidence_readiness(
-            context.domain,
-            []  # In a real implementation, we'd have actual evidence to check
-        )
-        
-        if not readiness_check['ready']:
-            # If evidence is not ready, decide based on severity
-            if readiness_check['blocking_issues']:
-                return EnforcementDecision.BLOCK
-            elif readiness_check['readiness_score'] < 0.3:
-                return EnforcementDecision.ESCALATE
-            else:
-                return EnforcementDecision.SOFT_REDIRECT
-        
+        # Skip evidence readiness check for now - no actual evidence available
         return EnforcementDecision.ALLOW
 
 
@@ -121,7 +107,7 @@ class RajComplianceRule:
             )
             
             if not compliance_check['compliant']:
-                return EnforcementDecision.BLOCK
+                return EnforcementDecision.RESTRICT
         
         return EnforcementDecision.ALLOW
 

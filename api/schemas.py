@@ -2,6 +2,12 @@ from pydantic import BaseModel, Field
 from typing import Dict, Any, List, Optional
 from enum import Enum
 
+class EnforcementDecision(str, Enum):
+    ALLOW_INFORMATIONAL = "ALLOW_INFORMATIONAL"
+    ALLOW = "ALLOW"
+    SAFE_REDIRECT = "SAFE_REDIRECT"
+    RESTRICT = "RESTRICT"
+
 class UserRole(str, Enum):
     CITIZEN = "citizen"
     LAWYER = "lawyer"
@@ -86,7 +92,7 @@ class NyayaResponse(BaseModel):
     provenance_chain: List[Dict[str, Any]] = []
     reasoning_trace: Dict[str, Any] = {}
     trace_id: str
-    enforcement_decision: str = "ALLOW"
+    enforcement_decision: EnforcementDecision = EnforcementDecision.ALLOW
     timeline: List[Dict[str, str]] = []
     glossary: List[Dict[str, str]] = []
     evidence_requirements: List[str] = []

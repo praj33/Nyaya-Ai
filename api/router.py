@@ -29,12 +29,17 @@ from api.schemas import (
 # Import response enricher
 from core.response.enricher import enrich_response
 
+# Import enforcement engine
+from enforcement_engine.engine import SovereignEnforcementEngine
+from enforcement_engine.decision_model import EnforcementSignal
+
 router = APIRouter(prefix="/nyaya", tags=["nyaya"])
 
 # Initialize the enhanced legal advisor with error handling
 try:
     advisor = EnhancedLegalAdvisor()
     jurisdiction_detector = JurisdictionDetector()
+    enforcement_engine = SovereignEnforcementEngine()
     
     # Initialize case law system
     case_loader = CaseLawLoader()
@@ -42,11 +47,13 @@ try:
     case_retriever = CaseLawRetriever(cases)
     print(f"Case law system initialized: {len(cases)} cases loaded")
     print("Jurisdiction detector initialized")
+    print("Enforcement engine initialized")
 except Exception as e:
     print(f"Error initializing components: {e}")
     advisor = None
     jurisdiction_detector = None
     case_retriever = None
+    enforcement_engine = None
 
 @router.post("/query", response_model=NyayaResponse)
 async def query_legal(request: QueryRequest):
@@ -170,8 +177,22 @@ async def query_legal(request: QueryRequest):
             "trace_id": advice.trace_id
         }
         
-        # Enrich response with enforcement_decision, timeline, glossary, evidence_requirements
+        # Enrich response with timeline, glossary, evidence_requirements
         enriched = enrich_response(base_response, request.query, advice.domain, statutes)
+        
+        # Apply enforcement decision using enforcement engine
+        enforcement_signal = EnforcementSignal(
+            case_id=advice.trace_id,
+            country=advice.jurisdiction,
+            domain=advice.domain,
+            procedure_id=advice.domain,
+            original_confidence=advice.confidence_score,
+            user_request=request.query,
+            jurisdiction_routed_to=advice.jurisdiction,
+            trace_id=advice.trace_id
+        )
+        enforcement_result = enforcement_engine.make_enforcement_decision(enforcement_signal)
+        enriched['enforcement_decision'] = enforcement_result.decision.value
         
         return NyayaResponse(**enriched)
         

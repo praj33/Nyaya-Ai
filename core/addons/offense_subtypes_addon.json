@@ -1,5 +1,6 @@
 {
   "cyber_bullying": {
+    "jurisdiction": "IN",
     "keywords": [
       "cyber bullying",
       "online harassment",
@@ -36,6 +37,7 @@
   },
 
   "workplace_sexual_harassment": {
+    "jurisdiction": "IN",
     "keywords": [
       "boss touching",
       "manager harassing",
@@ -67,6 +69,7 @@
   },
 
   "ragging_hazing": {
+    "jurisdiction": "IN",
     "keywords": [
       "ragging",
       "hazing",
@@ -95,6 +98,7 @@
   },
 
   "domestic_worker_abuse": {
+    "jurisdiction": "IN",
     "keywords": [
       "maid beaten",
       "domestic worker abused",
@@ -131,6 +135,7 @@
   },
 
   "human_trafficking": {
+    "jurisdiction": "IN",
     "keywords": [
       "human trafficking",
       "sold for labour",
@@ -164,6 +169,7 @@
   },
 
   "child_labour": {
+    "jurisdiction": "IN",
     "keywords": [
       "child labour",
       "child working in factory",
@@ -192,6 +198,7 @@
   },
 
   "elder_abuse": {
+    "jurisdiction": "IN",
     "keywords": [
       "old parents beaten",
       "elder abuse",
@@ -228,6 +235,7 @@
   },
 
   "organ_trafficking": {
+    "jurisdiction": "IN",
     "keywords": [
       "organ trafficking",
       "kidney selling racket",
@@ -256,6 +264,7 @@
   },
 
   "forced_marriage": {
+    "jurisdiction": "IN",
     "keywords": [
       "forced marriage",
       "married against my will",
@@ -291,6 +300,7 @@
   },
 
   "honour_killing": {
+    "jurisdiction": "IN",
     "keywords": [
       "honour killing",
       "family killed for love marriage",
@@ -321,6 +331,7 @@
   },
 
   "acid_attack": {
+    "jurisdiction": "IN",
     "keywords": [
       "acid attack",
       "threw acid",
@@ -349,6 +360,7 @@
   },
 
   "blackmail_extortion": {
+    "jurisdiction": "IN",
     "keywords": [
       "blackmail",
       "threatening to leak photos",
@@ -385,6 +397,7 @@
   },
 
   "kidnapping_abduction": {
+    "jurisdiction": "IN",
     "keywords": [
       "kidnapped",
       "kidnapping",
@@ -414,6 +427,7 @@
   },
 
   "gang_rape": {
+    "jurisdiction": "IN",
     "keywords": [
       "gang rape",
       "multiple men raped",
@@ -443,6 +457,7 @@
   },
 
   "dowry_harassment": {
+    "jurisdiction": "IN",
     "keywords": [
       "dowry",
       "demanding dowry",
@@ -479,6 +494,7 @@
   },
 
   "terrorism_bomb_blast": {
+    "jurisdiction": "IN",
     "keywords": [
       "bomb blast",
       "bomb explosion",
@@ -518,6 +534,7 @@
   },
 
   "farmer_crop_loss": {
+    "jurisdiction": "IN",
     "keywords": [
       "farmer loss",
       "loss of farmers",
@@ -565,6 +582,7 @@
   },
 
   "traffic_violations": {
+    "jurisdiction": "IN",
     "keywords": [
       "traffic signal",
       "red light",

@@ -1123,11 +1123,12 @@ class EnhancedLegalAdvisor:
             for s in raw_statutes:
                 completed = self.addon_resolver._complete_statute_metadata(s)
                 
-                # Enhanced title for rape sections
+                # Enhanced title for rape sections (India only - BNS/IPC sections)
                 enhanced_title = completed.get('title', completed['act'])
                 section_num = completed['section']
                 
-                if section_num in ['63', '64', '65', '66', '375', '376', '376A', '376AB', '376B', '376C', '376D']:
+                # Only apply enhanced titles for Indian rape sections
+                if jurisdiction == 'IN' and section_num in ['63', '64', '65', '66', '375', '376', '376A', '376AB', '376B', '376C', '376D']:
                     if section_num == '63':
                         enhanced_title = "Rape - Penetration without consent (BNS 2023)"
                     elif section_num == '64':
@@ -1158,8 +1159,8 @@ class EnhancedLegalAdvisor:
                     'title': enhanced_title
                 })
             
-            # Apply offense subtype prioritization
-            if addon_subtype == 'rape':
+            # Apply offense subtype prioritization for rape-related addons
+            if 'rape' in addon_subtype:
                 include_keywords = ['rape', 'sexual assault', 'penetration', 'consent']
                 exclude_keywords = ['importation', 'procuration', 'trafficking']
                 addon_statutes = [
@@ -1176,6 +1177,10 @@ class EnhancedLegalAdvisor:
         # Apply Dowry Precision Layer
         all_statutes = []
         for section in relevant_sections:
+            # Skip sections that don't match the detected jurisdiction
+            if section.jurisdiction.value != jurisdiction:
+                continue
+            
             act_id_lower = section.act_id.lower() if section.act_id else ''
             act_metadata = None
             
@@ -1185,11 +1190,11 @@ class EnhancedLegalAdvisor:
                     act_metadata = metadata
                     break
             
-            # Enhanced title for rape sections
+            # Enhanced title for rape sections (India only - BNS/IPC sections)
             enhanced_title = section.text[:100] if len(section.text) > 100 else section.text
             
-            # Add detailed description for rape sections
-            if section.section_number in ['63', '64', '65', '66', '375', '376', '376A', '376AB', '376B', '376C', '376D']:
+            # Add detailed description for Indian rape sections only
+            if jurisdiction == 'IN' and section.section_number in ['63', '64', '65', '66', '375', '376', '376A', '376AB', '376B', '376C', '376D']:
                 if section.section_number == '63':
                     enhanced_title = "Rape - Penetration without consent (BNS 2023)"
                 elif section.section_number == '64':
@@ -1229,6 +1234,9 @@ class EnhancedLegalAdvisor:
                 })
         
         all_statutes.extend(addon_statutes)
+        
+        # Filter addon statutes by jurisdiction to ensure they match
+        all_statutes = [s for s in all_statutes if not (s.get('act') in ['Bharatiya Nyaya Sanhita', 'Indian Penal Code'] and jurisdiction != 'IN')]
         
         all_statutes, dowry_filtered = self.dowry_precision.filter_and_prioritize(all_statutes, legal_query.query_text)
         

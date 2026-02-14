@@ -2,6 +2,10 @@
   "traffic_violations_india": {
     "jurisdiction": "IN",
     "keywords": [
+      "traffic",
+      "traffic rules",
+      "traffic violation",
+      "broke traffic",
       "traffic signal",
       "red light",
       "jumped signal",
@@ -17,7 +21,9 @@
       "no seatbelt",
       "wrong side driving",
       "rash driving",
-      "negligent driving"
+      "negligent driving",
+      "challan",
+      "traffic fine"
     ],
     "domains": ["criminal"],
     "statutes": [
@@ -245,5 +251,81 @@
       }
     ],
     "enforcement_decision": "ALLOW"
+  },
+
+  "rape_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "rape",
+      "sexual assault",
+      "sexual violence",
+      "raped"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Sexual Offences Act",
+        "year": 2003,
+        "section": "Section 1",
+        "title": "Rape - Intentional penetration without consent - Life imprisonment"
+      },
+      {
+        "act": "Sexual Offences Act",
+        "year": 2003,
+        "section": "Section 2",
+        "title": "Assault by penetration - Intentional sexual penetration without consent - Life imprisonment"
+      },
+      {
+        "act": "Sexual Offences Act",
+        "year": 2003,
+        "section": "Section 3",
+        "title": "Sexual assault - Intentional sexual touching without consent - Up to 10 years imprisonment"
+      },
+      {
+        "act": "Sexual Offences Act",
+        "year": 2003,
+        "section": "Section 4",
+        "title": "Causing sexual activity without consent - Up to life imprisonment depending on activity"
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "rape_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "rape",
+      "sexual assault",
+      "sexual violence",
+      "raped"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 354",
+        "title": "Rape - Sexual intercourse without consent - Death penalty or life imprisonment"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 355",
+        "title": "Rape of minor under 14 - Death penalty"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 356",
+        "title": "Attempted rape - Imprisonment minimum 1 year"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 359",
+        "title": "Sexual harassment - Imprisonment and/or fine"
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
   }
 }

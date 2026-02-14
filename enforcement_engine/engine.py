@@ -104,7 +104,7 @@ class SovereignEnforcementEngine:
     
     def _get_policy_source_for_decision(self, decision: EnforcementDecision) -> PolicySource:
         """Determine the appropriate policy source for a decision"""
-        if decision in [EnforcementDecision.BLOCK, EnforcementDecision.ESCALATE]:
+        if decision in [EnforcementDecision.RESTRICT]:
             return PolicySource.SYSTEM_SAFETY
         else:
             return PolicySource.GOVERNANCE
@@ -112,13 +112,13 @@ class SovereignEnforcementEngine:
     def is_execution_allowed(self, signal: EnforcementSignal) -> bool:
         """Check if execution is allowed based on enforcement decision"""
         result = self.make_enforcement_decision(signal)
-        return result.decision in [EnforcementDecision.ALLOW, EnforcementDecision.SOFT_REDIRECT]
+        return result.decision in [EnforcementDecision.ALLOW, EnforcementDecision.ALLOW_INFORMATIONAL, EnforcementDecision.SAFE_REDIRECT]
     
     def get_governed_response(self, signal: EnforcementSignal) -> Dict[str, Any]:
         """Get a governed response that includes enforcement proof"""
         result = self.make_enforcement_decision(signal)
         
-        if result.decision in [EnforcementDecision.ALLOW, EnforcementDecision.SOFT_REDIRECT]:
+        if result.decision in [EnforcementDecision.ALLOW, EnforcementDecision.ALLOW_INFORMATIONAL, EnforcementDecision.SAFE_REDIRECT]:
             # Execution is allowed, return success response with proof
             return {
                 "status": "allowed",
@@ -164,7 +164,7 @@ class SovereignEnforcementEngine:
         for rule in self.rule_engine.rules:
             if isinstance(rule, (EnforcementRule)):
                 decision = rule.evaluate(context)
-                if decision == EnforcementDecision.BLOCK:
+                if decision == EnforcementDecision.RESTRICT:
                     # Check if this is a safety/system integrity rule
                     if rule.policy_source in [PolicySource.SYSTEM_SAFETY]:
                         return False
