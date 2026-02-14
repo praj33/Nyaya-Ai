@@ -32,9 +32,16 @@ class IntentClassificationRule(EnforcementRule):
             description="Classifies user intent and enforces appropriate decision"
         )
         self.malicious_patterns = [
+            # Evasion patterns
             'how to get away', 'avoid punishment', 'evade', 'escape charges',
             'hide evidence', 'destroy evidence', 'fake', 'forge', 'bribe',
-            'how to commit', 'best way to steal', 'without getting caught'
+            'how to commit', 'best way to steal', 'without getting caught',
+            # Dangerous items/weapons
+            'bomb', 'explosive', 'weapon', 'gun', 'knife attack', 'poison',
+            'how to kill', 'how to murder', 'how to harm', 'how to hurt',
+            # Hacking/cybercrime
+            'how to hack', 'break into account', 'steal password', 'crack password',
+            'phishing', 'malware', 'ransomware', 'ddos attack'
         ]
         self.informational_patterns = [
             'what is', 'what are', 'punishment for', 'penalty for', 'law on',
@@ -44,7 +51,8 @@ class IntentClassificationRule(EnforcementRule):
         self.advisory_patterns = [
             'what can i do', 'what should i do', 'how to file', 'legal action',
             'my rights', 'can i sue', 'how to proceed', 'next steps',
-            'what are my options', 'legal help', 'need help', 'happened to me'
+            'what are my options', 'legal help', 'need help', 'happened to me',
+            'i want to file', 'i want to sue', 'how can i sue', 'i need to'
         ]
     
     def evaluate(self, context: DecisionContext) -> EnforcementDecision:
