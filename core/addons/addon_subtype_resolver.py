@@ -8,6 +8,13 @@ class AddonSubtypeResolver:
         with open(addon_path, 'r', encoding='utf-8') as f:
             self.addon_subtypes = json.load(f)
         
+        # Load multi-jurisdiction addons
+        multi_jurisdiction_path = os.path.join(os.path.dirname(__file__), "offense_subtypes_addon_multi_jurisdiction.json")
+        if os.path.exists(multi_jurisdiction_path):
+            with open(multi_jurisdiction_path, 'r', encoding='utf-8') as f:
+                multi_jurisdiction_addons = json.load(f)
+                self.addon_subtypes.update(multi_jurisdiction_addons)
+        
         # Load ontology offense subtypes
         ontology_path = os.path.join(os.path.dirname(__file__), "..", "ontology", "offense_subtypes.json")
         if os.path.exists(ontology_path):
@@ -34,11 +41,16 @@ class AddonSubtypeResolver:
             "Protection of Children from Sexual Offences Act": {"year": 2012}
         }
     
-    def detect_addon_subtype(self, query: str) -> Optional[str]:
-        """Detect addon offense subtype from query with exclude/require logic"""
+    def detect_addon_subtype(self, query: str, jurisdiction: str = None) -> Optional[str]:
+        """Detect addon offense subtype from query with exclude/require logic and jurisdiction matching"""
         query_lower = query.lower()
         
         for subtype_name, subtype_data in self.addon_subtypes.items():
+            # Check jurisdiction match if specified in addon
+            addon_jurisdiction = subtype_data.get('jurisdiction')
+            if addon_jurisdiction and jurisdiction and addon_jurisdiction != jurisdiction:
+                continue
+            
             keywords = subtype_data.get('keywords', [])
             exclude_keywords = subtype_data.get('exclude_keywords', [])
             require_keywords = subtype_data.get('require_keywords', [])
@@ -71,7 +83,7 @@ class AddonSubtypeResolver:
         
         return completed
     
-    def enhance_response(self, base_response: Dict[str, Any], query: str, confidence: Dict[str, float] = None) -> Dict[str, Any]:
+    def enhance_response(self, base_response: Dict[str, Any], query: str, confidence: Dict[str, float] = None, jurisdiction: str = None) -> Dict[str, Any]:
         """Enhance response with addon subtypes if base resolver has low confidence or empty results"""
         
         # Check if we should apply addon logic
@@ -88,8 +100,8 @@ class AddonSubtypeResolver:
         if not should_apply:
             return base_response
         
-        # Detect addon subtype
-        addon_subtype = self.detect_addon_subtype(query)
+        # Detect addon subtype with jurisdiction
+        addon_subtype = self.detect_addon_subtype(query, jurisdiction)
         if not addon_subtype:
             return base_response
         

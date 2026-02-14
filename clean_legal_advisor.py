@@ -1109,8 +1109,7 @@ class EnhancedLegalAdvisor:
         })
         
         # Check addon subtypes for specialized offenses (prioritize over base retrieval)
-        # ONLY apply addon for Indian jurisdiction (addon statutes are India-specific)
-        addon_subtype = self.addon_resolver.detect_addon_subtype(legal_query.query_text) if jurisdiction == 'IN' else None
+        addon_subtype = self.addon_resolver.detect_addon_subtype(legal_query.query_text, jurisdiction)
         addon_statutes = []
         constitutional_articles = []
         dowry_filtered = False
@@ -1123,11 +1122,40 @@ class EnhancedLegalAdvisor:
             # Apply statute overlay to complete years
             for s in raw_statutes:
                 completed = self.addon_resolver._complete_statute_metadata(s)
+                
+                # Enhanced title for rape sections
+                enhanced_title = completed.get('title', completed['act'])
+                section_num = completed['section']
+                
+                if section_num in ['63', '64', '65', '66', '375', '376', '376A', '376AB', '376B', '376C', '376D']:
+                    if section_num == '63':
+                        enhanced_title = "Rape - Penetration without consent (BNS 2023)"
+                    elif section_num == '64':
+                        enhanced_title = "Punishment for rape - Rigorous imprisonment 10 years to life (BNS 2023)"
+                    elif section_num == '65':
+                        enhanced_title = "Punishment for rape in certain cases - Enhanced penalties for aggravated circumstances (BNS 2023)"
+                    elif section_num == '66':
+                        enhanced_title = "Punishment for causing death or persistent vegetative state of victim - Life imprisonment or death (BNS 2023)"
+                    elif section_num == '375':
+                        enhanced_title = "Rape - Sexual intercourse without consent or with minor (IPC 1860)"
+                    elif section_num == '376':
+                        enhanced_title = "Punishment for rape - Rigorous imprisonment minimum 7 years, may extend to life (IPC 1860)"
+                    elif section_num == '376A':
+                        enhanced_title = "Punishment for causing death or resulting in persistent vegetative state - Minimum 20 years to life or death (IPC 1860)"
+                    elif section_num == '376AB':
+                        enhanced_title = "Punishment for rape on woman under 12 years - Rigorous imprisonment minimum 20 years to life or death (IPC 1860)"
+                    elif section_num == '376B':
+                        enhanced_title = "Sexual intercourse by husband upon his wife during separation - Imprisonment up to 2 years (IPC 1860)"
+                    elif section_num == '376C':
+                        enhanced_title = "Sexual intercourse by person in authority - Rigorous imprisonment 5-10 years (IPC 1860)"
+                    elif section_num == '376D':
+                        enhanced_title = "Gang rape - Rigorous imprisonment minimum 20 years to life (IPC 1860)"
+                
                 addon_statutes.append({
                     'act': completed['act'],
                     'year': completed.get('year', 0),
                     'section': completed['section'],
-                    'title': completed.get('title', completed['act'])
+                    'title': enhanced_title
                 })
             
             # Apply offense subtype prioritization
@@ -1157,19 +1185,47 @@ class EnhancedLegalAdvisor:
                     act_metadata = metadata
                     break
             
+            # Enhanced title for rape sections
+            enhanced_title = section.text[:100] if len(section.text) > 100 else section.text
+            
+            # Add detailed description for rape sections
+            if section.section_number in ['63', '64', '65', '66', '375', '376', '376A', '376AB', '376B', '376C', '376D']:
+                if section.section_number == '63':
+                    enhanced_title = "Rape - Penetration without consent (BNS 2023)"
+                elif section.section_number == '64':
+                    enhanced_title = "Punishment for rape - Rigorous imprisonment 10 years to life (BNS 2023)"
+                elif section.section_number == '65':
+                    enhanced_title = "Punishment for rape in certain cases - Enhanced penalties for aggravated circumstances (BNS 2023)"
+                elif section.section_number == '66':
+                    enhanced_title = "Punishment for causing death or persistent vegetative state of victim - Life imprisonment or death (BNS 2023)"
+                elif section.section_number == '375':
+                    enhanced_title = "Rape - Sexual intercourse without consent or with minor (IPC 1860)"
+                elif section.section_number == '376':
+                    enhanced_title = "Punishment for rape - Rigorous imprisonment minimum 7 years, may extend to life (IPC 1860)"
+                elif section.section_number == '376A':
+                    enhanced_title = "Punishment for causing death or resulting in persistent vegetative state - Minimum 20 years to life or death (IPC 1860)"
+                elif section.section_number == '376AB':
+                    enhanced_title = "Punishment for rape on woman under 12 years - Rigorous imprisonment minimum 20 years to life or death (IPC 1860)"
+                elif section.section_number == '376B':
+                    enhanced_title = "Sexual intercourse by husband upon his wife during separation - Imprisonment up to 2 years (IPC 1860)"
+                elif section.section_number == '376C':
+                    enhanced_title = "Sexual intercourse by person in authority - Rigorous imprisonment 5-10 years (IPC 1860)"
+                elif section.section_number == '376D':
+                    enhanced_title = "Gang rape - Rigorous imprisonment minimum 20 years to life (IPC 1860)"
+            
             if act_metadata:
                 all_statutes.append({
                     'act': act_metadata['name'],
                     'year': act_metadata['year'],
                     'section': section.section_number,
-                    'title': section.text[:100] if len(section.text) > 100 else section.text
+                    'title': enhanced_title
                 })
             else:
                 all_statutes.append({
                     'act': section.act_id.replace('_', ' ').title() if section.act_id else 'Unknown Act',
                     'year': 0,
                     'section': section.section_number,
-                    'title': section.text[:100] if len(section.text) > 100 else section.text
+                    'title': enhanced_title
                 })
         
         all_statutes.extend(addon_statutes)

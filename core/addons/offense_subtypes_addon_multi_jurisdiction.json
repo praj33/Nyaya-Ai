@@ -1,0 +1,249 @@
+{
+  "traffic_violations_india": {
+    "jurisdiction": "IN",
+    "keywords": [
+      "traffic signal",
+      "red light",
+      "jumped signal",
+      "broke signal",
+      "ran red light",
+      "traffic light violation",
+      "signal violation",
+      "speeding",
+      "overspeeding",
+      "drunk driving",
+      "driving without license",
+      "no helmet",
+      "no seatbelt",
+      "wrong side driving",
+      "rash driving",
+      "negligent driving"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "177",
+        "title": "General provision for punishment of offences - Disobeying traffic signals, rules"
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "183",
+        "title": "Driving at excessive speed - Overspeeding"
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "184",
+        "title": "Driving dangerously - Rash and negligent driving"
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "185",
+        "title": "Driving under influence of alcohol or drugs - Drunk driving"
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "181",
+        "title": "Driving without license"
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "281",
+        "title": "Rash driving or riding on a public way - Causing danger to life"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "traffic_violations_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "traffic signal",
+      "red light",
+      "jumped signal",
+      "broke signal",
+      "ran red light",
+      "traffic light violation",
+      "signal violation",
+      "speeding",
+      "overspeeding",
+      "drunk driving",
+      "driving without license",
+      "no helmet",
+      "no seatbelt",
+      "wrong side driving",
+      "rash driving",
+      "negligent driving"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "UAE Traffic Law",
+        "year": 1995,
+        "section": "Article 49",
+        "title": "Jumping red light - Fine AED 1,000 and 12 black points"
+      },
+      {
+        "act": "UAE Traffic Law",
+        "year": 1995,
+        "section": "Article 53",
+        "title": "Exceeding speed limit - Fine AED 300-3,000 depending on excess speed"
+      },
+      {
+        "act": "UAE Traffic Law",
+        "year": 1995,
+        "section": "Article 49(1)",
+        "title": "Reckless driving endangering lives - Fine AED 2,000 and 23 black points"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 384",
+        "title": "Driving under influence of alcohol - Imprisonment and/or fine"
+      },
+      {
+        "act": "UAE Traffic Law",
+        "year": 1995,
+        "section": "Article 50",
+        "title": "Driving without valid license - Fine AED 5,000-50,000"
+      },
+      {
+        "act": "UAE Traffic Law",
+        "year": 1995,
+        "section": "Article 52",
+        "title": "Not wearing seatbelt - Fine AED 400 and 4 black points"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "traffic_violations_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "traffic signal",
+      "red light",
+      "jumped signal",
+      "broke signal",
+      "ran red light",
+      "traffic light violation",
+      "signal violation",
+      "speeding",
+      "overspeeding",
+      "drunk driving",
+      "driving without license",
+      "no helmet",
+      "no seatbelt",
+      "wrong side driving",
+      "dangerous driving",
+      "careless driving"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Road Traffic Act",
+        "year": 1988,
+        "section": "Section 36",
+        "title": "Failing to comply with traffic signs - Fine up to £1,000 and 3 penalty points"
+      },
+      {
+        "act": "Road Traffic Regulation Act",
+        "year": 1984,
+        "section": "Section 89",
+        "title": "Speeding offences - Fine and 3-6 penalty points or disqualification"
+      },
+      {
+        "act": "Road Traffic Act",
+        "year": 1988,
+        "section": "Section 2",
+        "title": "Dangerous driving - Up to 2 years imprisonment and mandatory disqualification"
+      },
+      {
+        "act": "Road Traffic Act",
+        "year": 1988,
+        "section": "Section 5",
+        "title": "Driving with excess alcohol - Up to 6 months imprisonment, unlimited fine, minimum 12 months ban"
+      },
+      {
+        "act": "Road Traffic Act",
+        "year": 1988,
+        "section": "Section 87",
+        "title": "Driving without license - Fine up to £1,000 and 3-6 penalty points"
+      },
+      {
+        "act": "Road Traffic Act",
+        "year": 1988,
+        "section": "Section 14",
+        "title": "Not wearing seatbelt - Fine up to £500"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "traffic_violations_ksa": {
+    "jurisdiction": "KSA",
+    "keywords": [
+      "traffic signal",
+      "red light",
+      "jumped signal",
+      "broke signal",
+      "ran red light",
+      "traffic light violation",
+      "signal violation",
+      "speeding",
+      "overspeeding",
+      "drunk driving",
+      "driving without license",
+      "no helmet",
+      "no seatbelt",
+      "wrong side driving",
+      "rash driving",
+      "negligent driving"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Saudi Traffic Law",
+        "year": 2007,
+        "section": "Article 65",
+        "title": "Jumping red light - Fine SAR 3,000-6,000"
+      },
+      {
+        "act": "Saudi Traffic Law",
+        "year": 2007,
+        "section": "Article 61",
+        "title": "Exceeding speed limit - Fine SAR 300-3,000 depending on violation"
+      },
+      {
+        "act": "Saudi Traffic Law",
+        "year": 2007,
+        "section": "Article 67",
+        "title": "Reckless driving - Fine SAR 500-900 and possible vehicle impoundment"
+      },
+      {
+        "act": "Saudi Traffic Law",
+        "year": 2007,
+        "section": "Article 66",
+        "title": "Driving under influence - Imprisonment and fine, vehicle confiscation"
+      },
+      {
+        "act": "Saudi Traffic Law",
+        "year": 2007,
+        "section": "Article 4",
+        "title": "Driving without valid license - Fine SAR 300-500"
+      },
+      {
+        "act": "Saudi Traffic Law",
+        "year": 2007,
+        "section": "Article 71",
+        "title": "Not wearing seatbelt - Fine SAR 150-300"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  }
+}

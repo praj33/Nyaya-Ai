@@ -562,5 +562,72 @@
       }
     ],
     "enforcement_decision": "ALLOW"
+  },
+
+  "traffic_violations": {
+    "keywords": [
+      "traffic signal",
+      "red light",
+      "jumped signal",
+      "broke signal",
+      "ran red light",
+      "traffic light violation",
+      "signal violation",
+      "speeding",
+      "overspeeding",
+      "drunk driving",
+      "driving without license",
+      "no helmet",
+      "no seatbelt",
+      "wrong side driving",
+      "rash driving",
+      "negligent driving"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "177",
+        "title": "General provision for punishment of offences - Disobeying traffic signals, rules",
+        "section_data": "Whoever in any public place or in any other place drives a vehicle or causes or allows a vehicle to be driven in contravention of the provisions of this Act or the rules made thereunder shall be punishable for the first offence with fine which may extend to five hundred rupees, and for any second or subsequent offence with fine which may extend to one thousand five hundred rupees."
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "183",
+        "title": "Driving at excessive speed - Overspeeding",
+        "section_data": "Whoever drives a motor vehicle in contravention of the speed limits referred to in section 112 shall be punishable with fine which may extend to one thousand rupees for the first offence and for any second or subsequent offence with fine which may extend to two thousand rupees."
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "184",
+        "title": "Driving dangerously - Rash and negligent driving",
+        "section_data": "Whoever drives a motor vehicle at a speed or in a manner which is dangerous to the public, having regard to all the circumstances of the case including the nature, condition and use of the place where the vehicle is driven and the amount of traffic which actually is at the time or which might reasonably be expected to be in the place, shall be punishable for the first offence with imprisonment for a term which may extend to six months, or with fine which may extend to one thousand rupees, or with both, and for any second or subsequent offence if committed within three years of the commission of a previous similar offence with imprisonment for a term which may extend to two years, or with fine which may extend to two thousand rupees, or with both."
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "185",
+        "title": "Driving under influence of alcohol or drugs - Drunk driving",
+        "section_data": "Whoever, while driving, or attempting to drive, a motor vehicle has, in his blood, alcohol exceeding 30 mg. per 100 ml. of blood detected in a test by a breath analyser shall be punishable for the first offence with imprisonment for a term which may extend to six months, or with fine which may extend to ten thousand rupees, or with both; and for a second or subsequent offence, if committed within three years of the commission of the previous similar offence, with imprisonment for a term which may extend to two years, or with fine which may extend to fifteen thousand rupees, or with both."
+      },
+      {
+        "act": "Motor Vehicles Act",
+        "year": 1988,
+        "section": "181",
+        "title": "Driving without license",
+        "section_data": "Whoever drives a motor vehicle in any public place without holding an effective driving licence shall be punishable for the first offence with a fine which may extend to five thousand rupees, and for any second or subsequent offence with imprisonment which may extend to one year or with fine which may extend to ten thousand rupees or with both."
+      },
+      {
+        "act": "Bharatiya Nyaya Sanhita",
+        "year": 2023,
+        "section": "281",
+        "title": "Rash driving or riding on a public way - Causing danger to life",
+        "section_data": "Whoever drives any vehicle, or rides, on any public way in a manner so rash or negligent as to endanger human life, or to be likely to cause hurt or injury to any other person, shall be punished with imprisonment of either description for a term which may extend to six months, or with fine which may extend to one thousand rupees, or with both."
+      }
+    ],
+    "enforcement_decision": "ALLOW"
   }
 }
