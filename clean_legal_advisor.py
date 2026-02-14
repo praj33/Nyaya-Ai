@@ -299,7 +299,14 @@ class EnhancedLegalAdvisor:
                 'robbery': ['section_8_robbery'],
                 'burglary': ['section_9_burglary'],
                 'fraud': ['section_1_fraud_by_false_representation', 'section_2_fraud_by_failure_to_disclose', 'section_3_fraud_by_abuse_of_position'],
+                'extortion': ['section_21_blackmail'],
+                'blackmail': ['section_21_blackmail'],
+                'demanding': ['section_21_blackmail'],
+                'demanding_money': ['section_21_blackmail'],
                 'assault': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault'],
+                'beating': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault', 'section_47_actual_bodily_harm'],
+                'domestic_violence': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault', 'section_47_actual_bodily_harm'],
+                'violence': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault'],
                 'rape': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault', 'section_4_causing_sexual_activity'],
                 'sexual_assault': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
                 'sexual_harassment': ['section_3_sexual_assault'],
@@ -321,6 +328,9 @@ class EnhancedLegalAdvisor:
                 'beating': ['assault_article_333', 'article_333', 'Article_333', '333'],
                 'domestic_violence': ['assault_article_333', 'article_333', 'Article_333', '333'],
                 'violence': ['assault_article_333', 'article_333', 'Article_333', '333'],
+                'extortion': ['article_399', 'Article_399', '399'],
+                'demanding': ['article_399', 'Article_399', '399'],
+                'demanding_money': ['article_399', 'Article_399', '399'],
                 'defamation': ['defamation_article_372', 'article_372', 'Article_372', '372'],
                 'rape': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
                 'sexual_assault': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
@@ -1152,6 +1162,19 @@ class EnhancedLegalAdvisor:
                     elif section_num == '376D':
                         enhanced_title = "Gang rape - Rigorous imprisonment minimum 20 years to life (IPC 1860)"
                 
+                # Apply enhanced titles for Indian divorce sections from addon
+                if jurisdiction == 'IN' and section_num in ['13', '13B', '24', '25', '27']:
+                    if section_num == '13':
+                        enhanced_title = "Divorce - Grounds including adultery, cruelty, desertion, conversion, mental disorder (Hindu Marriage Act 1955)"
+                    elif section_num == '13B':
+                        enhanced_title = "Divorce by mutual consent - Both parties agree to dissolve marriage after 1 year separation"
+                    elif section_num == '24':
+                        enhanced_title = "Maintenance pendente lite - Interim maintenance during divorce proceedings"
+                    elif section_num == '25':
+                        enhanced_title = "Permanent alimony - Court may order maintenance after divorce"
+                    elif section_num == '27':
+                        enhanced_title = "Divorce - Grounds including adultery, cruelty, desertion, unsound mind (Special Marriage Act 1954)"
+                
                 addon_statutes.append({
                     'act': completed['act'],
                     'year': completed.get('year', 0),
@@ -1218,6 +1241,19 @@ class EnhancedLegalAdvisor:
                 elif section.section_number == '376D':
                     enhanced_title = "Gang rape - Rigorous imprisonment minimum 20 years to life (IPC 1860)"
             
+            # Add detailed description for Indian divorce sections
+            if jurisdiction == 'IN' and section.section_number in ['13', '13B', '24', '25', '27']:
+                if section.section_number == '13' and 'hindu_marriage' in section.act_id.lower():
+                    enhanced_title = "Divorce - Grounds including adultery, cruelty, desertion, conversion, mental disorder (Hindu Marriage Act 1955)"
+                elif section.section_number == '13B' and 'hindu_marriage' in section.act_id.lower():
+                    enhanced_title = "Divorce by mutual consent - Both parties agree to dissolve marriage after 1 year separation"
+                elif section.section_number == '24' and 'hindu_marriage' in section.act_id.lower():
+                    enhanced_title = "Maintenance pendente lite - Interim maintenance during divorce proceedings"
+                elif section.section_number == '25' and 'hindu_marriage' in section.act_id.lower():
+                    enhanced_title = "Permanent alimony - Court may order maintenance after divorce"
+                elif section.section_number == '27' and 'special_marriage' in section.act_id.lower():
+                    enhanced_title = "Divorce - Grounds including adultery, cruelty, desertion, unsound mind (Special Marriage Act 1954)"
+            
             if act_metadata:
                 all_statutes.append({
                     'act': act_metadata['name'],
@@ -1235,8 +1271,21 @@ class EnhancedLegalAdvisor:
         
         all_statutes.extend(addon_statutes)
         
-        # Filter addon statutes by jurisdiction to ensure they match
-        all_statutes = [s for s in all_statutes if not (s.get('act') in ['Bharatiya Nyaya Sanhita', 'Indian Penal Code'] and jurisdiction != 'IN')]
+        # Filter statutes by jurisdiction - remove Indian acts for non-Indian jurisdictions
+        indian_acts = ['Hindu Marriage Act', 'Special Marriage Act', 'Bharatiya Nyaya Sanhita', 'Indian Penal Code', 
+                       'Code of Criminal Procedure', 'Code of Civil Procedure', 'Indian Evidence Act',
+                       'Information Technology Act', 'Protection of Women from Domestic Violence Act',
+                       'Dowry Prohibition Act', 'Consumer Protection Act', 'Motor Vehicles Act',
+                       'Unlawful Activities (Prevention) Act', 'Labour and Employment Laws',
+                       'Real Estate (Regulation and Development) Act', 'Farmers Protection Act']
+        
+        if jurisdiction != 'IN':
+            all_statutes = [s for s in all_statutes if s.get('act') not in indian_acts]
+        elif jurisdiction == 'IN':
+            # For India, remove UK/UAE specific acts
+            uk_uae_acts = ['Sexual Offences Act', 'Theft Act', 'Fraud Act', 'Road Traffic Act',
+                          'UAE Penal Code', 'UAE Personal Status Law', 'UAE Traffic Law', 'UAE Cybercrime Law']
+            all_statutes = [s for s in all_statutes if s.get('act') not in uk_uae_acts]
         
         all_statutes, dowry_filtered = self.dowry_precision.filter_and_prioritize(all_statutes, legal_query.query_text)
         

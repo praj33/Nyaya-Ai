@@ -327,5 +327,389 @@
       }
     ],
     "enforcement_decision": "ESCALATE"
+  },
+
+  "divorce_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "divorce",
+      "talaq",
+      "khula",
+      "marriage dissolution",
+      "separation"
+    ],
+    "domains": ["family"],
+    "statutes": [
+      {
+        "act": "UAE Personal Status Law",
+        "year": 2005,
+        "section": "Article 99",
+        "title": "Divorce by mutual consent - Khula - Wife may seek divorce by returning mahr"
+      },
+      {
+        "act": "UAE Personal Status Law",
+        "year": 2005,
+        "section": "Article 110",
+        "title": "Judicial divorce - Grounds including harm, abandonment, non-maintenance"
+      },
+      {
+        "act": "UAE Personal Status Law",
+        "year": 2005,
+        "section": "Article 115",
+        "title": "Child custody after divorce - Mother has priority for young children"
+      },
+      {
+        "act": "UAE Personal Status Law",
+        "year": 2005,
+        "section": "Article 140",
+        "title": "Maintenance obligations - Husband must provide financial support during marriage and iddah"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "divorce_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "divorce",
+      "dissolution of marriage",
+      "separation",
+      "decree absolute"
+    ],
+    "domains": ["family"],
+    "statutes": [
+      {
+        "act": "Matrimonial Causes Act",
+        "year": 1973,
+        "section": "Section 1",
+        "title": "Divorce - Irretrievable breakdown of marriage - No-fault divorce available"
+      },
+      {
+        "act": "Matrimonial Causes Act",
+        "year": 1973,
+        "section": "Section 23",
+        "title": "Financial provision orders - Court may order maintenance, lump sum, property adjustment"
+      },
+      {
+        "act": "Children Act",
+        "year": 1989,
+        "section": "Section 8",
+        "title": "Child arrangements orders - Residence and contact with children"
+      },
+      {
+        "act": "Divorce, Dissolution and Separation Act",
+        "year": 2020,
+        "section": "Section 1",
+        "title": "No-fault divorce - 20-week reflection period - Simplified divorce process"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "divorce_india": {
+    "jurisdiction": "IN",
+    "keywords": [
+      "divorce",
+      "talaq",
+      "khula",
+      "marriage dissolution",
+      "separation",
+      "judicial separation"
+    ],
+    "domains": ["family"],
+    "statutes": [
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13",
+        "title": "Divorce - Grounds including adultery, cruelty, desertion, conversion, mental disorder (Hindu Marriage Act 1955)"
+      },
+      {
+        "act": "Special Marriage Act",
+        "year": 1954,
+        "section": "27",
+        "title": "Divorce - Grounds including adultery, cruelty, desertion, unsound mind (Special Marriage Act 1954)"
+      },
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13B",
+        "title": "Divorce by mutual consent - Both parties agree to dissolve marriage after 1 year separation"
+      },
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "24",
+        "title": "Maintenance pendente lite - Interim maintenance during divorce proceedings"
+      },
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "25",
+        "title": "Permanent alimony - Court may order maintenance after divorce"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "assault_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "assault",
+      "beating",
+      "domestic violence",
+      "violence",
+      "hit",
+      "attack",
+      "hurt",
+      "harm"
+    ],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 333",
+        "title": "Assault - Physical violence causing harm - Imprisonment up to 1 year and/or fine up to AED 10,000"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 334",
+        "title": "Aggravated assault - Assault causing permanent disability - Imprisonment up to 5 years"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 335",
+        "title": "Assault causing death - Unintentional killing through assault - Imprisonment and/or fine"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "assault_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "assault",
+      "beating",
+      "domestic violence",
+      "violence",
+      "hit",
+      "attack",
+      "hurt",
+      "harm",
+      "abh",
+      "gbh"
+    ],
+    "domains": ["criminal", "family"],
+    "statutes": [
+      {
+        "act": "Offences Against the Person Act",
+        "year": 1861,
+        "section": "Section 18",
+        "title": "Wounding with intent - Causing grievous bodily harm with intent - Life imprisonment"
+      },
+      {
+        "act": "Offences Against the Person Act",
+        "year": 1861,
+        "section": "Section 20",
+        "title": "Malicious wounding - Unlawfully inflicting grievous bodily harm - Up to 5 years imprisonment"
+      },
+      {
+        "act": "Offences Against the Person Act",
+        "year": 1861,
+        "section": "Section 47",
+        "title": "Actual bodily harm (ABH) - Assault causing actual bodily harm - Up to 5 years imprisonment"
+      },
+      {
+        "act": "Criminal Justice Act",
+        "year": 1988,
+        "section": "Section 39",
+        "title": "Common assault - Assault or battery - Up to 6 months imprisonment and/or fine"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "extortion_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "extortion",
+      "demanding",
+      "demanding money",
+      "blackmail",
+      "threat",
+      "coercion"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 399",
+        "title": "Extortion - Obtaining property by threat or intimidation - Imprisonment and/or fine"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 400",
+        "title": "Aggravated extortion - Extortion with violence or weapons - Enhanced penalties"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "extortion_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "extortion",
+      "demanding",
+      "demanding money",
+      "blackmail",
+      "threat",
+      "coercion"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Theft Act",
+        "year": 1968,
+        "section": "Section 21",
+        "title": "Blackmail - Making unwarranted demands with menaces - Up to 14 years imprisonment"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "land_dispute_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "land dispute",
+      "property dispute",
+      "land",
+      "property",
+      "boundary",
+      "title deed",
+      "encroachment",
+      "easement",
+      "ownership",
+      "possession",
+      "real estate",
+      "landlord",
+      "tenant",
+      "eviction",
+      "lease",
+      "freehold",
+      "leasehold"
+    ],
+    "domains": ["civil"],
+    "statutes": [
+      {
+        "act": "Land Registration Act",
+        "year": 2002,
+        "section": "Section 58",
+        "title": "Boundary disputes - Determination of exact line of boundary between properties"
+      },
+      {
+        "act": "Law of Property Act",
+        "year": 1925,
+        "section": "Section 52",
+        "title": "Conveyances to be by deed - Requirements for valid transfer of land"
+      },
+      {
+        "act": "Limitation Act",
+        "year": 1980,
+        "section": "Section 15",
+        "title": "Time limit for actions to recover land - 12 years for adverse possession claims"
+      },
+      {
+        "act": "Housing Act",
+        "year": 1988,
+        "section": "Section 21",
+        "title": "Recovery of possession - Landlord's right to evict assured shorthold tenants"
+      },
+      {
+        "act": "Landlord and Tenant Act",
+        "year": 1985,
+        "section": "Section 11",
+        "title": "Repairing obligations - Landlord's duty to maintain structure and installations"
+      },
+      {
+        "act": "Party Wall Act",
+        "year": 1996,
+        "section": "Section 1",
+        "title": "Party wall rights - Rights and obligations regarding shared walls and boundaries"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "land_dispute_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "land dispute",
+      "property dispute",
+      "land",
+      "property",
+      "boundary",
+      "title deed",
+      "encroachment",
+      "ownership",
+      "possession",
+      "real estate",
+      "landlord",
+      "tenant",
+      "eviction",
+      "lease",
+      "ejari",
+      "rera"
+    ],
+    "domains": ["civil"],
+    "statutes": [
+      {
+        "act": "UAE Civil Code",
+        "year": 1985,
+        "section": "Article 1191",
+        "title": "Ownership rights - Right to use, exploit and dispose of property"
+      },
+      {
+        "act": "UAE Civil Code",
+        "year": 1985,
+        "section": "Article 1320",
+        "title": "Adverse possession - Acquisition of ownership through continuous possession"
+      },
+      {
+        "act": "UAE Civil Code",
+        "year": 1985,
+        "section": "Article 1340",
+        "title": "Boundary disputes - Resolution of disputes over property boundaries"
+      },
+      {
+        "act": "UAE Law No. 26",
+        "year": 2007,
+        "section": "Article 25",
+        "title": "Landlord-tenant relations - Rights and obligations in rental agreements"
+      },
+      {
+        "act": "UAE Law No. 26",
+        "year": 2007,
+        "section": "Article 26",
+        "title": "Eviction procedures - Legal process for evicting tenants"
+      },
+      {
+        "act": "Dubai Law No. 7",
+        "year": 2006,
+        "section": "Article 1",
+        "title": "Real estate registration - Requirements for property registration and title deeds"
+      },
+      {
+        "act": "UAE Federal Law No. 5",
+        "year": 1985,
+        "section": "Article 1235",
+        "title": "Encroachment - Liability for unlawful occupation or use of another's property"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
   }
 }

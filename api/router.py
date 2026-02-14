@@ -178,7 +178,7 @@ async def query_legal(request: QueryRequest):
         }
         
         # Enrich response with timeline, glossary, evidence_requirements
-        enriched = enrich_response(base_response, request.query, advice.domain, statutes)
+        enriched = enrich_response(base_response, request.query, advice.domain, statutes, advice.jurisdiction)
         
         # Apply enforcement decision using enforcement engine
         enforcement_signal = EnforcementSignal(

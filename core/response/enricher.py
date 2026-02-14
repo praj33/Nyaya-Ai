@@ -2,7 +2,7 @@ import re
 from typing import Dict, List, Any, Optional
 from procedures.loader import procedure_loader
 
-def enrich_response(base_response: Dict[str, Any], query_text: str, domain: str, statutes: List[Dict]) -> Dict[str, Any]:
+def enrich_response(base_response: Dict[str, Any], query_text: str, domain: str, statutes: List[Dict], jurisdiction: str = "IN") -> Dict[str, Any]:
     """Enrich response with enforcement_decision, timeline, glossary, and evidence_requirements"""
     
     # Set enforcement_decision if not present
@@ -11,7 +11,7 @@ def enrich_response(base_response: Dict[str, Any], query_text: str, domain: str,
     
     # Set timeline if not present
     if "timeline" not in base_response:
-        base_response["timeline"] = _get_timeline_defaults(domain)
+        base_response["timeline"] = _get_timeline_defaults(domain, jurisdiction)
     
     # Set glossary if not present
     if "glossary" not in base_response:
@@ -19,7 +19,7 @@ def enrich_response(base_response: Dict[str, Any], query_text: str, domain: str,
     
     # Set evidence_requirements if not present
     if "evidence_requirements" not in base_response:
-        base_response["evidence_requirements"] = _get_evidence_defaults(domain)
+        base_response["evidence_requirements"] = _get_evidence_defaults(domain, jurisdiction)
     
     return base_response
 
@@ -39,10 +39,18 @@ def _get_enforcement_decision(query_text: str) -> str:
     
     return "ALLOW"
 
-def _get_timeline_defaults(domain: str) -> List[Dict[str, str]]:
-    """Get default timeline based on domain"""
-    # Try to get from procedure loader first (assuming India as default)
-    procedure = procedure_loader.get_procedure("india", domain.lower())
+def _get_timeline_defaults(domain: str, jurisdiction: str = "IN") -> List[Dict[str, str]]:
+    """Get default timeline based on domain and jurisdiction"""
+    # Map jurisdiction codes to country names
+    jurisdiction_map = {'IN': 'india', 'UK': 'uk', 'UAE': 'uae', 'KSA': 'ksa'}
+    country = jurisdiction_map.get(jurisdiction, 'india').lower()
+    
+    # Map domain to procedure domain
+    domain_map = {'terrorism': 'criminal', 'consumer': 'consumer_commercial'}
+    procedure_domain = domain_map.get(domain.lower(), domain.lower())
+    
+    # Try to get from procedure loader
+    procedure = procedure_loader.get_procedure(country, procedure_domain)
     if procedure and "procedure" in procedure and "steps" in procedure["procedure"]:
         steps = procedure["procedure"]["steps"]
         timeline = []
@@ -73,10 +81,18 @@ def _get_glossary_defaults(statutes: List[Dict]) -> List[Dict[str, str]]:
     
     return glossary
 
-def _get_evidence_defaults(domain: str) -> List[str]:
-    """Get default evidence requirements based on domain"""
-    # Try to get from procedure loader first (assuming India as default)
-    procedure = procedure_loader.get_procedure("india", domain.lower())
+def _get_evidence_defaults(domain: str, jurisdiction: str = "IN") -> List[str]:
+    """Get default evidence requirements based on domain and jurisdiction"""
+    # Map jurisdiction codes to country names
+    jurisdiction_map = {'IN': 'india', 'UK': 'uk', 'UAE': 'uae', 'KSA': 'ksa'}
+    country = jurisdiction_map.get(jurisdiction, 'india').lower()
+    
+    # Map domain to procedure domain
+    domain_map = {'terrorism': 'criminal', 'consumer': 'consumer_commercial'}
+    procedure_domain = domain_map.get(domain.lower(), domain.lower())
+    
+    # Try to get from procedure loader
+    procedure = procedure_loader.get_procedure(country, procedure_domain)
     if procedure and "procedure" in procedure and "documents_required" in procedure["procedure"]:
         return procedure["procedure"]["documents_required"][:5]
     return []
