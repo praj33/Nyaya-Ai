@@ -297,6 +297,7 @@ class EnhancedLegalAdvisor:
             'UK': {
                 'theft': ['section_1_theft'],
                 'robbery': ['section_8_robbery'],
+                'murder': ['murder', 'homicide', 'killing'],  # Will trigger addon
                 'burglary': ['section_9_burglary'],
                 'fraud': ['section_1_fraud_by_false_representation', 'section_2_fraud_by_failure_to_disclose', 'section_3_fraud_by_abuse_of_position'],
                 'extortion': ['section_21_blackmail'],
@@ -324,6 +325,7 @@ class EnhancedLegalAdvisor:
             'UAE': {
                 'theft': ['theft_article_391', 'article_391', 'Article_391', '391'],
                 'robbery': ['robbery_article_392', 'article_392', 'Article_392', '392'],
+                'murder': ['murder', 'homicide', 'killing'],  # Will trigger addon
                 'assault': ['assault_article_333', 'article_333', 'Article_333', '333'],
                 'beating': ['assault_article_333', 'article_333', 'Article_333', '333'],
                 'domestic_violence': ['assault_article_333', 'article_333', 'Article_333', '333'],

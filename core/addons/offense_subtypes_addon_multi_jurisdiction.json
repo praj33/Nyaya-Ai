@@ -711,5 +711,315 @@
       }
     ],
     "enforcement_decision": "ALLOW"
+  },
+
+  "murder_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "murder",
+      "killed",
+      "murdered",
+      "homicide",
+      "killing",
+      "unlawful killing"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Homicide Act",
+        "year": 1957,
+        "section": "Section 1",
+        "title": "Murder - Unlawful killing with intent to kill or cause grievous bodily harm - Mandatory life imprisonment"
+      },
+      {
+        "act": "Coroners and Justice Act",
+        "year": 2009,
+        "section": "Section 54",
+        "title": "Loss of control - Partial defense to murder reducing to manslaughter"
+      },
+      {
+        "act": "Homicide Act",
+        "year": 1957,
+        "section": "Section 2",
+        "title": "Diminished responsibility - Partial defense to murder where mental functioning impaired"
+      },
+      {
+        "act": "Criminal Justice Act",
+        "year": 2003,
+        "section": "Schedule 21",
+        "title": "Murder sentencing - Minimum terms for life sentences (15-30 years or whole life)"
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "murder_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "murder",
+      "killed",
+      "murdered",
+      "homicide",
+      "killing",
+      "unlawful killing"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 332",
+        "title": "Murder - Intentional killing - Death penalty or life imprisonment"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 339",
+        "title": "Manslaughter - Unintentional killing - Imprisonment and/or blood money (diya)"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 340",
+        "title": "Causing death by negligence - Negligent act resulting in death - Imprisonment and/or fine"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 341",
+        "title": "Premeditated murder - Murder with planning and intent - Death penalty"
+      }
+    ],
+    "enforcement_decision": "ESCALATE"
+  },
+
+  "robbery_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "robbery",
+      "robbed",
+      "mugging",
+      "mugged",
+      "armed robbery",
+      "gunpoint",
+      "knifepoint"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "Theft Act",
+        "year": 1968,
+        "section": "Section 8",
+        "title": "Robbery - Theft with force or threat of force - Life imprisonment"
+      },
+      {
+        "act": "Theft Act",
+        "year": 1968,
+        "section": "Section 1",
+        "title": "Theft - Dishonestly appropriating property - Up to 7 years imprisonment"
+      },
+      {
+        "act": "Firearms Act",
+        "year": 1968,
+        "section": "Section 17",
+        "title": "Possession of firearm with intent to commit robbery - Minimum 5 years imprisonment"
+      },
+      {
+        "act": "Prevention of Crime Act",
+        "year": 1953,
+        "section": "Section 1",
+        "title": "Possession of offensive weapon - Up to 4 years imprisonment"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "robbery_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "robbery",
+      "robbed",
+      "mugging",
+      "mugged",
+      "armed robbery",
+      "gunpoint",
+      "knifepoint",
+      "theft with force"
+    ],
+    "domains": ["criminal"],
+    "statutes": [
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 383",
+        "title": "Robbery - Theft using force or threat - Imprisonment minimum 5 years"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 384",
+        "title": "Armed robbery - Robbery with weapon - Imprisonment minimum 7 years or life imprisonment"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 385",
+        "title": "Aggravated robbery - Robbery causing injury or death - Life imprisonment or death penalty"
+      },
+      {
+        "act": "UAE Penal Code",
+        "year": 1987,
+        "section": "Article 399",
+        "title": "Theft - Taking property without consent - Imprisonment and/or fine"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "commercial_india": {
+    "jurisdiction": "IN",
+    "keywords": [
+      "contract breach",
+      "business partner",
+      "company dispute",
+      "shareholder",
+      "partnership",
+      "commercial contract",
+      "business agreement"
+    ],
+    "domains": ["commercial", "civil"],
+    "statutes": [
+      {
+        "act": "Indian Contract Act",
+        "year": 1872,
+        "section": "73",
+        "title": "Compensation for breach of contract - Damages for loss or damage naturally arising"
+      },
+      {
+        "act": "Indian Contract Act",
+        "year": 1872,
+        "section": "74",
+        "title": "Compensation for breach of contract with penalty clause - Reasonable compensation"
+      },
+      {
+        "act": "Companies Act",
+        "year": 2013,
+        "section": "241",
+        "title": "Oppression and mismanagement - Application to Tribunal for relief"
+      },
+      {
+        "act": "Companies Act",
+        "year": 2013,
+        "section": "242",
+        "title": "Powers of Tribunal - Orders for oppression and mismanagement cases"
+      },
+      {
+        "act": "Partnership Act",
+        "year": 1932,
+        "section": "42",
+        "title": "Rights and duties of partners - Mutual rights and obligations"
+      },
+      {
+        "act": "Specific Relief Act",
+        "year": 1963,
+        "section": "10",
+        "title": "Specific performance of contracts - When granted"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "commercial_uk": {
+    "jurisdiction": "UK",
+    "keywords": [
+      "contract breach",
+      "business partner",
+      "company dispute",
+      "shareholder",
+      "partnership",
+      "commercial contract",
+      "business agreement"
+    ],
+    "domains": ["commercial", "civil"],
+    "statutes": [
+      {
+        "act": "Contract Law",
+        "year": 1979,
+        "section": "Common Law",
+        "title": "Breach of contract - Damages for loss arising from breach"
+      },
+      {
+        "act": "Sale of Goods Act",
+        "year": 1979,
+        "section": "Section 14",
+        "title": "Implied terms - Goods must be of satisfactory quality and fit for purpose"
+      },
+      {
+        "act": "Companies Act",
+        "year": 2006,
+        "section": "Section 994",
+        "title": "Unfair prejudice - Petition for relief from unfairly prejudicial conduct"
+      },
+      {
+        "act": "Companies Act",
+        "year": 2006,
+        "section": "Section 171",
+        "title": "Directors' duties - Duty to act within powers"
+      },
+      {
+        "act": "Partnership Act",
+        "year": 1890,
+        "section": "Section 24",
+        "title": "Partners' rights and duties - Rules for partnership relations"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
+  },
+
+  "commercial_uae": {
+    "jurisdiction": "UAE",
+    "keywords": [
+      "contract breach",
+      "business partner",
+      "company dispute",
+      "shareholder",
+      "partnership",
+      "commercial contract",
+      "business agreement"
+    ],
+    "domains": ["commercial", "civil"],
+    "statutes": [
+      {
+        "act": "UAE Civil Code",
+        "year": 1985,
+        "section": "Article 246",
+        "title": "Breach of contract - Compensation for damages resulting from breach"
+      },
+      {
+        "act": "UAE Civil Code",
+        "year": 1985,
+        "section": "Article 389",
+        "title": "Specific performance - Court may order performance of contractual obligations"
+      },
+      {
+        "act": "UAE Commercial Companies Law",
+        "year": 2015,
+        "section": "Article 318",
+        "title": "Shareholder disputes - Resolution of disputes between shareholders"
+      },
+      {
+        "act": "UAE Commercial Companies Law",
+        "year": 2015,
+        "section": "Article 194",
+        "title": "Directors' duties - Fiduciary duties and liability"
+      },
+      {
+        "act": "UAE Commercial Transactions Law",
+        "year": 1993,
+        "section": "Article 10",
+        "title": "Partnership - Rights and obligations of partners"
+      }
+    ],
+    "enforcement_decision": "ALLOW"
   }
 }
