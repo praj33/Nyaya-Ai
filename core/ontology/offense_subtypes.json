@@ -43,8 +43,9 @@
     ]
   },
   "child_sexual_offense": {
-    "keywords": ["pedophile", "child abuse", "minor sexual", "molested child", "sex with child"],
+    "keywords": ["pedophile", "paedophile", "child abuse", "minor sexual", "molested child", "sex with child", "raping child", "raping minor", "raping 10 year", "raping girl", "raping boy", "old man raping", "year old girl", "year old boy"],
     "domains": ["criminal"],
+    "jurisdiction": "IN",
     "statutes": [
       {
         "act": "Protection of Children from Sexual Offences Act",
@@ -116,7 +117,7 @@
     ]
   },
   "rape": {
-    "keywords": ["rape", "raped", "sexual assault", "forced sex", "non-consensual sex"],
+    "keywords": ["rape", "raped", "raping", "sexual assault", "forced sex", "non-consensual sex"],
     "exclude_keywords": ["gang", "group", "multiple men", "several men"],
     "domains": ["criminal"],
     "constitutional_articles": ["Article 21"],

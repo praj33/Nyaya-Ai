@@ -293,6 +293,14 @@ class EnhancedLegalAdvisor:
                 'juvenile_driving': ['70', '71', '72'],  # Underage driving
                 'suicide': ['305', '306', '309'],  # Abetment of suicide, attempt to suicide (IPC)
                 'abetment_suicide': ['305', '306'],  # Abetment of suicide
+                'breach_of_contract': ['73', '74'],  # Contract Act sections
+                'contract_dispute': ['73', '74'],
+                'partnership_dispute': ['1', '2', '3'],  # Partnership Act
+                'company_dispute': ['1', '2', '3'],  # Companies Act
+                'intellectual_property': ['1', '2', '3'],  # IP laws
+                'trademark': ['1', '2', '3'],
+                'copyright': ['1', '2', '3'],
+                'patent': ['1', '2', '3'],
             },
             'UK': {
                 'theft': ['section_1_theft'],
@@ -304,13 +312,22 @@ class EnhancedLegalAdvisor:
                 'blackmail': ['section_21_blackmail'],
                 'demanding': ['section_21_blackmail'],
                 'demanding_money': ['section_21_blackmail'],
+                'demanding_dowry': ['section_21_blackmail'],
+                'dowry': ['section_21_blackmail'],
                 'assault': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault'],
                 'beating': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault', 'section_47_actual_bodily_harm'],
                 'domestic_violence': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault', 'section_47_actual_bodily_harm'],
                 'violence': ['section_18_wounding_with_intent', 'section_20_malicious_wounding', 'section_39_common_assault'],
                 'rape': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault', 'section_4_causing_sexual_activity'],
+                'raped': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
+                'raping': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
                 'sexual_assault': ['section_1_rape', 'section_2_assault_by_penetration', 'section_3_sexual_assault'],
                 'sexual_harassment': ['section_3_sexual_assault'],
+                'pedophile': ['section_1_rape', 'section_5_rape_of_child_under_13', 'section_9_sexual_activity_with_child'],
+                'paedophile': ['section_1_rape', 'section_5_rape_of_child_under_13', 'section_9_sexual_activity_with_child'],
+                'child_abuse': ['section_5_rape_of_child_under_13', 'section_9_sexual_activity_with_child'],
+                'raping_child': ['section_5_rape_of_child_under_13', 'section_9_sexual_activity_with_child'],
+                'raping_minor': ['section_5_rape_of_child_under_13', 'section_9_sexual_activity_with_child'],
                 'drugs': ['section_4_production_and_supply', 'section_5_possession'],
                 'cybercrime': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent', 'section_3_unauthorised_modification'],
                 'hacking': ['section_1_unauthorised_access', 'section_2_unauthorised_access_with_intent'],
@@ -321,6 +338,14 @@ class EnhancedLegalAdvisor:
                 'terrorism': ['section_1_terrorism_act', 'section_11_membership', 'section_15_fundraising', 'section_5_preparation'],
                 'terrorist_attack': ['section_1_terrorism_act', 'section_5_preparation'],
                 'suicide': ['section_2_suicide_act'],
+                'breach_of_contract': ['section_1_contract_law'],
+                'contract_dispute': ['section_1_contract_law'],
+                'partnership_dispute': ['section_1_partnership_act'],
+                'company_dispute': ['section_1_companies_act'],
+                'intellectual_property': ['section_1_ip_law'],
+                'trademark': ['section_1_trademarks_act'],
+                'copyright': ['section_1_copyright_act'],
+                'patent': ['section_1_patents_act'],
             },
             'UAE': {
                 'theft': ['theft_article_391', 'article_391', 'Article_391', '391'],
@@ -333,10 +358,19 @@ class EnhancedLegalAdvisor:
                 'extortion': ['article_399', 'Article_399', '399'],
                 'demanding': ['article_399', 'Article_399', '399'],
                 'demanding_money': ['article_399', 'Article_399', '399'],
+                'demanding_dowry': ['article_399', 'Article_399', '399'],
+                'dowry': ['article_399', 'Article_399', '399'],
                 'defamation': ['defamation_article_372', 'article_372', 'Article_372', '372'],
                 'rape': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'raped': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'raping': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
                 'sexual_assault': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
                 'sexual_harassment': ['article_359', 'Article_359', '359'],
+                'pedophile': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'paedophile': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'child_abuse': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'raping_child': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
+                'raping_minor': ['article_354', 'article_355', 'article_356', 'Article_354', 'Article_355', 'Article_356', '354', '355', '356'],
                 'cybercrime': ['unauthorized_access_article_3', 'data_interference_article_4', 'cyber_fraud_article_6', 'article_3', 'article_4', 'article_6', 'Article_3', 'Article_4', 'Article_6'],
                 'hacking': ['unauthorized_access_article_3', 'data_interference_article_4', 'article_3', 'article_4', 'Article_3', 'Article_4'],
                 'drugs': ['possession_article_39', 'trafficking_article_40', 'article_39', 'article_40', 'Article_39', 'Article_40'],
@@ -346,6 +380,14 @@ class EnhancedLegalAdvisor:
                 'terrorism': ['article_1', 'article_2', 'Article_1', 'Article_2', '1', '2'],
                 'terrorist_attack': ['article_1', 'article_2', 'Article_1', 'Article_2', '1', '2'],
                 'suicide': ['article_340', 'Article_340', '340'],
+                'breach_of_contract': ['article_1', 'Article_1', '1'],
+                'contract_dispute': ['article_1', 'Article_1', '1'],
+                'partnership_dispute': ['article_1', 'Article_1', '1'],
+                'company_dispute': ['article_1', 'Article_1', '1'],
+                'intellectual_property': ['article_1', 'Article_1', '1'],
+                'trademark': ['article_1', 'Article_1', '1'],
+                'copyright': ['article_1', 'Article_1', '1'],
+                'patent': ['article_1', 'Article_1', '1'],
             }
         }
         return mappings
@@ -415,11 +457,12 @@ class EnhancedLegalAdvisor:
             return ['terrorism']
         
         # PRIORITY 3: Serious crimes (check before civil to avoid misclassification)
-        serious_crime_keywords = ['theft', 'murder', 'assault', 'rape', 'robbery', 'fraud', 'kidnapping',
+        serious_crime_keywords = ['theft', 'murder', 'assault', 'rape', 'raped', 'raping', 'robbery', 'fraud', 'kidnapping',
                                  'crime', 'criminal', 'police', 'fir', 'arrest', 'hack', 'cyber', 'phishing',
                                  'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
                                  'died', 'death', 'killed', 'harass', 'harassment', 'violence', 'attack',
-                                 'suicide', 'abetment', 'attempt to suicide']
+                                 'suicide', 'abetment', 'attempt to suicide', 'pedophile', 'paedophile',
+                                 'child abuse', 'minor sexual', 'molested child', 'sex with child']
         if any(keyword in query_lower for keyword in serious_crime_keywords):
             return ['criminal']
         
