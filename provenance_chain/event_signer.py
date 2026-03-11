@@ -16,13 +16,18 @@ class EventSigner:
 
         if self.signing_method == 'HMAC_SHA256':
             self.secret_key = os.getenv('HMAC_SECRET_KEY')
-            if not self.secret_key:
-                raise ValueError("HMAC_SECRET_KEY environment variable must be set")
         elif self.signing_method == 'ECDSA':
             # For ECDSA, would need private key, but keeping simple for now
             raise NotImplementedError("ECDSA signing not yet implemented")
         else:
             raise ValueError(f"Unsupported signing method: {self.signing_method}")
+
+    def _require_secret_key(self) -> str:
+        secret_key = self.secret_key or os.getenv('HMAC_SECRET_KEY')
+        if not secret_key:
+            raise ValueError("HMAC_SECRET_KEY environment variable must be set")
+        self.secret_key = secret_key
+        return secret_key
 
     def sign_event(self, event_dict: Dict[str, Any]) -> Dict[str, Any]:
         """Sign an event dictionary and return signed event structure."""
@@ -30,8 +35,9 @@ class EventSigner:
         canonical_json = json.dumps(event_dict, sort_keys=True, separators=(',', ':'))
 
         if self.signing_method == 'HMAC_SHA256':
+            secret_key = self._require_secret_key()
             signature = hmac.new(
-                self.secret_key.encode(),
+                secret_key.encode(),
                 canonical_json.encode(),
                 hashlib.sha256
             ).digest()
@@ -55,8 +61,9 @@ class EventSigner:
         canonical_json = json.dumps(event, sort_keys=True, separators=(',', ':'))
 
         if self.signing_method == 'HMAC_SHA256':
+            secret_key = self._require_secret_key()
             expected_signature = hmac.new(
-                self.secret_key.encode(),
+                secret_key.encode(),
                 canonical_json.encode(),
                 hashlib.sha256
             ).digest()
