@@ -1,7 +1,16 @@
 import sys
 import os
+from pathlib import Path
 sys.path.append('.')
 sys.path.append('..')
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
+
+if load_dotenv:
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware

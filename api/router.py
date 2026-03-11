@@ -28,6 +28,7 @@ from api.schemas import (
 
 # Import response enricher
 from core.response.enricher import enrich_response
+from core.llm import groq_response_generator
 
 # Import enforcement engine
 from enforcement_engine.engine import SovereignEnforcementEngine
@@ -193,6 +194,22 @@ async def query_legal(request: QueryRequest):
         )
         enforcement_result = enforcement_engine.make_enforcement_decision(enforcement_signal)
         enriched['enforcement_decision'] = enforcement_result.decision.value
+        answer_payload = groq_response_generator.generate_answer(
+            query=request.query,
+            jurisdiction=advice.jurisdiction,
+            domain=advice.domain,
+            statutes=statutes,
+            case_laws=case_laws,
+            procedural_steps=advice.procedural_steps,
+            remedies=advice.remedies,
+            timeline=enriched.get("timeline", []),
+            evidence_requirements=enriched.get("evidence_requirements", []),
+            enforcement_decision=enforcement_result.decision.value,
+            legal_analysis=legal_analysis,
+        )
+        enriched["answer"] = answer_payload["text"]
+        enriched["answer_source"] = answer_payload["source"]
+        enriched["answer_model"] = answer_payload["model"]
         
         return NyayaResponse(**enriched)
         

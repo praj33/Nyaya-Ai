@@ -96,6 +96,9 @@ class NyayaResponse(BaseModel):
     timeline: List[Dict[str, str]] = []
     glossary: List[Dict[str, str]] = []
     evidence_requirements: List[str] = []
+    answer: Optional[str] = None
+    answer_source: Optional[str] = None
+    answer_model: Optional[str] = None
 
 class MultiJurisdictionResponse(BaseModel):
     comparative_analysis: Dict[str, NyayaResponse]
