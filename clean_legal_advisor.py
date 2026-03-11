@@ -998,6 +998,13 @@ class EnhancedLegalAdvisor:
         """Generate comprehensive available remedies"""
         remedies = []
         query_lower = query.lower()
+        section_text = " ".join(section.text.lower() for section in sections)
+        act_text = " ".join((section.act_id or "").lower() for section in sections)
+
+        def add_remedies(*items: str):
+            for item in items:
+                if item and item not in remedies:
+                    remedies.append(item)
         
         # Check for specific offense types
         is_sexual_offence = any('375' in s.section_number or '376' in s.section_number or 
@@ -1006,10 +1013,19 @@ class EnhancedLegalAdvisor:
         
         is_serious_crime = any(word in s.text.lower() for s in sections 
                               for word in ['murder', 'homicide', 'terrorism', 'trafficking'])
+        is_theft = any(word in query_lower or word in section_text for word in ['theft', 'stolen', 'steal', 'robbery', 'snatching', 'chain snatching'])
+        is_assault = any(word in query_lower or word in section_text for word in ['assault', 'hurt', 'grievous hurt', 'beating', 'attack', 'violence'])
+        is_cyber = any(word in query_lower or word in section_text or word in act_text for word in ['cyber', 'hacking', 'phishing', 'identity theft', 'data breach', 'it_act'])
+        is_traffic = any(word in query_lower or word in section_text or word in act_text for word in ['accident', 'drunk driving', 'traffic', 'vehicle', 'rash driving', 'motor_vehicles'])
+        is_property = any(word in query_lower or word in section_text or word in act_text for word in ['property', 'tenant', 'landlord', 'eviction', 'boundary', 'title', 'encroachment', 'land'])
+        is_salary = any(word in query_lower or word in section_text or word in act_text for word in ['salary', 'wages', 'termination', 'gratuity', 'pf', 'provident fund', 'employee', 'employer', 'labour'])
+        is_consumer = any(word in query_lower or word in section_text or word in act_text for word in ['consumer', 'defective', 'refund', 'warranty', 'replacement', 'deficiency'])
+        is_medical = any(word in query_lower or word in section_text for word in ['medical negligence', 'doctor', 'hospital', 'malpractice', 'treatment'])
+        is_domestic = any(word in query_lower or word in section_text for word in ['domestic violence', 'dowry', '498a', 'cruelty', 'husband', 'wife', 'protection order'])
         
         if is_sexual_offence:
             if jurisdiction == 'IN':
-                remedies = [
+                add_remedies(
                     "Criminal prosecution with rigorous imprisonment (minimum 7 years, may extend to life)",
                     "Compensation under Section 357A CrPC (up to Rs.10 lakhs)",
                     "Free legal aid under Legal Services Authorities Act",
@@ -1017,40 +1033,85 @@ class EnhancedLegalAdvisor:
                     "Medical treatment at government expense",
                     "Shelter and rehabilitation services",
                     "24/7 helpline support (1091 Women Helpline)"
-                ]
+                )
             elif jurisdiction == 'UK':
-                remedies = [
+                add_remedies(
                     "Criminal prosecution with life imprisonment possible",
                     "Criminal Injuries Compensation Authority (CICA) claim",
                     "Special measures for vulnerable witnesses",
                     "Restraining orders and protection",
                     "NHS counseling and medical support"
-                ]
+                )
             elif jurisdiction == 'UAE':
-                remedies = [
+                add_remedies(
                     "Criminal prosecution with severe penalties",
                     "Diya (blood money) compensation",
                     "Court-ordered compensation",
                     "Protection orders",
                     "Medical and psychological support"
-                ]
+                )
         
         elif is_serious_crime:
             if jurisdiction == 'IN':
-                remedies = [
+                add_remedies(
                     "Criminal prosecution with life imprisonment/death penalty",
                     "Victim compensation under CrPC",
                     "Free legal aid",
                     "Witness protection",
                     "Appeal to higher courts"
-                ]
+                )
             else:
-                remedies = [
+                add_remedies(
                     "Criminal prosecution with maximum penalties",
                     "Victim compensation schemes",
                     "Legal aid and support",
                     "Protection measures"
-                ]
+                )
+        
+        elif jurisdiction == 'IN' and is_domestic:
+            add_remedies(
+                "Criminal prosecution under applicable cruelty, dowry, assault, or intimidation provisions",
+                "Protection orders, residence orders, and monetary relief under the Domestic Violence Act",
+                "Maintenance and interim financial support where applicable",
+                "Compensation for physical, emotional, and economic abuse",
+                "Shelter access, police protection, and free legal aid"
+            )
+        
+        elif jurisdiction == 'IN' and is_theft:
+            add_remedies(
+                "Criminal prosecution for theft, robbery, or related offences with imprisonment/fine as applicable",
+                "Recovery or return of stolen property through police investigation and court process",
+                "Victim compensation or restitution for financial loss where supported by the record",
+                "Seizure, preservation, and release of recovered property by court order",
+                "Free legal aid and victim support services if eligible"
+            )
+        
+        elif jurisdiction == 'IN' and is_cyber:
+            add_remedies(
+                "Criminal prosecution under applicable IT Act, BNS, or IPC provisions",
+                "Complaint before cybercrime police/cell and urgent preservation of digital evidence",
+                "Freezing of bank accounts, wallets, SIMs, or devices used in the fraud where traceable",
+                "Recovery, restitution, or compensation for financial loss where possible",
+                "Platform, bank, or intermediary escalation to block further unauthorized activity"
+            )
+        
+        elif jurisdiction == 'IN' and is_traffic:
+            add_remedies(
+                "Criminal prosecution for rash, negligent, dangerous, or intoxicated driving",
+                "Motor accident compensation claim for injury, disability, death, or property loss",
+                "Insurance claim for vehicle damage, treatment costs, and related losses",
+                "Interim or final compensation for medical expenses and loss of income",
+                "Compounding of minor traffic violations where legally permitted"
+            )
+        
+        elif jurisdiction == 'IN' and is_assault:
+            add_remedies(
+                "Criminal prosecution for hurt, grievous hurt, intimidation, or related violent offences",
+                "Immediate medical examination and injury documentation for prosecution and compensation",
+                "Victim compensation under Section 357A CrPC where applicable",
+                "Protection measures or police assistance if there is ongoing threat or intimidation",
+                "Free legal aid and witness protection in serious cases"
+            )
         
         else:
             # Extract remedies from section metadata
@@ -1059,80 +1120,126 @@ class EnhancedLegalAdvisor:
                     if 'civil_remedies' in section.metadata:
                         section_remedies = section.metadata['civil_remedies']
                         if isinstance(section_remedies, list):
-                            remedies.extend([f"Legal: {remedy}" for remedy in section_remedies])
+                            add_remedies(*[f"Legal: {remedy}" for remedy in section_remedies])
                         else:
-                            remedies.append(f"Legal: {section_remedies}")
+                            add_remedies(f"Legal: {section_remedies}")
                     
                     if 'punishment' in section.metadata:
-                        remedies.append(f"Criminal: {section.metadata['punishment']}")
+                        add_remedies(f"Criminal: {section.metadata['punishment']}")
             
             # Default remedies by domain if none found
             if not remedies:
                 if domain == 'criminal':
                     if jurisdiction == 'IN':
-                        remedies = [
+                        add_remedies(
                             "Criminal prosecution and imprisonment/fine as per law",
-                            "Compensation under Section 357A CrPC",
-                            "Legal aid if eligible"
-                        ]
+                            "Victim compensation under Section 357A CrPC where applicable",
+                            "Police investigation, seizure of evidence, and charge sheet/trial process",
+                            "Bail objections or protective conditions in appropriate cases",
+                            "Legal aid and victim support if eligible"
+                        )
                     elif jurisdiction == 'UK':
-                        remedies = [
+                        add_remedies(
                             "Criminal prosecution and sentencing",
                             "Criminal Injuries Compensation",
-                            "Legal aid if eligible"
-                        ]
+                            "Protective measures and legal aid if eligible"
+                        )
                     elif jurisdiction == 'UAE':
-                        remedies = [
+                        add_remedies(
                             "Criminal prosecution and penalties",
                             "Court-ordered compensation",
-                            "Legal representation"
-                        ]
+                            "Legal representation and protective orders where available"
+                        )
                 
                 elif domain == 'civil':
-                    remedies = [
-                        "Monetary damages and compensation",
-                        "Specific performance of contract",
-                        "Injunctive relief",
-                        "Restitution and restoration"
-                    ]
+                    if is_property:
+                        add_remedies(
+                            "Declaration of title, legal rights, or share in the property",
+                            "Temporary or permanent injunction against dispossession, interference, or transfer",
+                            "Recovery of possession, partition, demarcation, or mesne profits as applicable",
+                            "Cancellation, rectification, or specific performance of property documents",
+                            "Compensation for wrongful occupation, damage, or breach of property obligations"
+                        )
+                    elif is_medical:
+                        add_remedies(
+                            "Compensation for medical negligence, treatment costs, disability, or death",
+                            "Consumer complaint for deficiency in medical service where maintainable",
+                            "Professional disciplinary complaint before the medical regulator",
+                            "Civil damages for pain, suffering, and loss of income",
+                            "Criminal complaint in cases of gross negligence if supported by facts"
+                        )
+                    else:
+                        add_remedies(
+                            "Monetary damages and compensation",
+                            "Specific performance of contract or legal obligation",
+                            "Temporary or permanent injunctive relief",
+                            "Restitution, restoration, or cancellation of offending acts/documents",
+                            "Declaratory relief clarifying rights and liabilities"
+                        )
                 
                 elif domain == 'family':
                     if jurisdiction == 'IN':
                         # Check if it's a divorce query
                         if any(word in query_lower for word in ['divorce', 'separation']):
-                            remedies = [
+                            add_remedies(
                                 "Divorce decree under Hindu Marriage Act Section 13",
                                 "Child custody and visitation rights under Section 26",
                                 "Maintenance and alimony under Sections 25 & 27",
                                 "Property settlement and division",
                                 "Protection orders if domestic violence involved",
                                 "One-time permanent alimony or monthly maintenance"
-                            ]
+                            )
                         else:
-                            remedies = [
+                            add_remedies(
                                 "Child custody and visitation rights",
                                 "Maintenance and alimony",
                                 "Property settlement",
                                 "Protection orders if needed"
-                            ]
+                            )
                     else:
-                        remedies = [
+                        add_remedies(
                             "Child arrangements orders",
                             "Financial settlements",
                             "Property division",
                             "Non-molestation orders"
-                        ]
+                        )
                 
                 elif domain == 'commercial':
-                    remedies = [
-                        "Breach of contract damages",
-                        "Specific performance",
-                        "Injunctive relief",
-                        "Rescission and restitution",
-                        "Account of profits"
-                    ]
+                    if is_salary:
+                        add_remedies(
+                            "Recovery of unpaid salary, wages, bonus, gratuity, or other service dues",
+                            "Complaint before labour authority, labour commissioner, or competent employment forum",
+                            "Reinstatement, back wages, or compensation for wrongful termination where applicable",
+                            "Provident fund, gratuity, and statutory benefit recovery",
+                            "Conciliation, settlement, or adjudication of the employment dispute"
+                        )
+                    elif is_consumer:
+                        add_remedies(
+                            "Refund, replacement, repair, or removal of defects in goods/services",
+                            "Compensation for deficiency in service, unfair trade practice, or consequential loss",
+                            "Consumer complaint before the appropriate commission/forum",
+                            "Litigation costs and interest on the consumer claim",
+                            "Directions to discontinue misleading or unsafe practices"
+                        )
+                    else:
+                        add_remedies(
+                            "Breach of contract damages",
+                            "Specific performance",
+                            "Injunctive relief",
+                            "Rescission and restitution",
+                            "Account of profits"
+                        )
+
+                elif domain == 'consumer':
+                    add_remedies(
+                        "Refund, replacement, repair, or removal of defects in goods/services",
+                        "Compensation for deficiency in service, overcharging, or unfair trade practice",
+                        "Consumer complaint before the appropriate commission/forum",
+                        "Interest, litigation costs, and corrective directions against the seller/service provider",
+                        "Product recall, discontinuance, or other compliance directions where justified"
+                    )
         
-        return remedies[:8]  # Limit to top 8 remedies
+        return remedies[:10]
     
     def _log_enforcement_event(self, event_type: str, trace_id: str, details: Dict[str, Any]):
         """Log enforcement event to ledger"""

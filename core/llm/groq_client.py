@@ -255,7 +255,11 @@ class GroqResponseGenerator:
             parts.append("Evidence/documents: " + ", ".join(evidence_requirements[:4]) + ".")
 
         if remedies:
-            parts.append("Possible remedies: " + "; ".join(remedies[:3]) + ".")
+            visible_remedies = remedies[:5]
+            remedies_text = "; ".join(visible_remedies)
+            if len(remedies) > 5:
+                remedies_text += f"; and {len(remedies) - 5} more"
+            parts.append("Possible remedies: " + remedies_text + ".")
 
         if case_laws:
             first_case = case_laws[0]
