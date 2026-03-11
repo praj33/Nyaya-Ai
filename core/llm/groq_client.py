@@ -40,6 +40,8 @@ class GroqResponseGenerator:
         evidence_requirements: List[str],
         enforcement_decision: str,
         legal_analysis: str,
+        query_understanding: Optional[Dict[str, Any]] = None,
+        retrieval_metadata: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Optional[str]]:
         """Return a Groq answer when configured, else a deterministic local answer."""
         fallback_answer = self._build_local_answer(
@@ -54,6 +56,8 @@ class GroqResponseGenerator:
             evidence_requirements=evidence_requirements,
             enforcement_decision=enforcement_decision,
             legal_analysis=legal_analysis,
+            query_understanding=query_understanding,
+            retrieval_metadata=retrieval_metadata,
         )
 
         if not self.enabled or not self.api_key:
@@ -76,6 +80,8 @@ class GroqResponseGenerator:
                 evidence_requirements=evidence_requirements,
                 enforcement_decision=enforcement_decision,
                 legal_analysis=legal_analysis,
+                query_understanding=query_understanding,
+                retrieval_metadata=retrieval_metadata,
             )
             payload = json.dumps(
                 {
@@ -141,6 +147,8 @@ class GroqResponseGenerator:
         evidence_requirements: List[str],
         enforcement_decision: str,
         legal_analysis: str,
+        query_understanding: Optional[Dict[str, Any]],
+        retrieval_metadata: Optional[Dict[str, Any]],
     ) -> str:
         statute_lines = []
         for statute in statutes[:5]:
@@ -176,6 +184,9 @@ class GroqResponseGenerator:
                 f"Jurisdiction: {jurisdiction}",
                 f"Domain: {domain}",
                 f"Enforcement decision: {enforcement_decision}",
+                f"Query understanding: {(query_understanding or {}).get('summary', 'None')}",
+                f"User intent: {(query_understanding or {}).get('intent', 'general')}",
+                f"Search terms used: {(retrieval_metadata or {}).get('search_queries', [])}",
                 "",
                 "Retrieved statutes:",
                 "\n".join(statute_lines) if statute_lines else "- None retrieved",
@@ -214,11 +225,16 @@ class GroqResponseGenerator:
         evidence_requirements: List[str],
         enforcement_decision: str,
         legal_analysis: str,
+        query_understanding: Optional[Dict[str, Any]],
+        retrieval_metadata: Optional[Dict[str, Any]],
     ) -> str:
         parts = [
             f"Query: {query}",
             f"Jurisdiction: {jurisdiction}. Domain: {domain}. Enforcement: {enforcement_decision}.",
         ]
+
+        if query_understanding and query_understanding.get("summary"):
+            parts.append(f"Understood request as: {query_understanding['summary']}.")
 
         if statutes:
             statute_summaries = []
@@ -250,6 +266,13 @@ class GroqResponseGenerator:
 
         if legal_analysis:
             parts.append("Retrieved analysis: " + legal_analysis.splitlines()[0])
+        elif retrieval_metadata and retrieval_metadata.get("search_queries"):
+            parts.append(
+                "Search basis: " + ", ".join(retrieval_metadata["search_queries"][:3]) + "."
+            )
+
+        if not statutes:
+            parts.append("No exact statutes were retrieved from the DB for this query, so the response is generic guidance based on the matched legal context.")
 
         return " ".join(parts)
 

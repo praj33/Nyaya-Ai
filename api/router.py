@@ -163,6 +163,8 @@ async def query_legal(request: QueryRequest):
                 "remedies": advice.remedies,
                 "sections_found": sections_found,
                 "case_laws_found": len(case_laws),
+                "query_understanding": getattr(advice, "query_understanding", {}),
+                "retrieval_metadata": getattr(advice, "retrieval_metadata", {}),
                 "jurisdiction_detection": {
                     "detected": jurisdiction_result.jurisdiction,
                     "confidence": jurisdiction_result.confidence,
@@ -206,6 +208,8 @@ async def query_legal(request: QueryRequest):
             evidence_requirements=enriched.get("evidence_requirements", []),
             enforcement_decision=enforcement_result.decision.value,
             legal_analysis=legal_analysis,
+            query_understanding=getattr(advice, "query_understanding", {}),
+            retrieval_metadata=getattr(advice, "retrieval_metadata", {}),
         )
         enriched["answer"] = answer_payload["text"]
         enriched["answer_source"] = answer_payload["source"]

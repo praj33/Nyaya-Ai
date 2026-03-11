@@ -16,6 +16,7 @@ from events.event_types import EventType
 from core.ontology.ontology_filter import OntologyFilter
 from core.addons.addon_subtype_resolver import AddonSubtypeResolver
 from core.addons.dowry_precision_layer import DowryPrecisionLayer
+from core.llm import groq_retrieval_augmentor
 from procedures.loader import procedure_loader
 
 # Try to import semantic search (optional)
@@ -147,6 +148,8 @@ class LegalAdvice:
     evidence_requirements: List[str] = field(default_factory=list)
     enforcement_decision: str = "ALLOW"
     ontology_filtered: bool = False
+    query_understanding: Dict[str, Any] = field(default_factory=dict)
+    retrieval_metadata: Dict[str, Any] = field(default_factory=dict)
 
 class EnhancedLegalAdvisor:
     def __init__(self):
@@ -167,6 +170,7 @@ class EnhancedLegalAdvisor:
         self.ontology_filter = OntologyFilter()
         self.addon_resolver = AddonSubtypeResolver()
         self.dowry_precision = DowryPrecisionLayer()
+        self.groq_retrieval_augmentor = groq_retrieval_augmentor
         
         # Create comprehensive searchable indexes
         self.section_index = self._build_section_index()
@@ -533,130 +537,187 @@ class EnhancedLegalAdvisor:
         # DEFAULT: Civil (safest fallback)
         return ['civil']
     
-    def _search_relevant_sections(self, query: str, jurisdiction: str, domain: str) -> List[Section]:
-        """Enhanced section search with BM25 ranking and act filtering"""
-        
-        # Get allowed act_ids from ontology
-        allowed_act_ids = self.ontology_filter.get_allowed_act_ids(domain)
-        
+    def _build_augmented_search_context(self, query: str, understanding: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        understanding = understanding or {}
+
+        search_queries = [query.strip()]
+        for variant in understanding.get("search_queries", []):
+            if isinstance(variant, str) and variant.strip():
+                normalized = " ".join(variant.split())
+                if normalized and normalized.lower() not in {q.lower() for q in search_queries}:
+                    search_queries.append(normalized)
+
+        query_terms = {word.lower() for word in query.split() if len(word) > 2}
+        for keyword in understanding.get("keywords", []):
+            if isinstance(keyword, str) and len(keyword.strip()) > 2:
+                query_terms.add(keyword.strip().lower())
+        for act_hint in understanding.get("act_hints", []):
+            if isinstance(act_hint, str):
+                for token in act_hint.replace("_", " ").split():
+                    if len(token) > 2:
+                        query_terms.add(token.lower())
+
+        section_hints = {
+            str(value).strip().lower()
+            for value in understanding.get("section_hints", [])
+            if str(value).strip()
+        }
+        act_hints = [
+            str(value).strip().lower()
+            for value in understanding.get("act_hints", [])
+            if str(value).strip()
+        ]
+
+        return {
+            "search_queries": search_queries[:5],
+            "query_terms": query_terms,
+            "section_hints": section_hints,
+            "act_hints": act_hints,
+            "matching_text": " ".join(search_queries).lower(),
+        }
+
+    def _search_relevant_sections(
+        self,
+        query: str,
+        jurisdiction: str,
+        domain: str,
+        understanding: Optional[Dict[str, Any]] = None,
+    ) -> tuple[List[Section], Dict[str, Any]]:
+        """Enhanced section search with optional Groq query understanding and reranking."""
+
+        understanding = understanding or {}
+        search_context = self._build_augmented_search_context(query, understanding)
+
         matched_sections = []
-        query_lower = query.lower()
-        
-        # Strategy 1: PRIORITIZE crime mappings (highest priority)
+        query_lower = search_context["matching_text"]
+        query_words = search_context["query_terms"]
+        section_hints = search_context["section_hints"]
+        act_hints = search_context["act_hints"]
+
+        retrieval_metadata = {
+            "search_queries": search_context["search_queries"],
+            "understanding_source": understanding.get("source", "none"),
+            "understanding_model": understanding.get("model"),
+        }
+
+        if section_hints:
+            for section in self.jurisdiction_sections.get(jurisdiction, []):
+                section_number = section.section_number.lower()
+                if any(hint == section_number or hint in section_number for hint in section_hints):
+                    score = 220
+                    if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
+                        score += 20
+                    matched_sections.append((section, score))
+
         crime_mapping_triggered = False
         if jurisdiction in self.crime_mappings:
             for crime, section_numbers in self.crime_mappings[jurisdiction].items():
                 crime_words = crime.split('_')
                 match_found = False
-                
-                # Exact crime match
+
                 if crime in query_lower:
                     match_found = True
-                
-                # Check if any crime word is in query
+
                 if not match_found:
                     for crime_word in crime_words:
                         if crime_word in query_lower:
                             match_found = True
                             break
-                
-                # Fuzzy match
+
                 if not match_found:
                     for query_word in query_lower.split():
                         if len(query_word) > 3:
                             for crime_word in crime_words:
-                                if len(crime_word) > 3:
-                                    if query_word[:4] == crime_word[:4]:
-                                        match_found = True
-                                        break
+                                if len(crime_word) > 3 and query_word[:4] == crime_word[:4]:
+                                    match_found = True
+                                    break
                         if match_found:
                             break
-                
+
                 if match_found:
                     crime_mapping_triggered = True
                     for section in self.sections:
-                        if section.jurisdiction.value == jurisdiction:
-                            # Flexible matching: check if section_number contains any of the mapped numbers
-                            # or if any mapped number is in the section_number
-                            section_matches = any(
-                                mapped_num in section.section_number or section.section_number in mapped_num
-                                for mapped_num in section_numbers
-                            )
-                            if section_matches:
-                                # TEMPORARY: Skip BNS sections for accidents until database is fixed
-                                if crime in ['accident', 'bike_accident', 'car_accident', 'road_accident', 'vehicle_accident', 
-                                       'drunk_driving', 'rash_driving', 'negligent_driving'] and 'bns' in section.act_id.lower():
-                                    continue
-                                
-                                # Give VERY HIGH priority to crime mapping matches
-                                if crime in ['terrorism', 'terrorist_attack']:
-                                    if section.section_number == '113' and 'bns' in section.act_id.lower():
-                                        matched_sections.append((section, 200))  # Highest priority
-                                    elif section.section_number == '66F' and 'it_act' in section.act_id.lower():
-                                        matched_sections.append((section, 195))
-                                    else:
-                                        matched_sections.append((section, 180))
-                                elif crime in ['rape', 'sexual_assault', 'sexual_harassment']:
-                                    matched_sections.append((section, 190))  # Very high for sexual offences
-                                elif crime in ['cybercrime', 'hacking', 'identity_theft', 'cyber_terrorism']:
-                                    if 'it_act' in section.act_id.lower():
-                                        matched_sections.append((section, 180))
-                                    else:
-                                        matched_sections.append((section, 100))
-                                else:
-                                    matched_sections.append((section, 150))  # High priority for all crime mappings
-        
-        # Strategy 2: Use BM25 only if crime mapping didn't trigger OR as supplementary
-        bm25_results = self.bm25_search.search(query, jurisdiction, top_k=50)
-        for section, score in bm25_results:
-            # Exclude defense/procedural sections (but allow CPC for civil domain)
-            exclude_titles = ['accident in doing', 'lawful act', 'repeal', 'savings']
-            if domain != 'civil':
-                exclude_titles.extend(['commencement', 'short title', 'definitions', 'extent', 'application'])
-            
-            if any(keyword in section.text.lower()[:80] for keyword in exclude_titles):
-                continue
-            
-            # Lower priority for BM25 results
-            matched_sections.append((section, score * 5 if not crime_mapping_triggered else score * 2))
-        
-        # Special handling for family law queries
-        query_words = set(word.lower() for word in query.split() if len(word) > 2)
+                        if section.jurisdiction.value != jurisdiction:
+                            continue
+                        section_matches = any(
+                            mapped_num in section.section_number or section.section_number in mapped_num
+                            for mapped_num in section_numbers
+                        )
+                        if not section_matches:
+                            continue
+                        if crime in ['accident', 'bike_accident', 'car_accident', 'road_accident', 'vehicle_accident',
+                                     'drunk_driving', 'rash_driving', 'negligent_driving'] and 'bns' in section.act_id.lower():
+                            continue
+                        if crime in ['terrorism', 'terrorist_attack']:
+                            if section.section_number == '113' and 'bns' in section.act_id.lower():
+                                matched_sections.append((section, 200))
+                            elif section.section_number == '66F' and 'it_act' in section.act_id.lower():
+                                matched_sections.append((section, 195))
+                            else:
+                                matched_sections.append((section, 180))
+                        elif crime in ['rape', 'sexual_assault', 'sexual_harassment']:
+                            matched_sections.append((section, 190))
+                        elif crime in ['cybercrime', 'hacking', 'identity_theft', 'cyber_terrorism']:
+                            if 'it_act' in section.act_id.lower():
+                                matched_sections.append((section, 180))
+                            else:
+                                matched_sections.append((section, 100))
+                        else:
+                            matched_sections.append((section, 150))
+
+        bm25_scores = {}
+        for index, search_query in enumerate(search_context["search_queries"]):
+            weight = 1.0 if index == 0 else 0.7
+            bm25_results = self.bm25_search.search(search_query, jurisdiction, top_k=50)
+            for section, score in bm25_results:
+                exclude_titles = ['accident in doing', 'lawful act', 'repeal', 'savings']
+                if domain != 'civil':
+                    exclude_titles.extend(['commencement', 'short title', 'definitions', 'extent', 'application'])
+                if any(keyword in section.text.lower()[:80] for keyword in exclude_titles):
+                    continue
+
+                scaled_score = score * weight * (5 if not crime_mapping_triggered else 2)
+                if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
+                    scaled_score *= 1.2
+
+                if section.section_id not in bm25_scores or scaled_score > bm25_scores[section.section_id][1]:
+                    bm25_scores[section.section_id] = (section, scaled_score)
+
+        retrieval_metadata["bm25_queries_run"] = len(search_context["search_queries"])
+        matched_sections.extend(bm25_scores.values())
+
         for word in query_words:
             if word in self.section_index:
                 for section in self.section_index[word]:
-                    if section.jurisdiction.value == jurisdiction:
-                        # Calculate relevance score
-                        score = 0
-                        section_text_lower = section.text.lower()
-                        
-                        # Exact word matches
-                        for query_word in query_words:
-                            if query_word in section_text_lower:
-                                score += 5
-                        
-                        # Partial matches
-                        for query_word in query_words:
-                            if any(query_word in word for word in section_text_lower.split()):
-                                score += 2
-                        
-                        # Domain relevance boost
-                        domain_keywords = {
-                            'criminal': ['offence', 'punishment', 'imprisonment', 'fine', 'criminal'],
-                            'civil': ['damages', 'compensation', 'liability', 'breach', 'contract'],
-                            'family': ['marriage', 'divorce', 'custody', 'family', 'matrimonial'],
-                            'commercial': ['company', 'business', 'commercial', 'trade', 'corporate']
-                        }
-                        
-                        if domain in domain_keywords:
-                            for domain_word in domain_keywords[domain]:
-                                if domain_word in section_text_lower:
-                                    score += 3
-                        
-                        if score > 0:
-                            matched_sections.append((section, score))
-        
-        # Strategy 3: Metadata matching
+                    if section.jurisdiction.value != jurisdiction:
+                        continue
+                    score = 0
+                    section_text_lower = section.text.lower()
+                    for query_word in query_words:
+                        if query_word in section_text_lower:
+                            score += 5
+                    for query_word in query_words:
+                        if any(query_word in token for token in section_text_lower.split()):
+                            score += 2
+
+                    domain_keywords = {
+                        'criminal': ['offence', 'punishment', 'imprisonment', 'fine', 'criminal'],
+                        'civil': ['damages', 'compensation', 'liability', 'breach', 'contract'],
+                        'family': ['marriage', 'divorce', 'custody', 'family', 'matrimonial'],
+                        'commercial': ['company', 'business', 'commercial', 'trade', 'corporate']
+                    }
+
+                    if domain in domain_keywords:
+                        for domain_word in domain_keywords[domain]:
+                            if domain_word in section_text_lower:
+                                score += 3
+
+                    if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
+                        score += 10
+
+                    if score > 0:
+                        matched_sections.append((section, score))
+
         for section in self.jurisdiction_sections.get(jurisdiction, []):
             if hasattr(section, 'metadata') and section.metadata:
                 metadata_text = str(section.metadata).lower()
@@ -664,31 +725,20 @@ class EnhancedLegalAdvisor:
                 for word in query_words:
                     if word in metadata_text:
                         score += 4
-                
+                if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
+                    score += 6
                 if score > 0:
                     matched_sections.append((section, score))
-        
-        # Remove duplicates and sort by relevance
+
         unique_sections = {}
         for section, score in matched_sections:
-            # Skip sections with very low scores
             if score < 2:
                 continue
-            
-            if section.section_id not in unique_sections:
+            if section.section_id not in unique_sections or score > unique_sections[section.section_id][1]:
                 unique_sections[section.section_id] = (section, score)
-            else:
-                # Keep higher score
-                if score > unique_sections[section.section_id][1]:
-                    unique_sections[section.section_id] = (section, score)
-        
-        # Sort by relevance
-        sorted_sections = sorted(unique_sections.values(), key=lambda x: x[1], reverse=True)
-        
-        # Smart act-based filtering - Route queries to specific acts based on keywords
-        query_lower = query.lower()
-        
-        # Define act routing rules with semantic categories
+
+        sorted_sections = sorted(unique_sections.values(), key=lambda item: item[1], reverse=True)
+
         act_filters = [
             # Cybercrime -> IT Act
             {
@@ -739,12 +789,10 @@ class EnhancedLegalAdvisor:
                 'min_sections': 3
             }
         ]
-        
-        # Multi-keyword matching with scoring
+
         best_match = None
         best_score = 0
-        
-        # Try semantic search first if available
+
         if self.semantic_search:
             act_descriptions = {
                 'it_act': 'cybercrime hacking computer internet digital fraud phishing data breach online security',
@@ -755,39 +803,52 @@ class EnhancedLegalAdvisor:
                 'motor_vehicles': 'vehicle car accident driving license insurance traffic road collision',
                 'hindu_marriage': 'marriage divorce custody alimony spouse wife husband family matrimonial'
             }
-            
+
             best_act = self.semantic_search.find_best_act(query, act_descriptions)
             if best_act:
-                # Find matching filter rule
                 for filter_rule in act_filters:
                     if any(best_act in act for act in filter_rule['acts']):
                         best_match = filter_rule
-                        best_score = 10  # High score for semantic match
+                        best_score = 10
                         break
-        
-        # Fallback to keyword matching if semantic search not available or no match
+
+        if not best_match and act_hints:
+            for filter_rule in act_filters:
+                if any(any(act_hint in act for act in filter_rule['acts']) for act_hint in act_hints):
+                    best_match = filter_rule
+                    best_score = 8
+                    break
+
         if not best_match:
             for filter_rule in act_filters:
-                # Count how many keywords match
                 match_count = sum(1 for keyword in filter_rule['keywords'] if keyword in query_lower)
-                
                 if match_count > best_score:
                     best_score = match_count
                     best_match = filter_rule
-        
-        # If we have a strong match (2+ keywords or semantic match), filter by that act
+
+        rerank_candidates = [section for section, _ in sorted_sections[:20]]
         if best_match and best_score >= 2:
             filtered_sections = [
-                (s, score) for s, score in sorted_sections 
+                (s, score) for s, score in sorted_sections
                 if any(act in s.act_id.lower() for act in best_match['acts'])
             ]
-            
-            # If we have enough sections from specific acts, use only those
             if len(filtered_sections) >= best_match['min_sections']:
-                return [section for section, score in filtered_sections[:10]]
-        
-        # Otherwise return top 10
-        return [section for section, score in sorted_sections[:10]]
+                rerank_candidates = [section for section, _ in filtered_sections[:20]]
+
+        rerank_result = self.groq_retrieval_augmentor.rerank_sections(
+            query=query,
+            sections=rerank_candidates,
+            jurisdiction=jurisdiction,
+            domain=domain,
+            understanding=understanding,
+            top_k=10,
+        )
+        retrieval_metadata["rerank_source"] = rerank_result.get("source", "local")
+        retrieval_metadata["rerank_model"] = rerank_result.get("model")
+        retrieval_metadata["rerank_reason"] = rerank_result.get("reason", "")
+
+        final_sections = rerank_result.get("sections") or [section for section, _ in sorted_sections[:10]]
+        return final_sections[:10], retrieval_metadata
     
     def _apply_ontology_filter(self, sections: List[Section], allowed_act_ids: Set[str]) -> List[Section]:
         """Filter sections by allowed act_ids"""
@@ -1106,7 +1167,12 @@ class EnhancedLegalAdvisor:
         jurisdiction = self._detect_jurisdiction(legal_query.query_text, legal_query.jurisdiction_hint)
         domains = self._detect_domains(legal_query.query_text, legal_query.domain_hint)
         domain = domains[0] if domains else 'civil'
-        
+        query_understanding = self.groq_retrieval_augmentor.understand_query(
+            query=legal_query.query_text,
+            jurisdiction_hint=legal_query.jurisdiction_hint,
+            domain_hint=legal_query.domain_hint,
+        )
+
         # Log classification
         self._log_enforcement_event("jurisdiction_resolved", trace_id, {
             "jurisdiction": jurisdiction,
@@ -1117,7 +1183,12 @@ class EnhancedLegalAdvisor:
         })
         
         # Search relevant sections
-        relevant_sections = self._search_relevant_sections(legal_query.query_text, jurisdiction, domain)
+        relevant_sections, retrieval_metadata = self._search_relevant_sections(
+            legal_query.query_text,
+            jurisdiction,
+            domain,
+            query_understanding,
+        )
         
         # Apply ontology filter (skip for family domain and non-Indian jurisdictions)
         allowed_act_ids = self.ontology_filter.get_allowed_act_ids(domain)
@@ -1160,7 +1231,8 @@ class EnhancedLegalAdvisor:
             "domain_final": domain,
             "domains_final": domains,
             "procedural_steps_count": len(procedural_steps),
-            "remedies_count": len(remedies)
+            "remedies_count": len(remedies),
+            "retrieval_metadata": retrieval_metadata,
         })
         
         # Check addon subtypes for specialized offenses (prioritize over base retrieval)
@@ -1315,7 +1387,37 @@ class EnhancedLegalAdvisor:
                 })
         
         all_statutes.extend(addon_statutes)
-        
+
+        section_hints = {
+            str(value).strip().lower()
+            for value in query_understanding.get("section_hints", [])
+            if str(value).strip()
+        }
+        act_hints = {
+            str(value).strip().lower()
+            for value in query_understanding.get("act_hints", [])
+            if str(value).strip()
+        }
+
+        def statute_priority(statute: Dict[str, Any]) -> int:
+            score = 0
+            section_number = str(statute.get('section', '')).lower()
+            act_name = str(statute.get('act', '')).lower().replace(' ', '_')
+            title = str(statute.get('title', '')).lower()
+            query_text_lower = legal_query.query_text.lower()
+
+            if any(hint == section_number or hint in section_number for hint in section_hints):
+                score += 100
+            if any(act_hint in act_name for act_hint in act_hints):
+                score += 35
+            if 'punishment' in query_text_lower and 'punishment' in title:
+                score += 20
+            if any(token in title for token in query_text_lower.split() if len(token) > 3):
+                score += 5
+            return score
+
+        all_statutes.sort(key=statute_priority, reverse=True)
+
         # Filter statutes by jurisdiction - remove Indian acts for non-Indian jurisdictions
         indian_acts = ['Hindu Marriage Act', 'Special Marriage Act', 'Bharatiya Nyaya Sanhita', 'Indian Penal Code', 
                        'Code of Criminal Procedure', 'Code of Civil Procedure', 'Indian Evidence Act',
@@ -1363,7 +1465,9 @@ class EnhancedLegalAdvisor:
             glossary=[],
             evidence_requirements=[],
             enforcement_decision="ALLOW",
-            ontology_filtered=ontology_filtered or dowry_filtered
+            ontology_filtered=ontology_filtered or dowry_filtered,
+            query_understanding=query_understanding,
+            retrieval_metadata=retrieval_metadata,
         )
         
         # Add domains as attribute
