@@ -369,6 +369,8 @@ class GroqRetrievalAugmentor:
             headers={
                 "Authorization": f"Bearer {self.api_key}",
                 "Content-Type": "application/json",
+                "Accept": "application/json",
+                "User-Agent": "NyayaAI/1.0",
             },
             method="POST",
         )

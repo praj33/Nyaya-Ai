@@ -1,0 +1,914 @@
+[
+  {
+    "query": "What is the punishment for theft under Indian law?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "378",
+        "title": "Theft"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "379",
+        "title": "Punishment for theft"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "If someone hits another person during a fight, which section applies?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "319",
+        "title": "Hurt"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "323",
+        "title": "Punishment for voluntarily causing hurt"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "351",
+        "title": "Assault"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "352",
+        "title": "Punishment for assault or criminal force"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is the punishment for cheating in India?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "415",
+        "title": "Cheating"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "420",
+        "title": "Cheating and dishonestly inducing delivery of property"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Is verbal abuse a criminal offense in India?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "504",
+        "title": "Intentional insult with intent to provoke breach of peace"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "509",
+        "title": "Word, gesture or act intended to insult modesty of a woman"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What happens if someone files a false police complaint?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "182",
+        "title": "False information to public servant"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "211",
+        "title": "False charge of offence with intent to injure"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Can police arrest someone without a warrant?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "41",
+        "title": "When police may arrest without warrant"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "55",
+        "title": "Procedure when police officer deputes subordinate to arrest without warrant"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "FORM_NO_2",
+        "title": "Warrant of arrest"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is the punishment for domestic violence in India?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "3",
+        "title": "Definition of domestic violence"
+      },
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "12",
+        "title": "Application to Magistrate"
+      },
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "18",
+        "title": "Protection orders"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "498A",
+        "title": "Cruelty by husband or relatives"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is an FIR and how can it be filed?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "154",
+        "title": "Information in cognizable cases (FIR)"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Can police refuse to register an FIR?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "154",
+        "title": "Information in cognizable cases (FIR)"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What happens after an FIR is filed?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "157",
+        "title": "Procedure for investigation"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "173",
+        "title": "Report of police officer on completion of investigation"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "How long can police keep someone in custody?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "57",
+        "title": "Person arrested not to be detained more than 24 hours"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "167",
+        "title": "Procedure when investigation cannot be completed in 24 hours"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is anticipatory bail?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "438",
+        "title": "Direction for grant of bail to person apprehending arrest"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Difference between bail and anticipatory bail?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "436",
+        "title": "In what cases bail to be taken"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "437",
+        "title": "Bail in non-bailable offences"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "439",
+        "title": "Special powers of High Court or Court of Session regarding bail"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "438",
+        "title": "Anticipatory bail"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "How can a husband file for divorce in India?",
+    "domain": "family",
+    "statutes": [
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13",
+        "title": "Divorce"
+      },
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13B",
+        "title": "Divorce by mutual consent"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\hindu_marriage_act.json"
+    ]
+  },
+  {
+    "query": "What are the grounds for divorce under Hindu Marriage Act?",
+    "domain": "family",
+    "statutes": [
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13",
+        "title": "Divorce"
+      },
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13B",
+        "title": "Divorce by mutual consent"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\hindu_marriage_act.json"
+    ]
+  },
+  {
+    "query": "Can a wife claim maintenance after divorce?",
+    "domain": "family",
+    "statutes": [
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13",
+        "title": "Divorce"
+      },
+      {
+        "act": "Hindu Marriage Act",
+        "year": 1955,
+        "section": "13B",
+        "title": "Divorce by mutual consent"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\hindu_marriage_act.json"
+    ]
+  },
+  {
+    "query": "What is child custody law in India?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "57",
+        "title": "Person arrested not to be detained more than 24 hours"
+      },
+      {
+        "act": "Code of Criminal Procedure",
+        "year": 1973,
+        "section": "167",
+        "title": "Procedure when investigation cannot be completed in 24 hours"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What legal action can a wife take against domestic violence?",
+    "domain": "criminal",
+    "statutes": [
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "3",
+        "title": "Definition of domestic violence"
+      },
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "12",
+        "title": "Application to Magistrate"
+      },
+      {
+        "act": "Protection of Women from Domestic Violence Act",
+        "year": 2005,
+        "section": "18",
+        "title": "Protection orders"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "498A",
+        "title": "Cruelty by husband or relatives"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What happens if someone illegally occupies my property?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "441",
+        "title": "Criminal trespass"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "447",
+        "title": "Punishment for criminal trespass"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "How to file a property dispute case in India?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Transfer of Property Act, 1882",
+        "year": 1882,
+        "section": "54",
+        "title": "Sale of immovable property"
+      },
+      {
+        "act": "Registration Act, 1908",
+        "year": 1908,
+        "section": "17",
+        "title": "Documents of which registration is compulsory"
+      },
+      {
+        "act": "Specific Relief Act, 1963",
+        "year": 1963,
+        "section": "16",
+        "title": "Personal bars to relief"
+      },
+      {
+        "act": "Code of Civil Procedure, 1908",
+        "year": 1908,
+        "section": "9",
+        "title": "Courts to try all civil suits unless barred"
+      },
+      {
+        "act": "Limitation Act, 1963",
+        "year": 1963,
+        "section": "65",
+        "title": "Suit for possession of immovable property"
+      },
+      {
+        "act": "Indian Evidence Act, 1872",
+        "year": 1872,
+        "section": "91",
+        "title": "Evidence of terms of contracts reduced to writing"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is adverse possession?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Limitation Act",
+        "year": 1963,
+        "section": "65",
+        "title": "Suit for possession of immovable property"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\limitation_act.json"
+    ]
+  },
+  {
+    "query": "Can a property be sold without the owner?s consent?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Transfer of Property Act",
+        "year": 1882,
+        "section": "7",
+        "title": "Persons competent to transfer"
+      },
+      {
+        "act": "Transfer of Property Act",
+        "year": 1882,
+        "section": "54",
+        "title": "Sale of immovable property"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "How to cancel a fraudulent property sale?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "420",
+        "title": "Cheating and dishonestly inducing delivery of property"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "467",
+        "title": "Forgery of valuable security, will, etc."
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "468",
+        "title": "Forgery for purpose of cheating"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "471",
+        "title": "Using as genuine a forged document"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What happens if I don?t pay my home loan EMI?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(2)",
+        "title": "Demand notice for secured debt"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(4)",
+        "title": "Measures for recovery by secured creditor"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "17",
+        "title": "Appeal to DRT"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is an NPA account?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(2)",
+        "title": "Demand notice for secured debt"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(4)",
+        "title": "Measures for recovery by secured creditor"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "17",
+        "title": "Appeal to DRT"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Can a bank auction my property?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(2)",
+        "title": "Demand notice for secured debt"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(4)",
+        "title": "Measures for recovery by secured creditor"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "17",
+        "title": "Appeal to DRT"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What legal options do borrowers have against bank auction?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(2)",
+        "title": "Demand notice for secured debt"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(4)",
+        "title": "Measures for recovery by secured creditor"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "17",
+        "title": "Appeal to DRT"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What is SARFAESI Act?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(2)",
+        "title": "Demand notice for secured debt"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(4)",
+        "title": "Measures for recovery by secured creditor"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "17",
+        "title": "Appeal to DRT"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "What can I do if a company sells a defective product?",
+    "domain": "consumer",
+    "statutes": [
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "2",
+        "title": "Consumer rights"
+      },
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "6",
+        "title": "Right to seek redressal"
+      },
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "10",
+        "title": "Unfair trade practices"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\consumer_protection_act.json"
+    ]
+  },
+  {
+    "query": "How to file a complaint in consumer court?",
+    "domain": "consumer",
+    "statutes": [
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "2",
+        "title": "Consumer rights"
+      },
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "6",
+        "title": "Right to seek redressal"
+      },
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "10",
+        "title": "Unfair trade practices"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\consumer_protection_act.json"
+    ]
+  },
+  {
+    "query": "What compensation can consumer court give?",
+    "domain": "consumer",
+    "statutes": [
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "2",
+        "title": "Consumer rights"
+      },
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "6",
+        "title": "Right to seek redressal"
+      },
+      {
+        "act": "Consumer Protection Act",
+        "year": 2019,
+        "section": "10",
+        "title": "Unfair trade practices"
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\consumer_protection_act.json"
+    ]
+  },
+  {
+    "query": "My neighbor plays loud music every night. What legal action can I take?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "268",
+        "title": "Public nuisance"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "290",
+        "title": "Punishment for public nuisance"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Someone posted fake information about me online. What should I do?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "499",
+        "title": "Defamation"
+      },
+      {
+        "act": "Indian Penal Code",
+        "year": 1860,
+        "section": "500",
+        "title": "Punishment for defamation"
+      },
+      {
+        "act": "Information Technology Act",
+        "year": 2000,
+        "section": "66C",
+        "title": "Identity theft"
+      },
+      {
+        "act": "Information Technology Act",
+        "year": 2000,
+        "section": "66D",
+        "title": "Cheating by personation using computer resource"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "My employer did not pay salary for 3 months. What can I do?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Labour and Employment Laws",
+        "year": 1948,
+        "section": "1",
+        "title": "Payment of wages"
+      },
+      {
+        "act": "Labour and Employment Laws",
+        "year": 1948,
+        "section": "2",
+        "title": "Minimum wages"
+      },
+      {
+        "act": "Labour and Employment Laws",
+        "year": 1948,
+        "section": "3",
+        "title": "Timely payment of wages"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "A landlord refuses to return my security deposit. What are my rights?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Indian Contract Act",
+        "year": 1872,
+        "section": "73",
+        "title": "Compensation for loss or damage caused by breach of contract"
+      },
+      {
+        "act": "Indian Contract Act",
+        "year": 1872,
+        "section": "74",
+        "title": "Compensation for breach where penalty stipulated"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "My husband has been physically abusing me for the last 2 years. He also controls my bank account and does not allow me to work. What legal actions can I take in India?",
+    "domain": "family",
+    "statutes": [
+      {
+        "act": "In Arbitration Act Sections",
+        "year": 0,
+        "section": "31",
+        "title": "Form and contents of arbitral award."
+      },
+      {
+        "act": "In Arbitration Act Sections",
+        "year": 0,
+        "section": "1",
+        "title": "Short title, extent and commencement."
+      },
+      {
+        "act": "In Arbitration Act Sections",
+        "year": 0,
+        "section": "31A",
+        "title": "Regime for costs."
+      },
+      {
+        "act": "In Arbitration Act Sections",
+        "year": 0,
+        "section": "34",
+        "title": "Application for setting aside arbitral award."
+      }
+    ],
+    "source_files": [
+      "Nyaya_AI/db\\arbitration_act_sections.json"
+    ]
+  },
+  {
+    "query": "A bank declared my loan account NPA and issued a SARFAESI notice. Can I challenge this legally?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(2)",
+        "title": "Demand notice for secured debt"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "13(4)",
+        "title": "Measures for recovery by secured creditor"
+      },
+      {
+        "act": "SARFAESI Act",
+        "year": 2002,
+        "section": "17",
+        "title": "Appeal to DRT"
+      }
+    ],
+    "source_files": []
+  },
+  {
+    "query": "Someone forged my signature and sold my land. What legal steps can I take?",
+    "domain": "civil",
+    "statutes": [
+      {
+        "act": "Transfer of Property Act, 1882",
+        "year": 1882,
+        "section": "54",
+        "title": "Sale of immovable property"
+      },
+      {
+        "act": "Registration Act, 1908",
+        "year": 1908,
+        "section": "17",
+        "title": "Documents of which registration is compulsory"
+      },
+      {
+        "act": "Specific Relief Act, 1963",
+        "year": 1963,
+        "section": "16",
+        "title": "Personal bars to relief"
+      },
+      {
+        "act": "Code of Civil Procedure, 1908",
+        "year": 1908,
+        "section": "9",
+        "title": "Courts to try all civil suits unless barred"
+      },
+      {
+        "act": "Limitation Act, 1963",
+        "year": 1963,
+        "section": "65",
+        "title": "Suit for possession of immovable property"
+      },
+      {
+        "act": "Indian Evidence Act, 1872",
+        "year": 1872,
+        "section": "91",
+        "title": "Evidence of terms of contracts reduced to writing"
+      }
+    ],
+    "source_files": []
+  }
+]
