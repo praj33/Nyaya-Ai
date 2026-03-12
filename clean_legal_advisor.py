@@ -462,6 +462,16 @@ class EnhancedLegalAdvisor:
         terrorism_keywords = ['terrorism', 'terrorist', 'extremism', 'unlawful activities']
         if any(keyword in query_lower for keyword in terrorism_keywords):
             return ['terrorism']
+
+        # PRIORITY 2.5: Property fraud disputes (civil)
+        property_fraud_keywords = ['fraud', 'fraudulent', 'forged', 'forgery', 'fake signature', 'signature forged', 'scam']
+        property_context = ['property', 'land', 'plot', 'house', 'flat', 'apartment', 'sale deed', 'registry', 'mutation', 'title deed']
+        if any(keyword in query_lower for keyword in property_context) and any(keyword in query_lower for keyword in property_fraud_keywords):
+            return ['civil']
+
+        # PRIORITY 2.6: Marital cheating/adultery (family)
+        if 'cheating' in query_lower and any(term in query_lower for term in ['husband', 'wife', 'spouse', 'marriage', 'adultery', 'affair']):
+            return ['family']
         
         # PRIORITY 3: Serious crimes (check before civil to avoid misclassification)
         serious_crime_keywords = ['theft', 'murder', 'assault', 'rape', 'raped', 'raping', 'robbery', 'fraud', 'kidnapping',
@@ -469,7 +479,8 @@ class EnhancedLegalAdvisor:
                                  'identity theft', 'data breach', 'unauthorized access', 'snatch', 'steal',
                                  'died', 'death', 'killed', 'harass', 'harassment', 'violence', 'attack',
                                  'suicide', 'abetment', 'attempt to suicide', 'pedophile', 'paedophile',
-                                 'child abuse', 'minor sexual', 'molested child', 'sex with child']
+                                 'child abuse', 'minor sexual', 'molested child', 'sex with child',
+                                 'hit', 'fight', 'beating', 'slapped', 'hurt', 'cheating']
         if any(keyword in query_lower for keyword in serious_crime_keywords):
             return ['criminal']
         
@@ -478,6 +489,11 @@ class EnhancedLegalAdvisor:
                            'road accident', 'vehicle', 'bike', 'traffic', 'signal', 'speeding', 
                            'over speed', 'challan', 'driving', 'license', 'vehicle accident']
         if any(keyword in query_lower for keyword in traffic_keywords):
+            return ['criminal']
+
+        # PRIORITY 4.5: Police/procedure terms (criminal)
+        procedure_keywords = ['bail', 'anticipatory bail', 'custody', 'remand', 'fir', 'f.i.r', 'police complaint', 'arrest without warrant']
+        if any(keyword in query_lower for keyword in procedure_keywords):
             return ['criminal']
         
         # PRIORITY 5: Property seizure (civil unless criminal context)
@@ -510,19 +526,21 @@ class EnhancedLegalAdvisor:
         if any(indicator in query_lower for indicator in unpaid_wage_indicators):
             return ['civil']
 
-        # PRIORITY 7: Civil disputes (explicit civil indicators)
+        # PRIORITY 7: Consumer issues
+        consumer_indicators = ['consumer', 'consumer court', 'consumer complaint', 'consumer forum',
+                              'defective product', 'warranty', 'overcharging', 'service deficiency',
+                              'product quality', 'seller refused']
+        if any(indicator in query_lower for indicator in consumer_indicators):
+            return ['consumer']
+
+        # PRIORITY 8: Civil disputes (explicit civil indicators)
         civil_indicators = ['sue', 'recover money', 'remaining amount', 'payment dispute', 'breach of contract',
                            'refund', 'invoice', 'non-payment', 'agreement', 'damages', 'compensation',
                            'contract', 'civil suit', 'money recovery', 'debt recovery', 'negligence',
-                           'medical negligence', 'doctor', 'hospital', 'treatment', 'malpractice']
+                           'medical negligence', 'doctor', 'hospital', 'treatment', 'malpractice',
+                           'loan', 'emi', 'home loan', 'bank auction', 'borrower']
         if any(indicator in query_lower for indicator in civil_indicators):
             return ['civil']
-        
-        # PRIORITY 8: Consumer issues
-        consumer_indicators = ['defective product', 'warranty', 'overcharging', 'service deficiency',
-                              'consumer complaint', 'consumer forum', 'product quality', 'seller refused']
-        if any(indicator in query_lower for indicator in consumer_indicators):
-            return ['consumer']
         
         # PRIORITY 9: Property/Land disputes (civil)
         property_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
@@ -535,7 +553,7 @@ class EnhancedLegalAdvisor:
         # PRIORITY 10: Family law
         family_keywords = ['divorce', 'marriage', 'custody', 'alimony', 'maintenance', 'matrimonial',
                           'spouse', 'wife', 'husband', 'separation', 'guardianship', 'adoption',
-                          'cheating', 'adultery', 'affair', 'unfaithful']
+                          'adultery', 'affair', 'unfaithful']
         if any(keyword in query_lower for keyword in family_keywords):
             return ['family']
         
@@ -549,7 +567,7 @@ class EnhancedLegalAdvisor:
         # PRIORITY 12: Commercial/Agricultural
         commercial_keywords = ['contract', 'company', 'business', 'trade', 'corporate', 'partnership',
                               'farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation',
-                              'msp', 'insurance', 'loan', 'debt']
+                              'msp', 'insurance']
         if any(keyword in query_lower for keyword in commercial_keywords):
             return ['commercial']
         
@@ -636,6 +654,24 @@ class EnhancedLegalAdvisor:
                     if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
                         score += 20
                     matched_sections.append((section, score))
+
+        # Explicit mapping for false/false police complaint scenarios
+        false_complaint_phrases = [
+            "false complaint",
+            "false police complaint",
+            "false fir",
+            "fake fir",
+            "false case",
+            "fake case",
+            "false police case",
+        ]
+        if any(phrase in query_lower for phrase in false_complaint_phrases):
+            for section in self.sections:
+                if section.jurisdiction.value != jurisdiction:
+                    continue
+                if section.section_number in {"182", "211"}:
+                    if any(tag in section.act_id.lower() for tag in ["ipc", "bns"]):
+                        matched_sections.append((section, 200))
 
         crime_mapping_triggered = False
         if jurisdiction in self.crime_mappings:
