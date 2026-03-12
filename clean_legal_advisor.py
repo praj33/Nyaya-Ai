@@ -625,6 +625,8 @@ class EnhancedLegalAdvisor:
         }
         if understanding.get("disabled_reason"):
             retrieval_metadata["understanding_disabled_reason"] = understanding["disabled_reason"]
+        if understanding.get("groq_error"):
+            retrieval_metadata["understanding_error"] = understanding["groq_error"]
 
         if section_hints:
             for section in self.jurisdiction_sections.get(jurisdiction, []):

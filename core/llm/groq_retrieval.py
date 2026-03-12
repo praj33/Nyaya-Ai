@@ -62,6 +62,7 @@ class GroqRetrievalAugmentor:
             "GROQ_SECTION_RERANK_ENABLED", "true"
         ).lower() not in {"0", "false", "no"}
         self.candidate_limit = int(os.getenv("GROQ_SECTION_RERANK_CANDIDATES", "18"))
+        self.debug = os.getenv("GROQ_DEBUG", "false").lower() not in {"0", "false", "no"}
 
     def _disabled_reason(self, mode: str) -> Optional[str]:
         if not self.enabled:
@@ -131,9 +132,11 @@ class GroqRetrievalAugmentor:
             normalized["source"] = "groq"
             normalized["model"] = data.get("model", self.model)
             return normalized
-        except (ValueError, OSError, error.HTTPError, error.URLError, json.JSONDecodeError):
+        except (ValueError, OSError, error.HTTPError, error.URLError, json.JSONDecodeError) as exc:
             fallback["source"] = "local_fallback"
             fallback["model"] = None
+            if self.debug:
+                fallback["groq_error"] = f"{type(exc).__name__}: {exc}"
             return fallback
 
     def rerank_sections(

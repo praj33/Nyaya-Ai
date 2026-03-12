@@ -214,6 +214,16 @@ async def query_legal(request: QueryRequest):
         enriched["answer"] = answer_payload["text"]
         enriched["answer_source"] = answer_payload["source"]
         enriched["answer_model"] = answer_payload["model"]
+        answer_debug = {
+            "source": answer_payload.get("source"),
+            "model": answer_payload.get("model"),
+        }
+        if answer_payload.get("reason"):
+            answer_debug["reason"] = answer_payload.get("reason")
+        if answer_payload.get("error"):
+            answer_debug["error"] = answer_payload.get("error")
+        if "reasoning_trace" in enriched and (answer_debug.get("reason") or answer_debug.get("error")):
+            enriched["reasoning_trace"]["answer_generation"] = answer_debug
         
         return NyayaResponse(**enriched)
         

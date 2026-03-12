@@ -73,11 +73,14 @@ class GroqResponseGenerator:
         if disabled_reason:
             if self.debug:
                 print(f"GroqResponseGenerator disabled: {disabled_reason}")
-            return {
+            response = {
                 "text": fallback_answer,
                 "source": "local",
                 "model": None,
             }
+            if self.debug:
+                response["reason"] = disabled_reason
+            return response
 
         try:
             prompt = self._build_prompt(
@@ -141,11 +144,14 @@ class GroqResponseGenerator:
         except (ValueError, OSError, error.HTTPError, error.URLError) as exc:
             if self.debug:
                 print(f"GroqResponseGenerator fallback: {exc}")
-            return {
+            response = {
                 "text": fallback_answer,
                 "source": "local_fallback",
                 "model": None,
             }
+            if self.debug:
+                response["error"] = f"{type(exc).__name__}: {exc}"
+            return response
 
     def _build_prompt(
         self,
