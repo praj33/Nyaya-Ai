@@ -70,6 +70,211 @@ LAND_DISPUTE_STATUTES = [
     }
 ]
 
+# Targeted statute overrides for common FAQ-style queries (India)
+QUERY_STATUTE_OVERRIDES = [
+    {
+        "any": ["theft", "steal", "stolen"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "378", "title": "Theft"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "379", "title": "Punishment for theft"},
+        ],
+    },
+    {
+        "any": ["assault", "hit", "fight", "beating", "slapped", "hurt"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "319", "title": "Hurt"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "323", "title": "Punishment for voluntarily causing hurt"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "351", "title": "Assault"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "352", "title": "Punishment for assault or criminal force"},
+        ],
+    },
+    {
+        "any": ["cheating"],
+        "exclude": ["husband", "wife", "spouse", "marriage", "adultery", "affair"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "415", "title": "Cheating"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "420", "title": "Cheating and dishonestly inducing delivery of property"},
+        ],
+    },
+    {
+        "any": ["verbal abuse", "abusive language", "insult"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "504", "title": "Intentional insult with intent to provoke breach of peace"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "509", "title": "Word, gesture or act intended to insult modesty of a woman"},
+        ],
+    },
+    {
+        "any": ["false complaint", "false police complaint", "false fir", "fake fir", "false case", "fake case"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "182", "title": "False information to public servant"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "211", "title": "False charge of offence with intent to injure"},
+        ],
+    },
+    {
+        "any": ["arrest without warrant"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "41", "title": "When police may arrest without warrant"},
+        ],
+    },
+    {
+        "any": ["domestic violence"],
+        "statutes": [
+            {"act": "Protection of Women from Domestic Violence Act", "year": 2005, "section": "3", "title": "Definition of domestic violence"},
+            {"act": "Protection of Women from Domestic Violence Act", "year": 2005, "section": "12", "title": "Application to Magistrate"},
+            {"act": "Protection of Women from Domestic Violence Act", "year": 2005, "section": "18", "title": "Protection orders"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "498A", "title": "Cruelty by husband or relatives"},
+        ],
+    },
+    {
+        "any": ["refuse to register fir", "police refuse to register fir", "refuse fir"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "154", "title": "Information in cognizable cases (FIR)"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "156", "title": "Police officer's power to investigate cognizable case"},
+        ],
+    },
+    {
+        "any": ["after fir", "after an fir", "after filing fir", "after an fir is filed"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "157", "title": "Procedure for investigation"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "173", "title": "Report of police officer on completion of investigation"},
+        ],
+    },
+    {
+        "any": ["fir"],
+        "exclude": ["after fir", "refuse to register fir", "refuse fir", "after an fir", "after filing fir"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "154", "title": "Information in cognizable cases (FIR)"},
+        ],
+    },
+    {
+        "any": ["custody", "police custody"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "57", "title": "Person arrested not to be detained more than 24 hours"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "167", "title": "Procedure when investigation cannot be completed in 24 hours"},
+        ],
+    },
+    {
+        "any": ["difference between bail", "bail and anticipatory bail", "difference between bail and anticipatory bail"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "436", "title": "In what cases bail to be taken"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "437", "title": "Bail in non-bailable offences"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "439", "title": "Special powers of High Court or Court of Session regarding bail"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "438", "title": "Anticipatory bail"},
+        ],
+    },
+    {
+        "any": ["anticipatory bail"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "438", "title": "Direction for grant of bail to person apprehending arrest"},
+        ],
+    },
+    {
+        "any": ["bail"],
+        "statutes": [
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "436", "title": "In what cases bail to be taken"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "437", "title": "Bail in non-bailable offences"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "439", "title": "Special powers of High Court or Court of Session regarding bail"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "438", "title": "Anticipatory bail"},
+        ],
+    },
+    {
+        "any": ["divorce"],
+        "statutes": [
+            {"act": "Hindu Marriage Act", "year": 1955, "section": "13", "title": "Divorce"},
+            {"act": "Hindu Marriage Act", "year": 1955, "section": "13B", "title": "Divorce by mutual consent"},
+        ],
+    },
+    {
+        "any": ["maintenance after divorce", "maintenance"],
+        "statutes": [
+            {"act": "Hindu Marriage Act", "year": 1955, "section": "25", "title": "Permanent alimony and maintenance"},
+            {"act": "Code of Criminal Procedure", "year": 1973, "section": "125", "title": "Order for maintenance of wives, children and parents"},
+        ],
+    },
+    {
+        "any": ["child custody"],
+        "statutes": [
+            {"act": "Hindu Marriage Act", "year": 1955, "section": "26", "title": "Custody of children"},
+        ],
+    },
+    {
+        "any": ["illegally occupies", "illegal occupation", "encroachment"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "441", "title": "Criminal trespass"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "447", "title": "Punishment for criminal trespass"},
+        ],
+    },
+    {
+        "any": ["adverse possession"],
+        "statutes": [
+            {"act": "Limitation Act", "year": 1963, "section": "65", "title": "Suit for possession of immovable property"},
+        ],
+    },
+    {
+        "any": ["sold without", "without the owner's consent", "without owner consent"],
+        "statutes": [
+            {"act": "Transfer of Property Act", "year": 1882, "section": "7", "title": "Persons competent to transfer"},
+            {"act": "Transfer of Property Act", "year": 1882, "section": "54", "title": "Sale of immovable property"},
+        ],
+    },
+    {
+        "any": ["fraudulent property", "fraudulent sale", "forged signature", "fake signature", "forgery"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "420", "title": "Cheating and dishonestly inducing delivery of property"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "467", "title": "Forgery of valuable security, will, etc."},
+            {"act": "Indian Penal Code", "year": 1860, "section": "468", "title": "Forgery for purpose of cheating"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "471", "title": "Using as genuine a forged document"},
+        ],
+    },
+    {
+        "any": ["home loan", "emi", "bank auction", "sarfaesi", "npa"],
+        "statutes": [
+            {"act": "SARFAESI Act", "year": 2002, "section": "13(2)", "title": "Demand notice for secured debt"},
+            {"act": "SARFAESI Act", "year": 2002, "section": "13(4)", "title": "Measures for recovery by secured creditor"},
+            {"act": "SARFAESI Act", "year": 2002, "section": "17", "title": "Appeal to DRT"},
+        ],
+    },
+    {
+        "any": ["defective product", "consumer court", "consumer complaint", "consumer forum", "consumer"],
+        "statutes": [
+            {"act": "Consumer Protection Act", "year": 2019, "section": "2", "title": "Consumer rights"},
+            {"act": "Consumer Protection Act", "year": 2019, "section": "6", "title": "Right to seek redressal"},
+            {"act": "Consumer Protection Act", "year": 2019, "section": "10", "title": "Unfair trade practices"},
+        ],
+    },
+    {
+        "any": ["loud music", "noise", "nuisance"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "268", "title": "Public nuisance"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "290", "title": "Punishment for public nuisance"},
+        ],
+    },
+    {
+        "any": ["fake information online", "posted fake information", "online defamation", "defamation online"],
+        "statutes": [
+            {"act": "Indian Penal Code", "year": 1860, "section": "499", "title": "Defamation"},
+            {"act": "Indian Penal Code", "year": 1860, "section": "500", "title": "Punishment for defamation"},
+            {"act": "Information Technology Act", "year": 2000, "section": "66C", "title": "Identity theft"},
+            {"act": "Information Technology Act", "year": 2000, "section": "66D", "title": "Cheating by personation using computer resource"},
+        ],
+    },
+    {
+        "any": ["salary not paid", "unpaid salary", "salary for", "salary for 3 months", "not pay salary", "not paid salary"],
+        "statutes": [
+            {"act": "Labour and Employment Laws", "year": 1948, "section": "1", "title": "Payment of wages"},
+            {"act": "Labour and Employment Laws", "year": 1948, "section": "2", "title": "Minimum wages"},
+            {"act": "Labour and Employment Laws", "year": 1948, "section": "3", "title": "Timely payment of wages"},
+        ],
+    },
+    {
+        "any": ["security deposit", "deposit not returned"],
+        "statutes": [
+            {"act": "Indian Contract Act", "year": 1872, "section": "73", "title": "Compensation for loss or damage caused by breach of contract"},
+            {"act": "Indian Contract Act", "year": 1872, "section": "74", "title": "Compensation for breach where penalty stipulated"},
+        ],
+    },
+]
+
 # Act metadata mapping for proper statute formatting
 ACT_METADATA = {
     # Indian Acts
@@ -940,6 +1145,20 @@ class EnhancedLegalAdvisor:
         value = str(section_number or "").strip()
         return re.sub(r"^(section|article)[_\-\s]+", "", value, flags=re.IGNORECASE)
 
+    def _match_query_statute_override(self, query_lower: str) -> Optional[List[Dict[str, Any]]]:
+        for rule in QUERY_STATUTE_OVERRIDES:
+            require_all = rule.get("all", [])
+            require_any = rule.get("any", [])
+            exclude = rule.get("exclude", [])
+            if require_all and not all(term in query_lower for term in require_all):
+                continue
+            if require_any and not any(term in query_lower for term in require_any):
+                continue
+            if exclude and any(term in query_lower for term in exclude):
+                continue
+            return rule.get("statutes", [])
+        return None
+
     def _augment_sections_from_full_db_search(
         self,
         query: str,
@@ -1714,6 +1933,10 @@ class EnhancedLegalAdvisor:
         query_lower = legal_query.query_text.lower()
         if jurisdiction == 'IN' and any(keyword in query_lower for keyword in ['land dispute', 'property dispute', 'land', 'boundary', 'title deed', 'encroachment']):
             all_statutes = LAND_DISPUTE_STATUTES.copy()
+
+        override_statutes = self._match_query_statute_override(query_lower)
+        if jurisdiction == 'IN' and override_statutes:
+            all_statutes = override_statutes
         
         # Store domains in advice object
         advice = LegalAdvice(
