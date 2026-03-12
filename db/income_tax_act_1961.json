@@ -1,0 +1,17 @@
+{
+  "act_name": "Income-tax Act, 1961",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "anti_avoidance_and_reporting": {
+      "95": "Impermissible avoidance arrangement under GAAR - an arrangement may be disregarded if its main purpose is to obtain a tax benefit and it satisfies the statutory tainted-element tests.",
+      "96": "Arrangement to lack commercial substance - an arrangement may be treated as lacking commercial substance where legal form and economic substance differ, or it uses round-trip financing, accommodating parties, offsetting elements, or disguises value, source, ownership, or control.",
+      "270A": "Penalty for under-reporting and misreporting of income - generally 50% of the tax payable on under-reported income and 200% of the tax payable on misreported income.",
+      "271AAD": "Penalty for false entry or omitted entry in books of account - penalty equal to the aggregate amount of a false or omitted entry, with a similar penalty on any other person who causes it."
+    },
+    "prosecution_and_compliance": {
+      "276B": "Failure to pay to the credit of the Central Government the tax deducted at source - punishable with rigorous imprisonment and fine.",
+      "276C": "Wilful attempt to evade tax, penalty or interest - punishable with rigorous imprisonment and fine, with higher punishment in serious cases.",
+      "276CC": "Failure to furnish returns of income - wilful failure in specified cases is punishable with imprisonment and fine."
+    }
+  }
+}

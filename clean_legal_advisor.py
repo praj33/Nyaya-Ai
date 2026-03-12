@@ -4,6 +4,7 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional, Set
 from dataclasses import dataclass, field
 from enum import Enum
+import re
 
 # Import existing components
 import sys
@@ -84,6 +85,8 @@ ACT_METADATA = {
     'domestic_violence_act': {'name': 'Protection of Women from Domestic Violence Act', 'year': 2005},
     'dowry_prohibition_act': {'name': 'Dowry Prohibition Act', 'year': 1961},
     'consumer_protection_act': {'name': 'Consumer Protection Act', 'year': 2019},
+    'income_tax_act_1961': {'name': 'Income-tax Act', 'year': 1961},
+    'cgst_act_2017': {'name': 'Central Goods and Services Tax Act', 'year': 2017},
     'motor_vehicles_act': {'name': 'Motor Vehicles Act', 'year': 1988},
     'uapa_1967': {'name': 'Unlawful Activities (Prevention) Act', 'year': 1967},
     'labour_employment_laws': {'name': 'Labour and Employment Laws', 'year': 1948},
@@ -489,6 +492,25 @@ class EnhancedLegalAdvisor:
             return ['criminal']
         
         # PRIORITY 6: Civil disputes (explicit civil indicators)
+        tax_indicators = ['income tax', 'tax evasion', 'tax avoidance', 'gst', 'cgst', 'igst', 'sgst',
+                          'tds', 'input tax credit', 'itc', 'assessment order', 'fake invoice',
+                          'bogus invoice', 'refund fraud', 'under-reported income', 'misreported income']
+        if any(indicator in query_lower for indicator in tax_indicators):
+            return ['civil']
+
+        builder_delay_indicators = ['builder', 'building', 'not built', 'not build', 'project delay',
+                                    'delay in possession', 'possession delay', 'delayed possession',
+                                    'rera', 'construction delay', 'handover delay', 'flat handover']
+        if any(indicator in query_lower for indicator in builder_delay_indicators):
+            return ['civil']
+
+        unpaid_wage_indicators = ['salary not paid', 'unpaid salary', 'wages not paid', 'unpaid wages',
+                                  'boss is not paying me', 'boss not paying', 'employer not paying',
+                                  'not paying me', 'pending salary', 'withheld wages']
+        if any(indicator in query_lower for indicator in unpaid_wage_indicators):
+            return ['civil']
+
+        # PRIORITY 7: Civil disputes (explicit civil indicators)
         civil_indicators = ['sue', 'recover money', 'remaining amount', 'payment dispute', 'breach of contract',
                            'refund', 'invoice', 'non-payment', 'agreement', 'damages', 'compensation',
                            'contract', 'civil suit', 'money recovery', 'debt recovery', 'negligence',
@@ -496,40 +518,42 @@ class EnhancedLegalAdvisor:
         if any(indicator in query_lower for indicator in civil_indicators):
             return ['civil']
         
-        # PRIORITY 7: Consumer issues
+        # PRIORITY 8: Consumer issues
         consumer_indicators = ['defective product', 'warranty', 'overcharging', 'service deficiency',
                               'consumer complaint', 'consumer forum', 'product quality', 'seller refused']
         if any(indicator in query_lower for indicator in consumer_indicators):
             return ['consumer']
         
-        # PRIORITY 8: Property/Land disputes (civil)
+        # PRIORITY 9: Property/Land disputes (civil)
         property_keywords = ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage',
-                            'land', 'dispute', 'boundary', 'title deed', 'encroachment', 'easement', 
-                            'ownership', 'possession', 'foreclosure', 'attachment']
+                            'land', 'dispute', 'boundary', 'title deed', 'encroachment', 'easement',
+                            'ownership', 'possession', 'foreclosure', 'attachment', 'builder', 'building',
+                            'rera', 'project', 'construction']
         if any(keyword in query_lower for keyword in property_keywords):
             return ['civil']
         
-        # PRIORITY 9: Family law
+        # PRIORITY 10: Family law
         family_keywords = ['divorce', 'marriage', 'custody', 'alimony', 'maintenance', 'matrimonial',
                           'spouse', 'wife', 'husband', 'separation', 'guardianship', 'adoption',
                           'cheating', 'adultery', 'affair', 'unfaithful']
         if any(keyword in query_lower for keyword in family_keywords):
             return ['family']
         
-        # PRIORITY 10: Employment/Labour
+        # PRIORITY 11: Employment/Labour
         employment_keywords = ['salary', 'wages', 'termination', 'fired', 'workplace',
-                              'employee', 'employer', 'leave', 'overtime', 'gratuity', 'provident fund']
+                              'employee', 'employer', 'leave', 'overtime', 'gratuity', 'provident fund',
+                              'boss', 'unpaid', 'pending salary', 'payment of wages', 'not paying']
         if any(keyword in query_lower for keyword in employment_keywords):
-            return ['commercial']
+            return ['civil']
         
-        # PRIORITY 11: Commercial/Agricultural
+        # PRIORITY 12: Commercial/Agricultural
         commercial_keywords = ['contract', 'company', 'business', 'trade', 'corporate', 'partnership',
                               'farmer', 'crop', 'agricultural', 'farm', 'harvest', 'cultivation',
                               'msp', 'insurance', 'loan', 'debt']
         if any(keyword in query_lower for keyword in commercial_keywords):
             return ['commercial']
         
-        # PRIORITY 12: Consumer (general)
+        # PRIORITY 13: Consumer (general)
         consumer_general = ['consumer', 'defective', 'refund']
         if any(keyword in query_lower for keyword in consumer_general):
             return ['consumer']
@@ -599,6 +623,8 @@ class EnhancedLegalAdvisor:
             "understanding_source": understanding.get("source", "none"),
             "understanding_model": understanding.get("model"),
         }
+        if understanding.get("disabled_reason"):
+            retrieval_metadata["understanding_disabled_reason"] = understanding["disabled_reason"]
 
         if section_hints:
             for section in self.jurisdiction_sections.get(jurisdiction, []):
@@ -702,7 +728,7 @@ class EnhancedLegalAdvisor:
 
                     domain_keywords = {
                         'criminal': ['offence', 'punishment', 'imprisonment', 'fine', 'criminal'],
-                        'civil': ['damages', 'compensation', 'liability', 'breach', 'contract'],
+                        'civil': ['damages', 'compensation', 'liability', 'breach', 'contract', 'tax', 'assessment', 'return', 'invoice', 'credit', 'salary', 'wages', 'builder', 'possession', 'rera'],
                         'family': ['marriage', 'divorce', 'custody', 'family', 'matrimonial'],
                         'commercial': ['company', 'business', 'commercial', 'trade', 'corporate']
                     }
@@ -748,7 +774,7 @@ class EnhancedLegalAdvisor:
             },
             # Property -> Property Laws (check BEFORE agriculture)
             {
-                'keywords': ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage', 'rera', 'builder', 'flat', 'house', 'apartment', 'real estate', 'ownership', 'land dispute', 'boundary dispute', 'title deed', 'encroachment'],
+                'keywords': ['property', 'tenant', 'landlord', 'eviction', 'rent', 'lease', 'mortgage', 'rera', 'builder', 'building', 'flat', 'house', 'apartment', 'real estate', 'ownership', 'land dispute', 'boundary dispute', 'title deed', 'encroachment', 'possession', 'project', 'construction delay', 'delayed possession', 'not built', 'not completed', 'handover'],
                 'acts': ['property', 'real_estate'],
                 'min_sections': 2
             },
@@ -760,7 +786,7 @@ class EnhancedLegalAdvisor:
             },
             # Employment -> Labour Laws
             {
-                'keywords': ['salary', 'wages', 'fired', 'termination', 'boss', 'employer', 'employee', 'workplace', 'leave', 'overtime', 'gratuity', 'pf', 'epf', 'job', 'work', 'office', 'company', 'resignation', 'dismissal', 'harassment'],
+                'keywords': ['salary', 'wages', 'fired', 'termination', 'boss', 'employer', 'employee', 'workplace', 'leave', 'overtime', 'gratuity', 'pf', 'epf', 'job', 'work', 'office', 'company', 'resignation', 'dismissal', 'harassment', 'not paying', 'unpaid', 'pending salary', 'payment of wages'],
                 'acts': ['labour', 'employment'],
                 'min_sections': 3
             },
@@ -769,6 +795,12 @@ class EnhancedLegalAdvisor:
                 'keywords': ['defective', 'product', 'refund', 'consumer', 'warranty', 'guarantee', 'shop', 'purchase', 'bought', 'seller', 'buyer', 'goods', 'service', 'complaint', 'quality'],
                 'acts': ['consumer_protection'],
                 'min_sections': 3
+            },
+            # Tax -> Income-tax Act / CGST Act
+            {
+                'keywords': ['income tax', 'tax evasion', 'tax avoidance', 'gst', 'cgst', 'igst', 'sgst', 'tds', 'input tax credit', 'itc', 'assessment', 'fake invoice', 'bogus invoice', 'refund fraud', 'under-reported income', 'misreported income'],
+                'acts': ['income_tax', 'cgst_act', 'gst'],
+                'min_sections': 2
             },
             # Property -> Property Laws
             {
@@ -797,9 +829,11 @@ class EnhancedLegalAdvisor:
             act_descriptions = {
                 'it_act': 'cybercrime hacking computer internet digital fraud phishing data breach online security',
                 'farmers_protection': 'farmer agriculture crop cultivation farming land irrigation seed fertilizer harvest',
-                'labour': 'employment salary wages job work termination firing workplace employee employer',
+                'labour': 'employment salary wages unpaid salary unpaid wages job work termination firing workplace employee employer payment of wages',
                 'consumer_protection': 'consumer product defective refund warranty purchase goods service quality',
-                'property': 'property real estate tenant landlord rent lease mortgage house flat building',
+                'income_tax': 'income tax tax evasion tax avoidance under reported income misreported income tds gaar assessment return penalty prosecution',
+                'cgst': 'gst cgst fake invoice bogus invoice input tax credit itc refund fraud tax evasion collected tax not paid',
+                'property': 'property real estate tenant landlord rent lease mortgage house flat building builder delayed possession rera project completion refund interest',
                 'motor_vehicles': 'vehicle car accident driving license insurance traffic road collision',
                 'hindu_marriage': 'marriage divorce custody alimony spouse wife husband family matrimonial'
             }
@@ -862,6 +896,60 @@ class EnhancedLegalAdvisor:
                 filtered.append(section)
         
         return filtered
+
+    @staticmethod
+    def _normalize_section_number(section_number: Any) -> str:
+        value = str(section_number or "").strip()
+        return re.sub(r"^(section|article)[_\-\s]+", "", value, flags=re.IGNORECASE)
+
+    def _augment_sections_from_full_db_search(
+        self,
+        query: str,
+        jurisdiction: str,
+        domain: str,
+        sections: List[Section],
+    ) -> List[Section]:
+        if jurisdiction != 'IN' or domain != 'civil':
+            return sections
+
+        try:
+            from legal_database.database_loader import legal_db
+        except Exception:
+            return sections
+
+        db_results = legal_db.get_legal_sections(query, jurisdiction, domain, limit=5)
+        if not db_results:
+            return sections
+
+        section_lookup = {}
+        for section in self.sections:
+            if section.jurisdiction.value != jurisdiction:
+                continue
+            key = (
+                section.act_id,
+                self._normalize_section_number(section.section_number),
+            )
+            section_lookup.setdefault(key, section)
+
+        merged_sections = []
+        seen = set()
+
+        for item in db_results:
+            key = (
+                item.get("act_id", ""),
+                self._normalize_section_number(item.get("section", "")),
+            )
+            section = section_lookup.get(key)
+            if section and section.section_id not in seen:
+                seen.add(section.section_id)
+                merged_sections.append(section)
+
+        for section in sections:
+            if section.section_id not in seen:
+                seen.add(section.section_id)
+                merged_sections.append(section)
+
+        return merged_sections
     
     def _generate_legal_analysis(self, query: str, sections: List[Section], jurisdiction: str) -> str:
         """Generate comprehensive legal analysis based on relevant sections"""
@@ -1296,6 +1384,27 @@ class EnhancedLegalAdvisor:
             domain,
             query_understanding,
         )
+
+        # Remove helper routing/domain-map placeholders
+        relevant_sections = [
+            section for section in relevant_sections
+            if "domain_map" not in str(section.act_id).lower()
+            and "routes" not in str(section.act_id).lower()
+        ]
+
+        # Augment with full database search for Indian civil matters (captures tax/property/employment statutes)
+        augmented_sections = self._augment_sections_from_full_db_search(
+            legal_query.query_text,
+            jurisdiction,
+            domain,
+            relevant_sections,
+        )
+        if len(augmented_sections) != len(relevant_sections):
+            retrieval_metadata["full_db_augmented"] = {
+                "before": len(relevant_sections),
+                "after": len(augmented_sections),
+            }
+        relevant_sections = augmented_sections
         
         # Apply ontology filter (skip for family domain and non-Indian jurisdictions)
         allowed_act_ids = self.ontology_filter.get_allowed_act_ids(domain)
@@ -1494,6 +1603,20 @@ class EnhancedLegalAdvisor:
                 })
         
         all_statutes.extend(addon_statutes)
+        deduped_statutes = []
+        seen_statutes = set()
+        for statute in all_statutes:
+            key = (
+                statute.get('act'),
+                statute.get('year'),
+                statute.get('section'),
+                statute.get('title')
+            )
+            if key in seen_statutes:
+                continue
+            seen_statutes.add(key)
+            deduped_statutes.append(statute)
+        all_statutes = deduped_statutes
 
         section_hints = {
             str(value).strip().lower()
@@ -1529,7 +1652,8 @@ class EnhancedLegalAdvisor:
         indian_acts = ['Hindu Marriage Act', 'Special Marriage Act', 'Bharatiya Nyaya Sanhita', 'Indian Penal Code', 
                        'Code of Criminal Procedure', 'Code of Civil Procedure', 'Indian Evidence Act',
                        'Information Technology Act', 'Protection of Women from Domestic Violence Act',
-                       'Dowry Prohibition Act', 'Consumer Protection Act', 'Motor Vehicles Act',
+                       'Dowry Prohibition Act', 'Consumer Protection Act', 'Income-tax Act',
+                       'Central Goods and Services Tax Act', 'Motor Vehicles Act',
                        'Unlawful Activities (Prevention) Act', 'Labour and Employment Laws',
                        'Real Estate (Regulation and Development) Act', 'Farmers Protection Act']
         

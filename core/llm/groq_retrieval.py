@@ -13,9 +13,10 @@ import re
 from typing import Any, Dict, List, Optional
 from urllib import error, request
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()
+_dotenv_path = find_dotenv(usecwd=False)
+load_dotenv(_dotenv_path or None)
 
 VALID_JURISDICTIONS = {"IN", "UK", "UAE"}
 VALID_DOMAINS = {"criminal", "civil", "family", "commercial", "consumer", "terrorism", "constitutional"}
@@ -40,8 +41,10 @@ ACT_HINT_RULES = {
     "special_marriage_act": ["special marriage", "interfaith marriage"],
     "domestic_violence_act": ["domestic violence", "protection order"],
     "dowry_prohibition_act": ["dowry", "dowry harassment", "dowry demand"],
-    "labour_employment_laws": ["salary", "termination", "employee", "employer", "wages"],
-    "property_real_estate_laws": ["property", "tenant", "landlord", "eviction", "builder", "rera"],
+    "labour_employment_laws": ["salary", "termination", "employee", "employer", "wages", "boss", "unpaid salary", "not paying me", "pending salary"],
+    "property_real_estate_laws": ["property", "tenant", "landlord", "eviction", "builder", "rera", "building", "possession", "project", "construction delay", "not built"],
+    "income_tax_act_1961": ["income tax", "tax avoidance", "tax evasion", "tds", "under-reported income", "misreported income", "gaar"],
+    "cgst_act_2017": ["gst", "cgst", "igst", "sgst", "fake invoice", "bogus invoice", "input tax credit", "itc", "refund fraud"],
 }
 
 
@@ -60,6 +63,17 @@ class GroqRetrievalAugmentor:
         ).lower() not in {"0", "false", "no"}
         self.candidate_limit = int(os.getenv("GROQ_SECTION_RERANK_CANDIDATES", "18"))
 
+    def _disabled_reason(self, mode: str) -> Optional[str]:
+        if not self.enabled:
+            return "GROQ_ENABLED is false"
+        if not self.api_key:
+            return "GROQ_API_KEY missing"
+        if mode == "understanding" and not self.query_understanding_enabled:
+            return "GROQ_QUERY_UNDERSTANDING_ENABLED is false"
+        if mode == "rerank" and not self.section_rerank_enabled:
+            return "GROQ_SECTION_RERANK_ENABLED is false"
+        return None
+
     def understand_query(
         self,
         *,
@@ -74,9 +88,11 @@ class GroqRetrievalAugmentor:
             jurisdiction_hint=jurisdiction_hint,
             domain_hint=domain_hint,
         )
-        if not self.enabled or not self.api_key or not self.query_understanding_enabled:
+        disabled_reason = self._disabled_reason("understanding")
+        if disabled_reason:
             fallback["source"] = "local"
             fallback["model"] = None
+            fallback["disabled_reason"] = disabled_reason
             return fallback
 
         prompt = "\n".join(
@@ -132,12 +148,13 @@ class GroqRetrievalAugmentor:
     ) -> Dict[str, Any]:
         understanding = understanding or {}
         fallback_sections = self._local_rerank(query, sections, understanding)[:top_k]
-        if len(sections) <= 1 or not self.enabled or not self.api_key or not self.section_rerank_enabled:
+        disabled_reason = self._disabled_reason("rerank")
+        if len(sections) <= 1 or disabled_reason:
             return {
                 "sections": fallback_sections,
                 "source": "local",
                 "model": None,
-                "reason": "local deterministic ranking",
+                "reason": disabled_reason or "insufficient candidates",
             }
 
         candidates = sections[: self.candidate_limit]
@@ -229,6 +246,16 @@ class GroqRetrievalAugmentor:
             search_queries.append(" ".join(act_hints[:2] + keywords[:6]))
         if section_hints:
             search_queries.append(f"{query.strip()} section {' '.join(section_hints[:4])}")
+        if "property_real_estate_laws" in act_hints and any(term in query.lower() for term in ["delay", "delayed", "not built", "not build", "possession", "project", "building"]):
+            search_queries.append("builder delayed possession rera refund interest")
+            for term in ["builder", "possession", "delay", "rera", "refund", "interest"]:
+                if term not in keywords:
+                    keywords.append(term)
+        if "labour_employment_laws" in act_hints and any(term in query.lower() for term in ["boss", "salary", "wages", "not paying", "unpaid", "paying me"]):
+            search_queries.append("salary unpaid wages employer payment of wages")
+            for term in ["salary", "wages", "employer", "payment", "unpaid"]:
+                if term not in keywords:
+                    keywords.append(term)
 
         deduped_queries = []
         seen = set()
@@ -425,7 +452,11 @@ class GroqRetrievalAugmentor:
         if any(term in query_lower for term in ["divorce", "custody", "marriage", "alimony"]):
             return "family"
         if any(term in query_lower for term in ["salary", "termination", "employment", "consumer", "refund"]):
-            return "commercial" if "salary" in query_lower or "employment" in query_lower else "consumer"
+            return "civil" if "salary" in query_lower or "employment" in query_lower else "consumer"
+        if any(term in query_lower for term in ["boss", "wages", "unpaid salary", "not paying me"]):
+            return "civil"
+        if any(term in query_lower for term in ["tax", "gst", "cgst", "igst", "sgst", "tds", "input tax credit", "itc", "assessment"]):
+            return "civil"
         if any(term in query_lower for term in ["property", "eviction", "rent", "contract", "damages"]):
             return "civil"
         return None

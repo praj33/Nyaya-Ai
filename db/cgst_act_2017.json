@@ -1,0 +1,15 @@
+{
+  "act_name": "Central Goods and Services Tax Act, 2017",
+  "jurisdiction": "IN",
+  "key_sections": {
+    "assessment_and_recovery": {
+      "73": "Determination of tax not paid or short paid or erroneously refunded or input tax credit wrongly availed or utilised for reasons other than fraud, wilful misstatement or suppression of facts.",
+      "74": "Determination of tax not paid or short paid or erroneously refunded or input tax credit wrongly availed or utilised by reason of fraud, wilful misstatement or suppression of facts.",
+      "76": "Tax collected but not paid to Government - any amount collected as representing tax must be paid to the Government, with recovery and penalty consequences."
+    },
+    "offences_and_penalties": {
+      "122": "Penalty for certain offences - covers supplies without invoice, false invoice, fake invoice, wrongful input tax credit, fraudulent refund, failure to pay collected tax, and other specified contraventions; penalty may be the higher of Rs. 10,000 or the tax amount involved.",
+      "132": "Punishment for certain offences - covers tax evasion, fake invoices, wrongful input tax credit, fraudulent refund, collecting tax and not paying it to Government, falsifying records, and related offences, with imprisonment and fine based on the amount involved."
+    }
+  }
+}

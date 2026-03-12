@@ -54,9 +54,14 @@ class AddonSubtypeResolver:
             keywords = subtype_data.get('keywords', [])
             exclude_keywords = subtype_data.get('exclude_keywords', [])
             require_keywords = subtype_data.get('require_keywords', [])
+            trigger_verbs = subtype_data.get('trigger_verbs', [])
             
             # Check if any keyword matches
             if not any(kw in query_lower for kw in keywords):
+                continue
+
+            # If trigger verbs are provided (e.g., for assault/violence), require at least one verb match
+            if trigger_verbs and not any(verb in query_lower for verb in trigger_verbs):
                 continue
             
             # Check exclude keywords

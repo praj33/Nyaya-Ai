@@ -19,7 +19,9 @@
         "arbitration_matters",
         "property_disputes",
         "family_matters",
-        "tort_law"
+        "tort_law",
+        "tax_matters",
+        "employment_matters"
       ],
       "confidence_threshold": 0.7
     }
@@ -33,9 +35,11 @@
     "procedural_matters": ["fir", "investigation", "charge sheet", "trial", "bail", "arrest"],
     "contract_disputes": ["breach of contract", "void agreement", "consideration", "damages"],
     "arbitration_matters": ["arbitration agreement", "arbitral award", "setting aside award", "enforcement"],
-    "property_disputes": ["adverse possession", "easement", "partition", "specific performance"],
+    "property_disputes": ["adverse possession", "easement", "partition", "specific performance", "builder delay", "building not built", "not built in time", "project delay", "delay in possession", "possession delay", "construction delay", "builder not giving possession", "rera", "flat handover delay"],
     "family_matters": ["divorce", "custody", "maintenance", "adoption"],
-    "tort_law": ["negligence", "defamation", "nuisance", "trespass"]
+    "tort_law": ["negligence", "defamation", "nuisance", "trespass"],
+    "tax_matters": ["tax", "income tax", "gst", "cgst", "igst", "tds", "input tax credit", "itc", "assessment", "tax evasion", "tax avoidance", "fake invoice"],
+    "employment_matters": ["salary not paid", "unpaid wages", "wages not paid", "employer not paying", "boss not paying", "boss is not paying me", "payment of wages", "salary delay", "pending salary", "minimum wages", "withheld wages"]
   },
   "fallback_rules": {
     "default_domain": "civil",

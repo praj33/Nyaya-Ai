@@ -11,9 +11,10 @@ import json
 from typing import Any, Dict, List, Optional
 from urllib import error, request
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
-load_dotenv()
+_dotenv_path = find_dotenv(usecwd=False)
+load_dotenv(_dotenv_path or None)
 
 
 class GroqResponseGenerator:
@@ -25,6 +26,14 @@ class GroqResponseGenerator:
         self.base_url = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1").rstrip("/")
         self.timeout_seconds = float(os.getenv("GROQ_TIMEOUT_SECONDS", "20"))
         self.enabled = os.getenv("GROQ_ENABLED", "true").lower() not in {"0", "false", "no"}
+        self.debug = os.getenv("GROQ_DEBUG", "false").lower() not in {"0", "false", "no"}
+
+    def _disabled_reason(self) -> Optional[str]:
+        if not self.enabled:
+            return "GROQ_ENABLED is false"
+        if not self.api_key:
+            return "GROQ_API_KEY missing"
+        return None
 
     def generate_answer(
         self,
@@ -60,7 +69,10 @@ class GroqResponseGenerator:
             retrieval_metadata=retrieval_metadata,
         )
 
-        if not self.enabled or not self.api_key:
+        disabled_reason = self._disabled_reason()
+        if disabled_reason:
+            if self.debug:
+                print(f"GroqResponseGenerator disabled: {disabled_reason}")
             return {
                 "text": fallback_answer,
                 "source": "local",
@@ -126,7 +138,9 @@ class GroqResponseGenerator:
                 "source": "groq",
                 "model": data.get("model", self.model),
             }
-        except (ValueError, OSError, error.HTTPError, error.URLError):
+        except (ValueError, OSError, error.HTTPError, error.URLError) as exc:
+            if self.debug:
+                print(f"GroqResponseGenerator fallback: {exc}")
             return {
                 "text": fallback_answer,
                 "source": "local_fallback",
