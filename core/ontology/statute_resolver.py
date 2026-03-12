@@ -16,6 +16,9 @@ class QualifiedStatute:
 
 class StatuteResolver:
     def __init__(self, ontology_path: str = None, use_faiss: bool = True):
+        self.base_dir = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", ".."))
+        self.db_path = os.path.join(self.base_dir, "db")
+
         if ontology_path is None:
             ontology_path = os.path.join(
                 os.path.dirname(__file__),
@@ -40,7 +43,7 @@ class StatuteResolver:
         
         # Load actual sections from database
         from data_bridge.loader import JSONLoader
-        loader = JSONLoader("db")
+        loader = JSONLoader(self.db_path)
         self.sections, self.acts_db, self.cases = loader.load_and_normalize_directory()
         pass
         
@@ -140,6 +143,25 @@ class StatuteResolver:
         
         relevant_acts = set()
         query_lower = query.lower()
+
+        gst_keywords = [
+            "gst", "cgst", "igst", "sgst", "input tax credit", "itc",
+            "fake invoice", "bogus invoice", "refund fraud"
+        ]
+        income_tax_keywords = [
+            "income tax", "tax avoidance", "tax evasion", "gaar", "tds",
+            "under-reported income", "under reported income",
+            "misreported income", "mis-reported income"
+        ]
+        has_gst_signal = any(keyword in query_lower for keyword in gst_keywords)
+        has_income_tax_signal = any(keyword in query_lower for keyword in income_tax_keywords)
+
+        if has_gst_signal:
+            relevant_acts.add("cgst_act_2017")
+        if has_income_tax_signal or ("tax" in query_lower and not has_gst_signal):
+            relevant_acts.add("income_tax_act_1961")
+        if relevant_acts:
+            return self._sort_by_priority(list(relevant_acts))
         
         # Check offense subtype first (higher priority)
         subtype = self.detect_offense_subtype(query)
@@ -400,6 +422,9 @@ class StatuteResolver:
             'domestic_violence': 'domestic_violence_act',
             'dowry_prohibition': 'dowry_prohibition_act',
             'consumer_protection': 'consumer_protection_act',
+            'income_tax': 'income_tax_act_1961',
+            'gst': 'cgst_act_2017',
+            'cgst': 'cgst_act_2017',
             'labour': 'labour_employment_laws',
             'property': 'property_real_estate_laws',
             'motor_vehicles': 'motor_vehicles_act',
@@ -424,7 +449,7 @@ class StatuteResolver:
         
         # Load actual sections from database
         from data_bridge.loader import JSONLoader
-        loader = JSONLoader("db")
+        loader = JSONLoader(self.db_path)
         sections, acts, cases = loader.load_and_normalize_directory()
         
         # Filter sections

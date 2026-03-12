@@ -137,6 +137,30 @@
       "active": true
     },
     {
+      "act_id": "income_tax_act_1961",
+      "name": "Income-tax Act",
+      "year": 1961,
+      "abbreviation": "Income-tax Act",
+      "jurisdiction": "IN",
+      "domain": ["civil"],
+      "section_range": ["1", "298"],
+      "keywords": ["income tax", "tax evasion", "tax avoidance", "gaar", "tds", "under reporting", "misreporting", "return filing", "assessment", "penalty"],
+      "priority": 1,
+      "active": true
+    },
+    {
+      "act_id": "cgst_act_2017",
+      "name": "Central Goods and Services Tax Act",
+      "year": 2017,
+      "abbreviation": "CGST",
+      "jurisdiction": "IN",
+      "domain": ["civil"],
+      "section_range": ["1", "174"],
+      "keywords": ["gst", "cgst", "igst", "sgst", "fake invoice", "bogus invoice", "input tax credit", "itc", "tax evasion", "refund fraud"],
+      "priority": 1,
+      "active": true
+    },
+    {
       "act_id": "labour_employment_laws",
       "name": "Labour and Employment Laws",
       "year": 1948,
@@ -332,7 +356,7 @@
       "exclude_domains": []
     },
     "civil": {
-      "primary_acts": ["labour_employment_laws", "property_real_estate_laws", "motor_vehicles_act", "farmers_protection_act", "cpc_sections"],
+      "primary_acts": ["income_tax_act_1961", "cgst_act_2017", "labour_employment_laws", "property_real_estate_laws", "motor_vehicles_act", "farmers_protection_act", "cpc_sections"],
       "procedural_acts": ["cpc_sections"],
       "exclude_domains": []
     },

@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.append(str(ROOT))
+
 from core.llm.groq_retrieval import GroqRetrievalAugmentor
 from data_bridge.schemas.section import Jurisdiction, Section
 
@@ -52,3 +59,20 @@ def test_local_rerank_prefers_section_hint_matches():
     )
 
     assert result["sections"][0].section_number == "379"
+
+
+def test_local_query_understanding_extracts_tax_act_hints():
+    augmentor = GroqRetrievalAugmentor()
+    augmentor.enabled = True
+    augmentor.api_key = ""
+
+    result = augmentor.understand_query(
+        query="What is the penalty for GST fake invoice and wrongful ITC in India?",
+        jurisdiction_hint="India",
+        domain_hint=None,
+    )
+
+    assert result["source"] == "local"
+    assert "cgst_act_2017" in result["act_hints"]
+    assert result["suggested_jurisdiction"] == "IN"
+    assert result["suggested_domain"] == "civil"

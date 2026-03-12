@@ -66,12 +66,13 @@ async def get_relevant_legal_sections(
     jurisdiction: str,
     domain: str,
     query: str,
+    limit: int = 10,
     trace_id: str = Depends(get_trace_id),
     nonce: str = Depends(validate_nonce)
 ):
     """Get relevant legal sections from comprehensive database."""
     try:
-        sections = legal_db.get_legal_sections(query, jurisdiction, domain)
+        sections = legal_db.get_legal_sections(query, jurisdiction, domain, limit=limit)
         
         return {
             "status": "success",
