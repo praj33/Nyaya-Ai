@@ -12,7 +12,7 @@
     ]
   },
   "dowry_death": {
-    "keywords": ["dowry death"],
+    "keywords": ["dowry death", "dowry"],
     "require_keywords": ["died", "killed", "burnt", "burned", "suicide", "found dead", "death", "body"],
     "domains": ["criminal"],
     "constitutional_articles": ["Article 21", "Article 15(3)"],
@@ -56,8 +56,20 @@
       {
         "act": "Protection of Children from Sexual Offences Act",
         "year": 2012,
+        "section": "4",
+        "title": "Punishment for penetrative sexual assault"
+      },
+      {
+        "act": "Protection of Children from Sexual Offences Act",
+        "year": 2012,
         "section": "7",
         "title": "Sexual assault"
+      },
+      {
+        "act": "Protection of Children from Sexual Offences Act",
+        "year": 2012,
+        "section": "8",
+        "title": "Punishment for sexual assault"
       },
       {
         "act": "Bharatiya Nyaya Sanhita",
@@ -153,7 +165,30 @@
     "statutes": [
       {"act": "Bharatiya Nyaya Sanhita", "section": "108", "title": "Abetment of suicide"},
       {"act": "Indian Penal Code", "section": "306", "title": "Abetment of suicide"},
-      {"act": "Indian Penal Code", "section": "305", "title": "Abetment of suicide of child or insane person"}
+      {"act": "Indian Penal Code", "section": "305", "title": "Abetment of suicide of child or insane person"},
+      {"act": "Indian Penal Code", "section": "309", "title": "Attempt to commit suicide"}
+    ]
+  },
+  "tax_non_payment": {
+    "keywords": [
+      "tax not paid",
+      "non payment of tax",
+      "tax unpaid",
+      "tax evasion",
+      "gst not paid",
+      "income tax not paid",
+      "tax default",
+      "tax penalty",
+      "tax arrears"
+    ],
+    "domains": ["tax"],
+    "statutes": [
+      {"act": "Income-tax Act", "year": 1961, "section": "276C", "title": "Wilful attempt to evade tax, penalty or interest"},
+      {"act": "Income-tax Act", "year": 1961, "section": "270A", "title": "Penalty for under-reporting and misreporting of income"},
+      {"act": "Income-tax Act", "year": 1961, "section": "271AAD", "title": "Penalty for false entry or omitted entry in books of account"},
+      {"act": "Central Goods and Services Tax Act", "year": 2017, "section": "76", "title": "Tax collected but not paid to Government"},
+      {"act": "Central Goods and Services Tax Act", "year": 2017, "section": "122", "title": "Penalty for certain offences"},
+      {"act": "Central Goods and Services Tax Act", "year": 2017, "section": "132", "title": "Punishment for certain offences"}
     ]
   }
 }

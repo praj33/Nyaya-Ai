@@ -41,6 +41,7 @@ class OntologyFilter:
             'special_marriage': 'special_marriage_act',
             'domestic_violence': 'domestic_violence_act',
             'dowry_prohibition': 'dowry_prohibition_act',
+            'pocso': 'pocso_act_2012',
             'consumer_protection': 'consumer_protection_act',
             'income_tax': 'income_tax_act_1961',
             'gst': 'cgst_act_2017',

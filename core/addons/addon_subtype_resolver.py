@@ -15,13 +15,6 @@ class AddonSubtypeResolver:
                 multi_jurisdiction_addons = json.load(f)
                 self.addon_subtypes.update(multi_jurisdiction_addons)
         
-        # Load ontology offense subtypes
-        ontology_path = os.path.join(os.path.dirname(__file__), "..", "ontology", "offense_subtypes.json")
-        if os.path.exists(ontology_path):
-            with open(ontology_path, 'r', encoding='utf-8') as f:
-                ontology_subtypes = json.load(f)
-                self.addon_subtypes.update(ontology_subtypes)
-        
         # Statute completeness overlay mapping
         self.statute_overlay = {
             "Bharatiya Nyaya Sanhita": {"year": 2023},
@@ -44,6 +37,17 @@ class AddonSubtypeResolver:
     def detect_addon_subtype(self, query: str, jurisdiction: str = None) -> Optional[str]:
         """Detect addon offense subtype from query with exclude/require logic and jurisdiction matching"""
         query_lower = query.lower()
+
+        def keyword_matches(keyword: str) -> bool:
+            if not keyword:
+                return False
+            keyword_lower = keyword.lower().strip()
+            if not keyword_lower:
+                return False
+            if " " in keyword_lower:
+                tokens = [token for token in keyword_lower.split() if token]
+                return all(token in query_lower for token in tokens)
+            return keyword_lower in query_lower
         
         for subtype_name, subtype_data in self.addon_subtypes.items():
             # Check jurisdiction match if specified in addon
@@ -57,7 +61,7 @@ class AddonSubtypeResolver:
             trigger_verbs = subtype_data.get('trigger_verbs', [])
             
             # Check if any keyword matches
-            if not any(kw in query_lower for kw in keywords):
+            if not any(keyword_matches(kw) for kw in keywords):
                 continue
 
             # If trigger verbs are provided (e.g., for assault/violence), require at least one verb match

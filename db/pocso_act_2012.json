@@ -1,0 +1,32 @@
+{
+  "code": "Protection of Children from Sexual Offences Act, 2012",
+  "scope": "Protection of children from sexual assault, sexual harassment, and pornography; establishment of special courts",
+  "key_sections": {
+    "sexual_offences": {
+      "3": "Penetrative sexual assault",
+      "4": "Punishment for penetrative sexual assault",
+      "5": "Aggravated penetrative sexual assault",
+      "6": "Punishment for aggravated penetrative sexual assault",
+      "7": "Sexual assault",
+      "8": "Punishment for sexual assault",
+      "9": "Aggravated sexual assault",
+      "10": "Punishment for aggravated sexual assault",
+      "11": "Sexual harassment",
+      "12": "Punishment for sexual harassment"
+    },
+    "pornography_offences": {
+      "13": "Use of child for pornographic purposes",
+      "14": "Punishment for using child for pornographic purposes",
+      "15": "Punishment for storage of pornographic material involving child"
+    },
+    "reporting_and_procedure": {
+      "19": "Reporting of offences",
+      "21": "Punishment for failure to report or record a case",
+      "22": "Punishment for false complaint or false information"
+    },
+    "presumptions_and_courts": {
+      "29": "Presumption as to certain offences",
+      "30": "Presumption of culpable mental state"
+    }
+  }
+}

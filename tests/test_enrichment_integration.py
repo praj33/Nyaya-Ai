@@ -24,12 +24,12 @@ def test_timeline_defaults():
     # Criminal domain
     response = enrich_response({}, "test query", "criminal", [])
     assert len(response["timeline"]) == 4
-    assert response["timeline"][0]["step"] == "File FIR"
+    assert response["timeline"][0]["step"] == "Filing of FIR"
     
     # Family domain
     response = enrich_response({}, "test query", "family", [])
     assert len(response["timeline"]) == 4
-    assert response["timeline"][0]["step"] == "Consult lawyer"
+    assert response["timeline"][0]["step"] == "Filing of Family Petition"
     
     # Unknown domain
     response = enrich_response({}, "test query", "unknown", [])
@@ -49,12 +49,12 @@ def test_evidence_requirements():
     # Criminal domain
     response = enrich_response({}, "test query", "criminal", [])
     assert "Witness statements" in response["evidence_requirements"]
-    assert len(response["evidence_requirements"]) == 4
+    assert len(response["evidence_requirements"]) == 6
     
     # Family domain
     response = enrich_response({}, "test query", "family", [])
     assert "Marriage certificate" in response["evidence_requirements"]
-    assert len(response["evidence_requirements"]) == 3
+    assert len(response["evidence_requirements"]) == 5
     
     # Unknown domain
     response = enrich_response({}, "test query", "unknown", [])

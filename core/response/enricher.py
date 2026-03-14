@@ -7,7 +7,7 @@ def enrich_response(base_response: Dict[str, Any], query_text: str, domain: str,
     
     # Set enforcement_decision if not present
     if "enforcement_decision" not in base_response:
-        base_response["enforcement_decision"] = _get_enforcement_decision(query_text)
+        base_response["enforcement_decision"] = _get_enforcement_decision(query_text, jurisdiction)
     
     # Set timeline if not present
     if "timeline" not in base_response:
@@ -23,10 +23,45 @@ def enrich_response(base_response: Dict[str, Any], query_text: str, domain: str,
     
     return base_response
 
-def _get_enforcement_decision(query_text: str) -> str:
+def _get_enforcement_decision(query_text: str, jurisdiction: str = "IN") -> str:
     """Determine enforcement decision based on query content"""
     query_lower = query_text.lower()
-    
+
+    # Addon subtypes may explicitly require escalation
+    try:
+        from core.addons.addon_subtype_resolver import AddonSubtypeResolver
+        addon_resolver = AddonSubtypeResolver()
+        addon_subtype = addon_resolver.detect_addon_subtype(query_text, jurisdiction)
+        if addon_subtype:
+            addon_data = addon_resolver.addon_subtypes.get(addon_subtype, {})
+            addon_decision = addon_data.get("enforcement_decision")
+            if addon_decision:
+                return addon_decision
+    except Exception:
+        pass
+
+    # Authority assault (teacher/coach/boss + violence)
+    authority_roles = ["teacher", "coach", "principal", "warden", "employer", "boss"]
+    authority_verbs = ["beat", "beating", "hit", "slapped", "assaulted", "punched"]
+    if any(role in query_lower for role in authority_roles) and any(verb in query_lower for verb in authority_verbs):
+        return "ESCALATE"
+
+    # Child sexual offense indicators
+    child_sexual_keywords = [
+        "pedophile",
+        "paedophile",
+        "child abuse",
+        "minor sexual",
+        "molested child",
+        "sex with child",
+        "raping child",
+        "raping minor",
+        "year old girl",
+        "year old boy",
+    ]
+    if any(keyword in query_lower for keyword in child_sexual_keywords):
+        return "ESCALATE"
+
     # Check for suicide/self-harm keywords
     suicide_keywords = ["kill myself", "suicide", "end my life", "harm myself", "kill me"]
     if any(keyword in query_lower for keyword in suicide_keywords):
@@ -65,19 +100,31 @@ def _get_timeline_defaults(domain: str, jurisdiction: str = "IN") -> List[Dict[s
 def _get_glossary_defaults(statutes: List[Dict]) -> List[Dict[str, str]]:
     """Generate glossary from statutes"""
     glossary = []
+    seen = set()
+
+    def _add_term(term: str, definition: str) -> None:
+        if term in seen:
+            return
+        glossary.append({"term": term, "definition": definition})
+        seen.add(term)
     
     for statute in statutes:
         title = statute.get('title', '') if isinstance(statute, dict) else getattr(statute, 'title', '')
-        act = statute.get('act', '') if isinstance(statute, dict) else getattr(statute, 'act', '')
-        
-        if 'Murder' in title:
-            glossary.append({"term": "Murder", "definition": "Intentional killing with intent to cause death"})
-        if 'Extortion' in title:
-            glossary.append({"term": "Extortion", "definition": "Obtaining property by threat or force"})
-        if 'Rape' in title or 'Sexual' in title:
-            glossary.append({"term": "Sexual Assault", "definition": "Non-consensual sexual act"})
-        if 'Theft' in title:
-            glossary.append({"term": "Theft", "definition": "Dishonestly taking movable property"})
+        text = statute.get('text', '') if isinstance(statute, dict) else getattr(statute, 'text', '')
+        combined = f"{title} {text}".lower()
+
+        if "murder" in combined:
+            _add_term("Murder", "Intentional killing with intent to cause death")
+        if "extortion" in combined:
+            _add_term("Extortion", "Obtaining property by threat or force")
+        if "rape" in combined or "sexual" in combined:
+            _add_term("Sexual Assault", "Non-consensual sexual act")
+        if "theft" in combined:
+            _add_term("Theft", "Dishonestly taking movable property")
+        if "fir" in combined:
+            _add_term("FIR", "First Information Report filed with police")
+        if "charge sheet" in combined or "chargesheet" in combined:
+            _add_term("Charge Sheet", "Police report submitted to court after investigation")
     
     return glossary
 
@@ -94,5 +141,5 @@ def _get_evidence_defaults(domain: str, jurisdiction: str = "IN") -> List[str]:
     # Try to get from procedure loader
     procedure = procedure_loader.get_procedure(country, procedure_domain)
     if procedure and "procedure" in procedure and "documents_required" in procedure["procedure"]:
-        return procedure["procedure"]["documents_required"][:5]
+        return procedure["procedure"]["documents_required"]
     return []

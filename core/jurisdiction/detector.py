@@ -45,6 +45,27 @@ class JurisdictionDetector:
             # Currency
             'rupees': 0.6, 'inr': 0.7, 'lakh': 0.8, 'crore': 0.8,
         }
+        ,
+        'UK': {
+            # UK legal terms
+            'cps': 1.0, 'crown prosecution service': 1.0, 'crown court': 0.9,
+            'magistrates court': 0.9, 'solicitor': 0.8, 'barrister': 0.8,
+            'uk law': 0.9, 'british law': 0.9, 'england': 0.8, 'wales': 0.8,
+            'scotland': 0.8, 'london': 0.7, 'manchester': 0.7,
+            'theft act': 0.9, 'fraud act': 0.9, 'criminal justice act': 0.9,
+            'human rights act': 0.9,
+            # Currency
+            'pound': 0.6, 'pounds': 0.6, 'gbp': 0.7,
+        },
+        'UAE': {
+            # UAE legal terms
+            'uae': 1.0, 'emirates': 0.9, 'dubai': 0.9, 'abu dhabi': 0.9,
+            'sharjah': 0.8, 'ajman': 0.8, 'ras al khaimah': 0.8,
+            'fujairah': 0.8, 'umm al quwain': 0.8, 'federal law': 0.7,
+            'sharia': 0.7, 'public prosecution': 0.8,
+            # Currency
+            'aed': 0.7, 'dirham': 0.6, 'dirhams': 0.6,
+        }
     }
     
     # Default jurisdiction if no strong indicators

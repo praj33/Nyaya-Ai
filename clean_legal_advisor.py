@@ -19,6 +19,7 @@ from core.addons.addon_subtype_resolver import AddonSubtypeResolver
 from core.addons.dowry_precision_layer import DowryPrecisionLayer
 from core.llm import groq_retrieval_augmentor
 from procedures.loader import procedure_loader
+from profile_utils import normalize_issue_values, build_issue_priority_map
 
 # Try to import semantic search (optional)
 try:
@@ -289,6 +290,7 @@ ACT_METADATA = {
     'special_marriage_act': {'name': 'Special Marriage Act', 'year': 1954},
     'domestic_violence_act': {'name': 'Protection of Women from Domestic Violence Act', 'year': 2005},
     'dowry_prohibition_act': {'name': 'Dowry Prohibition Act', 'year': 1961},
+    'pocso_act_2012': {'name': 'Protection of Children from Sexual Offences Act', 'year': 2012},
     'consumer_protection_act': {'name': 'Consumer Protection Act', 'year': 2019},
     'income_tax_act_1961': {'name': 'Income-tax Act', 'year': 1961},
     'cgst_act_2017': {'name': 'Central Goods and Services Tax Act', 'year': 2017},
@@ -379,6 +381,23 @@ class EnhancedLegalAdvisor:
         self.addon_resolver = AddonSubtypeResolver()
         self.dowry_precision = DowryPrecisionLayer()
         self.groq_retrieval_augmentor = groq_retrieval_augmentor
+
+        # Load offense subtypes for issue-aware statute ordering
+        self.offense_subtypes = {}
+        offense_subtypes_path = os.path.join(os.path.dirname(__file__), "core", "ontology", "offense_subtypes.json")
+        if os.path.exists(offense_subtypes_path):
+            try:
+                with open(offense_subtypes_path, 'r', encoding='utf-8') as f:
+                    self.offense_subtypes = json.load(f)
+            except Exception:
+                self.offense_subtypes = {}
+
+        # Map act names to act_id fragments for ordering
+        self.act_name_to_id = {
+            meta["name"].lower(): act_id
+            for act_id, meta in ACT_METADATA.items()
+            if meta.get("name")
+        }
         
         # Create comprehensive searchable indexes
         self.section_index = self._build_section_index()
@@ -387,7 +406,8 @@ class EnhancedLegalAdvisor:
         
         # Initialize semantic search if available
         self.semantic_search = None
-        if SEMANTIC_SEARCH_AVAILABLE:
+        semantic_enabled = os.getenv("SEMANTIC_SEARCH_ENABLED", "false").lower() not in {"0", "false", "no"}
+        if semantic_enabled and SEMANTIC_SEARCH_AVAILABLE:
             try:
                 self.semantic_search = SemanticLegalSearch()
             except Exception as e:
@@ -653,6 +673,12 @@ class EnhancedLegalAdvisor:
     def _detect_domains(self, query: str, hint: Optional[str] = None) -> List[str]:
         """Enhanced domain detection - returns list of applicable domains"""
         query_lower = query.lower()
+
+        if hint:
+            hint_value = hint.value if hasattr(hint, "value") else str(hint)
+            mapped_hint = self._map_domain_hint(hint_value.strip().lower())
+            if mapped_hint:
+                return [mapped_hint]
         
         # PRIORITY 1: Marital cruelty/domestic violence (ALWAYS criminal + family)
         marital_cruelty_keywords = ['dowry', '498a', 'dowry death', 'dowry harassment', 
@@ -783,6 +809,154 @@ class EnhancedLegalAdvisor:
         
         # DEFAULT: Civil (safest fallback)
         return ['civil']
+
+    @staticmethod
+    def _keyword_matches(query_lower: str, keyword: str) -> bool:
+        if not keyword:
+            return False
+        candidate = keyword.lower().strip()
+        if not candidate:
+            return False
+        if " " in candidate:
+            tokens = [token for token in candidate.split() if token]
+            return all(token in query_lower for token in tokens)
+        return candidate in query_lower
+
+    def _match_issue_profile(self, query: str, jurisdiction: str) -> Optional[Dict[str, Any]]:
+        """Find the most relevant issue profile from offense subtypes."""
+        if not self.offense_subtypes:
+            return None
+
+        query_lower = query.lower()
+        best_match = None
+        best_score = 0
+
+        priority_order = [
+            "dowry_death",
+            "dowry_demand",
+            "child_sexual_offense",
+            "tax_non_payment",
+            "authority_assault",
+            "gang_rape",
+            "rape",
+            "murder",
+            "robbery",
+            "theft",
+        ]
+        seen = set(priority_order)
+        ordered_items = [(key, self.offense_subtypes[key]) for key in priority_order if key in self.offense_subtypes]
+        ordered_items.extend((key, data) for key, data in self.offense_subtypes.items() if key not in seen)
+
+        for subtype_name, subtype_data in ordered_items:
+            subtype_jurisdiction = subtype_data.get("jurisdiction")
+            if subtype_jurisdiction and subtype_jurisdiction != jurisdiction:
+                continue
+
+            keywords = subtype_data.get("keywords", [])
+            exclude_keywords = subtype_data.get("exclude_keywords", [])
+            require_keywords = subtype_data.get("require_keywords", [])
+            trigger_verbs = subtype_data.get("trigger_verbs", [])
+
+            if exclude_keywords and any(self._keyword_matches(query_lower, kw) for kw in exclude_keywords):
+                continue
+            if require_keywords and not any(self._keyword_matches(query_lower, kw) for kw in require_keywords):
+                continue
+            if trigger_verbs and not any(self._keyword_matches(query_lower, kw) for kw in trigger_verbs):
+                continue
+            if not any(self._keyword_matches(query_lower, kw) for kw in keywords):
+                continue
+
+            keyword_hits = sum(1 for kw in keywords if self._keyword_matches(query_lower, kw))
+            require_hits = sum(1 for kw in require_keywords if self._keyword_matches(query_lower, kw))
+            score = keyword_hits + (require_hits * 2)
+            if trigger_verbs:
+                score += 2
+
+            if score > best_score:
+                best_score = score
+                best_match = (subtype_name, subtype_data)
+
+        if not best_match:
+            return None
+
+        subtype_name, subtype_data = best_match
+        statutes = subtype_data.get("statutes", [])
+        preferred_sections = []
+        preferred_act_names = []
+        preferred_section_acts: Dict[str, List[str]] = {}
+        for statute in statutes:
+            section = str(statute.get("section", "")).strip()
+            act_name = str(statute.get("act", "")).strip()
+            if section:
+                preferred_sections.append(section)
+                if act_name:
+                    preferred_section_acts.setdefault(section.lower(), []).append(act_name.lower())
+            if act_name:
+                preferred_act_names.append(act_name)
+
+        preferred_act_fragments = []
+        for act_name in preferred_act_names:
+            act_fragment = self.act_name_to_id.get(act_name.lower())
+            if act_fragment:
+                preferred_act_fragments.append(act_fragment)
+
+        return {
+            "legal_issue": subtype_name,
+            "domains": subtype_data.get("domains", []),
+            "statutes": statutes,
+            "preferred_sections": preferred_sections,
+            "preferred_act_names": preferred_act_names,
+            "preferred_act_fragments": preferred_act_fragments,
+            "preferred_section_acts": preferred_section_acts,
+            "preferred_title_terms": subtype_data.get("keywords", []),
+            "excluded_title_terms": subtype_data.get("exclude_keywords", []),
+        }
+
+    def _map_domain_hint(self, domain: str) -> str:
+        if domain in {"civil_property", "banking", "employment", "tax", "property", "labour"}:
+            return "civil"
+        if domain == "cyber":
+            return "criminal"
+        return domain
+
+    def _refine_domains(
+        self,
+        query: str,
+        hint: Optional[str],
+        understanding: Dict[str, Any],
+        issue_profile: Optional[Dict[str, Any]],
+    ) -> List[str]:
+        query_lower = query.lower()
+        domains = self._detect_domains(query, hint)
+
+        if issue_profile and issue_profile.get("domains"):
+            return [self._map_domain_hint(d) for d in issue_profile["domains"]]
+
+        suggested_domain = understanding.get("suggested_domain")
+        if isinstance(suggested_domain, str) and suggested_domain.strip():
+            mapped = self._map_domain_hint(suggested_domain.strip().lower())
+            if mapped:
+                return [mapped]
+
+        act_hints = {
+            str(value).strip().lower()
+            for value in understanding.get("act_hints", [])
+            if str(value).strip()
+        }
+        if act_hints:
+            if any(hint in act_hints for hint in ["hindu_marriage_act", "special_marriage_act", "domestic_violence_act", "dowry_prohibition_act"]):
+                if "criminal" in domains and "family" not in domains:
+                    domains.append("family")
+                else:
+                    return ["family"]
+            if "consumer_protection_act" in act_hints:
+                return ["consumer"]
+            if any(hint in act_hints for hint in ["income_tax_act_1961", "cgst_act_2017", "sarfaesi", "labour_employment_laws"]):
+                return ["civil"]
+            if "it_act_2000" in act_hints and any(term in query_lower for term in ["cyber", "hacking", "phishing", "online"]):
+                return ["criminal"]
+
+        return domains
     
     def _build_augmented_search_context(self, query: str, understanding: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         understanding = understanding or {}
@@ -840,6 +1014,11 @@ class EnhancedLegalAdvisor:
         query_words = search_context["query_terms"]
         section_hints = search_context["section_hints"]
         act_hints = search_context["act_hints"]
+        issue_profile = understanding.get("issue_profile", {}) if isinstance(understanding, dict) else {}
+        preferred_sections = set(normalize_issue_values(issue_profile.get("preferred_sections", [])))
+        preferred_act_fragments = set(normalize_issue_values(issue_profile.get("preferred_act_fragments", [])))
+        preferred_act_names = set(normalize_issue_values(issue_profile.get("preferred_act_names", [])))
+        preferred_title_terms = set(normalize_issue_values(issue_profile.get("preferred_title_terms", [])))
 
         retrieval_metadata = {
             "search_queries": search_context["search_queries"],
@@ -858,6 +1037,8 @@ class EnhancedLegalAdvisor:
                     score = 220
                     if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
                         score += 20
+                    if preferred_sections and section_number in preferred_sections:
+                        score += 40
                     matched_sections.append((section, score))
 
         # Explicit mapping for false/false police complaint scenarios
@@ -941,13 +1122,27 @@ class EnhancedLegalAdvisor:
             for section, score in bm25_results:
                 exclude_titles = ['accident in doing', 'lawful act', 'repeal', 'savings']
                 if domain != 'civil':
-                    exclude_titles.extend(['commencement', 'short title', 'definitions', 'extent', 'application'])
+                    exclude_titles.extend([
+                        'commencement',
+                        'short title',
+                        'definitions',
+                        'extent',
+                        'application',
+                        'general explanations',
+                        'commutation of sentence',
+                    ])
                 if any(keyword in section.text.lower()[:80] for keyword in exclude_titles):
                     continue
 
                 scaled_score = score * weight * (5 if not crime_mapping_triggered else 2)
                 if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
                     scaled_score *= 1.2
+                if preferred_act_fragments and any(fragment in section.act_id.lower() for fragment in preferred_act_fragments):
+                    scaled_score *= 1.15
+                if preferred_sections and section.section_number.lower() in preferred_sections:
+                    scaled_score *= 1.3
+                if preferred_title_terms and any(term in section.text.lower() for term in preferred_title_terms):
+                    scaled_score *= 1.1
 
                 if section.section_id not in bm25_scores or scaled_score > bm25_scores[section.section_id][1]:
                     bm25_scores[section.section_id] = (section, scaled_score)
@@ -980,6 +1175,13 @@ class EnhancedLegalAdvisor:
                         for domain_word in domain_keywords[domain]:
                             if domain_word in section_text_lower:
                                 score += 3
+
+                    if preferred_sections and section.section_number.lower() in preferred_sections:
+                        score += 18
+                    if preferred_act_fragments and any(fragment in section.act_id.lower() for fragment in preferred_act_fragments):
+                        score += 12
+                    if preferred_act_names and any(act_name in (section.act_id or "").lower() for act_name in preferred_act_names):
+                        score += 8
 
                     if act_hints and any(act_hint in section.act_id.lower() for act_hint in act_hints):
                         score += 10
@@ -1337,7 +1539,7 @@ class EnhancedLegalAdvisor:
             
             return detailed_steps
         
-        return ["Consult legal counsel", "Gather evidence", "File appropriate action"]
+        return []
     
     def _generate_remedies(self, sections: List[Section], domain: str, jurisdiction: str, query: str = "") -> List[str]:
         """Generate comprehensive available remedies"""
@@ -1615,15 +1817,36 @@ class EnhancedLegalAdvisor:
             "domain_hint": legal_query.domain_hint
         })
         
-        # Detect jurisdiction and domains
+        # Detect jurisdiction
         jurisdiction = self._detect_jurisdiction(legal_query.query_text, legal_query.jurisdiction_hint)
-        domains = self._detect_domains(legal_query.query_text, legal_query.domain_hint)
-        domain = domains[0] if domains else 'civil'
+
+        # Query understanding (Groq/local) for better routing hints
         query_understanding = self.groq_retrieval_augmentor.understand_query(
             query=legal_query.query_text,
             jurisdiction_hint=legal_query.jurisdiction_hint,
             domain_hint=legal_query.domain_hint,
         )
+
+        # Issue profile for statute ordering
+        issue_profile = self._match_issue_profile(legal_query.query_text, jurisdiction)
+        if issue_profile:
+            query_understanding["issue_profile"] = issue_profile
+            query_understanding.setdefault("legal_issue", issue_profile.get("legal_issue"))
+            query_understanding["preferred_sections"] = issue_profile.get("preferred_sections", [])
+            query_understanding["preferred_act_names"] = issue_profile.get("preferred_act_names", [])
+            query_understanding["preferred_act_fragments"] = issue_profile.get("preferred_act_fragments", [])
+            query_understanding["preferred_section_acts"] = issue_profile.get("preferred_section_acts", {})
+            query_understanding["preferred_title_terms"] = issue_profile.get("preferred_title_terms", [])
+            query_understanding["excluded_title_terms"] = issue_profile.get("excluded_title_terms", [])
+
+        # Refine domains using issue profile + Groq hints
+        domains = self._refine_domains(
+            legal_query.query_text,
+            legal_query.domain_hint,
+            query_understanding,
+            issue_profile,
+        )
+        domain = domains[0] if domains else 'civil'
 
         # Log classification
         self._log_enforcement_event("jurisdiction_resolved", trace_id, {
@@ -1675,6 +1898,44 @@ class EnhancedLegalAdvisor:
         
         # Limit to top 5 most relevant sections to avoid noise
         relevant_sections = filtered_sections[:5]
+
+        # Remove procedural sections for non-procedural criminal queries
+        query_lower = legal_query.query_text.lower()
+        procedural_keywords = [
+            "fir",
+            "bail",
+            "arrest",
+            "custody",
+            "charge sheet",
+            "chargesheet",
+            "investigation",
+            "trial",
+            "appeal",
+            "summons",
+            "warrant",
+            "procedure",
+            "magistrate",
+            "court",
+        ]
+        is_procedural_query = any(keyword in query_lower for keyword in procedural_keywords)
+        if domain == "criminal" and not is_procedural_query:
+            relevant_sections = [
+                section for section in relevant_sections
+                if not any(
+                    key in (section.act_id or "").lower()
+                    for key in ["crpc", "bnss", "cpc", "evidence"]
+                )
+            ]
+
+        # Issue-specific cleanup for child sexual offence queries
+        if issue_profile and issue_profile.get("legal_issue") == "child_sexual_offense":
+            relevant_sections = [
+                section for section in relevant_sections
+                if not (
+                    (section.act_id or "").lower().find("ipc") != -1
+                    and str(section.section_number).strip() == "377"
+                )
+            ]
         
         # Generate analysis
         legal_analysis = self._generate_legal_analysis(legal_query.query_text, relevant_sections, jurisdiction)
@@ -1860,6 +2121,24 @@ class EnhancedLegalAdvisor:
                 })
         
         all_statutes.extend(addon_statutes)
+
+        # Overlay issue-profile statutes (deterministic, high-priority)
+        issue_profile = query_understanding.get("issue_profile", {}) if isinstance(query_understanding, dict) else {}
+        issue_statutes = issue_profile.get("statutes", []) if isinstance(issue_profile, dict) else []
+        issue_overlay = []
+        for statute in issue_statutes:
+            if not isinstance(statute, dict):
+                continue
+            completed = self.addon_resolver._complete_statute_metadata(statute)
+            issue_overlay.append(
+                {
+                    "act": completed.get("act"),
+                    "year": completed.get("year", 0),
+                    "section": completed.get("section"),
+                    "title": completed.get("title"),
+                }
+            )
+        all_statutes.extend(issue_overlay)
         deduped_statutes = []
         seen_statutes = set()
         for statute in all_statutes:
@@ -1892,11 +2171,46 @@ class EnhancedLegalAdvisor:
             act_name = str(statute.get('act', '')).lower().replace(' ', '_')
             title = str(statute.get('title', '')).lower()
             query_text_lower = legal_query.query_text.lower()
+            issue_profile = query_understanding.get("issue_profile", {}) if isinstance(query_understanding, dict) else {}
+            preferred_sections = build_issue_priority_map(issue_profile.get("preferred_sections", []))
+            preferred_act_names = build_issue_priority_map(issue_profile.get("preferred_act_names", []))
+            preferred_act_fragments = build_issue_priority_map(issue_profile.get("preferred_act_fragments", []))
+            preferred_title_terms = set(normalize_issue_values(issue_profile.get("preferred_title_terms", [])))
+            excluded_title_terms = set(normalize_issue_values(issue_profile.get("excluded_title_terms", [])))
+            preferred_section_acts = {
+                str(key).strip().lower(): [str(value).strip().lower() for value in values]
+                for key, values in (issue_profile.get("preferred_section_acts", {}) or {}).items()
+            }
 
             if any(hint == section_number or hint in section_number for hint in section_hints):
                 score += 100
             if any(act_hint in act_name for act_hint in act_hints):
                 score += 35
+            if preferred_sections and section_number in preferred_sections:
+                score += 80 + (preferred_sections[section_number] * 12)
+            if preferred_act_names and act_name in preferred_act_names:
+                score += 40 + (preferred_act_names[act_name] * 8)
+            if preferred_act_fragments:
+                fragment_matches = [
+                    priority
+                    for fragment, priority in preferred_act_fragments.items()
+                    if fragment in act_name
+                ]
+                if fragment_matches:
+                    score += 24 + (max(fragment_matches) * 6)
+            if preferred_title_terms and any(term in title for term in preferred_title_terms):
+                score += 20
+            if excluded_title_terms and any(term in title for term in excluded_title_terms):
+                score -= 30
+            if preferred_section_acts and section_number in preferred_section_acts:
+                allowed_acts = preferred_section_acts[section_number]
+                if any(allowed_act in act_name.replace("_", " ") for allowed_act in allowed_acts):
+                    score += 25
+                else:
+                    score -= 120
+            if preferred_title_terms and section_number in preferred_sections:
+                if not any(term in title for term in preferred_title_terms):
+                    score -= 60
             if 'punishment' in query_text_lower and 'punishment' in title:
                 score += 20
             if any(token in title for token in query_text_lower.split() if len(token) > 3):
@@ -1905,11 +2219,92 @@ class EnhancedLegalAdvisor:
 
         all_statutes.sort(key=statute_priority, reverse=True)
 
+        # Drop statutes where the section is mapped to a specific act and the act does not match
+        if issue_profile:
+            preferred_section_acts = {
+                str(key).strip().lower(): [str(value).strip().lower() for value in values]
+                for key, values in (issue_profile.get("preferred_section_acts", {}) or {}).items()
+            }
+            if preferred_section_acts:
+                filtered_statutes = []
+                for statute in all_statutes:
+                    section_number = str(statute.get("section", "")).strip().lower()
+                    act_name = str(statute.get("act", "")).lower()
+                    allowed_acts = preferred_section_acts.get(section_number)
+                    if not allowed_acts:
+                        filtered_statutes.append(statute)
+                        continue
+                    if any(allowed_act in act_name for allowed_act in allowed_acts):
+                        filtered_statutes.append(statute)
+                all_statutes = filtered_statutes
+
+            preferred_sections = {
+                str(value).strip().lower()
+                for value in issue_profile.get("preferred_sections", [])
+                if str(value).strip()
+            }
+            preferred_title_terms = {
+                str(value).strip().lower()
+                for value in issue_profile.get("preferred_title_terms", [])
+                if str(value).strip()
+            }
+            if preferred_sections:
+                filtered_statutes = []
+                for statute in all_statutes:
+                    section_number = str(statute.get("section", "")).strip().lower()
+                    title = str(statute.get("title", "")).lower()
+                    if section_number in preferred_sections:
+                        filtered_statutes.append(statute)
+                        continue
+                    if preferred_title_terms and any(term in title for term in preferred_title_terms):
+                        filtered_statutes.append(statute)
+                all_statutes = filtered_statutes
+
+        # Filter procedural-only statutes when the query is not procedural
+        procedural_keywords = [
+            "fir",
+            "bail",
+            "arrest",
+            "custody",
+            "charge sheet",
+            "chargesheet",
+            "investigation",
+            "trial",
+            "appeal",
+            "summons",
+            "warrant",
+            "procedure",
+            "magistrate",
+            "court",
+        ]
+        is_procedural_query = any(keyword in query_lower for keyword in procedural_keywords)
+        if domain == "criminal" and not is_procedural_query:
+            procedural_acts = {
+                "Code of Criminal Procedure",
+                "Bharatiya Nagarik Suraksha Sanhita",
+                "Code of Civil Procedure",
+                "Indian Evidence Act",
+            }
+            all_statutes = [
+                statute for statute in all_statutes
+                if statute.get("act") not in procedural_acts
+            ]
+
+        # Issue-specific cleanup for child sexual offence queries
+        if issue_profile.get("legal_issue") == "child_sexual_offense":
+            all_statutes = [
+                statute for statute in all_statutes
+                if not (
+                    statute.get("act") == "Indian Penal Code"
+                    and str(statute.get("section", "")).strip() == "377"
+                )
+            ]
+
         # Filter statutes by jurisdiction - remove Indian acts for non-Indian jurisdictions
         indian_acts = ['Hindu Marriage Act', 'Special Marriage Act', 'Bharatiya Nyaya Sanhita', 'Indian Penal Code', 
                        'Code of Criminal Procedure', 'Code of Civil Procedure', 'Indian Evidence Act',
                        'Information Technology Act', 'Protection of Women from Domestic Violence Act',
-                       'Dowry Prohibition Act', 'Consumer Protection Act', 'Income-tax Act',
+                       'Dowry Prohibition Act', 'Protection of Children from Sexual Offences Act', 'Consumer Protection Act', 'Income-tax Act',
                        'Central Goods and Services Tax Act', 'Motor Vehicles Act',
                        'Unlawful Activities (Prevention) Act', 'Labour and Employment Laws',
                        'Real Estate (Regulation and Development) Act', 'Farmers Protection Act']

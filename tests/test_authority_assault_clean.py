@@ -40,10 +40,10 @@ def test_authority_assault_enforcement():
     """Test enforcement escalation for authority assault"""
     query = "my teacher is beating me"
     response = enrich_response({}, query, "criminal", [])
-    
+
     assert response["enforcement_decision"] == "ESCALATE"
-    assert response["timeline"][0]["step"] == "File FIR"
-    assert len(response["evidence_requirements"]) == 4
+    assert response["timeline"][0]["step"] == "Filing of FIR"
+    assert len(response["evidence_requirements"]) == 6
     
     print("Authority assault enforcement tests passed")
 

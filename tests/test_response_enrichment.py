@@ -41,7 +41,7 @@ def test_response_enrichment():
     
     assert enriched["enforcement_decision"] == "ALLOW"
     assert len(enriched["timeline"]) == 4
-    assert len(enriched["evidence_requirements"]) == 3
+    assert len(enriched["evidence_requirements"]) == 5
     
     print(f"  enforcement_decision: {enriched['enforcement_decision']}")
     print(f"  timeline: {enriched['timeline'][0]['step']}")

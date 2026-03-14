@@ -9,7 +9,7 @@ from .decision_model import (
     EnforcementDecision, PolicySource, DecisionContext, 
     EnforcementResult, EnforcementSignal
 )
-from .rules import EnforcementRuleEngine
+from .rules import EnforcementRuleEngine, EnforcementRule
 from .signer import EnforcementSigner
 
 

@@ -125,6 +125,18 @@
       "active": true
     },
     {
+      "act_id": "pocso_act_2012",
+      "name": "Protection of Children from Sexual Offences Act",
+      "year": 2012,
+      "abbreviation": "POCSO",
+      "jurisdiction": "IN",
+      "domain": ["criminal"],
+      "section_range": ["1", "46"],
+      "keywords": ["child", "minor", "pocso", "sexual offence", "sexual assault", "penetrative"],
+      "priority": 1,
+      "active": true
+    },
+    {
       "act_id": "consumer_protection_act",
       "name": "Consumer Protection Act",
       "year": 2019,
@@ -346,7 +358,7 @@
   },
   "domain_rules": {
     "criminal": {
-      "primary_acts": ["bns_sections", "ipc_sections", "it_act_2000", "uapa_1967", "domestic_violence_act", "dowry_prohibition_act", "motor_vehicles_act"],
+      "primary_acts": ["bns_sections", "ipc_sections", "it_act_2000", "uapa_1967", "domestic_violence_act", "dowry_prohibition_act", "pocso_act_2012", "motor_vehicles_act"],
       "procedural_acts": ["bnss_sections", "crpc_sections"],
       "exclude_domains": []
     },

@@ -454,15 +454,57 @@ class StatuteResolver:
         
         # Filter sections
         qualified_statutes = self.filter_sections(sections, domains, query, jurisdiction_year)
-        
+
+        addon_statutes: List[Dict[str, Any]] = []
+        addon_domains = None
+        try:
+            from core.addons.addon_subtype_resolver import AddonSubtypeResolver
+            addon_resolver = AddonSubtypeResolver()
+            addon_subtype = addon_resolver.detect_addon_subtype(query, jurisdiction)
+            if addon_subtype:
+                addon_data = addon_resolver.addon_subtypes[addon_subtype]
+                addon_domains = addon_data.get("domains")
+                for statute in addon_data.get("statutes", []):
+                    completed = addon_resolver._complete_statute_metadata(statute)
+                    addon_statutes.append(
+                        {
+                            "act": completed.get("act", ""),
+                            "year": completed.get("year", 0),
+                            "section": completed.get("section", ""),
+                            "title": completed.get("title", ""),
+                            "abbreviation": completed.get("abbreviation", ""),
+                        }
+                    )
+        except Exception:
+            addon_statutes = []
+
+        # If no DB statutes, return addon statutes if available
+        if not qualified_statutes and addon_statutes:
+            return {
+                "statutes": addon_statutes,
+                "domains": addon_domains or domains,
+                "confidence": 0.8,
+            }
+
+        # Merge addon statutes into DB statutes when available (dedup by act+section)
+        merged_statutes = [{
+            'act': s.act,
+            'year': s.year,
+            'section': s.section,
+            'title': s.title,
+            'abbreviation': s.abbreviation
+        } for s in qualified_statutes]
+
+        if addon_statutes:
+            seen = {(s["act"], s["section"]) for s in merged_statutes}
+            for statute in addon_statutes:
+                key = (statute.get("act"), statute.get("section"))
+                if key not in seen:
+                    merged_statutes.append(statute)
+                    seen.add(key)
+
         return {
-            'statutes': [{
-                'act': s.act,
-                'year': s.year,
-                'section': s.section,
-                'title': s.title,
-                'abbreviation': s.abbreviation
-            } for s in qualified_statutes],
-            'domains': domains,
+            'statutes': merged_statutes,
+            'domains': addon_domains or domains,
             'confidence': 0.8
         }

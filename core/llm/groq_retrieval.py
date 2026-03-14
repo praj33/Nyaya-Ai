@@ -14,12 +14,26 @@ from typing import Any, Dict, List, Optional
 from urllib import error, request
 
 from dotenv import load_dotenv, find_dotenv
+from profile_utils import build_issue_priority_map, normalize_issue_values
 
 _dotenv_path = find_dotenv(usecwd=False)
 load_dotenv(_dotenv_path or None)
 
 VALID_JURISDICTIONS = {"IN", "UK", "UAE"}
-VALID_DOMAINS = {"criminal", "civil", "family", "commercial", "consumer", "terrorism", "constitutional"}
+VALID_DOMAINS = {
+    "criminal",
+    "family",
+    "civil",
+    "consumer",
+    "commercial",
+    "terrorism",
+    "constitutional",
+    "banking",
+    "employment",
+    "tax",
+    "cyber",
+    "civil_property",
+}
 
 STOPWORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "can", "do", "for", "from",
@@ -29,22 +43,98 @@ STOPWORDS = {
 }
 
 ACT_HINT_RULES = {
-    "it_act_2000": ["cyber", "hacking", "phishing", "computer", "data breach", "identity theft", "it act"],
+    "it_act_2000": [
+        "cyber",
+        "hacking",
+        "phishing",
+        "computer",
+        "data breach",
+        "identity theft",
+        "it act",
+        "social media",
+    ],
     "ipc_sections": ["ipc", "indian penal code"],
     "bns_sections": ["bns", "bharatiya nyaya sanhita", "nyaya sanhita"],
-    "crpc_sections": ["crpc", "code of criminal procedure"],
+    "crpc_sections": ["crpc", "code of criminal procedure", "fir", "arrest without warrant", "anticipatory bail"],
     "bnss_sections": ["bnss", "bharatiya nagarik suraksha sanhita"],
-    "cpc_sections": ["cpc", "code of civil procedure"],
-    "consumer_protection_act": ["consumer", "defective product", "refund", "warranty"],
-    "motor_vehicles_act": ["accident", "vehicle", "traffic", "drunk driving", "rash driving", "challan"],
-    "hindu_marriage_act": ["divorce", "marriage", "alimony", "maintenance"],
-    "special_marriage_act": ["special marriage", "interfaith marriage"],
-    "domestic_violence_act": ["domestic violence", "protection order"],
+    "cpc_sections": ["cpc", "code of civil procedure", "civil suit", "injunction suit"],
+    "indian_evidence_act": ["evidence act", "indian evidence act"],
+    "consumer_protection_act": ["consumer", "defective product", "refund", "warranty", "replacement"],
+    "hindu_marriage_act": ["divorce", "marriage", "alimony", "maintenance", "custody", "hindu marriage act", "hindu marriage"],
+    "special_marriage_act": ["special marriage", "special marriage act", "interfaith marriage"],
+    "domestic_violence_act": ["domestic violence", "protection order", "husband is beating me", "physical abuse", "economic abuse"],
     "dowry_prohibition_act": ["dowry", "dowry harassment", "dowry demand"],
-    "labour_employment_laws": ["salary", "termination", "employee", "employer", "wages", "boss", "unpaid salary", "not paying me", "pending salary"],
-    "property_real_estate_laws": ["property", "tenant", "landlord", "eviction", "builder", "rera", "building", "possession", "project", "construction delay", "not built"],
-    "income_tax_act_1961": ["income tax", "tax avoidance", "tax evasion", "tds", "under-reported income", "misreported income", "gaar"],
-    "cgst_act_2017": ["gst", "cgst", "igst", "sgst", "fake invoice", "bogus invoice", "input tax credit", "itc", "refund fraud"],
+    "pocso_act_2012": [
+        "pocso",
+        "child abuse",
+        "child sexual",
+        "minor sexual",
+        "pedophile",
+        "paedophile",
+        "molested child",
+        "sex with child",
+        "rape of child",
+        "child molestation",
+        "sexual offence against child",
+    ],
+    "labour_employment_laws": [
+        "salary",
+        "termination",
+        "employee",
+        "employer",
+        "wages",
+        "boss",
+        "unpaid salary",
+        "not paying me",
+        "pending salary",
+        "payment of wages",
+    ],
+    "property_real_estate_laws": [
+        "property",
+        "tenant",
+        "landlord",
+        "builder",
+        "rera",
+        "rera act",
+        "real estate (regulation and development) act",
+        "building",
+        "possession",
+        "project",
+        "construction delay",
+        "not built",
+        "delay in possession",
+    ],
+    "limitation_act": ["limitation act", "adverse possession", "time limit", "limitation"],
+    "registration_act": ["registration act", "registered document", "sale deed registration"],
+    "transfer_of_property_act": ["transfer of property", "sale deed", "title deed", "encroachment"],
+    "sarfaesi": ["sarfaesi", "sarfaesi act", "npa", "bank auction", "secured creditor", "drt", "emi"],
+    "income_tax_act_1961": [
+        "income tax",
+        "income-tax",
+        "income tax act",
+        "tax avoidance",
+        "tax evasion",
+        "tds",
+        "under-reported income",
+        "misreported income",
+        "gaar",
+    ],
+    "cgst_act_2017": [
+        "gst",
+        "gst act",
+        "cgst",
+        "cgst act",
+        "central goods and services tax",
+        "igst",
+        "sgst",
+        "fake invoice",
+        "bogus invoice",
+        "input tax credit",
+        "itc",
+        "refund fraud",
+    ],
+    "motor_vehicles_act": ["rash driving", "road accident", "motor vehicle act", "traffic", "drunk driving"],
+    "uapa_1967": ["uapa", "unlawful activities", "terrorism", "terrorist"],
 }
 
 
@@ -111,7 +201,7 @@ class GroqRetrievalAugmentor:
                 '  "section_hints": ["..."],',
                 '  "act_hints": ["..."],',
                 '  "suggested_jurisdiction": "IN|UK|UAE|null",',
-                '  "suggested_domain": "criminal|civil|family|commercial|consumer|terrorism|constitutional|null"',
+                '  "suggested_domain": "criminal|family|civil|consumer|commercial|terrorism|constitutional|null"',
                 "}",
                 "",
                 f"User query: {query}",
@@ -259,6 +349,10 @@ class GroqRetrievalAugmentor:
             for term in ["salary", "wages", "employer", "payment", "unpaid"]:
                 if term not in keywords:
                     keywords.append(term)
+        if "sarfaesi" in act_hints:
+            search_queries.append("sarfaesi section 13(2) 13(4) section 17 section 18 drt appeal")
+        if "transfer_of_property_act" in act_hints and any(term in query.lower() for term in ["land", "property", "title", "possession"]):
+            search_queries.append("property title possession injunction transfer of property specific relief registration")
 
         deduped_queries = []
         seen = set()
@@ -307,7 +401,12 @@ class GroqRetrievalAugmentor:
                         if item and item not in cleaned:
                             cleaned.append(item)
                 if cleaned:
-                    normalized[key] = cleaned[:12]
+                    if key == "section_hints":
+                        normalized[key] = self._normalize_section_hints(cleaned)[:12]
+                    elif key == "act_hints":
+                        normalized[key] = self._normalize_act_hints(cleaned)[:12]
+                    else:
+                        normalized[key] = cleaned[:12]
 
         jurisdiction = parsed.get("suggested_jurisdiction")
         if isinstance(jurisdiction, str):
@@ -317,7 +416,7 @@ class GroqRetrievalAugmentor:
 
         domain = parsed.get("suggested_domain")
         if isinstance(domain, str):
-            domain = domain.strip().lower()
+            domain = self._map_legacy_domain(domain.strip().lower())
             if domain in VALID_DOMAINS:
                 normalized["suggested_domain"] = domain
 
@@ -325,23 +424,67 @@ class GroqRetrievalAugmentor:
 
     def _local_rerank(self, query: str, sections: List[Any], understanding: Dict[str, Any]) -> List[Any]:
         query_terms = set(re.findall(r"[a-z0-9]+", query.lower()))
-        keyword_terms = {str(item).lower() for item in understanding.get("keywords", [])}
-        section_hints = {str(item).lower() for item in understanding.get("section_hints", [])}
-        act_hints = {str(item).lower() for item in understanding.get("act_hints", [])}
+        keyword_terms = set(normalize_issue_values(understanding.get("keywords", [])))
+        section_hints = set(normalize_issue_values(understanding.get("section_hints", [])))
+        act_hints = set(normalize_issue_values(understanding.get("act_hints", [])))
+        preferred_sections = build_issue_priority_map(understanding.get("preferred_sections", []))
+        preferred_title_terms = set(normalize_issue_values(understanding.get("preferred_title_terms", [])))
+        excluded_title_terms = set(normalize_issue_values(understanding.get("excluded_title_terms", [])))
+        preferred_act_names = build_issue_priority_map(understanding.get("preferred_act_names", []))
+        preferred_act_fragments = build_issue_priority_map(understanding.get("preferred_act_fragments", []))
+        preferred_section_acts = {
+            str(section).strip().lower(): normalize_issue_values(act_names)
+            for section, act_names in (understanding.get("preferred_section_acts", {}) or {}).items()
+            if str(section).strip()
+        }
+        legal_issue = str(understanding.get("legal_issue", "")).replace("_", " ").lower()
+        primary_act_name = str(understanding.get("primary_act_name", "")).lower()
+        primary_act_fragment = str(understanding.get("primary_act_fragment", "")).lower()
 
         scored = []
         for index, section in enumerate(sections):
             section_text = getattr(section, "text", "").lower()
             act_id = getattr(section, "act_id", "").lower()
             section_number = getattr(section, "section_number", "").lower()
+            title = str(getattr(section, "title", "")).lower()
+            act_name = str(getattr(section, "act", "")).lower()
+            metadata_text = ""
+            if getattr(section, "metadata", None):
+                metadata_text = json.dumps(section.metadata, sort_keys=True).lower()
+                act_name = str(section.metadata.get("act_name", act_name)).lower()
 
             score = max(0, 100 - index)
             score += sum(8 for term in query_terms if len(term) > 2 and term in section_text)
-            score += sum(10 for term in keyword_terms if term in section_text or term in act_id)
+            score += sum(10 for term in keyword_terms if term in section_text or term in act_id or term in title)
             score += sum(40 for hint in section_hints if hint == section_number or hint in section_number)
             score += sum(18 for hint in act_hints if hint in act_id)
-            if getattr(section, "metadata", None):
-                metadata_text = json.dumps(section.metadata, sort_keys=True).lower()
+            if primary_act_name and primary_act_name in act_name:
+                score += 28
+            if primary_act_fragment and primary_act_fragment in act_id:
+                score += 28
+            if act_name in preferred_act_names:
+                score += 10 + (preferred_act_names[act_name] * 10)
+            fragment_matches = [
+                priority
+                for fragment, priority in preferred_act_fragments.items()
+                if fragment in act_id
+            ]
+            if fragment_matches:
+                score += 8 + (max(fragment_matches) * 8)
+            section_act_targets = preferred_section_acts.get(section_number, [])
+            section_act_match = not section_act_targets or act_name in section_act_targets
+            if preferred_sections and section_number in preferred_sections and section_act_match:
+                score += 60 + (preferred_sections[section_number] * 18)
+            elif preferred_sections and section_number in preferred_sections and not section_act_match:
+                score -= 36
+            elif preferred_sections:
+                score -= 24
+            if legal_issue and legal_issue in f"{title} {section_text}":
+                score += 16
+            score += sum(14 for term in preferred_title_terms if term and (term in title or term in section_text))
+            if excluded_title_terms and any(term in title or term in section_text for term in excluded_title_terms):
+                score -= 24
+            if metadata_text:
                 score += sum(4 for term in keyword_terms if term in metadata_text)
 
             scored.append((section, score))
@@ -423,6 +566,26 @@ class GroqRetrievalAugmentor:
         return hints
 
     @staticmethod
+    def _normalize_section_hints(values: List[str]) -> List[str]:
+        hints: List[str] = []
+        for value in values:
+            text = str(value).lower()
+            for match in re.findall(r"\b\d+(?:\(\d+\))?[a-z]{0,2}\b", text):
+                if match not in hints:
+                    hints.append(match)
+        return hints
+
+    @staticmethod
+    def _normalize_act_hints(values: List[str]) -> List[str]:
+        normalized = normalize_issue_values(values)
+        for hint in list(normalized):
+            for act_id, triggers in ACT_HINT_RULES.items():
+                if any(trigger in hint for trigger in triggers):
+                    if act_id not in normalized:
+                        normalized.append(act_id)
+        return normalized
+
+    @staticmethod
     def _extract_act_hints(query_lower: str) -> List[str]:
         hints = []
         for act_id, triggers in ACT_HINT_RULES.items():
@@ -449,22 +612,30 @@ class GroqRetrievalAugmentor:
     @staticmethod
     def _detect_domain(query_lower: str, domain_hint: Optional[str]) -> Optional[str]:
         if domain_hint:
-            hint = domain_hint.strip().lower()
+            hint = GroqRetrievalAugmentor._map_legacy_domain(domain_hint.strip().lower())
             if hint in VALID_DOMAINS:
                 return hint
         if any(term in query_lower for term in ["theft", "murder", "rape", "assault", "fir", "arrest", "cybercrime"]):
             return "criminal"
         if any(term in query_lower for term in ["divorce", "custody", "marriage", "alimony"]):
             return "family"
-        if any(term in query_lower for term in ["salary", "termination", "employment", "consumer", "refund"]):
-            return "civil" if "salary" in query_lower or "employment" in query_lower else "consumer"
-        if any(term in query_lower for term in ["boss", "wages", "unpaid salary", "not paying me"]):
+        if any(term in query_lower for term in ["consumer", "defective", "refund", "consumer court"]):
+            return "consumer"
+        if any(term in query_lower for term in ["salary", "termination", "employment", "boss", "wages", "unpaid salary", "not paying me"]):
             return "civil"
         if any(term in query_lower for term in ["tax", "gst", "cgst", "igst", "sgst", "tds", "input tax credit", "itc", "assessment"]):
             return "civil"
-        if any(term in query_lower for term in ["property", "eviction", "rent", "contract", "damages"]):
+        if any(term in query_lower for term in ["property", "eviction", "rent", "contract", "damages", "sale deed", "injunction"]):
             return "civil"
         return None
+
+    @staticmethod
+    def _map_legacy_domain(domain: str) -> str:
+        if domain in {"civil_property", "banking", "employment", "tax"}:
+            return "civil"
+        if domain == "cyber":
+            return "criminal"
+        return domain
 
     @staticmethod
     def _detect_intent(query_lower: str) -> str:

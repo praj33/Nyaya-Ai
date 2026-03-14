@@ -1,1 +1,72 @@
-import sys\nimport os\nsys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))\n\nfrom core.ontology.statute_resolver import StatuteResolver\nfrom core.response.enricher import enrich_response\n\ndef test_authority_assault_detection():\n    \"\"\"Test authority assault subtype detection\"\"\"\n    resolver = StatuteResolver()\n    \n    # Test positive cases\n    assert resolver.detect_offense_subtype(\"my teacher is beating me\") == \"authority_assault\"\n    assert resolver.detect_offense_subtype(\"coach hit me\") == \"authority_assault\"\n    assert resolver.detect_offense_subtype(\"principal slapped me\") == \"authority_assault\"\n    assert resolver.detect_offense_subtype(\"employer assaulted me\") == \"authority_assault\"\n    \n    # Test negative cases (missing authority or violence)\n    assert resolver.detect_offense_subtype(\"teacher gave homework\") is None\n    assert resolver.detect_offense_subtype(\"someone beat me\") != \"authority_assault\"\n    \n    print(\"Authority assault detection tests passed\")\n\ndef test_authority_assault_statutes():\n    \"\"\"Test that authority assault returns correct statutes\"\"\"\n    resolver = StatuteResolver()\n    \n    query = \"my teacher is beating me\"\n    domains = [\"criminal\"]\n    \n    relevant_acts = resolver.get_relevant_acts(query, domains)\n    \n    # Should include BNS sections\n    assert \"bns_sections\" in relevant_acts\n    print(f\"Relevant acts for authority assault: {relevant_acts}\")\n    \n    print(\"Authority assault statute tests passed\")\n\ndef test_authority_assault_enforcement():\n    \"\"\"Test enforcement escalation for authority assault\"\"\"\n    query = \"my teacher is beating me\"\n    response = enrich_response({}, query, \"criminal\", [])\n    \n    assert response[\"enforcement_decision\"] == \"ESCALATE\"\n    assert response[\"timeline\"][0][\"step\"] == \"File FIR\"\n    assert len(response[\"evidence_requirements\"]) == 4\n    \n    print(\"Authority assault enforcement tests passed\")\n\ndef test_full_authority_assault_scenario():\n    \"\"\"Test complete authority assault scenario\"\"\"\n    query = \"my teacher is beating me\"\n    resolver = StatuteResolver()\n    \n    # Check subtype detection\n    subtype = resolver.detect_offense_subtype(query)\n    assert subtype == \"authority_assault\"\n    \n    # Check domain forcing\n    domains = [\"criminal\"]\n    relevant_acts = resolver.get_relevant_acts(query, domains)\n    assert \"bns_sections\" in relevant_acts\n    \n    # Check enforcement\n    response = enrich_response({}, query, \"criminal\", [])\n    assert response[\"enforcement_decision\"] == \"ESCALATE\"\n    \n    print(\"Full authority assault scenario test passed\")\n\nif __name__ == \"__main__\":\n    test_authority_assault_detection()\n    test_authority_assault_statutes()\n    test_authority_assault_enforcement()\n    test_full_authority_assault_scenario()\n    print(\"\\nAll authority assault tests passed!\")
+import os
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from core.ontology.statute_resolver import StatuteResolver
+from core.response.enricher import enrich_response
+
+
+def test_authority_assault_detection():
+    """Test authority assault subtype detection."""
+    resolver = StatuteResolver()
+
+    # Positive cases
+    assert resolver.detect_offense_subtype("my teacher is beating me") == "authority_assault"
+    assert resolver.detect_offense_subtype("coach hit me") == "authority_assault"
+    assert resolver.detect_offense_subtype("principal slapped me") == "authority_assault"
+    assert resolver.detect_offense_subtype("employer assaulted me") == "authority_assault"
+
+    # Negative cases (missing authority or violence)
+    assert resolver.detect_offense_subtype("teacher gave homework") is None
+    assert resolver.detect_offense_subtype("someone beat me") != "authority_assault"
+
+
+def test_authority_assault_statutes():
+    """Test that authority assault returns correct statutes."""
+    resolver = StatuteResolver()
+
+    query = "my teacher is beating me"
+    domains = ["criminal"]
+
+    relevant_acts = resolver.get_relevant_acts(query, domains)
+
+    # Should include BNS sections
+    assert "bns_sections" in relevant_acts
+
+
+def test_authority_assault_enforcement():
+    """Test enforcement escalation for authority assault."""
+    query = "my teacher is beating me"
+    response = enrich_response({}, query, "criminal", [])
+
+    assert response["enforcement_decision"] == "ESCALATE"
+    assert response["timeline"][0]["step"] == "Filing of FIR"
+    assert len(response["evidence_requirements"]) == 6
+
+
+def test_full_authority_assault_scenario():
+    """Test complete authority assault scenario."""
+    query = "my teacher is beating me"
+    resolver = StatuteResolver()
+
+    # Check subtype detection
+    subtype = resolver.detect_offense_subtype(query)
+    assert subtype == "authority_assault"
+
+    # Check domain forcing
+    domains = ["criminal"]
+    relevant_acts = resolver.get_relevant_acts(query, domains)
+    assert "bns_sections" in relevant_acts
+
+    # Check enforcement
+    response = enrich_response({}, query, "criminal", [])
+    assert response["enforcement_decision"] == "ESCALATE"
+
+
+if __name__ == "__main__":
+    test_authority_assault_detection()
+    test_authority_assault_statutes()
+    test_authority_assault_enforcement()
+    test_full_authority_assault_scenario()
+    print("\nAll authority assault tests passed!")

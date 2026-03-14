@@ -1,12 +1,17 @@
 import sys
 import os
-sys.path.append('.')
-sys.path.append('..')
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_dir)
+if project_root not in sys.path:
+    sys.path.append(project_root)
+if os.getcwd() not in sys.path:
+    sys.path.append(os.getcwd())
 
 from fastapi import APIRouter, HTTPException
 from typing import Dict, Any, List, Optional
 import uuid
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 
 # Import enhanced components
 from clean_legal_advisor import EnhancedLegalAdvisor, LegalQuery
@@ -28,13 +33,21 @@ from api.schemas import (
 
 # Import response enricher
 from core.response.enricher import enrich_response
-from core.llm import groq_response_generator
+from services.explainer import generate_explanation_payload
 
 # Import enforcement engine
 from enforcement_engine.engine import SovereignEnforcementEngine
 from enforcement_engine.decision_model import EnforcementSignal
+from services.query_cleaner import clean_query
+from services.query_understanding import analyze_query
+from services.query_expander import expand_query
+from services.retriever import get_hybrid_retriever
+from services.reranker import rerank_sections
+from services.legal_reasoner import apply_reasoning_rules
+import logging
 
 router = APIRouter(prefix="/nyaya", tags=["nyaya"])
+logger = logging.getLogger(__name__)
 
 # Initialize the enhanced legal advisor with error handling
 try:
@@ -60,6 +73,82 @@ except Exception as e:
 async def query_legal(request: QueryRequest):
     """Execute a single-jurisdiction legal query with sovereign enforcement."""
     try:
+        cleaned_query = clean_query(request.query)
+        understanding = analyze_query(cleaned_query)
+        understanding_domain = understanding.get("domain") if isinstance(understanding, dict) else None
+        if not isinstance(understanding_domain, str) or not understanding_domain.strip():
+            understanding_domain = "civil"
+        domain_hint_value = understanding_domain
+        if not domain_hint_value and request.domain_hint:
+            domain_hint_value = request.domain_hint.value
+        expanded_queries = expand_query(cleaned_query, understanding_domain)
+        hybrid_result = {"candidates": [], "sections_found": 0, "query_logs": []}
+        candidate_records = []
+
+        hybrid_enabled = os.getenv("HYBRID_RETRIEVER_ENABLED", "true").lower() not in {"0", "false", "no"}
+        hybrid_timeout = float(os.getenv("HYBRID_RETRIEVER_TIMEOUT_SECONDS", "12"))
+        if hybrid_enabled:
+            executor = ThreadPoolExecutor(max_workers=1)
+            try:
+                future = executor.submit(
+                    lambda: get_hybrid_retriever().hybrid_search(expanded_queries, top_k=10)
+                )
+                hybrid_result = future.result(timeout=hybrid_timeout)
+            except FutureTimeout:
+                logger.warning("Hybrid retrieval timed out after %ss", hybrid_timeout)
+            except Exception as exc:
+                logger.warning("Hybrid retrieval unavailable: %s", exc)
+            finally:
+                executor.shutdown(wait=False, cancel_futures=True)
+        candidate_records = hybrid_result.get("candidate_records") or hybrid_result.get("candidates") or []
+
+        reranker_enabled = os.getenv("RERANKER_ENABLED", "true").lower() not in {"0", "false", "no"}
+        reranker_timeout = float(os.getenv("RERANKER_TIMEOUT_SECONDS", "8"))
+        if reranker_enabled and candidate_records:
+            executor = ThreadPoolExecutor(max_workers=1)
+            try:
+                future = executor.submit(
+                    lambda: rerank_sections(cleaned_query, candidate_records, top_k=5)
+                )
+                top_sections = future.result(timeout=reranker_timeout)
+            except FutureTimeout:
+                logger.warning("Reranker timed out after %ss", reranker_timeout)
+                top_sections = candidate_records[:5]
+            except Exception as exc:
+                logger.warning("Reranker unavailable: %s", exc)
+                top_sections = candidate_records[:5]
+            finally:
+                executor.shutdown(wait=False, cancel_futures=True)
+        else:
+            top_sections = candidate_records[:5]
+        final_sections = apply_reasoning_rules(cleaned_query, understanding_domain, top_sections)
+        reasoning_added = sum(
+            1 for item in final_sections if item.get("source") == "reasoning_engine"
+        )
+        top_statutes = [
+            {
+                "act": item.get("act"),
+                "year": item.get("year"),
+                "section": item.get("section"),
+                "title": item.get("title"),
+                "source": item.get("source"),
+            }
+            for item in final_sections
+        ]
+        hybrid_result_public = {
+            key: value for key, value in hybrid_result.items() if key != "candidate_records"
+        }
+        logger.info('original_query="%s" cleaned_query="%s"', request.query, cleaned_query)
+        logger.info("expanded_queries=%s", expanded_queries)
+        logger.info(
+            "candidates_found=%s reranked_top=%s reasoning_added_sections=%s",
+            len(candidate_records),
+            len(top_sections),
+            reasoning_added,
+        )
+        if understanding.get("source") == "local_fallback":
+            logger.warning("LLM unavailable — using local fallback classifier.")
+
         # Check if advisor is initialized
         if advisor is None or jurisdiction_detector is None:
             raise HTTPException(
@@ -74,37 +163,84 @@ async def query_legal(request: QueryRequest):
         # Detect jurisdiction from query
         jurisdiction_hint_str = request.jurisdiction_hint.value if request.jurisdiction_hint else None
         jurisdiction_result = jurisdiction_detector.detect(
-            query=request.query,
+            query=cleaned_query,
             user_hint=jurisdiction_hint_str
         )
         
         # DO NOT BYPASS EnhancedLegalAdvisor
         # Get legal advice using the enhanced advisor - SINGLE SOURCE OF TRUTH
         legal_query = LegalQuery(
-            query_text=request.query,
+            query_text=cleaned_query,
             jurisdiction_hint=request.jurisdiction_hint,
-            domain_hint=request.domain_hint
+            domain_hint=domain_hint_value
         )
         advice = advisor.provide_legal_advice(legal_query)
         
-        # Convert advice.statutes to StatuteSchema
+        # Prefer deterministic pipeline statutes; fallback to advisor if empty
+        statute_records = final_sections or []
+        statute_source = "reasoning_pipeline"
+        if not statute_records:
+            statute_records = advice.statutes or []
+            statute_source = "advisor_fallback"
+
         statutes = []
-        for statute in advice.statutes:
+        seen_statutes = set()
+        for statute in statute_records:
+            act = str(statute.get("act", "")).strip()
+            section = str(statute.get("section", "")).strip()
+            title = str(statute.get("title", "")).strip()
+            if not act or not section:
+                continue
+            year_raw = statute.get("year")
+            try:
+                year = int(year_raw) if year_raw is not None else 0
+            except (TypeError, ValueError):
+                year = 0
+            key = (act.lower(), section.lower(), year)
+            if key in seen_statutes:
+                continue
+            seen_statutes.add(key)
             statute_schema = StatuteSchema(
-                act=statute['act'],
-                year=statute['year'],
-                section=statute['section'],
-                title=statute['title']
+                act=act,
+                year=year,
+                section=section,
+                title=title
             )
             statutes.append(statute_schema)
-        
+
         sections_found = len(statutes)
+        top_statutes = []
+        seen_top = set()
+        for item in statute_records:
+            act = str(item.get("act", "")).strip()
+            section = str(item.get("section", "")).strip()
+            title = str(item.get("title", "")).strip()
+            if not act or not section:
+                continue
+            year_raw = item.get("year")
+            try:
+                year = int(year_raw) if year_raw is not None else 0
+            except (TypeError, ValueError):
+                year = 0
+            key = (act.lower(), section.lower(), year)
+            if key in seen_top:
+                continue
+            seen_top.add(key)
+            top_statutes.append(
+                {
+                    "act": act,
+                    "year": year,
+                    "section": section,
+                    "title": title,
+                    "source": item.get("source") or statute_source,
+                }
+            )
         
         # Retrieve relevant case laws
         case_laws = []
         if case_retriever:
             relevant_cases = case_retriever.retrieve(
-                query=request.query,
+                query=cleaned_query,
                 domain=advice.domain,
                 jurisdiction=advice.jurisdiction,
                 top_k=3
@@ -121,7 +257,7 @@ async def query_legal(request: QueryRequest):
         
         # Build qualified legal analysis
         legal_analysis = _build_qualified_analysis(
-            request.query,
+            cleaned_query,
             statutes,
             advice.jurisdiction
         )
@@ -131,18 +267,36 @@ async def query_legal(request: QueryRequest):
             sections_found,
             advice.confidence_score,
             advice.domain,
-            request.query
+            cleaned_query
         )
         
+        response_domain = understanding_domain or advice.domain
+        response_domains = []
+        if isinstance(response_domain, str) and response_domain:
+            response_domains.append(response_domain)
+        if hasattr(advice, "domains") and isinstance(advice.domains, list):
+            for item in advice.domains:
+                if item and item not in response_domains:
+                    response_domains.append(item)
+
         # Build response using enhanced advisor output
         base_response = {
-            "domain": advice.domain,
-            "domains": advice.domains if hasattr(advice, 'domains') else [advice.domain],
+            "domain": response_domain,
+            "domains": response_domains or [response_domain],
             "jurisdiction": advice.jurisdiction,
             "jurisdiction_detected": jurisdiction_result.jurisdiction,
             "jurisdiction_confidence": jurisdiction_result.confidence,
             "confidence": confidence,
-            "legal_route": ["jurisdiction_detector", "clean_legal_advisor", "case_law_retriever", "multi_strategy_search"],
+            "legal_route": [
+                "query_cleaning",
+                "query_understanding",
+                "query_expansion",
+                "hybrid_retrieval",
+                "cross_encoder_reranking",
+                "legal_reasoning_engine",
+                "clean_legal_advisor",
+                "case_law_retriever",
+            ],
             "statutes": statutes,
             "case_laws": case_laws,
             "constitutional_articles": [],
@@ -163,8 +317,30 @@ async def query_legal(request: QueryRequest):
                 "remedies": advice.remedies,
                 "sections_found": sections_found,
                 "case_laws_found": len(case_laws),
+                "statute_source": statute_source,
                 "query_understanding": getattr(advice, "query_understanding", {}),
-                "retrieval_metadata": getattr(advice, "retrieval_metadata", {}),
+                "retrieval_metadata": {
+                    **(getattr(advice, "retrieval_metadata", {}) or {}),
+                    "expanded_queries": expanded_queries,
+                    "hybrid_sections_found": hybrid_result.get("sections_found", 0),
+                    "reranked_top": len(top_sections),
+                    "reasoning_added_sections": reasoning_added,
+                },
+                "query_expansion": {
+                    "search_queries": expanded_queries,
+                    "domain": understanding_domain,
+                },
+                "hybrid_retrieval": hybrid_result_public,
+                "top_statutes": top_statutes,
+                "reasoning_engine": {
+                    "added_sections": reasoning_added,
+                    "final_statutes": top_statutes,
+                },
+                "intent_domain_understanding": understanding,
+                "query_cleaning": {
+                    "original": request.query,
+                    "cleaned": cleaned_query,
+                },
                 "jurisdiction_detection": {
                     "detected": jurisdiction_result.jurisdiction,
                     "confidence": jurisdiction_result.confidence,
@@ -181,49 +357,40 @@ async def query_legal(request: QueryRequest):
         }
         
         # Enrich response with timeline, glossary, evidence_requirements
-        enriched = enrich_response(base_response, request.query, advice.domain, statutes, advice.jurisdiction)
+        enriched = enrich_response(base_response, cleaned_query, advice.domain, statutes, advice.jurisdiction)
         
         # Apply enforcement decision using enforcement engine
         enforcement_signal = EnforcementSignal(
             case_id=advice.trace_id,
             country=advice.jurisdiction,
-            domain=advice.domain,
-            procedure_id=advice.domain,
+            domain=response_domain,
+            procedure_id=response_domain,
             original_confidence=advice.confidence_score,
-            user_request=request.query,
+            user_request=cleaned_query,
             jurisdiction_routed_to=advice.jurisdiction,
             trace_id=advice.trace_id
         )
         enforcement_result = enforcement_engine.make_enforcement_decision(enforcement_signal)
         enriched['enforcement_decision'] = enforcement_result.decision.value
-        answer_payload = groq_response_generator.generate_answer(
-            query=request.query,
+        explanation_payload = generate_explanation_payload(
+            query=cleaned_query,
             jurisdiction=advice.jurisdiction,
             domain=advice.domain,
-            statutes=statutes,
-            case_laws=case_laws,
-            procedural_steps=advice.procedural_steps,
-            remedies=advice.remedies,
-            timeline=enriched.get("timeline", []),
-            evidence_requirements=enriched.get("evidence_requirements", []),
-            enforcement_decision=enforcement_result.decision.value,
-            legal_analysis=legal_analysis,
-            query_understanding=getattr(advice, "query_understanding", {}),
-            retrieval_metadata=getattr(advice, "retrieval_metadata", {}),
+            statutes=final_sections,
         )
-        enriched["answer"] = answer_payload["text"]
-        enriched["answer_source"] = answer_payload["source"]
-        enriched["answer_model"] = answer_payload["model"]
-        answer_debug = {
-            "source": answer_payload.get("source"),
-            "model": answer_payload.get("model"),
+        enriched["answer"] = explanation_payload["text"]
+        enriched["answer_source"] = explanation_payload["source"]
+        enriched["answer_model"] = explanation_payload.get("model")
+        explanation_debug = {
+            "source": explanation_payload.get("source"),
+            "model": explanation_payload.get("model"),
         }
-        if answer_payload.get("reason"):
-            answer_debug["reason"] = answer_payload.get("reason")
-        if answer_payload.get("error"):
-            answer_debug["error"] = answer_payload.get("error")
-        if "reasoning_trace" in enriched and (answer_debug.get("reason") or answer_debug.get("error")):
-            enriched["reasoning_trace"]["answer_generation"] = answer_debug
+        if explanation_payload.get("reason"):
+            explanation_debug["reason"] = explanation_payload.get("reason")
+        if explanation_payload.get("error"):
+            explanation_debug["error"] = explanation_payload.get("error")
+        if "reasoning_trace" in enriched and (explanation_debug.get("reason") or explanation_debug.get("error")):
+            enriched["reasoning_trace"]["explanation_generation"] = explanation_debug
         
         return NyayaResponse(**enriched)
         
