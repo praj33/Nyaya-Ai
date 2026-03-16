@@ -19,7 +19,7 @@ from core.addons.addon_subtype_resolver import AddonSubtypeResolver
 from core.addons.dowry_precision_layer import DowryPrecisionLayer
 from core.llm import groq_retrieval_augmentor
 from procedures.loader import procedure_loader
-from profile_utils import normalize_issue_values, build_issue_priority_map
+from core.llm.profile_utils import normalize_issue_values, build_issue_priority_map
 
 # Try to import semantic search (optional)
 try:

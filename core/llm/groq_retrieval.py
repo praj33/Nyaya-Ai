@@ -14,7 +14,7 @@ from typing import Any, Dict, List, Optional
 from urllib import error, request
 
 from dotenv import load_dotenv, find_dotenv
-from profile_utils import build_issue_priority_map, normalize_issue_values
+from core.llm.profile_utils import build_issue_priority_map, normalize_issue_values
 
 _dotenv_path = find_dotenv(usecwd=False)
 load_dotenv(_dotenv_path or None)
