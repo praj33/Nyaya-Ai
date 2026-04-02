@@ -10,10 +10,14 @@ sentence-transformers
 huggingface-hub
 transformers
 
-torch==2.1.2
+torch>=2.2.0
 
 httpx
 python-multipart
 pyyaml
 tqdm
 python-dotenv
+coqui-tts
+gTTS
+pydub
+scipy

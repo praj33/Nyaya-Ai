@@ -1,5 +1,5 @@
 # Python
-__pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -9,11 +9,15 @@ venv/
 .venv/
 env/
 
+# Temporary audio files
+temp_audio/
+
 # Environment variables
 .env
 
 # Logs
 *.log
+logs/
 
 # OS
 .DS_Store
@@ -26,3 +30,4 @@ Thumbs.db
 # Build
 dist/
 build/
+

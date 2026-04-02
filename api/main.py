@@ -86,6 +86,13 @@ try:
 except ImportError:
     pass  # Debug router not available
 
+# Include TTS router
+try:
+    from api.tts_router import router as tts_router
+    app.include_router(tts_router)
+except ImportError as e:
+    print(f"TTS router not available: {e}")
+
 # Health check endpoint
 @app.get("/health")
 async def health_check():
@@ -116,6 +123,7 @@ async def root():
             "enhanced_analysis": "GET /nyaya/procedures/enhanced_analysis/{jurisdiction}/{domain}",
             "domain_classification": "GET /nyaya/procedures/domain_classification/{jurisdiction}",
             "legal_sections": "GET /nyaya/procedures/legal_sections/{jurisdiction}/{domain}",
+            "tts": "POST /nyaya/tts",
             "health": "GET /health",
             "docs": "GET /docs"
         }
